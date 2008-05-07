@@ -1,0 +1,51 @@
+/* 
+   This file is a part of SQLtutor
+   Copyright (C) 2008  Ales Cepek <cepek@gnu.org>
+ 
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* 
+ * $Id: permutation.h,v 1.1 2008/05/07 15:27:35 cepek Exp $ 
+ */
+
+#ifndef Permutation_h__PERMUTATION_H__Permutation_H__
+#define Permutation_h__PERMUTATION_H__Permutation_H__
+
+#include <vector>
+#include <algorithm>
+
+
+class Permutation {
+public:
+
+  Permutation() : N(0), avail(0), total(0) {}
+  Permutation(int k)     { reset(k);        }
+
+  void next();
+  void reset(int size);
+
+  int  size () const     { return N;        }
+  int  perms() const     { return total;    }
+  bool empty() const     { return avail==0; }
+  int& operator[](int i) { return perm[i];  }
+
+private:
+  int N; 
+  std::vector<int> perm;
+  int avail;
+  int total;
+};
+
+#endif
