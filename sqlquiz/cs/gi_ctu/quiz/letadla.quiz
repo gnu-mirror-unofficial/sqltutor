@@ -59,22 +59,20 @@ SELECT vyrobce, letadlo, kapacita
 -- id="605" dataset="letadla" category="subselect" points="10"
 --
 -- Které africké letecké společnosti nemají ve své flotile Airbusy?
+-- Uvažujte případ, že některá společnost nevlastní žádná letadla.
 
-SELECT DISTINCT A.spolecnost
-  FROM letecke_spolecnosti A
-       JOIN 
-       letecke_flotily     B  
-       ON A.id = B.spolecnost_id
-       JOIN
-       dopravni_letadla    C  
-       ON C.id = B.letadlo_id
- WHERE A.svetadil = 'Afrika' 
-       AND A.id NOT IN
-          (SELECT DISTINCT S.id
-             FROM dopravni_letadla         L
-                  JOIN letecke_flotily     F ON L.id=F.letadlo_id
-                  JOIN letecke_spolecnosti S ON S.id=F.spolecnost_id
-            WHERE L.vyrobce = 'Airbus');
+SELECT spolecnost
+  FROM letecke_spolecnosti 
+ WHERE svetadil = 'Afrika' 
+   AND id NOT IN (SELECT S.id
+                    FROM dopravni_letadla    AS L
+                         JOIN 
+                         letecke_flotily     AS F 
+                         ON L.id=F.letadlo_id
+                         JOIN 
+                         letecke_spolecnosti AS S 
+                         ON S.id=F.spolecnost_id
+                   WHERE L.vyrobce = 'Airbus');
 
 
 -- id="606" dataset="letadla" category="join" points="10"
@@ -284,9 +282,9 @@ SELECT DISTINCT LS.spolecnost AS "Dopravce", DL.vyrobce AS "Výrobce",
 -- id="618" dataset="letadla" category="subselect" points="9"
 --
 -- Které typy letadel mají společné letecké společnosti 'AirNorth
--- Regional' a 'Skippers Aviation'. Uveďte společnost a typ letadla.
+-- Regional' a 'Skippers Aviation'. Uveďte výrobce a typ letadla.
 
-SELECT S.spolecnost, letadlo
+SELECT vyrobce, letadlo                 -- prunik dvou mnozin
   FROM letecke_spolecnosti S
        JOIN 
        letecke_flotily     F 
@@ -294,7 +292,52 @@ SELECT S.spolecnost, letadlo
        JOIN 
        dopravni_letadla    L 
        ON L.id=F.letadlo_id
-WHERE  S.spolecnost='AirNorth Regional'
+ WHERE S.spolecnost='AirNorth Regional'
+INTERSECT
+SELECT vyrobce, letadlo 
+  FROM letecke_spolecnosti S
+       JOIN 
+       letecke_flotily     F 
+       ON S.id=F.spolecnost_id
+       JOIN 
+       dopravni_letadla    L 
+       ON L.id=F.letadlo_id
+ WHERE S.spolecnost='Skippers Aviation';
+
+SELECT vyrobce, letadlo                 -- join derivovanych tabulek
+  FROM (
+        SELECT vyrobce, letadlo 
+          FROM letecke_spolecnosti S
+               JOIN 
+               letecke_flotily     F 
+               ON S.id=F.spolecnost_id
+               JOIN 
+               dopravni_letadla    L 
+               ON L.id=F.letadlo_id
+         WHERE S.spolecnost='AirNorth Regional'
+       ) AS AirNorth
+       NATURAL JOIN
+       (
+        SELECT vyrobce, letadlo 
+          FROM letecke_spolecnosti S
+               JOIN 
+               letecke_flotily     F 
+               ON S.id=F.spolecnost_id
+               JOIN 
+               dopravni_letadla    L 
+               ON L.id=F.letadlo_id
+         WHERE S.spolecnost='Skippers Aviation'
+       ) AS Skippers;
+
+SELECT vyrobce, letadlo                 -- trik pro pripad dvou spolecnosti
+  FROM letecke_spolecnosti S
+       JOIN 
+       letecke_flotily     F 
+       ON S.id=F.spolecnost_id
+       JOIN 
+       dopravni_letadla    L 
+       ON L.id=F.letadlo_id
+ WHERE S.spolecnost='AirNorth Regional'
        AND L.id IN (SELECT L.id
                       FROM letecke_spolecnosti S
                            JOIN 
