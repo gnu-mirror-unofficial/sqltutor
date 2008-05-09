@@ -1,0 +1,165 @@
+# zdroj http://hydro.chmi.cz/hpps/op_list.php
+# 
+# toky      ( id,    jmeno)
+# stanice   ( id,    nazev)
+# vodocty   (tok_id, stanice_id, cas, vodocet_cm)
+# limity_cm (tok_id, stanice_id, bdelost, pohotovost, ohrozeni)
+# cleneni   (tok_id, stanice_id, kraj, pobocka, povodi)
+
+
+-- id="801" dataset="vodocty" category="select" points="1"
+--
+-- Kolik vodních toků je v databázi?
+
+SELECT count(*) FROM toky;
+
+
+-- id="802" dataset="vodocty" category="join" points="3"
+--
+-- Vypište vodní toky z povodí Berounky.
+
+SELECT DISTINCT jmeno
+  FROM toky
+       JOIN
+       cleneni
+       ON id = tok_id
+ WHERE povodi = 'Berounka';
+
+
+-- id="803" dataset="vodocty" category="join|groupby" points="12"
+--
+-- Jaké jsou denní průměry vodočtů na Dyji? 
+--
+-- Uveďte název stanice, střední čas měření (průměr maximmálního a
+-- minimálního času v daném dni) a průměrnou denní hodnotu vodočtu na
+-- stanici (zaokrouhlete na celé centimetry).
+
+SELECT nazev, MIN(cas) + (MAX(cas) - MIN(cas))/2 AS cas, 
+       ROUND(AVG(vodocet_cm)) AS prumer
+  FROM toky
+       JOIN
+       vodocty
+       ON toky.id=tok_id
+       JOIN
+       stanice
+       ON stanice.id=stanice_id
+ WHERE tok_id = (SELECT id FROM toky WHERE jmeno='Dyje')
+ GROUP BY nazev, DATE(cas)
+ ORDER BY nazev, cas;
+
+
+
+-- id="804" dataset="vodocty" category="join|groupby" points="11"
+--
+-- Které vodočty na Blanici překročily některý z limitů SPA (stav povodňové
+-- aktivity).
+--
+-- Uveďte název stanice, tři stupně SPA (stav povodňové aktivity),
+-- hodnotu vodočtu a čas.
+
+SELECT stanice.nazev, bdelost, pohotovost, ohrozeni, 
+       vodocet_cm, cas
+  FROM vodocty
+       JOIN 
+       toky 
+       ON vodocty.tok_id = toky.id
+       JOIN
+       stanice 
+       ON vodocty.stanice_id = stanice.id
+       NATURAL JOIN
+       limity_cm
+       NATURAL JOIN
+       cleneni
+ WHERE vodocet_cm > bdelost AND jmeno='Blanice'
+ ORDER BY povodi, toky.jmeno, stanice.nazev, cas; 
+
+
+-- id="805" dataset="vodocty" category="join|subselect" points="13"
+--
+-- Najděte začátek a konec dosažení limitů SPA (stav povodňové
+-- aktivity), tj. první a poslední den ve kterém byly naměřeny
+-- vodočty, které překročily minimálně stav bdělosti.
+
+SELECT MIN(cas) AS zacatek , MAX(cas) AS konec
+  FROM (SELECT toky.jmeno, stanice.nazev, povodi,
+               bdelost, pohotovost, ohrozeni,
+               vodocet_cm, cas
+          FROM vodocty
+               JOIN 
+               toky
+               ON vodocty.tok_id = toky.id
+               JOIN
+               stanice 
+               ON vodocty.stanice_id = stanice.id
+               NATURAL JOIN
+               limity_cm
+               NATURAL JOIN
+               cleneni
+         WHERE vodocet_cm >= bdelost) AS prehled;
+
+
+-- id="806" dataset="vodocty" category="leftjoin|groupby|coalesce" points="17"
+--
+-- Jaký je počet překročení limitů SPA za den (stav povodňové
+-- aktivity). Uveďte i nulové hodnoty, tj. dny ve kterých
+-- nebyly limity SPA překročeny. 
+
+SELECT A.den, x+COALESCE(y,0)
+  FROM (
+        SELECT DISTINCT DATE(cas) AS den, 0 AS x
+        FROM vodocty
+       ) A
+       LEFT JOIN
+       (
+        SELECT DATE(cas) AS den, COUNT(*) AS y
+          FROM vodocty
+               NATURAL JOIN
+               limity_cm
+         WHERE vodocet_cm >= bdelost
+         GROUP BY DATE(cas)
+        ) B
+        ON A.den = B.den;
+
+
+-- id="807" dataset="vodocty" category="join|notin" points="8"
+--
+-- Které vodní toky nemají definovány limity SPA (stav povodňové
+-- aktivity). Uveďte jméno toku a povodí.
+
+SELECT jmeno, povodi
+  FROM toky
+       JOIN
+       cleneni 
+       ON tok_id = toky.id
+          AND tok_id NOT IN (SELECT tok_id 
+                               FROM limity_cm);
+
+
+-- id="808" dataset="vodocty" category="join|case" points="11"
+--
+-- Vyberte měření na řece 'Osoblaha' (stanice stejného jména). Uveďte
+-- čas měření, hodnoty vodočtu a hodnoty SPA (NULL pokud nebyl dosažen
+-- žádný stav povodňové aktivity, 1 pro stav bdělosti, 2 pro
+-- pohotovost, 3 pro stav ohrožení)
+
+SELECT cas, vodocet_cm AS h, 
+       CASE 
+          WHEN vodocet_cm >= ohrozeni   THEN 3
+          WHEN vodocet_cm >= pohotovost THEN 2
+          WHEN vodocet_cm >= bdelost    THEN 1
+          ELSE NULL
+       END AS SPA
+  FROM limity_cm
+       JOIN
+       toky
+       ON toky.id = limity_cm.tok_id
+          AND jmeno = 'Osoblaha'
+       -- JOIN
+       -- stanice
+       -- ON stanice.id = limity_cm.stanice_id
+       --    AND nazev = 'Osoblaha'
+       JOIN 
+       vodocty A
+       ON toky.id = A.tok_id
+ ORDER BY cas;
+

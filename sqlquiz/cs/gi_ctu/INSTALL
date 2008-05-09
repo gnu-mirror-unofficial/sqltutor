@@ -1,0 +1,19 @@
+1. create databaze DBNAME
+   create user DBUSER
+   create language plpgsql
+
+        createdb DBNAME
+        su -
+        su - postgres
+        createuser DBUSER
+        psql
+        ALTER USER DBUSER WITH PASSWORD 'xxx';
+        psql DBNAME
+        CREATE LANGUAGE plpgsql;
+
+2. cd SQLTUTOR/sql and edit create-tables.sh if necessary
+
+3. edit Makefile and change variables DBNAME and DBUSER if necessary
+
+4. run make
+

@@ -1,0 +1,450 @@
+# dopravni_letadla    (id, vyrobce, letadlo, dolet_km, kapacita, v_provozu_od)
+# letecke_spolecnosti (id, spolecnost, zeme, svetadil, aliance, zalozeno)
+# letecke_flotily     (spolecnost_id, letadlo_id, pocet_letadel)
+
+
+# -- id="601" dataset="letadla" category="select" points="1"
+# --
+# -- Které společnosti přepravují cestující.
+# 
+# SELECT spolecnost FROM letecke_spolecnosti;
+
+
+-- id="602" dataset="letadla" category="select" points="1"
+--
+-- Která letadla mají kapacitu větší než 300 pasažérů? Uveďte
+-- výrobce, letadlo a kapacitu.
+
+SELECT vyrobce, letadlo, kapacita 
+  FROM dopravni_letadla
+ WHERE kapacita > 300;
+
+
+-- id="603" dataset="letadla" category="join" points="4"
+--
+-- Které letecké společnosti mají ve své flotile letadla Douglas DC-8?
+-- Vypište společnost, zemi a počet letadel.
+
+SELECT A.spolecnost, A.zeme, B.pocet_letadel
+  FROM letecke_spolecnosti A
+       JOIN 
+       letecke_flotily     B  
+       ON A.id = B.spolecnost_id
+       JOIN 
+       dopravni_letadla    C  
+       ON C.id = B.letadlo_id        
+ WHERE C.letadlo = 'Douglas DC-8';
+
+SELECT A.spolecnost, A.zeme, B.pocet_letadel
+  FROM letecke_spolecnosti A
+       JOIN 
+       letecke_flotily     B  
+       ON A.id = B.spolecnost_id
+       JOIN 
+       dopravni_letadla    C  
+       ON C.id = B.letadlo_id        
+          AND C.letadlo = 'Douglas DC-8';
+
+
+-- id="604" dataset="letadla" category="subselect" points="4"
+--
+-- Jak se jmenuje největší letadlo (tj. s největší kapacitou), kdo je
+-- jeho výrobcem a jaká je jeho kapacita? 
+
+SELECT vyrobce, letadlo, kapacita
+  FROM dopravni_letadla
+ WHERE kapacita = (SELECT MAX(kapacita) FROM dopravni_letadla);
+
+
+-- id="605" dataset="letadla" category="subselect" points="10"
+--
+-- Které africké letecké společnosti nemají ve své flotile Airbusy?
+
+SELECT DISTINCT A.spolecnost
+  FROM letecke_spolecnosti A
+       JOIN 
+       letecke_flotily     B  
+       ON A.id = B.spolecnost_id
+       JOIN
+       dopravni_letadla    C  
+       ON C.id = B.letadlo_id
+ WHERE A.svetadil = 'Afrika' 
+       AND A.id NOT IN
+          (SELECT DISTINCT S.id
+             FROM dopravni_letadla         L
+                  JOIN letecke_flotily     F ON L.id=F.letadlo_id
+                  JOIN letecke_spolecnosti S ON S.id=F.spolecnost_id
+            WHERE L.vyrobce = 'Airbus');
+
+
+-- id="606" dataset="letadla" category="join" points="10"
+--
+-- Která letadla a kolik mají společnosti 'Air Algerie', 'Atlas Blue'
+-- a 'Royal Air Maroc'? Výsledek seřaďte podle společnosti, výrobce
+-- a typu letadel. Poznámka: počty letadel v tabulce letecke_flotily
+-- je nutno agregovat.
+
+SELECT LS.spolecnost AS dopravce, DL.vyrobce AS vyrobce, 
+       DL.letadlo, SUM(LF.pocet_letadel)
+  FROM letecke_spolecnosti LS
+       JOIN 
+       letecke_flotily     LF  
+       ON LS.id=LF.spolecnost_id
+       JOIN 
+       dopravni_letadla    DL  
+       ON LF.letadlo_id=DL.id
+ WHERE LS.spolecnost IN ('Air Algerie', 'Atlas Blue', 'Royal Air Maroc')
+ GROUP BY LS.spolecnost, DL.vyrobce, DL.letadlo
+ ORDER BY LS.spolecnost, DL.vyrobce, DL.letadlo;
+
+
+-- id="607" dataset="letadla" category="groupby" points="6"
+--
+-- Které letecké společnosti mají sto a více letadel. Uveďte
+-- společnost, zemi a celkový počet letadel dané společnosti. Seřaďte
+-- sestupně podle počtu letadel.
+
+SELECT spolecnost, zeme, SUM(pocet_letadel)
+  FROM letecke_spolecnosti
+       JOIN 
+       letecke_flotily  
+       ON id=spolecnost_id
+ GROUP BY spolecnost, zeme
+HAVING SUM(pocet_letadel) >= 100
+ ORDER BY SUM(pocet_letadel) DESC;
+
+
+-- id="608" dataset="letadla" category="aggregate" points="4"
+--
+-- Kolik letadel je v databázi a kolik letadel nemá v databázi
+-- definovanou hodnotu kapacity? 
+
+SELECT (SELECT COUNT(*) FROM dopravni_letadla) AS celkem,
+       (SELECT COUNT(*) FROM dopravni_letadla 
+                         WHERE kapacita IS NULL) AS kapacita;    
+
+
+-- id="609" dataset="letadla" category="groupby" points="5"
+--
+-- Kolik je (registrováno v databázi) leteckých společností a jakou
+-- mají celkovou přepravní kapacitu? Uveďte po jednotlivých
+-- světadílech.
+
+SELECT svetadil                     AS světadíl, 
+       COUNT(DISTINCT S.spolecnost) AS počet,
+       SUM(kapacita)                AS kapacita
+  FROM letecke_spolecnosti S
+       JOIN 
+       letecke_flotily     F  
+       ON S.id=F.spolecnost_id
+       JOIN 
+       dopravni_letadla    L  
+       ON L.id=F.letadlo_id 
+ GROUP BY svetadil;
+
+
+-- id="610" dataset="letadla" category="groupby" points="4"
+--
+-- Jaká je průměrná, maximalni a minimalni (známá) kapacita letadla?
+-- Kolik je v databázi letadel? Průměrnou kapacitu zaokrouhlete
+-- na celé číslo.
+
+SELECT ROUND(AVG(kapacita)) AS prumer, 
+       MAX(kapacita), MIN(kapacita), COUNT(*) AS celkem
+  FROM dopravni_letadla;
+
+
+-- id="611" dataset="letadla" category="groupby" points="8"
+--
+-- Které jsou dvě největší letecké společnosti (tj. které mají
+-- největší celkovou kapacitu všech letadel)? Poznámka: kapacita není
+-- známa u všech letadel. Uveďte společnost a celkovou kapacitu.
+
+SELECT LS.spolecnost, SUM(pocet_letadel*kapacita) AS "celkova kapacita"
+  FROM letecke_spolecnosti LS
+       JOIN
+       letecke_flotily 
+       ON spolecnost_id = LS.id
+       JOIN
+       dopravni_letadla DL
+       ON letadlo_id = DL.id AND kapacita IS NOT NULL
+ GROUP BY LS.spolecnost
+ ORDER BY "celkova kapacita" desc 
+ LIMIT 2;
+
+
+-- id="612" dataset="letadla" category="groupby" points="6"
+--
+-- U kterých společností není známa kapacita ani jednoho letadla?
+-- Uveďte společnost, zemi a světadíl a seřaďte podle svetadílů, zemí
+-- a společností.
+
+SELECT S.spolecnost, zeme, svetadil
+  FROM letecke_spolecnosti   S
+       JOIN 
+       letecke_flotily  F  
+       ON S.id=F.spolecnost_id
+       JOIN 
+       dopravni_letadla L  
+       ON L.id=F.letadlo_id
+ GROUP BY S.spolecnost, zeme, svetadil
+HAVING SUM(kapacita) IS NULL
+ ORDER BY svetadil, zeme, S.spolecnost;
+
+
+-- id="613" dataset="letadla" category="groupby" points="4"
+--
+-- Kolik letadel je registrováno v databázi pro jednotlivé
+-- výrobce. Počítejte pouze letadla u kterých je známa kapacita.
+-- Výrobce, kteří nemají registrováno ani jedno letadlo se známou
+-- kapacitou neuvádějte.
+
+SELECT vyrobce, COUNT(kapacita)
+  FROM dopravni_letadla
+ GROUP BY vyrobce
+HAVING COUNT(kapacita) > 0;
+
+
+-- id="614" dataset="letadla" category="select" points="3"
+--
+-- Uveďte seznam všech alianci a společnosti, které je tvoří.
+
+SELECT aliance, spolecnost
+  FROM letecke_spolecnosti
+ WHERE aliance IS NOT NULL
+ ORDER BY aliance, spolecnost;
+
+
+-- id="615" dataset="letadla" category="groupby" points="5"
+--
+-- Která aliance má největší celkovou přepravní kapacitu? 
+
+SELECT aliance, SUM(kapacita)
+  FROM letecke_spolecnosti S
+       JOIN 
+       letecke_flotily     F 
+       ON S.id=F.spolecnost_id
+       JOIN 
+       dopravni_letadla    L 
+       ON L.id=F.letadlo_id
+ WHERE aliance IS NOT NULL
+ GROUP BY aliance
+ ORDER BY SUM(kapacita) DESC
+ LIMIT 1;
+
+
+-- id="616" dataset="letadla" category="subselect" points="7"
+--
+-- Které společnosti mají nejstarší letadla (letadlo, jehož typ je
+-- nejdéle v provozu)?  Uveďte leteckou společnost, výrobce, letadlo a
+-- rok.
+
+SELECT S.spolecnost AS dopravce, L.vyrobce AS vyrobce, 
+       letadlo, v_provozu_od AS rok
+  FROM dopravni_letadla L
+       JOIN 
+       letecke_flotily  F 
+       ON F.letadlo_id=L.id
+       JOIN 
+       letecke_spolecnosti S 
+       ON S.id=F.spolecnost_id
+ WHERE L.v_provozu_od = (SELECT MIN(v_provozu_od)
+                           FROM dopravni_letadla
+                                JOIN letecke_flotily 
+                                ON id=letadlo_id);
+
+
+-- id="617" dataset="letadla" category="subselect" points="10"
+--
+--  Pro každou australskou leteckou společnost najděte její letadlo s
+--  největší kapacitou. Uveďte leteckou společnost, výrobce,
+--  letadlo a kapacitu.
+
+SELECT DISTINCT LS.spolecnost AS "Dopravce", DL.vyrobce AS "Výrobce",
+       letadlo, kapacita
+  FROM letecke_spolecnosti  LS
+       JOIN 
+       letecke_flotily      LF 
+       ON LS.id=LF.spolecnost_id
+       JOIN 
+       dopravni_letadla     DL 
+       ON DL.id=LF.letadlo_id
+          AND svetadil='Austrálie'
+          AND kapacita >= (SELECT MAX(kapacita)
+                             FROM letecke_spolecnosti S
+                                  JOIN
+                                  letecke_flotily     F
+                                  ON S.id = F.spolecnost_id
+                                  JOIN
+                                  dopravni_letadla    L
+                                  ON L.id = F.letadlo_id
+                                     AND LS.spolecnost = S.spolecnost);
+
+
+-- id="618" dataset="letadla" category="subselect" points="9"
+--
+-- Které typy letadel mají společné letecké společnosti 'AirNorth
+-- Regional' a 'Skippers Aviation'. Uveďte společnost a typ letadla.
+
+SELECT S.spolecnost, letadlo
+  FROM letecke_spolecnosti S
+       JOIN 
+       letecke_flotily     F 
+       ON S.id=F.spolecnost_id
+       JOIN 
+       dopravni_letadla    L 
+       ON L.id=F.letadlo_id
+WHERE  S.spolecnost='AirNorth Regional'
+       AND L.id IN (SELECT L.id
+                      FROM letecke_spolecnosti S
+                           JOIN 
+                           letecke_flotily     F 
+                           ON S.id=F.spolecnost_id
+                           JOIN 
+                           dopravni_letadla    L 
+                           ON L.id=F.letadlo_id 
+                     WHERE S.spolecnost='Skippers Aviation');
+
+
+-- id="619" dataset="letadla" category="subselect" points="2"
+--
+-- Které typy letadel byly uvedeny do provozu v letech 1993 až 1995
+-- Uveďte vyrobce, typ letadla a rok.
+
+SELECT vyrobce, letadlo, v_provozu_od
+  FROM dopravni_letadla
+ WHERE v_provozu_od BETWEEN 1993 AND 1995;
+
+
+-- id="620" dataset="letadla" category="subselect" points="5"
+--
+-- Které evropské společnosti mají ve své flotile letadla, která byla
+-- uvedena do provozu v letech 1993 až 1995? Uveďte společnost,
+-- výrobce, typ letadla a rok. Seřaďte podle leteckých společností a
+-- roků.
+
+SELECT DISTINCT S.spolecnost AS dopravce, L.vyrobce AS vyrobce, 
+       letadlo, v_provozu_od
+  FROM letecke_spolecnosti S
+       JOIN 
+       letecke_flotily     F 
+       ON S.id=F.spolecnost_id
+       JOIN 
+       dopravni_letadla    L 
+       ON L.id=F.letadlo_id
+ WHERE svetadil='Evropa'
+       AND L.id IN (SELECT id
+                      FROM dopravni_letadla
+                     WHERE v_provozu_od BETWEEN 1993 AND 1995)
+ ORDER BY S.spolecnost, v_provozu_od;
+
+
+-- id="621" dataset="letadla" category="leftjoin" points="11"
+--
+-- Uveďte všechny německé letecké společnosti a kolik mají Airbusů.
+
+SELECT S.spolecnost, count(L.id)
+  FROM letecke_spolecnosti S
+       JOIN 
+       letecke_flotily 
+       ON S.id=spolecnost_id AND zeme='Německo'
+       LEFT JOIN 
+       dopravni_letadla L 
+       ON L.id=letadlo_ID
+          AND L.id IN (SELECT id 
+                         FROM dopravni_letadla
+                        WHERE vyrobce='Airbus')
+ GROUP BY S.spolecnost;
+
+
+-- id="622" dataset="letadla" category="select" points="2"
+--
+-- Které společnosti mají v názvu 'International'? Uveďte společnost,
+-- zemi a světadíl.
+
+SELECT spolecnost, zeme, svetadil
+  FROM letecke_spolecnosti 
+ WHERE spolecnost LIKE '%International%';
+
+
+-- id="623" dataset="letadla" category="subselect" points="4"
+--
+-- Která je nejstarší letecká společnost? Uveďte společnost, zemi a
+-- rok založení. Poznámka: není známo, jestli v daném roce zahájila
+-- činnost jedna nebo více společností.
+
+SELECT spolecnost, zeme, zalozeno
+  FROM letecke_spolecnosti
+ WHERE zalozeno = (SELECT MIN(zalozeno) FROM letecke_spolecnosti);
+
+
+-- id="624" dataset="letadla" category="subselect" points="4"
+--
+-- Najděte nejmladší letecké společnosti Uveďte společnost, zemi a rok
+-- založení.
+
+SELECT spolecnost, zeme, zalozeno
+  FROM letecke_spolecnosti
+ WHERE zalozeno = (SELECT MAX(zalozeno) from letecke_spolecnosti);
+
+
+-- id="625" dataset="letadla" category="groupby" points="4"
+--
+-- Pro každého výrobce určete počet typů jeho letadel. Seřaďte
+-- sestupně podle počtu letadel.
+
+SELECT vyrobce, COUNT(letadlo) AS letadla
+  FROM dopravni_letadla
+ GROUP BY vyrobce
+ ORDER BY COUNT(letadlo) DESC;
+
+
+-- id="626" dataset="letadla" category="subselect" points="4"
+--
+-- Která letadla registrovaná v databázi nepoužívá žádná společnost?
+-- Uveďte výrobce, letadlo a rok, ve kterém bylo letadlo uvedeno do
+-- provozu.
+
+SELECT vyrobce, letadlo, v_provozu_od
+  FROM dopravni_letadla
+ WHERE id NOT IN (SELECT letadlo_id FROM letecke_flotily);
+
+SELECT vyrobce, letadlo, v_provozu_od
+  FROM dopravni_letadla
+ WHERE id NOT IN (SELECT DISTINCT letadlo_id FROM letecke_flotily);
+
+
+-- id="627" dataset="letadla" category="subselect" points="4"
+--
+-- Které letadlo má největší dolet? Uveďte výrobce, letadlo a dolet.
+
+SELECT vyrobce, letadlo, dolet_km
+  FROM dopravni_letadla
+ WHERE dolet_km = (SELECT MAX(dolet_km) FROM dopravni_letadla);
+
+SELECT vyrobce, letadlo, dolet_km
+  FROM dopravni_letadla
+ WHERE dolet_km >= ALL (SELECT dolet_km 
+                          FROM dopravni_letadla
+                         WHERE dolet_km IS NOT NULL);
+
+SELECT vyrobce, letadlo, MAX(dolet_km) AS dolet
+ FROM dopravni_letadla
+WHERE dolet_km IS NOT NULL
+GROUP BY vyrobce, letadlo 
+ORDER BY dolet DESC
+LIMIT 1;
+
+
+-- id="628" dataset="letadla" category="select" points="2"
+--
+-- Která letadla mají dolet větší než 10000 km? Uveďte výrobce,
+-- letadlo, kapacitu, rok uvedení do provozu a dolet. Seřaďte sestupně
+-- podle doletu.
+
+SELECT vyrobce, letadlo, kapacita, v_provozu_od, dolet_km
+  FROM dopravni_letadla
+ WHERE dolet_km > 10000
+ ORDER BY dolet_km DESC;
+
+

@@ -1,0 +1,55 @@
+### rybniky (rybnik, okres, rozloha_ha, hloubka_m, nadm_vyska, odtok, povodi)
+
+
+-- id="701" dataset="rybniky" category="select" points="2"
+-- 
+-- Které rybníky mají plochu větší než 300 hektarů? Vypište vodní plochu a 
+-- rybník, seřaďte sestupně podle plochy.
+
+SELECT rozloha_ha, rybnik 
+  FROM rybniky 
+ WHERE rozloha_ha > 300
+ ORDER BY rozloha_ha DESC;
+
+
+-- id="702" dataset="rybniky" category="select" points="2"
+-- 
+-- Který rybník má největší vodní plochu a jakou? 
+
+SELECT rybnik, rozloha_ha 
+  FROM rybniky 
+ ORDER BY rozloha_ha DESC
+ LIMIT 1;
+
+
+-- id="703" dataset="rybniky" category="select" points="2"
+-- 
+-- Jakou mají rybníky Svět a Koclířov dohromady velikost
+-- vodní plochy?
+
+SELECT SUM(rozloha_ha)
+  FROM rybniky
+ WHERE rybnik IN ('Svět', 'Koclířov');
+
+
+-- id="704" dataset="rybniky" category="select" points="3"
+-- 
+-- Jaká je celková rozloha rybníků podle povodí? Uveďte vždy povodí,
+-- celkovou rozlohu a počet rybníků v daném povodí.
+
+
+SELECT povodi, SUM(rozloha_ha) AS "celkova rozloha", COUNT(*) AS pocet
+  FROM rybniky
+ GROUP BY povodi;
+
+
+-- id="705" dataset="rybniky" category="select" points="2"
+--
+-- U kterých rybníku známe výšku hladiny (v metrech)? Uveďte rybník a
+-- výšku jeho hladiny, seřaďte sestupně podle výšky vodní hladiny.
+
+SELECT rybnik, nadm_vyska
+  FROM rybniky
+ WHERE nadm_vyska IS NOT NULL
+ ORDER BY nadm_vyska DESC;
+
