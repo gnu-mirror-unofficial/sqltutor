@@ -75,15 +75,13 @@ SELECT spolecnost
                    WHERE L.vyrobce = 'Airbus');
 
 
--- id="606" dataset="letadla" category="join" points="10"
+-- id="606" dataset="letadla" category="join" points="3"
 --
 -- Která letadla a kolik mají společnosti 'Air Algerie', 'Atlas Blue'
--- a 'Royal Air Maroc'? Výsledek seřaďte podle společnosti, výrobce
--- a typu letadel. Poznámka: počty letadel v tabulce letecke_flotily
--- je nutno agregovat.
+-- a 'Royal Air Maroc'? 
 
 SELECT LS.spolecnost AS dopravce, DL.vyrobce AS vyrobce, 
-       DL.letadlo, SUM(LF.pocet_letadel)
+       DL.letadlo, LF.pocet_letadel
   FROM letecke_spolecnosti LS
        JOIN 
        letecke_flotily     LF  
@@ -92,9 +90,7 @@ SELECT LS.spolecnost AS dopravce, DL.vyrobce AS vyrobce,
        dopravni_letadla    DL  
        ON LF.letadlo_id=DL.id
  WHERE LS.spolecnost IN ('Air Algerie', 'Atlas Blue', 'Royal Air Maroc')
- GROUP BY LS.spolecnost, DL.vyrobce, DL.letadlo
  ORDER BY LS.spolecnost, DL.vyrobce, DL.letadlo;
-
 
 -- id="607" dataset="letadla" category="groupby" points="6"
 --
