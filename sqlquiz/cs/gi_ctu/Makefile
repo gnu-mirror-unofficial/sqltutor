@@ -26,11 +26,7 @@ voidsets:
 	(cd void && make)
 
 datasets:
-	for f in $(shell ls data/*.sql) ; \
-	do \
-	   echo $$f ; \
-	   psql $(DBNAME) < $$f; \
-	done; \
+	(cd data && make)
 
 quiz_tables:
 	psql $(DBNAME) < sql/datasets.sql
