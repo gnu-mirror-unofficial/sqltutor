@@ -386,14 +386,31 @@ SELECT S.spolecnost, count(L.id)
   FROM letecke_spolecnosti S
        JOIN 
        letecke_flotily 
-       ON S.id=spolecnost_id AND zeme='Německo'
+       ON S.id = spolecnost_id 
+          AND zeme = 'Německo'
        LEFT JOIN 
        dopravni_letadla L 
-       ON L.id=letadlo_ID
-          AND L.id IN (SELECT id 
-                         FROM dopravni_letadla
-                        WHERE vyrobce='Airbus')
+       ON L.id = letadlo_id
+          AND vyrobce = 'Airbus'
  GROUP BY S.spolecnost;
+
+SELECT spolecnost, count(airbusy.id)
+  FROM (
+         SELECT spolecnost, letadlo_id
+           FROM letecke_spolecnosti LF
+                JOIN 
+                letecke_flotily 
+                ON LF.id=spolecnost_id 
+          WHERE zeme = 'Německo'
+       ) nemecke_spolecnosti             -- derivovana tabulka
+       LEFT JOIN 
+       (
+         SELECT id                      
+           FROM dopravni_letadla 
+          WHERE vyrobce = 'Airbus'
+       ) airbusy                         -- derivovana tabulka
+       ON airbusy.id = letadlo_id
+ GROUP BY spolecnost;
 
 
 -- id="622" dataset="letadla" category="select" points="2"
