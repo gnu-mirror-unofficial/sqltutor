@@ -17,7 +17,8 @@ SELECT id
                                  WHERE session_id=$1)) AND
                   (s.dataset IS NULL OR q.dataset=s.dataset) AND
                   (s.points_min IS NULL OR s.points_min <= q.points) AND
-                  (s.points_max IS NULL OR s.points_max >= q.points) 
+                  (s.points_max IS NULL OR s.points_max >= q.points) AND
+                  (s.status = 'open')
          ORDER BY rand
          LIMIT 1) next;
 $$ LANGUAGE SQL;

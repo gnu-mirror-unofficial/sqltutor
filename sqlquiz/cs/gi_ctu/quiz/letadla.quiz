@@ -126,7 +126,7 @@ SELECT (SELECT COUNT(*) FROM dopravni_letadla) AS celkem,
 
 SELECT svetadil                     AS světadíl, 
        COUNT(DISTINCT S.spolecnost) AS počet,
-       SUM(kapacita)                AS kapacita
+       SUM(kapacita*pocet_letadel)  AS kapacita
   FROM letecke_spolecnosti S
        JOIN 
        letecke_flotily     F  
@@ -213,7 +213,7 @@ SELECT aliance, spolecnost
 --
 -- Která aliance má největší celkovou přepravní kapacitu? 
 
-SELECT aliance, SUM(kapacita)
+SELECT aliance, SUM(kapacita*pocet_letadel)
   FROM letecke_spolecnosti S
        JOIN 
        letecke_flotily     F 
@@ -223,7 +223,7 @@ SELECT aliance, SUM(kapacita)
        ON L.id=F.letadlo_id
  WHERE aliance IS NOT NULL
  GROUP BY aliance
- ORDER BY SUM(kapacita) DESC
+ ORDER BY SUM(kapacita*pocet_letadel) DESC
  LIMIT 1;
 
 

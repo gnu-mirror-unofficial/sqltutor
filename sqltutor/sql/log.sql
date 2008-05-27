@@ -9,7 +9,9 @@ CREATE TABLE sessions (
    dataset    varchar(12),
    help       boolean NOT NULL DEFAULT false,
    host       inet,
-   time       timestamp
+   time       timestamp,
+   status     varchar(6) NOT NULL DEFAULT 'open' 
+              CHECK (status IN ('open', 'closed'))
 );
 
 

@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: settings.cpp,v 1.1 2008/05/07 15:27:35 cepek Exp $ 
+ * $Id: settings.cpp,v 1.2 2008/05/27 09:38:26 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -31,44 +31,47 @@ typedef const std::string T;
 /*                                                                  */
 /********************************************************************/
 
-T SQLtutor::db_connection    = "dbname=sqlquiz host=localhost user=wwwquiz password=krok";
-T SQLtutor::title            = "SQL tutor";
-T SQLtutor::init_continue    = "Continue";
-T SQLtutor::init_datasets    = "Display datasets";
-T SQLtutor::main_stop        = "Finish test";
-T SQLtutor::main_next        = "Next question";
-T SQLtutor::main_help        = "Help";
-T SQLtutor::main_data        = "Display data";
-T SQLtutor::main_sql         = "Execute SQL";
-T SQLtutor::remaining_rows   = "Remaining rows not displayed ...";
-T SQLtutor::new_test         = "New test";
-T SQLtutor::test_finished    = "Test finished ...";
-T SQLtutor::t_user           = "User";
-T SQLtutor::t_password       = "Password";
-T SQLtutor::t_points_min     = "Min points";
-T SQLtutor::t_points_max     = "Max points";
-T SQLtutor::t_dataset        = "Dataset";
-T SQLtutor::t_help           = "Help";
-T SQLtutor::t_table          = "Table";
-T SQLtutor::t_columns        = "Columns";
-T SQLtutor::t_bad_value_min  = "Bad value min";
-T SQLtutor::t_bad_value_max  = "Bad value max";
-T SQLtutor::t_correct_answer = "Correct answer";
-T SQLtutor::t_wrong_answer   = "Wrong answer";
-T SQLtutor::t_missing_answer = "Missing answer";
-T SQLtutor::t_permutation    = "results differ in column permutaion";
-T SQLtutor::t_unmatched_cols = "Unmatched number of columns";
-T SQLtutor::t_unmatched_rows = "Unmatched number of rows";
-T SQLtutor::t_should_be      = "should be";
-T SQLtutor::t_stopped_done   = "all questions asked";
-T SQLtutor::t_stopped_failed = "database connection failed";
-T SQLtutor::t_sql_error      = "error on SQL execution";
-T SQLtutor::t_nmbr_questions = "Number of questions";
-T SQLtutor::t_nmbr_cor_answs = "Correct answers";
-T SQLtutor::t_total_points   = "Total points";
-T SQLtutor::t_evaluation     = "Evaluation";
-T SQLtutor::t_help_on        = "Help was on during the test";
-T SQLtutor::t_unknown_state  = "unknown internal state";
+T SQLtutor::db_connection     = "dbname=sqlquiz host=localhost user=wwwquiz password=krok";
+T SQLtutor::title             = "SQL tutor";
+T SQLtutor::init_continue     = "Continue";
+T SQLtutor::init_datasets     = "Display datasets";
+T SQLtutor::main_stop         = "Finish test";
+T SQLtutor::main_next         = "Next question";
+T SQLtutor::main_help         = "Help";
+T SQLtutor::main_data         = "Display data";
+T SQLtutor::main_sql          = "Execute SQL";
+T SQLtutor::remaining_rows    = "Remaining rows not displayed ...";
+T SQLtutor::new_test          = "New test";
+T SQLtutor::test_finished     = "Test finished ...";
+T SQLtutor::t_user            = "User";
+T SQLtutor::t_password        = "Password";
+T SQLtutor::t_points_min      = "Min points";
+T SQLtutor::t_points_max      = "Max points";
+T SQLtutor::t_dataset         = "Dataset";
+T SQLtutor::t_help            = "Help";
+T SQLtutor::t_table           = "Table";
+T SQLtutor::t_columns         = "Columns";
+T SQLtutor::t_bad_value_min   = "Bad value min";
+T SQLtutor::t_bad_value_max   = "Bad value max";
+T SQLtutor::t_correct_answer  = "Correct answer";
+T SQLtutor::t_wrong_answer    = "Wrong answer";
+T SQLtutor::t_missing_answer  = "Missing answer";
+T SQLtutor::t_permutation     = "results differ in column permutaion";
+T SQLtutor::t_unmatched_cols  = "Unmatched number of columns";
+T SQLtutor::t_unmatched_rows  = "Unmatched number of rows";
+T SQLtutor::t_should_be       = "should be";
+T SQLtutor::t_stopped_done    = "all questions asked";
+T SQLtutor::t_stopped_failed  = "database connection failed";
+T SQLtutor::t_sql_error       = "error on SQL execution";
+T SQLtutor::t_nmbr_questions  = "Number of questions";
+T SQLtutor::t_nmbr_cor_answs  = "Correct answers";
+T SQLtutor::t_total_points    = "Total points";
+T SQLtutor::t_evaluation      = "Evaluation";
+T SQLtutor::t_help_on         = "Help was on during the test";
+T SQLtutor::t_unknown_state   = "unknown internal state";
+T SQLtutor::t_session         = "session ";
+T SQLtutor::t_session_unknown = "Unknown session ID ... ";
+T SQLtutor::t_session_closed  = "Session has been already closed ... ";
 
 
 /********************************************************************/

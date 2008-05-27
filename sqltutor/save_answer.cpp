@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: save_answer.cpp,v 1.1 2008/05/07 15:27:35 cepek Exp $ 
+ * $Id: save_answer.cpp,v 1.2 2008/05/27 09:38:26 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -48,12 +48,32 @@ void SQLtutor::save_answer(pqxx::work& transaction)
   using namespace pqxx;
   connection  conn( db_connection );
   work   tran(conn, "save-answer");
+
+  result res2(tran.exec("SELECT status "
+                        "  FROM sessions "
+                        " WHERE session_id = " + session_id + " "
+                        "   AND host = '" + CGI::getenv("REMOTE_ADDR") + "';"
+                        ));
+
+  if (res2.empty()) 
+    {
+      form << t_session_unknown;
+      return;
+    }
+
+  result::const_iterator r=res2.begin();
+  if (r[0].as(std::string()) == "closed") 
+    {
+      form << t_session_closed;
+      return;
+    }
+
   result res1(tran.exec("UPDATE sessions_answers "
-                        "SET correct=" + correct + ", "
-                        "    answer=" + tmp + ", "
-                        "    time=now() "
-                        "WHERE session_id =" + session_id + " AND "
-                        "      question_id=" + question_id
+                        "   SET correct = " + correct + ", "
+                        "       answer = " + tmp + ", "
+                        "       time = now() "
+                        " WHERE session_id  = " + session_id + " "
+                        "   AND question_id = " + question_id
                         ));
   tran.commit();
 }
