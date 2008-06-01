@@ -44,7 +44,10 @@ do
         GRANT SELECT ON TABLE $t TO $DBUSER ";" | psql $DBNAME
 done
 
-echo GRANT SELECT ON TABLE questions TO PUBLIC ";" | psql $DBNAME
+for t in questions datasets dataset_sources
+do
+   echo GRANT SELECT ON TABLE $t TO PUBLIC ";" | psql $DBNAME
+done 
 
 for t in sessions sessions_answers
 do 

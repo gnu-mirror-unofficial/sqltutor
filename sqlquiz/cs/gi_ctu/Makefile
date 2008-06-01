@@ -60,6 +60,13 @@ privileges:
 		GRANT SELECT ON TABLE $$t TO PUBLIC ";" \
 	        GRANT SELECT ON TABLE $$t TO $(DBUSER) ";" | psql $(DBNAME); \
 	done
+privileges:
+	@for t in datasets dataset_sources; \
+	do \
+	   echo REVOKE ALL ON TABLE $$t FROM PUBLIC ";" \
+		GRANT SELECT ON TABLE $$t TO PUBLIC ";" \
+	        GRANT SELECT ON TABLE $$t TO $(DBUSER) ";" | psql $(DBNAME); \
+	done
 
 dump-sessions:
 	pg_dump $(DBNAME) --data-only --table=sessions > sessions-$(DATE)
