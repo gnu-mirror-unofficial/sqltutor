@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.1 2008/05/07 15:27:34 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.2 2008/06/01 11:06:50 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -57,19 +57,18 @@ namespace
     return true;
   }
 
-  void append(string& atr, string& val, string patr, string pval, string ap="")
+  string param(const string& ap, const string& val)
   {
     bool empty = true;
-    for (string::const_iterator b=pval.begin(), e=pval.end(); b!=e; ++b)
+    for (string::const_iterator b=val.begin(), e=val.end(); b!=e; ++b)
       if (!std::isspace(*b))
         {
           empty = false;
           break;
         }
-    if (empty) return;
+    if (empty) return "NULL";
 
-    atr += patr + ",";
-    val += ap + pval + ap + ",";
+    return ap + val + ap;
   }
 }
 
@@ -107,32 +106,42 @@ void SQLtutor::form_init()
   if (state == init_continue)
     try 
       {
-        const string help =  CGI::map["help"];
-        string atr = "INSERT INTO sessions (";
-        string val = "time) VALUES (";
-        
-        append(atr, val, "points_min", CGI::map["points_min"]);
-        append(atr, val, "points_max", CGI::map["points_max"]);
-        append(atr, val, "help",       help);
-        append(atr, val, "login",      CGI::map["user"],     "'");
-        append(atr, val, "password",   CGI::map["password"], "'");
-        append(atr, val, "dataset",    CGI::map["dataset"],  "'");
-        append(atr, val, "host", CGI::getenv("REMOTE_ADDR"), "'");
-        
+        const string shlp = CGI::map["help"];
+        bool empty = true;
+        for (string::const_iterator b=shlp.begin(), e=shlp.end(); b!=e; ++b)
+          if (!std::isspace(*b))
+            {
+              empty = false;
+              break;
+            }
+        const string help = empty ? "false" : shlp;
+
+        const string open = 
+          "SELECT session_id_, hash_ FROM open_session (" +
+          param("'", CGI::map["user"]          ) + ", " +   
+          param("'", CGI::map["password"]      ) + ", " +  
+          param(" ", CGI::map["poinits_min"]   ) + ", " +  
+          param(" ", CGI::map["poinits_max"]   ) + ", " +  
+          param("'", CGI::map["dataset"]       ) + ", " +  
+          param(" ", help                      ) + ", " +  
+          param("'", CGI::getenv("REMOTE_ADDR")) + ");";
+
         using namespace pqxx;
         connection  conn( db_connection );
         work   tran(conn, "transaction-form-init-sessions");
-        result res1(tran.exec(atr + val + "now());"));
-        result res2(tran.exec("SELECT lastval();"));
-        result::const_iterator q = res2.begin();
-        if (q == res2.end()) throw "...";
+        result res1(tran.exec(open));
+        result::const_iterator q = res1.begin();
+        if (q == res1.end()) throw "...";
         string session_id  = q[0].as(string());
+        string hash        = q[1].as(string());
         tran.commit();
         
         CGI::map.clear();
         CGI::map["session_id"] = session_id;
         CGI::map["state"]      = main_next;
         CGI::map["help"]       = help;
+        CGI::map["hash"]       = hash;
+
         return form_main();
       }
     catch (pqxx::sql_error s) 

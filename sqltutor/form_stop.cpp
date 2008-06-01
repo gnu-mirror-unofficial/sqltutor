@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_stop.cpp,v 1.2 2008/05/27 09:38:26 cepek Exp $ 
+ * $Id: form_stop.cpp,v 1.3 2008/06/01 11:06:50 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -144,20 +144,20 @@ void SQLtutor::form_stop()
             << Input().type("submit").value( new_test );
       form << "<br/>";
 
-      CGI::map.clear();
-      CGI::map["state"] = init_state;
-
       display_answers(form, tran, session_id);
 
       {
         string close = 
           "UPDATE sessions SET status='closed' "
           " WHERE session_id = " + session_id +
-          "   AND host = '" + CGI::getenv("REMOTE_ADDR") + "';";
+          "   AND '" +  CGI::map["hash"] + "' = md5(time);";
       
       result res(tran.exec(close));
       tran.commit();
       }
+
+      CGI::map.clear();
+      CGI::map["state"] = init_state;
     }
   catch (sql_error s)
     {

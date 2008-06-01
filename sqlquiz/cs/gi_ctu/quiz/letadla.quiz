@@ -113,9 +113,12 @@ HAVING SUM(pocet_letadel) >= 100
 -- Kolik letadel je v databázi a kolik letadel nemá v databázi
 -- definovanou hodnotu kapacity? 
 
-SELECT (SELECT COUNT(*) FROM dopravni_letadla) AS celkem,
+SELECT COUNT(*), COUNT(*) - COUNT(kapacita)
+  FROM dopravni_letadla;
+
+SELECT (SELECT COUNT(*) FROM dopravni_letadla),
        (SELECT COUNT(*) FROM dopravni_letadla 
-                         WHERE kapacita IS NULL) AS kapacita;    
+                         WHERE kapacita IS NULL);    
 
 
 -- id="609" dataset="letadla" category="groupby" points="5"
