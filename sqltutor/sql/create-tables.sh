@@ -89,7 +89,7 @@ do
   psql $DBNAME < $func 
 done
 
-echo -e "\ngranting privileges to FUNCTION next_question(integer)"
-psql $DBNAME -c "REVOKE ALL ON FUNCTION next_question(integer) FROM PUBLIC;"
-psql $DBNAME -c "GRANT EXECUTE ON FUNCTION next_question(integer) TO $DBUSER;"
+echo -e "\ngranting privileges to FUNCTION next_question(integer, char(32))"
+psql $DBNAME -c "REVOKE ALL ON FUNCTION next_question(integer, char(32)) FROM PUBLIC;"
+psql $DBNAME -c "GRANT EXECUTE ON FUNCTION next_question(integer, char(32)) TO $DBUSER;"
 
