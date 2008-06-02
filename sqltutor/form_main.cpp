@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_main.cpp,v 1.1 2008/05/07 15:27:34 cepek Exp $ 
+ * $Id: form_main.cpp,v 1.2 2008/06/02 13:58:26 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -36,6 +36,7 @@ void SQLtutor::form_main()
   question_id = CGI::map["question_id"];
   sql_checked = CGI::map["sql_checked"];
   session_id  = CGI::map["session_id"];
+  hash        = CGI::map["hash"];
 
   if (state == main_stop) 
     {

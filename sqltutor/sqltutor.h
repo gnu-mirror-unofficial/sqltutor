@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.h,v 1.2 2008/05/27 09:38:26 cepek Exp $ 
+ * $Id: sqltutor.h,v 1.3 2008/06/02 13:58:27 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor
@@ -112,6 +112,7 @@ private:
   std::string   question_id;
   std::string   answered;
   std::string   session_id;
+  std::string   hash;
 
   void form_init();
   void form_main();

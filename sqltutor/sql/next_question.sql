@@ -2,16 +2,20 @@
  * ------------------------------------------      
  */
 
-DROP FUNCTION next_question(integer);
+DROP   FUNCTION next_question(integer, char(32));
 
-CREATE FUNCTION next_question(integer)
+CREATE FUNCTION next_question(integer, char(32))  -- session_id, hash
 RETURNS integer
 AS $$
 SELECT id
   FROM (SELECT q.id, random() AS rand
           FROM questions as q
                JOIN
-               (SELECT * FROM sessions WHERE session_id=$1) AS s
+               (SELECT * 
+                  FROM sessions 
+                 WHERE session_id=$1 
+                   AND $2 = md5(time)
+               ) AS s
                ON (q.id NOT IN (SELECT question_id 
                                   FROM sessions_answers
                                  WHERE session_id=$1)) AND

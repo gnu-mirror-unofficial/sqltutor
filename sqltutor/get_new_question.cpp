@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: get_new_question.cpp,v 1.1 2008/05/07 15:27:34 cepek Exp $ 
+ * $Id: get_new_question.cpp,v 1.2 2008/06/02 13:58:26 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -26,7 +26,7 @@ void SQLtutor::get_new_question(pqxx::work& tran)
 {
   using pqxx::result;
 
-  result res1(tran.exec("SELECT next_question(" + session_id + ")" ));
+  result res1(tran.exec("SELECT next_question(" + session_id + ", '" + hash + "')" ));
   if (res1.begin()[0].is_null())
     {
       question_id.clear();
