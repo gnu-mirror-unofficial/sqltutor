@@ -83,7 +83,7 @@ done
 echo -e "\ncreating functions"
 echo       ================== 
 
-for func in  next_question.sql
+for func in  next_question.sql open_session.sql
 do
   echo -e "\n   " psql $DBNAME "<" $func "\n"
   psql $DBNAME < $func 
