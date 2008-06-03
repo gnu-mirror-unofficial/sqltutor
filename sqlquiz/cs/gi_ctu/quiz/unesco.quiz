@@ -9,8 +9,6 @@
 
 SELECT count(distinct pamatka) FROM unesco;
 
-SELECT count(*) FROM (SELECT pamatka FROM unesco GROUP BY pamatka) pamatky;
-
 
 -- id="402" dataset="unesco" category="select" points="1"
 --
@@ -87,9 +85,9 @@ SELECT DISTINCT kategorie FROM unesco;
 -- Kolik památek v seznamu světového dědictví je zapsáno v jednotlivých
 -- kategoriích. Pro každou kategorii uveďte počet.
 
-SELECT kategorie, COUNT(*)
-FROM   unesco
-GROUP BY kategorie;
+SELECT kategorie, COUNT(distinct pamatka)
+  FROM unesco
+ GROUP BY kategorie;
 
 
 -- id="411" dataset="unesco" category="groupby" points="2"
@@ -106,8 +104,8 @@ SELECT MIN(zapis) FROM   unesco;
 -- památek? Uveďte zemi a počet památek.
 
 SELECT zeme, COUNT(pamatka)
-FROM   unesco
-GROUP BY zeme
+  FROM unesco
+ GROUP BY zeme
 HAVING COUNT(pamatka) >= 10;
 
 
@@ -118,11 +116,11 @@ HAVING COUNT(pamatka) >= 10;
 -- zemi a počet, výpis seřaďte sestupně podle počtu památek.
 
 SELECT zeme, COUNT(pamatka)
-FROM   unesco
-WHERE  region='Latin America'
-GROUP BY zeme
+  FROM unesco
+ WHERE region='Latin America'
+ GROUP BY zeme
 HAVING COUNT(pamatka) >= 5
-ORDER BY COUNT(pamatka) DESC; 
+ ORDER BY COUNT(pamatka) DESC; 
 
 
 -- id="414" dataset="unesco" category="groupby" points="6"
