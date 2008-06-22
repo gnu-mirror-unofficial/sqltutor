@@ -34,7 +34,7 @@ WHERE  linka=4;
 -- 
 -- Které linky projíždějí stanicí Palmovka?
 
-SELECT linka
+SELECT DISTINCT linka
 FROM   linky JOIN zastavky ON zastavka_id=id
 WHERE  zastavka='Palmovka';
 
