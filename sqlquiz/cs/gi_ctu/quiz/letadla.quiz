@@ -78,7 +78,8 @@ SELECT spolecnost
 -- id="606" dataset="letadla" category="join" points="3"
 --
 -- Která letadla a kolik mají společnosti 'Air Algerie', 'Atlas Blue'
--- a 'Royal Air Maroc'? 
+-- a 'Royal Air Maroc'?  Uveďte společnost, výrobce, letadlo a počet
+-- letadel.
 
 SELECT LS.spolecnost AS dopravce, DL.vyrobce AS vyrobce, 
        DL.letadlo, LF.pocet_letadel
