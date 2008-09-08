@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_stop.cpp,v 1.3 2008/06/01 11:06:50 cepek Exp $ 
+ * $Id: form_stop.cpp,v 1.4 2008/09/08 11:13:57 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -80,7 +80,7 @@ void SQLtutor::form_stop()
         "                     and correct)), ";
  
       query +=
-        " points_min, points_max, dataset "
+        " points_min, points_max, dataset, help "
         " FROM sessions "
         "WHERE session_id=" + session_id + " ";
 
@@ -94,8 +94,19 @@ void SQLtutor::form_stop()
           string points_min = r[3].as(string());
           string points_max = r[4].as(string());
           string dataset    = r[5].as(string());
+          bool help         = r[6].as(bool());
 
-          form << "<table border='0'>"
+          bool pars = !points_min.empty() ||
+                      !points_max.empty() || 
+                      !dataset.empty();  
+
+          string style = "";
+          if ( help || pars)
+            { 
+              style = "style='color:red'";
+            }
+
+          form << "<table border='0' " + style + ">"
                << "<tr>"
                << "<td>" + t_nmbr_questions + "</td>"
                << "<td>:&nbsp;</td><td align='right'>" << total << "</td>"
@@ -115,7 +126,7 @@ void SQLtutor::form_stop()
                << "</td>"
                << "</tr>";
 
-          if (!points_min.empty() || !points_max.empty() || !dataset.empty())
+          if (pars)
             {
               form << "<tr><td></td><td></td><td></td><td>"
                    << "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"

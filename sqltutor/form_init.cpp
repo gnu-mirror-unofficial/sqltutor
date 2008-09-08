@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.2 2008/06/01 11:06:50 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.3 2008/09/08 11:13:57 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -81,7 +81,15 @@ void SQLtutor::form_init()
   bool   error = false;
   string pmin  = CGI::map["points_min"];
   string pmax  = CGI::map["points_max"];
-  
+  string dset  = CGI::map["dataset"];
+
+  string help  = CGI::map["help"];
+  if (help != "true") 
+    {
+      help = "false";
+      CGI::map["help"] = help;
+    }
+
   if (!number(pmin))
     {
       error = true;
@@ -106,22 +114,12 @@ void SQLtutor::form_init()
   if (state == init_continue)
     try 
       {
-        const string shlp = CGI::map["help"];
-        bool empty = true;
-        for (string::const_iterator b=shlp.begin(), e=shlp.end(); b!=e; ++b)
-          if (!std::isspace(*b))
-            {
-              empty = false;
-              break;
-            }
-        const string help = empty ? "false" : shlp;
-
         const string open = 
           "SELECT session_id_, hash_ FROM open_session (" +
           param("'", CGI::map["user"]          ) + ", " +   
           param("'", CGI::map["password"]      ) + ", " +  
-          param(" ", CGI::map["poinits_min"]   ) + ", " +  
-          param(" ", CGI::map["poinits_max"]   ) + ", " +  
+          param(" ", CGI::map["points_min"]    ) + ", " +  
+          param(" ", CGI::map["points_max"]    ) + ", " +  
           param("'", CGI::map["dataset"]       ) + ", " +  
           param(" ", help                      ) + ", " +  
           param("'", CGI::getenv("REMOTE_ADDR")) + ");";
@@ -139,8 +137,8 @@ void SQLtutor::form_init()
         CGI::map.clear();
         CGI::map["session_id"] = session_id;
         CGI::map["state"]      = main_next;
-        CGI::map["help"]       = help;
         CGI::map["hash"]       = hash;
+        CGI::map["help"]       = help;
 
         return form_main();
       }
@@ -168,24 +166,26 @@ void SQLtutor::form_init()
   form << "<tr>"
        << "<td>" + t_points_min + "&nbsp;</td>"
        << "<td>"
-       << Input().type("text").name("points_min")
+       << Input().type("text").name("points_min").value(pmin)
        << "</td>"
        << emptycol()
        << "<td>" + t_points_max + "&nbsp;</td>" 
        << "<td>"
-       << Input().type("text").name("points_max")
+       << Input().type("text").name("points_max").value(pmax)
        << "</td>"
        << "</tr>";
   form << "<tr>"
        << "<td>" + t_dataset + "&nbsp;</td>"
        << "<td>"
-       << Input().type("text").name("dataset") 
+       << Input().type("text").name("dataset").value(dset) 
        << "</td>" 
        << emptycol()
        << "<td>" + t_help + "&nbsp;</td>"
-       << "<td>"
-       << Input().type("checkbox").name("help").value("true")
-       << "</td>"
+       << "<td>";
+
+  form << Input().type("checkbox").name("help").value("true");
+
+  form << "</td>"
        << "</tr>";
   form << emptyrow();
   form << "</table>";
