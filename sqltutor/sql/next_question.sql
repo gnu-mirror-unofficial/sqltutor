@@ -53,20 +53,22 @@ BEGIN
             max_points_ := max_points_ + 1;
          END IF;
 
-         s_points_min_ := max_points_;  
-
-         SELECT id INTO next_question_
-           FROM (SELECT id, points, random() AS rand
-                   FROM questions
-                  WHERE (s_points_min_ <= points) AND
-                        (s_status_ = 'open') AND
-                        (id NOT IN (SELECT question_id 
-                                        FROM sessions_answers
-                                       WHERE session_id=session_id_))
-                  ORDER BY points ASC, rand
-                  LIMIT 1) next;
-         
-         RETURN next_question_;
+         IF max_points_ < 5 THEN
+            s_points_min_ := max_points_;  
+            
+            SELECT id INTO next_question_
+              FROM (SELECT id, points, random() AS rand
+                      FROM questions
+                     WHERE (s_points_min_ <= points) AND
+                           (s_status_ = 'open') AND
+                           (id NOT IN (SELECT question_id 
+                                           FROM sessions_answers
+                                          WHERE session_id=session_id_))
+                     ORDER BY points ASC, rand
+                     LIMIT 1) next;
+            
+            RETURN next_question_;
+         END IF;
       END IF;
 
       /* for points >=5 continue with algoritm 1 */
