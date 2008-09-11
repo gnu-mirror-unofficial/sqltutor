@@ -69,10 +69,11 @@ BEGIN
          
          RETURN next_question_;
       END IF;
-   END IF;
 
-   /* for points >=5 continue with algoritm 1 */
-   s_points_min_ := 5;       
+      /* for points >=5 continue with algoritm 1 */
+      s_points_min_ := 5;       
+
+   END IF;
 
 
    /* algorithm 1 */
