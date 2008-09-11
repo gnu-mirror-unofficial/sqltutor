@@ -58,9 +58,7 @@ BEGIN
          SELECT id INTO next_question_
            FROM (SELECT id, points, random() AS rand
                    FROM questions
-                  WHERE (s_dataset_ IS NULL OR s_dataset_ = dataset) AND
-                        (s_points_min_ IS NULL OR s_points_min_ <= points) AND
-                        (s_status_ = 'open') AND
+                  WHERE (s_status_ = 'open') AND
                         (id NOT IN (SELECT question_id 
                                         FROM sessions_answers
                                        WHERE session_id=session_id_))
