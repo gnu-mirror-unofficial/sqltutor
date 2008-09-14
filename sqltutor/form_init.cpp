@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.3 2008/09/08 11:13:57 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.4 2008/09/14 11:09:20 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -126,7 +126,8 @@ void SQLtutor::form_init()
 
         using namespace pqxx;
         connection  conn( db_connection );
-        work   tran(conn, "transaction-form-init-sessions");
+        work   tran(conn, "form_init");
+        set_schema(tran);
         result res1(tran.exec(open));
         result::const_iterator q = res1.begin();
         if (q == res1.end()) throw "...";

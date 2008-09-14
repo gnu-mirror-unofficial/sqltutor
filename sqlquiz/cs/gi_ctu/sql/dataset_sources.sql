@@ -1,4 +1,6 @@
-DELETE FROM dataset_sources;
+-- DELETE FROM dataset_sources;
+
+SET search_path TO sqltutor;
 
 INSERT INTO dataset_sources VALUES('odsl',        2007, 'Pavel Stěhule');
 INSERT INTO dataset_sources VALUES('filmy',       2007, 'http://www.fdb.cz/');

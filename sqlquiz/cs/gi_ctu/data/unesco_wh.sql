@@ -1,3 +1,5 @@
+SET search_path TO sqltutor;
+
 DROP TABLE unesco_wh CASCADE;
 
 CREATE TABLE unesco_wh (

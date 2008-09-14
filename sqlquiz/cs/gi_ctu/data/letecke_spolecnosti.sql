@@ -1,3 +1,5 @@
+SET search_path TO sqltutor;
+
 DROP TABLE letecke_spolecnosti CASCADE;
 
 CREATE TABLE letecke_spolecnosti (

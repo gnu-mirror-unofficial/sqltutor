@@ -153,7 +153,7 @@ std::ostream& Quiz::write_sql(std::ostream& ostr) const
        << "-- generated from input file : " << input_file_name << "\n"
        << "--\n\n";
 
-  ostr << "BEGIN;\n";
+  ostr << "BEGIN;\n\nSET search_path TO sqltutor;\n\n";
   for (int b=0; b<blocks();)
     if (block_type(b) == SQL)
       {

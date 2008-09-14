@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.h,v 1.3 2008/06/02 13:58:27 cepek Exp $ 
+ * $Id: sqltutor.h,v 1.4 2008/09/14 11:09:21 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor
@@ -124,6 +124,10 @@ private:
   void show_table_data (pqxx::work& transaction);
   void get_new_question(pqxx::work& transaction);
   void save_answer     (pqxx::work& transaction);
+  void set_schema      (pqxx::work& transaction)
+  {
+    transaction.exec("SET search_path TO sqltutor;");
+  }
 
   void show_datasets();
   std::string button_sep() { return "&nbsp;&nbsp;&nbsp;&nbsp;"; }

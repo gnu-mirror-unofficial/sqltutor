@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_stop.cpp,v 1.4 2008/09/08 11:13:57 cepek Exp $ 
+ * $Id: form_stop.cpp,v 1.5 2008/09/14 11:09:21 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -37,7 +37,8 @@ void SQLtutor::form_stop()
   try
     {
       connection conn( db_connection );
-      work   tran(conn, "transakce-stop");
+      work   tran(conn, "form_stop");
+      set_schema(tran);
 
       {
         string time =

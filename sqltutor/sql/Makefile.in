@@ -135,6 +135,7 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 EXTRA_DIST = datasets.sql \
+	collections.sql \
 	dataset_sources.sql \
 	questions.sql \
 	log.sql \

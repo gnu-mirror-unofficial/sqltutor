@@ -1,3 +1,5 @@
+SET search_path TO sqltutor;
+
 DROP TABLE dopravni_letadla CASCADE;
 
 CREATE TABLE dopravni_letadla (

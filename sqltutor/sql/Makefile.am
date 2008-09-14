@@ -1,4 +1,5 @@
 EXTRA_DIST = datasets.sql \
+	collections.sql \
 	dataset_sources.sql \
 	questions.sql \
 	log.sql \

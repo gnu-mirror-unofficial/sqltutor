@@ -1,5 +1,7 @@
 1. create databaze DBNAME
    create user DBUSER
+   create schema sqltutor
+   grant usage on schema sqltutor to DBUSER
    create language plpgsql
 
         createdb DBNAME
@@ -9,11 +11,28 @@
         psql
         ALTER USER DBUSER WITH PASSWORD 'xxx';
         psql DBNAME
+        CREATE SCHEMA sqltutor;
+        GRANT USAGE ON SCHEMA sqltutor TO DBUSER;
         CREATE LANGUAGE plpgsql;
 
 2. cd SQLTUTOR/sql and edit create-tables.sh if necessary
 
 3. edit Makefile and change variables DBNAME and DBUSER if necessary
 
-4. run make
+4. cd sqlquiz/cs/gi_ctu 
+
+5. create system tables for sql tutor
+               
+        make sqltuor
+
+6. import data into the databaze
+
+        make
+
+7. cd sqltutor
+
+        ./configure
+        make
+
+   copy the program sqltutor to a cgi directory
 

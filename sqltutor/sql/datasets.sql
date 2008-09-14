@@ -1,7 +1,4 @@
-DROP TABLE datasets CASCADE;
-
-
-CREATE TABLE datasets (
+CREATE TABLE sqltutor.datasets (
   dataset   VARCHAR(12),
   ord       INT,
   ds_table  VARCHAR(20),

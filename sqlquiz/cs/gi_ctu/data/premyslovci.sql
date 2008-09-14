@@ -1,3 +1,5 @@
+SET search_path TO sqltutor;
+
 DROP TABLE premyslovci CASCADE;
 
 CREATE TABLE premyslovci (

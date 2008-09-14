@@ -1,4 +1,5 @@
 # 1. create databaze DBNAME
+#    create schema sqltutor
 #    create user DBUSER
 #    create language plpgsql
 # 
@@ -40,43 +41,43 @@ echo -e   "===================\n"
 for t in answers questions questions_categories categories \
          datasets dataset_sources
 do
-   echo REVOKE ALL ON TABLE $t FROM PUBLIC ";" \
-        GRANT SELECT ON TABLE $t TO $DBUSER ";" | psql $DBNAME
+   echo REVOKE ALL   ON TABLE sqltutor.$t FROM PUBLIC ";" \
+        GRANT SELECT ON TABLE sqltutor.$t TO $DBUSER ";" | psql $DBNAME
 done
 
 for t in questions datasets dataset_sources
 do
-   echo GRANT SELECT ON TABLE $t TO PUBLIC ";" | psql $DBNAME
+   echo GRANT SELECT ON TABLE sqltutor.$t TO PUBLIC ";" | psql $DBNAME
 done 
 
-for t in sessions sessions_answers
+for t in sessions sessions_answers collections
 do 
-   echo REVOKE ALL ON TABLE $t FROM PUBLIC ";" \
-        GRANT INSERT ON TABLE $t TO $DBUSER ";" \
-        GRANT UPDATE ON TABLE $t TO $DBUSER ";" \
-        GRANT SELECT ON TABLE $t TO $DBUSER ";" | psql $DBNAME
+   echo REVOKE ALL ON TABLE   sqltutor.$t FROM PUBLIC ";" \
+        GRANT INSERT ON TABLE sqltutor.$t TO $DBUSER ";" \
+        GRANT UPDATE ON TABLE sqltutor.$t TO $DBUSER ";" \
+        GRANT SELECT ON TABLE sqltutor.$t TO $DBUSER ";" | psql $DBNAME
 done
 
 for t in sessions_session_id_seq; \
 do 
-   echo REVOKE ALL ON TABLE $t FROM PUBLIC ";" \
-        GRANT UPDATE ON TABLE $t TO $DBUSER ";" \
-        GRANT SELECT ON TABLE $t TO $DBUSER ";" | psql $DBNAME
+   echo REVOKE ALL ON TABLE   sqltutor.$t FROM PUBLIC ";" \
+        GRANT UPDATE ON TABLE sqltutor.$t TO $DBUSER ";" \
+        GRANT SELECT ON TABLE sqltutor.$t TO $DBUSER ";" | psql $DBNAME
 done
 
 for t in sessions sessions_answers; 
 do 
-   echo REVOKE ALL ON TABLE $t FROM PUBLIC ";" \
-        GRANT INSERT ON TABLE $t TO $DBUSER ";" \
-        GRANT UPDATE ON TABLE $t TO $DBUSER ";" \
-        GRANT SELECT ON TABLE $t TO $DBUSER ";" | psql $DBNAME;
+   echo REVOKE ALL ON TABLE   sqltutor.$t FROM PUBLIC ";" \
+        GRANT INSERT ON TABLE sqltutor.$t TO $DBUSER ";" \
+        GRANT UPDATE ON TABLE sqltutor.$t TO $DBUSER ";" \
+        GRANT SELECT ON TABLE sqltutor.$t TO $DBUSER ";" | psql $DBNAME;
 done
 
 for t in sessions_session_id_seq; 
 do 
-   echo REVOKE ALL ON TABLE $t FROM PUBLIC ";" \
-        GRANT UPDATE ON TABLE $t TO $DBUSER ";" \
-        GRANT SELECT ON TABLE $t TO $DBUSER ";" | psql $DBNAME; 
+   echo REVOKE ALL ON TABLE   sqltutor.$t FROM PUBLIC ";" \
+        GRANT UPDATE ON TABLE sqltutor.$t TO $DBUSER ";" \
+        GRANT SELECT ON TABLE sqltutor.$t TO $DBUSER ";" | psql $DBNAME; 
 done
 
 
@@ -89,7 +90,7 @@ do
   psql $DBNAME < $func 
 done
 
-echo -e "\ngranting privileges to FUNCTION next_question(integer, char(32))"
-psql $DBNAME -c "REVOKE ALL ON FUNCTION next_question(integer, char(32)) FROM PUBLIC;"
-psql $DBNAME -c "GRANT EXECUTE ON FUNCTION next_question(integer, char(32)) TO $DBUSER;"
+echo -e "\ngranting privileges to FUNCTION sqltutor.next_question(integer, char(32))"
+psql $DBNAME -c "REVOKE ALL ON FUNCTION sqltutor.next_question(integer, char(32)) FROM PUBLIC;"
+psql $DBNAME -c "GRANT EXECUTE ON FUNCTION sqltutor.next_question(integer, char(32)) TO PUBLIC;"
 

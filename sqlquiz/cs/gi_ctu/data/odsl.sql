@@ -1,3 +1,5 @@
+SET search_path TO sqltutor;
+
 DROP TABLE Pracoviste CASCADE;
 DROP TABLE Zamestnanci CASCADE;
 DROP TABLE Mzdy CASCADE;

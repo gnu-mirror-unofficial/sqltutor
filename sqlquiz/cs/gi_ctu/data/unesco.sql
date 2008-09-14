@@ -1,3 +1,5 @@
+SET search_path TO sqltutor;
+
 -- Světové kulturní a přírodní dědictví (UNESCO)
 
 DROP TABLE unesco CASCADE;

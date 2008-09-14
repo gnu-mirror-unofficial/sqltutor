@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: save_answer.cpp,v 1.3 2008/06/01 11:06:51 cepek Exp $ 
+ * $Id: save_answer.cpp,v 1.4 2008/09/14 11:09:21 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -47,7 +47,8 @@ void SQLtutor::save_answer(pqxx::work& transaction)
 
   using namespace pqxx;
   connection  conn( db_connection );
-  work   tran(conn, "save-answer");
+  work   tran(conn, "save_answer");
+  set_schema(tran);
 
   result res2(tran.exec("SELECT status "
                         "  FROM sessions "

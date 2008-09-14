@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: show_datasets.cpp,v 1.1 2008/05/07 15:27:35 cepek Exp $ 
+ * $Id: show_datasets.cpp,v 1.2 2008/09/14 11:09:21 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -32,7 +32,8 @@ void SQLtutor::show_datasets()
 {
   using namespace pqxx;
   connection  conn( db_connection );
-  work   tran(conn, "transaction-show-datasets");
+  work   tran(conn, "show_datasets");
+  set_schema(tran);
   result res(tran.exec(
                        "SELECT dataset, tabscount, ds_table, columns "
                        "  FROM datasets "

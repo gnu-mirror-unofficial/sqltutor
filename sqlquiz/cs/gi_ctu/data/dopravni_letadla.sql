@@ -1,3 +1,5 @@
+SET search_path TO sqltutor;
+
 BEGIN;
 
 UPDATE dopravni_letadla SET dolet_km=7700, kapacita=266, v_provozu_od=1974 WHERE id=1;

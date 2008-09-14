@@ -1,3 +1,4 @@
+SET search_path TO sqltutor;
 
 DROP TABLE toky      CASCADE;
 DROP TABLE stanice   CASCADE; 
@@ -13,7 +14,6 @@ SET client_encoding = 'UTF8';
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
-SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
 
@@ -151,8 +151,6 @@ ALTER TABLE ONLY toky
 SET client_encoding = 'UTF8';
 SET check_function_bodies = false;
 SET client_min_messages = warning;
-
-SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
 
@@ -390,8 +388,6 @@ ALTER TABLE ONLY stanice
 SET client_encoding = 'UTF8';
 SET check_function_bodies = false;
 SET client_min_messages = warning;
-
-SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
 
@@ -644,8 +640,6 @@ SET client_encoding = 'UTF8';
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
-SET search_path = public, pg_catalog;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -872,8 +866,6 @@ ALTER TABLE ONLY limity_cm
 SET client_encoding = 'UTF8';
 SET check_function_bodies = false;
 SET client_min_messages = warning;
-
-SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
 

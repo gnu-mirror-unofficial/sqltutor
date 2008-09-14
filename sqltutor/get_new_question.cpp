@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: get_new_question.cpp,v 1.2 2008/06/02 13:58:26 cepek Exp $ 
+ * $Id: get_new_question.cpp,v 1.3 2008/09/14 11:09:21 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -37,7 +37,8 @@ void SQLtutor::get_new_question(pqxx::work& tran)
 
   using namespace pqxx;
   connection c( db_connection );
-  work       t(c, "transaction-get-new-question");
+  work       t(c, "get_new_question");
+  set_schema(t);
   result     r(t.exec("INSERT INTO sessions_answers "
                       "(session_id, question_id, time) VALUES (" 
                       + session_id + ", " + question_id + ", now() )" ));

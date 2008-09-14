@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_main.cpp,v 1.2 2008/06/02 13:58:26 cepek Exp $ 
+ * $Id: form_main.cpp,v 1.3 2008/09/14 11:09:21 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -45,14 +45,16 @@ void SQLtutor::form_main()
         try
           {
             connection   conn( db_connection );
-            work   tran (conn, "transaction-form-main");
+            work   tran (conn, "form_main1");
+            set_schema(tran);
             check_answer(tran);
           }
         catch (sql_error err)
           {
             // we need to catch syntax errors and save wrong answers 
             connection   conn( db_connection );
-            work   tran (conn, "transaction-form-main2");
+            work   tran (conn, "form_main2");
+            set_schema(tran);
             sql = std::string(err.what()) + "\n" + sql;
             save_answer(tran);
           }
@@ -67,7 +69,8 @@ void SQLtutor::form_main()
   try    
     {
       connection  conn( db_connection );
-      work   tran(conn, "transaction-form-main");
+      work   tran(conn, "form_main3");
+      set_schema(tran);
       
       if (state == main_next)
         {
@@ -75,7 +78,8 @@ void SQLtutor::form_main()
           if (sql_checked != "yes" && !empty_or_reject(sql))
             try {
               connection   conn( db_connection );
-              work   tran (conn, "transaction-form-main");
+              work   tran (conn, "form_main4");
+              set_schema(tran);
               check_answer(tran);
             }
             catch (sql_error err)

@@ -1,3 +1,5 @@
+SET search_path TO sqltutor;
+
 DROP TABLE filmy    CASCADE;
 DROP TABLE umelci   CASCADE;
 DROP TABLE obsazeni CASCADE;

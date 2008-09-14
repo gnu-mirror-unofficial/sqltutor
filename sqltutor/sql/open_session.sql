@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION open_session
+CREATE OR REPLACE FUNCTION sqltutor.open_session
 (
       IN  login_      varchar(20),
       IN  password_   varchar(20),
@@ -14,7 +14,8 @@ AS $$
 DECLARE
    time_ timestamp = now();
 BEGIN
-   INSERT INTO sessions (login,    password,  points_min,  points_max,
+   INSERT INTO sqltutor.sessions 
+                        (login,    password,  points_min,  points_max,
                          dataset,  help,      host,        time ) 
                  VALUES (login_,   password_, points_min_, points_max_,
                          dataset_, help_,     host_,       time_);
