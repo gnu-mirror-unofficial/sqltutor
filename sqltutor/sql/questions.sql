@@ -1,9 +1,9 @@
 CREATE TABLE sqltutor.questions (
-   id            integer PRIMARY KEY,
-   collection_id integer,           -- REFERENCES sqltutor.collections,
-   dataset       VARCHAR(20),
-   points        integer,
-   question      TEXT
+   id          integer PRIMARY KEY,
+   tutorial_id integer,           -- REFERENCES sqltutor.tutorials,
+   dataset     VARCHAR(20),
+   points      integer,
+   question    TEXT
 );
 
 
