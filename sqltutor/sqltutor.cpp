@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.cpp,v 1.1 2008/05/07 15:27:35 cepek Exp $ 
+ * $Id: sqltutor.cpp,v 1.2 2008/09/21 10:45:35 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -79,4 +79,58 @@ bool SQLtutor::empty_or_reject(std::string sql)
   if (std::string::npos != sql.find("sessions")) return true;
 
   return false;
+}
+
+
+std::string SQLtutor::tutorial_selection()
+{
+  try
+    {
+      using namespace pqxx;        
+      connection  conn( db_connection );
+      work   tran(conn, "tutorial_selection");
+      set_schema (tran);
+      result res1(tran.exec("SELECT tutorial_id, language, tutorial, label"
+                            "  FROM tutorials"
+                            " ORDER BY language ASC, label ASC;"));
+
+      std::string s, language, last, tutorial = CGI::map["tutorial"];
+      if (tutorial.empty()) tutorial = "0";
+      
+      std::string description = "None";
+      result res2(tran.exec("SELECT tutorial"
+                            "  FROM tutorials"
+                            " WHERE tutorial_id=" + tutorial));
+      if (!res2.empty()) description = res2.begin()[0].as(std::string());
+      
+      s += "<select name='tutorial'>";
+      s += "<option selected value='" + tutorial + "'>" + description + "</option>";
+      for (result::const_iterator t=res1.begin(); t!=res1.end(); ++t)
+        {
+          tutorial    = t[0].as(std::string());
+          language    = t[1].as(std::string());
+          description = t[2].as(std::string());
+
+          if (language != last)
+            {
+              if (!last.empty()) s += "</optgroup>";
+              s += "<optgroup label='" + language + "'>";
+            }
+          s += "<option value='" + tutorial + "'>" + description + "</option>";
+
+          last = language;
+        }
+      s += "</optgroup>";
+      s += "</select>";
+
+      return s;
+    }
+  catch (pqxx::sql_error e)
+    {
+      return e.what();
+    }
+  catch (...)
+    {
+      return "None available!";
+    }
 }

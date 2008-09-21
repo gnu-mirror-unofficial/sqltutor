@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.4 2008/09/14 11:09:20 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.5 2008/09/21 10:45:35 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -152,6 +152,13 @@ void SQLtutor::form_init()
   
   
   form << "<table>";
+  form << "<tr>" 
+       << "<td>" + t_tutorial + "&nbsp;</td>"
+       << "<td>"
+       << tutorial_selection()
+       << "</td>"
+       << "</tr>";
+  form << emptyrow();
   form << "<tr>"
        << "<td>" + t_user + "&nbsp;</td>" 
        << "<td>" 

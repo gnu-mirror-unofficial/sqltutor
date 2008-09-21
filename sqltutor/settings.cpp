@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: settings.cpp,v 1.2 2008/05/27 09:38:26 cepek Exp $ 
+ * $Id: settings.cpp,v 1.3 2008/09/21 10:45:35 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -43,6 +43,7 @@ T SQLtutor::main_sql          = "Execute SQL";
 T SQLtutor::remaining_rows    = "Remaining rows not displayed ...";
 T SQLtutor::new_test          = "New test";
 T SQLtutor::test_finished     = "Test finished ...";
+T SQLtutor::t_tutorial        = "Tutorial";
 T SQLtutor::t_user            = "User";
 T SQLtutor::t_password        = "Password";
 T SQLtutor::t_points_min      = "Min points";

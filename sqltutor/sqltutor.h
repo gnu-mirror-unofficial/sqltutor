@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.h,v 1.4 2008/09/14 11:09:21 cepek Exp $ 
+ * $Id: sqltutor.h,v 1.5 2008/09/21 10:45:35 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor
@@ -58,6 +58,7 @@ private:
   static const std::string remaining_rows;
   static const std::string new_test;
   static const std::string test_finished;
+  static const std::string t_tutorial;
   static const std::string t_user;
   static const std::string t_password;
   static const std::string t_points_min;
@@ -132,6 +133,8 @@ private:
   void show_datasets();
   std::string button_sep() { return "&nbsp;&nbsp;&nbsp;&nbsp;"; }
   bool empty_or_reject(std::string);
+
+  std::string tutorial_selection();
 };
 
 

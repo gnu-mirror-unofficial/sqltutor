@@ -1,8 +1,8 @@
 CREATE TABLE sqltutor.tutorials (
    tutorial_id serial PRIMARY KEY,
-   language    varchar(3),
-   tutorial    varchar(12),
-   UNIQUE (language, tutorial)
+   language    varchar(20),
+   tutorial    varchar(20),
+   label       varchar(12) UNIQUE
 );
 
 
