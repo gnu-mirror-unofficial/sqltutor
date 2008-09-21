@@ -2,6 +2,9 @@
 
 SET search_path TO sqltutor;
 
+INSERT INTO tutorials (language, tutorial,   label)
+            VALUES    ('Czech',  'SQLtutor', 'cs.sqltutor');
+
 INSERT INTO datasets VALUES ('odsl', 1, 'pracoviste',  'kod, popis');
 INSERT INTO datasets VALUES ('odsl', 2, 'zamestnanci', 'id, jmeno, prijmeni, pracoviste_kod, vek');
 INSERT INTO datasets VALUES ('odsl', 3, 'mzdy', 'id, vlozeno, zamestnanec_id, castka');

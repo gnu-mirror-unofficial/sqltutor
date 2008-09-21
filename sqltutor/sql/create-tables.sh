@@ -45,12 +45,12 @@ do
         GRANT SELECT ON TABLE sqltutor.$t TO $DBUSER ";" | psql $DBNAME
 done
 
-for t in questions datasets dataset_sources
+for t in tutorials questions datasets dataset_sources
 do
    echo GRANT SELECT ON TABLE sqltutor.$t TO PUBLIC ";" | psql $DBNAME
 done 
 
-for t in sessions sessions_answers collections
+for t in sessions sessions_answers
 do 
    echo REVOKE ALL ON TABLE   sqltutor.$t FROM PUBLIC ";" \
         GRANT INSERT ON TABLE sqltutor.$t TO $DBUSER ";" \
