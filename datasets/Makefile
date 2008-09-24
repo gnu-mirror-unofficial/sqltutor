@@ -7,7 +7,6 @@ all: $(DIRS)
 .tmp.% : export DATASET=$*
 .tmp.% : 
 	$(MAKE) -C $(DATASET)
-	@sed s/zzzzzz/$(DATASET)/g grant.sed | psql $(SQLTUTORDB)
 
 clean:
 	@for t in $(shell echo $(DIRS) | sed s/.tmp.//g ); \
