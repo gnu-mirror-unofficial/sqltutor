@@ -1,0 +1,129 @@
+# zdroj http://www.vicher.cz/
+# 
+# premyslovci  (id, jmeno, narozeni, umrti, otec, matka, rod)
+
+
+-- id="901" dataset="premyslovci" category="agregace" points="2"
+--
+-- Kolik přemyslovců je registrováno v databázi?
+
+SELECT count(*) FROM premyslovci WHERE rod='Přemyslovci';
+
+
+-- id="902" dataset="premyslovci" category="selfjoin" points="10"
+--
+-- Kdo byli rodiče Elišky Rejčky?
+
+SELECT A.jmeno
+  FROM premyslovci A
+       JOIN
+       premyslovci B
+       ON A.id IN (B.otec, B.matka)
+          AND B.jmeno = 'Eliška Rejčka';
+
+
+-- id="903" dataset="premyslovci" category="selfjoin" points="10"
+--
+-- Uveďte děti Karla IV. Lucemburského.
+
+SELECT B.jmeno
+  FROM premyslovci A
+       JOIN
+       premyslovci B
+       ON A.jmeno = 'Karel IV. Lucemburský'
+          AND A.id = B.otec;
+
+
+-- id="904" dataset="premyslovci" category="selfjoin" points="14"
+--
+-- Uveďte manželky Karla IV. Lucemburského, se kterými měl děti? Poznámka:
+-- bezdětná manželství nejsou registrovaná v databázi.
+
+SELECT DISTINCT C.jmeno
+  FROM premyslovci A
+       JOIN
+       premyslovci B
+       ON A.jmeno = 'Karel IV. Lucemburský'
+          AND A.id = B.otec
+       JOIN
+       premyslovci C
+       ON B.matka=C.id;
+
+
+-- id="905" dataset="premyslovci" category="selfjoin" points="14"
+--
+-- Kdo byli prarodiče knížete Václava? Uveďte jméno a rod.
+
+SELECT C.jmeno, C.rod
+  FROM premyslovci A
+       JOIN
+       premyslovci B
+       ON A.jmeno='Václav'
+          AND B.id IN (A.otec, A.matka)
+       JOIN
+       premyslovci C
+       ON C.id IN (B.otec, B.matka);
+
+
+-- id="906" dataset="premyslovci" category="selfjoin" points="14"
+--
+-- Uveďte vnuky a vnučky Boleslava I.
+
+SELECT C.jmeno
+  FROM premyslovci A
+       JOIN 
+       premyslovci B
+       ON A.jmeno='Boleslav I.'
+          AND A.id = B.otec
+       JOIN
+       premyslovci C
+       ON B.id IN (C.otec, C.matka);
+
+-- id="907" dataset="premyslovci" category="selfjoin" points="17"
+--
+-- Najděte snachy a zetě Břetislava I, které lze v databázi určit. 
+-- Poznámka: tabulka premyslovci neregistruje bezdětná manželství.
+
+SELECT DISTINCT D.jmeno
+  FROM premyslovci A
+       JOIN 
+       premyslovci B
+       ON A.jmeno='Břetislav I.'
+          AND A.id = B.otec
+       JOIN 
+       premyslovci C
+       ON B.id IN (C.otec, C.matka)
+       JOIN
+       premyslovci D
+       ON D.id <> B.id
+          AND D.id IN (C.otec, C.matka);
+
+
+-- id="908" dataset="premyslovci" category="selfjoin" points="15"
+--
+-- Vyhledejte sourozence Oldřicha Brněnského. Uveďte jméno a rod.
+
+SELECT DISTINCT C.jmeno, C.rod
+  FROM premyslovci A
+       JOIN
+       premyslovci B
+       ON A.jmeno = 'Oldřich Brněnský'
+          AND B.id IN (A.otec, A.matka)
+       JOIN
+       premyslovci C
+       ON B.id IN (C.otec, C.matka)
+          AND A.id <> C.id;
+
+
+-- id="909" dataset="premyslovci" category="selfjoin" points="14"
+--
+-- Kolik dětí měli Přemyslovci? Uveďtě vždy jméno a počet dětí
+-- (u bezdětných uvádějte nulu).
+
+SELECT rodice.jmeno, count(deti.jmeno)
+  FROM premyslovci as rodice
+       LEFT JOIN
+       premyslovci as deti
+       ON rodice.id=deti.otec OR rodice.id=deti.matka
+ WHERE rodice.rod = 'Přemyslovci'
+ GROUP BY rodice.id, rodice.jmeno;

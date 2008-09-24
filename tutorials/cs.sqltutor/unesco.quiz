@@ -1,0 +1,146 @@
+###  unesco ( pamatka, kategorie, zeme, region, zapis, doplneni )
+
+###  stav léto 2007
+
+-- id="401" dataset="unesco" category="subselect" points="2"
+-- 
+-- Kolik památek je v databázi? Poznámka: některé památky jsou v databázi 
+-- uvedeny vícekrát, protože jsou sdíleny více zeměmi.
+
+SELECT count(distinct pamatka) FROM unesco;
+
+
+-- id="402" dataset="unesco" category="select" points="1"
+--
+-- Vypište všechny památky a rok jejich zápisu do seznamu světového
+-- dědictví UNESCO.
+
+SELECT pamatka, zapis FROM unesco;
+
+
+-- id="403" dataset="unesco" category="select" points="1"
+--
+-- Vypište památky zapsané do seznamu světového dědictví UNESCO, které
+-- byly zapsány v roce 2007.
+
+SELECT pamatka FROM unesco WHERE zapis=2007;
+
+
+-- id="404" dataset="unesco" category="select" points="1"
+--
+-- Vypište rakouské ('Austria') památky zapsané do seznamu
+-- světového dědictví UNESCO.
+
+SELECT pamatka FROM unesco WHERE zeme='Austria';
+
+
+-- id="405" dataset="unesco" category="select" points="2"
+--
+-- Vypište německé ('Germany') památky zapsané do seznamu
+-- světového dědictví UNESCO v roce 2006.
+
+SELECT pamatka FROM unesco WHERE zeme='Germany' AND zapis=2006;
+
+
+-- id="406" dataset="unesco" category="select" points="2"
+--
+-- Vypište rok zápisu a památky zapsané do seznamu světového dědictví
+-- UNESCO pro země 'Czech Republic', 'Poland' a 'Slovakia'.
+
+SELECT zapis, pamatka
+FROM   unesco
+WHERE  zeme IN ('Czech Republic', 'Poland', 'Slovakia');
+
+
+-- id="407" dataset="unesco" category="select" points="2"
+--
+-- Vypište ze seznamy světového dědictví UNESCO státy, které mají v
+-- názvu slovo 'United'. Každou zemi uveďte jen jednou.
+
+SELECT DISTINCT zeme
+FROM   unesco
+WHERE  zeme LIKE '%United%';
+
+
+-- id="408" dataset="unesco" category="select" points="2"
+--
+-- Vypište země a památky, které se týkají geodézie ('Geodetic')
+-- ze seznamu světového dědictví UNESCO.
+
+SELECT zeme, pamatka
+FROM   unesco
+WHERE  pamatka LIKE '%Geodetic%';
+
+
+-- id="409" dataset="unesco" category="select" points="1"
+--
+-- Vypište všechny kategorie památek používané v seznamu světového
+-- dědictví UNESCO. Každou kategerorii vypište jen jednou.
+
+SELECT DISTINCT kategorie FROM unesco;
+
+
+-- id="410" dataset="unesco" category="groupby" points="3"
+--
+-- Kolik památek v seznamu světového dědictví je zapsáno v jednotlivých
+-- kategoriích. Pro každou kategorii uveďte počet.
+
+SELECT kategorie, COUNT(distinct pamatka)
+  FROM unesco
+ GROUP BY kategorie;
+
+
+-- id="411" dataset="unesco" category="groupby" points="2"
+--
+-- Ve kterém roce byly zapsány první památky do seznamu světového dědictví 
+-- UNESCO.
+
+SELECT MIN(zapis) FROM   unesco;
+
+
+-- id="412" dataset="unesco" category="groupby" points="4"
+--
+-- Které země mají v seznamu světového dědictví UNESCO zapsáno deset a více 
+-- památek? Uveďte zemi a počet památek.
+
+SELECT zeme, COUNT(pamatka)
+  FROM unesco
+ GROUP BY zeme
+HAVING COUNT(pamatka) >= 10;
+
+
+-- id="413" dataset="unesco" category="groupby" points="5"
+--
+-- Které země Latinské Ameriky ('Latin America') mají v seznamu
+-- světového dědictví UNESCO zapsáno alespoň pět památek?  Uveďte vždy
+-- zemi a počet, výpis seřaďte sestupně podle počtu památek.
+
+SELECT zeme, COUNT(pamatka)
+  FROM unesco
+ WHERE region='Latin America'
+ GROUP BY zeme
+HAVING COUNT(pamatka) >= 5
+ ORDER BY COUNT(pamatka) DESC; 
+
+
+-- id="414" dataset="unesco" category="groupby" points="6"
+--
+-- Která země má v seznamu světového dědictví UNESCO zapsáno nejvíce
+-- památek a kolik?
+
+SELECT zeme, COUNT(pamatka)
+FROM   unesco
+GROUP BY zeme
+HAVING COUNT(pamatka) >= ALL (SELECT COUNT(pamatka) FROM unesco
+                              GROUP BY zeme);
+
+
+-- id="415" dataset="unesco" category="groupby" points="7"
+--
+-- Které památky ze seznamu světového dědictví UNESCO překračují
+-- hranice jedné země? Tj. které památky se týkají více zemí a kolika?
+
+SELECT pamatka, COUNT(zeme)
+FROM   unesco
+GROUP BY pamatka
+HAVING COUNT(zeme) > 1;
