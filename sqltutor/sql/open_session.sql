@@ -1,5 +1,6 @@
 CREATE OR REPLACE FUNCTION sqltutor.open_session
 (
+      IN  tutorial_ integer,
       IN  login_      varchar(20),
       IN  password_   varchar(20),
       IN  points_min_ integer,
@@ -15,9 +16,11 @@ DECLARE
    time_ timestamp = now();
 BEGIN
    INSERT INTO sqltutor.sessions 
-                        (login,    password,  points_min,  points_max,
+                        (tutorial_id,
+                         login,    password,  points_min,  points_max,
                          dataset,  help,      host,        time ) 
-                 VALUES (login_,   password_, points_min_, points_max_,
+                 VALUES (tutorial_,
+                         login_,   password_, points_min_, points_max_,
                          dataset_, help_,     host_,       time_);
 
    SELECT INTO session_id_ lastval();

@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.h,v 1.5 2008/09/21 10:45:35 cepek Exp $ 
+ * $Id: sqltutor.h,v 1.6 2008/09/24 17:13:47 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor
@@ -88,6 +88,8 @@ private:
   static const std::string t_session;
   static const std::string t_session_unknown;
   static const std::string t_session_closed;
+  static const std::string t_select_tutorial;
+  static const std::string t_no_datasets;
 
   // program settings
 

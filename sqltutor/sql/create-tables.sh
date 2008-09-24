@@ -28,7 +28,7 @@ fi
 echo -e "\ncreating tables"
 echo       =============== 
 
-for file in  datasets.sql dataset_sources.sql questions.sql log.sql
+for file in  log.sql datasets.sql dataset_sources.sql questions.sql
 do
   echo -e "\n   " psql $DBNAME "<" $file "\n"
   psql $DBNAME < $file 

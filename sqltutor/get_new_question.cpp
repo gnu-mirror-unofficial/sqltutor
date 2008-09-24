@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: get_new_question.cpp,v 1.3 2008/09/14 11:09:21 cepek Exp $ 
+ * $Id: get_new_question.cpp,v 1.4 2008/09/24 17:13:47 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -26,7 +26,8 @@ void SQLtutor::get_new_question(pqxx::work& tran)
 {
   using pqxx::result;
 
-  result res1(tran.exec("SELECT next_question(" + session_id + ", '" + hash + "')" ));
+  result res1(tran.exec("SELECT next_question(" 
+                        + session_id + ", '" + hash + "')" ));
   if (res1.begin()[0].is_null())
     {
       question_id.clear();
@@ -35,12 +36,18 @@ void SQLtutor::get_new_question(pqxx::work& tran)
 
   question_id = res1.begin()[0].as(std::string());
 
+  const std::string insert =
+    "INSERT INTO sessions_answers "
+    "   (session_id, tutorial_id, question_id, time) "
+    "   VALUES (" + session_id + ", " +
+    "   (SELECT tutorial_id "
+    "      FROM sessions "
+    "     WHERE session_id=" + session_id + "), " + question_id + ", now() )";
+
   using namespace pqxx;
   connection c( db_connection );
   work       t(c, "get_new_question");
   set_schema(t);
-  result     r(t.exec("INSERT INTO sessions_answers "
-                      "(session_id, question_id, time) VALUES (" 
-                      + session_id + ", " + question_id + ", now() )" ));
+  result     r(t.exec(insert));
   t.commit();
 }

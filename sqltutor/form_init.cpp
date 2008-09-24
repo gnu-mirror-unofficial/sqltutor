@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.5 2008/09/21 10:45:35 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.6 2008/09/24 17:13:47 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -75,9 +75,10 @@ namespace
 
 void SQLtutor::form_init()
 {
-  const string state = CGI::map["state"];
-  const string user  = CGI::map["user"];
-  
+  const string state    = CGI::map["state"];
+  const string user     = CGI::map["user"];
+  const string tutorial = CGI::map["tutorial"];
+
   bool   error = false;
   string pmin  = CGI::map["points_min"];
   string pmax  = CGI::map["points_max"];
@@ -111,11 +112,12 @@ void SQLtutor::form_init()
       return;
     }
   
-  if (state == init_continue)
+  if (state == init_continue && tutorial != "0")
     try 
       {
         const string open = 
           "SELECT session_id_, hash_ FROM open_session (" +
+          param(" ", tutorial                  ) + ", " +   
           param("'", CGI::map["user"]          ) + ", " +   
           param("'", CGI::map["password"]      ) + ", " +  
           param(" ", CGI::map["points_min"]    ) + ", " +  
@@ -143,13 +145,12 @@ void SQLtutor::form_init()
 
         return form_main();
       }
-    catch (pqxx::sql_error s) 
+    catch (const pqxx::sql_error& s) 
       {
         form << s.what() << "<br/><br/>";
         form_stop();
         return;
       }
-  
   
   form << "<table>";
   form << "<tr>" 
@@ -203,10 +204,17 @@ void SQLtutor::form_init()
        << button_sep()
        << Input().type("submit").name("state").value(init_datasets);
 
-  if (state == init_datasets)
+  if (state == init_datasets && tutorial != "0")
     {
       show_datasets();
     }
 
   form << "</p>";
+
+  if (tutorial == "0" && (state == init_datasets || state == init_continue))
+    {
+      form << "<p>"
+           << t_select_tutorial
+           << "</p>";
+    }
 }

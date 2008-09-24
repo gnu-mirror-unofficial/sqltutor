@@ -36,7 +36,10 @@ quiz_tables:
 	psql $(DBNAME) < sql/dataset_sources.sql
 
 questions_and_answers:
-	(cd quiz &&  make && ./quiz  *.quiz | psql $(DBNAME) )
+	(cd quiz &&  make && \
+	psql $(DBNAME) -t -c \
+	"select tutorial_id from sqltutor.tutorials where label='cs.sqltutor'"\
+	| ./quiz  *.quiz | psql $(DBNAME) )
 #
 	@echo \
 "SELECT dataset AS \" \", questions, answers" \

@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.cpp,v 1.2 2008/09/21 10:45:35 cepek Exp $ 
+ * $Id: sqltutor.cpp,v 1.3 2008/09/24 17:13:47 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -92,7 +92,7 @@ std::string SQLtutor::tutorial_selection()
       set_schema (tran);
       result res1(tran.exec("SELECT tutorial_id, language, tutorial, label"
                             "  FROM tutorials"
-                            " ORDER BY language ASC, label ASC;"));
+                            " ORDER BY ord ASC, language ASC, label ASC;"));
 
       std::string s, language, last, tutorial = CGI::map["tutorial"];
       if (tutorial.empty()) tutorial = "0";

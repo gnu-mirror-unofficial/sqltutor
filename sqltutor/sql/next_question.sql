@@ -14,14 +14,15 @@ DECLARE
    next_question_ integer;
    s_dataset_     varchar(20);
    s_status_      varchar(6);
+   s_tutorial_id_ integer;
    s_points_min_  integer;
    s_points_max_  integer;
    s_help_        boolean;
    max_points_    integer;
    a_count_       integer;
 BEGIN
-   SELECT points_min, points_max, dataset, status 
-     INTO s_points_min_, s_points_max_, s_dataset_, s_status_
+   SELECT tutorial_id, points_min, points_max, dataset, status 
+     INTO s_tutorial_id_, s_points_min_, s_points_max_, s_dataset_, s_status_
      FROM sqltutor.sessions
     WHERE session_id=session_id_ 
       AND hash_ = md5(time);
@@ -34,10 +35,10 @@ BEGIN
       /* algorithm 2 */
 
       SELECT coalesce(max(points),1) INTO max_points_
-        FROM sqltutor.questions
+        FROM sqltutor.questions AS q
              JOIN
-             sqltutor.sessions_answers
-             ON (id = question_id)
+             sqltutor.sessions_answers AS s
+             ON (q.id = s.question_id)
        WHERE session_id = session_id_;
 
       IF max_points_ < 5 THEN

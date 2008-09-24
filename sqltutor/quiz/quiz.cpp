@@ -7,7 +7,7 @@
 class Quiz
 {
 public:
-  Quiz(const char* file);
+  Quiz(const char* file, int tid);
 
   enum { TEXT, SQL };
 
@@ -24,6 +24,7 @@ public:
 private:
 
   const char* input_file_name;
+  int   tutorial_id;
   typedef std::vector<std::string> Rows;   // nonempty lines
   Rows rows;                        
   typedef std::vector<int> Pars;            // paragraph index
@@ -34,7 +35,7 @@ private:
   std::string sql(int, const char* str) const;
 };
 
-Quiz::Quiz(const char* file) : input_file_name(file)
+Quiz::Quiz(const char* file, int id) : input_file_name(file), tutorial_id(id)
 {
   std::ifstream inp(input_file_name);
   std::string   line;  
@@ -160,8 +161,9 @@ std::ostream& Quiz::write_sql(std::ostream& ostr) const
         std::string id = sql_id(b);
 
         ostr << "INSERT INTO questions "
-             << "(id, dataset, category, points, text) VALUES ("
+             << "(id, tutorial_id, dataset, category, points, text) VALUES ("
              << " " << id << ", "
+             << " " << tutorial_id     << ", "
              << "'" << sql_dataset (b) << "', "
              << "'" << sql_category(b) << "',"
              << " " << sql_points  (b) << ","
@@ -210,11 +212,14 @@ std::string Quiz::sql_text(int index) const
 
 int main(int argc, char* argv[])
 {
+  int tid;
+  std::cin >> tid;
+
   for (int i=1; i<argc; i++)
     {
       std::cerr << "reading file : " << argv[i] << std::endl;
 
-      Quiz quiz(argv[i]);
+      Quiz quiz(argv[i], tid);
       quiz.write_sql(std::cout);
     }
 }

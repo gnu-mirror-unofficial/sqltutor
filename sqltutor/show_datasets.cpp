@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: show_datasets.cpp,v 1.2 2008/09/14 11:09:21 cepek Exp $ 
+ * $Id: show_datasets.cpp,v 1.3 2008/09/24 17:13:47 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -30,20 +30,33 @@ using pqxx::sql_error;
 
 void SQLtutor::show_datasets()
 {
+  const string tutorial_id = CGI::map["tutorial"];
+
   using namespace pqxx;
   connection  conn( db_connection );
   work   tran(conn, "show_datasets");
   set_schema(tran);
   result res(tran.exec(
-                       "SELECT dataset, tabscount, ds_table, columns "
-                       "  FROM datasets "
-                       "       NATURAL JOIN "
+                       "SELECT t.dataset, t.tabscount, d.ds_table, d.columns "
+                       "  FROM datasets AS d"
+                       "       JOIN "
                        "       (SELECT dataset, count(ds_table) as tabscount "
                        "          FROM datasets "
-                       "         GROUP BY dataset) T "
-                       " ORDER BY tabscount, dataset, ord; "
+                       "         GROUP BY dataset) AS t "
+                       "       ON (d.dataset = t.dataset) "
+                       "       JOIN "
+                       "       (SELECT DISTINCT dataset "
+                       "          FROM questions "
+                       "         WHERE tutorial_id=" + tutorial_id + ") AS q "
+                       "       ON (d.dataset = q.dataset) "
+                       " ORDER BY t.tabscount, t.dataset, d.ord; "
                        ));
-  if (res.empty()) throw "...";
+
+  if (res.empty()) 
+    {
+      form << "<p>" << t_no_datasets << "</p>";
+      return;
+    }
 
   form << "<table border='1' >"
        << "<tr><th> dataset</th><th>table</th><th>columns</th></tr>";
