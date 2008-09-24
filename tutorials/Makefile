@@ -13,7 +13,7 @@
 #
 #
 export SQLTUTORDB=sqlquiz
-DIRS=$(shell rm -f .tmp.* && ls -l | awk '/^d/{print ".tmp."$$8}')
+DIRS=$(shell rm -f .tmp.* && ls -l | grep -v CVS | awk '/^d/{print ".tmp."$$8}')
 
 
 all: .quiz/quiz $(DIRS)
