@@ -1,7 +1,7 @@
 export SQLTUTORDB=sqlquiz
 export WEBSQLTUTOR=wwwquiz
 DIRS=$(shell rm -f .tmp.* && ls -l | grep -v CVS | awk '/^d/{print ".tmp."$$8}')
-DIRS=.tmp.cs.filmy
+DIRS=.tmp.cs.filmy .tmp.cs.letadla
 
 
 all: $(DIRS)
