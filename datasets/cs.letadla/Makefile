@@ -6,14 +6,12 @@ SQL = \
 " INSERT INTO datasets VALUES ('letadla', 1, 'dopravni_letadla',    'id, vyrobce, letadlo, dolet_km, kapacita, v_provozu_od'); " \
 " INSERT INTO datasets VALUES ('letadla', 2, 'letecke_spolecnosti', 'id, spolecnost, zeme, svetadil, aliance, zalozeno'); " \
 " INSERT INTO datasets VALUES ('letadla', 3, 'letecke_flotily',     'spolecnost_id, letadlo_id, pocet_letadel'); " \
-" REVOKE ALL   ON TABLE sqltutor.filmy    FROM PUBLIC; " \
-" GRANT SELECT ON TABLE sqltutor.filmy    TO PUBLIC; " \
-" REVOKE ALL   ON TABLE sqltutor.umelci   FROM PUBLIC; " \
-" GRANT SELECT ON TABLE sqltutor.umelci   TO PUBLIC; " \
-" REVOKE ALL   ON TABLE sqltutor.obsazeni FROM PUBLIC; " \
-" GRANT SELECT ON TABLE sqltutor.obsazeni TO PUBLIC; " \
-" REVOKE ALL   ON TABLE sqltutor.rezie    FROM PUBLIC; " \
-" GRANT SELECT ON TABLE sqltutor.rezie    TO PUBLIC; " 
+" REVOKE ALL   ON TABLE dopravni_letadla    FROM PUBLIC; " \
+" GRANT SELECT ON TABLE dopravni_letadla    TO PUBLIC; " \
+" REVOKE ALL   ON TABLE letecke_spolecnosti FROM PUBLIC; " \
+" GRANT SELECT ON TABLE letecke_spolecnosti TO PUBLIC; " \
+" REVOKE ALL   ON TABLE letecke_flotily     FROM PUBLIC; " \
+" GRANT SELECT ON TABLE letecke_flotily     TO PUBLIC; " 
 
 
 all : .tmp.cs.letadla
