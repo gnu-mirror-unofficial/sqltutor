@@ -1,6 +1,6 @@
 
 
--- id="101" dataset="odsl" category="select" points="1"
+-- id="101" dataset="pracoviste" category="select" points="1"
 -- 
 -- Vypište jména a příjmení všech zaměstnanců
 
@@ -8,7 +8,7 @@ SELECT jmeno, prijmeni FROM zamestnanci;
 
 
 
--- id="102" dataset="odsl" category="select" points="2"
+-- id="102" dataset="pracoviste" category="select" points="2"
 -- 
 -- Vypište jméno, příjmení a pracoviště všech zaměstnanců
 
@@ -18,7 +18,7 @@ FROM    zamestnanci JOIN pracoviste
 
 
 
--- id="103" dataset="odsl" category="join" points="2"
+-- id="103" dataset="pracoviste" category="join" points="2"
 -- 
 -- Vypište jméno, příjmení, částku, datum a popis všech zaměstnanců
 
@@ -30,7 +30,7 @@ FROM   zamestnanci JOIN pracoviste
 
 
 
--- id="104" dataset="odsl" category="select" points="2"
+-- id="104" dataset="pracoviste" category="select" points="2"
 -- 
 -- Vypište jméno, příjmení a id všech zaměstnanců, jejichž pracoviště
 -- je 'it'.
@@ -41,7 +41,7 @@ SELECT jmeno, prijmeni, zamestnanci.id
 
 
 
--- id="105" dataset="odsl" category="join" points="2"
+-- id="105" dataset="pracoviste" category="join" points="2"
 -- 
 -- Vypište jméno, příjmení a částku všech zaměstnanců, jejichž měsíční
 -- příjem je nižší než 30000
@@ -54,7 +54,7 @@ SELECT jmeno, prijmeni, castka
 
 
 
--- id="106" dataset="odsl" category="join" points="4"
+-- id="106" dataset="pracoviste" category="join" points="4"
 -- 
 -- Vypište jméno, příjmení, částku všech zaměstnanců, jejichž příjem
 -- je vyšší než 20000, jejich příjmeni je Stehule. Seřaďte je dle výše
@@ -69,7 +69,7 @@ ORDER BY castka;
 
 
 
--- id="107" dataset="odsl" category="subselect" points="5"
+-- id="107" dataset="pracoviste" category="subselect" points="5"
 -- 
 -- Vypište jméno, příjmení a částku všech zaměstnanců, kteří mají nižší
 -- mzdu než je průměrná
@@ -81,7 +81,7 @@ WHERE   castka < ( SELECT AVG(castka) FROM mzdy );
 
 
 
--- id="108" dataset="odsl" category="groupby" points="5"
+-- id="108" dataset="pracoviste" category="groupby" points="5"
 -- 
 -- Vypište, kolik zaměstnanců je na každém pracovišti
 
@@ -92,7 +92,7 @@ GROUP BY popis;
 
 
 
--- id="109" dataset="odsl" category="subselect" points="8"
+-- id="109" dataset="pracoviste" category="subselect" points="8"
 -- 
 -- Vypište zaměstnance, kteří v dubnu nedostali výplatu
 
