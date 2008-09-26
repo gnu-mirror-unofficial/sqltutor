@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: display_answers.h,v 1.1 2008/05/07 15:27:34 cepek Exp $ 
+ * $Id: display_answers.h,v 1.2 2008/09/26 19:40:38 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___display_answers_h___Display_Answers
@@ -37,18 +37,19 @@ void SQLtutor::display_answers(Form& form,
   form << "<br/>";
 
   string query1 =
-    "SELECT sa.question_id, q.points, sa.correct, "
+    "SELECT sa.tutorial_id, sa.question_id, q.points, sa.correct, "
     "       sa.answer AS user_answer, s.help, a.answer AS corr_answer "
     "  FROM sessions_answers AS sa"
     "       JOIN "
     "       questions AS q"
-    "       ON sa.question_id=q.id "
+    "       ON sa.tutorial_id = q.tutorial_id AND sa.question_id=q.id "
     "       JOIN "
     "       sessions AS s "
     "       ON sa.session_id = s.session_id "
     "       JOIN "
     "       answers AS a"
-    "       ON sa.question_id=a.question_id AND a.priority=1"
+    "       ON sa.question_id=a.question_id AND sa.tutorial_id=a.tutorial_id "
+    "          AND a.priority=1 "
     " WHERE sa.session_id=" + session_id + " "
     " ORDER BY sa.time ASC ";
 
@@ -57,12 +58,13 @@ void SQLtutor::display_answers(Form& form,
   result res1(tran.exec(query1));
   for (result::const_iterator r=res1.begin(), e=res1.end(); r!=e; ++r)
     {
-      const string question_id = r[0].as(string());
-      int               points = r[1].as(int());
-      bool             correct = r[2].as(bool());
-      const string user_answer = r[3].as(string());
-      bool                help = r[4].as(bool());
-      const string corr_answer = r[5].as(string());
+      const string tutorial_id = r[0].as(string());
+      const string question_id = r[1].as(string());
+      int               points = r[2].as(int());
+      bool             correct = r[3].as(bool());
+      const string user_answer = r[4].as(string());
+      bool                help = r[5].as(bool());
+      const string corr_answer = r[6].as(string());
       
       if (first && help)
         form << "<p><strong style='color:red'>" + t_help_on + "</strong></p>";
@@ -73,7 +75,7 @@ void SQLtutor::display_answers(Form& form,
            << "';><strong>" << question_id 
            << " (" << points << "):</strong></dt><dd>";
 
-      display_question(form, tran, question_id);
+      display_question(form, tran, tutorial_id, question_id);
 
       if (!correct)
         {
@@ -104,39 +106,41 @@ void SQLtutor::display_answers(Form& form,
 
 
 template<typename Form> 
-void SQLtutor::display_question(Form& form,  
-                              pqxx::work& tran, std::string question_id)
+void SQLtutor::display_question(Form& form, pqxx::work& tran, 
+                                std::string tutorial_id,
+                                std::string question_id)
 {
   using namespace pqxx;
   using std::string;
 
-      result res2(tran.exec("SELECT dataset, points, question "
-                            "  FROM questions "
-                            " WHERE id = " + question_id + ";" ));
-      result::const_iterator q = res2.begin();
-      if (q == res2.end()) throw "...";
-
-      string dataset  = q[0].as(string());
-      string points   = q[1].as(string());
-      string text     = q[2].as(string());
-
-      result res3(tran.exec("SELECT ds_table, columns "
-                            "  FROM datasets "
-                            " WHERE dataset = '" + dataset + "' "
-                            " ORDER BY ord; " ));
-      if (res3.empty()) throw "...";
-      
-      form << "<table border='1'><tr><th>" + t_table + "</th>"
-           << "<th>" + t_columns + "</th></tr>";
-      for (result::const_iterator b=res3.begin(), e=res3.end(); b!=e; b++)
-        {
-          form << "<tr>"
-               << "<td> &nbsp; " << b[0].as(string()) << " &nbsp; </td>"
-               << "<td> &nbsp; " << b[1].as(string()) << " &nbsp; </td></tr>";
-        }
-      form << "</table>";
-
-      form << "<p>" << text << "</p>";
+  result res2(tran.exec("SELECT dataset, points, question "
+                        "  FROM questions "
+                        " WHERE tutorial_id = " + tutorial_id +
+                        "   AND id = " + question_id + ";" ));
+  result::const_iterator q = res2.begin();
+  if (q == res2.end()) throw "...";
+  
+  string dataset  = q[0].as(string());
+  string points   = q[1].as(string());
+  string text     = q[2].as(string());
+  
+  result res3(tran.exec("SELECT ds_table, columns "
+                        "  FROM datasets "
+                        " WHERE dataset = '" + dataset + "' "
+                        " ORDER BY ord; " ));
+  if (res3.empty()) throw "...";
+  
+  form << "<table border='1'><tr><th>" + t_table + "</th>"
+       << "<th>" + t_columns + "</th></tr>";
+  for (result::const_iterator b=res3.begin(), e=res3.end(); b!=e; b++)
+    {
+      form << "<tr>"
+           << "<td> &nbsp; " << b[0].as(string()) << " &nbsp; </td>"
+           << "<td> &nbsp; " << b[1].as(string()) << " &nbsp; </td></tr>";
+    }
+  form << "</table>";
+  
+  form << "<p>" << text << "</p>";
 }
 
 

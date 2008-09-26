@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: check_answer.cpp,v 1.1 2008/05/07 15:27:34 cepek Exp $ 
+ * $Id: check_answer.cpp,v 1.2 2008/09/26 19:40:38 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -76,7 +76,8 @@ void SQLtutor::check_answer(pqxx::work& tran)
   sql_result_columns = sql_result.columns();
   
   result tmp1(tran.exec("SELECT answer FROM answers"
-                        " WHERE question_id = '" + question_id + "'" ));
+                        " WHERE tutorial_id = '" + tutorial_id + "'"
+                        "   AND question_id = '" + question_id + "'" ));
   string answer = tmp1.begin()[0].as(string());
 
   result answer_result(tran.exec(answer));

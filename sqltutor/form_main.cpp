@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_main.cpp,v 1.3 2008/09/14 11:09:21 cepek Exp $ 
+ * $Id: form_main.cpp,v 1.4 2008/09/26 19:40:39 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -33,6 +33,7 @@ void SQLtutor::form_main()
   const string state = CGI::map["state"];
   bool   help        = CGI::map["help"] == "true";
   
+  tutorial_id = CGI::map["tutorial_id"];
   question_id = CGI::map["question_id"];
   sql_checked = CGI::map["sql_checked"];
   session_id  = CGI::map["session_id"];
@@ -103,8 +104,9 @@ void SQLtutor::form_main()
       form << Input().type("submit").name("state").value(main_stop);
       form << "</p>";
 
-      display_question(form, tran, question_id);
+      display_question(form, tran, tutorial_id, question_id);
 
+      form << Input().type("hidden").name("tutorial_id").value( tutorial_id );
       form << Input().type("hidden").name("question_id").value( question_id );
       form << Input().type("submit").name("state").value(main_next);
       
@@ -132,7 +134,8 @@ void SQLtutor::form_main()
       if (state == main_help)
         {
           result tmp(tran.exec("SELECT answer FROM answers"
-                               " WHERE question_id = '" + question_id + "'"));
+                               " WHERE tutorial_id = '" + tutorial_id + "'"
+                               "   AND question_id = '" + question_id + "'"));
           
           for (result::const_iterator a=tmp.begin(), e=tmp.end(); a!=e; a++)
             {

@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.h,v 1.6 2008/09/24 17:13:47 cepek Exp $ 
+ * $Id: sqltutor.h,v 1.7 2008/09/26 19:40:39 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor
@@ -40,7 +40,8 @@ public:
   display_answers(Form&,  pqxx::work& tran, std::string session_id);
 
   template<typename Form> static void 
-  display_question(Form&,  pqxx::work& tran, std::string question_id);
+  display_question(Form&,  pqxx::work& tran, 
+                   std::string tutorial_id, std::string question_id);
 
 private:
 
@@ -112,6 +113,7 @@ private:
   bool          first_permutation;
   std::string   sql;
   std::string   sql_checked;
+  std::string   tutorial_id;
   std::string   question_id;
   std::string   answered;
   std::string   session_id;

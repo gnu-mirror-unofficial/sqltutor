@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: show_table_data.cpp,v 1.1 2008/05/07 15:27:35 cepek Exp $ 
+ * $Id: show_table_data.cpp,v 1.2 2008/09/26 19:40:39 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -35,6 +35,7 @@ try
                           "       JOIN "
                           "       datasets  D "
                           "       ON Q.dataset = D.dataset "
+                          "          AND tutorial_id = " + tutorial_id +
                           "          AND id='" + question_id + "' "
                           " ORDER BY ord; "));
   

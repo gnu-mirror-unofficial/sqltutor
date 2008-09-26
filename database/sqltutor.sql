@@ -70,7 +70,7 @@ CREATE TABLE sqltutor.questions_categories (
    tutorial_id  integer,
    question_id  integer,
    category_id  integer NOT NULL,
-   PRIMARY KEY (question_id, category_id),
+   PRIMARY KEY (tutorial_id, question_id, category_id),
    FOREIGN KEY (tutorial_id, question_id)
                REFERENCES
                sqltutor.questions(tutorial_id, id)

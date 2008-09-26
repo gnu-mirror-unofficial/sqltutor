@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_stop.cpp,v 1.5 2008/09/14 11:09:21 cepek Exp $ 
+ * $Id: form_stop.cpp,v 1.6 2008/09/26 19:40:39 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -58,27 +58,30 @@ void SQLtutor::form_stop()
       string query    = "select ";
 
       query += 
-        "(select count(id) "
-        "  from questions "
-        " where id in (select question_id "
-        "                from sessions_answers "
-        "               where session_id = " + session_id + ")), ";
+        "(SELECT count(id) "
+        "  FROM questions "
+        " WHERE tutorial_id = '" + tutorial_id + "'"
+        "   AND id IN (SELECT question_id "
+        "                FROM sessions_answers "
+        "               WHERE session_id = " + session_id + ")), ";
       
       query += 
-        "(select count(id) "
-        "  from questions "
-        " where id in (select question_id "
-        "                from sessions_answers "
-        "               where session_id = " + session_id + " "
-        "                     and correct)), ";
+        "(SELECT count(id) "
+        "  FROM questions "
+        " WHERE tutorial_id = '" + tutorial_id + "'"
+        "   AND id IN (SELECT question_id "
+        "                FROM sessions_answers "
+        "               WHERE session_id = " + session_id + " "
+        "                     AND correct)), ";
  
       query +=   
-        "(select coalesce(sum(points), '0') "
-        "  from questions "
-        " where id in (select question_id "
-        "                from sessions_answers "
-        "               where session_id = " + session_id + " "
-        "                     and correct)), ";
+        "(SELECT coalesce(sum(points), '0') "
+        "  FROM questions "
+        " WHERE tutorial_id = '" + tutorial_id + "'"
+        "   AND id IN (SELECT question_id "
+        "                FROM sessions_answers "
+        "               WHERE session_id = " + session_id + " "
+        "                     AND correct)), ";
  
       query +=
         " points_min, points_max, dataset, help "
@@ -157,7 +160,7 @@ void SQLtutor::form_stop()
       form << "<br/>";
 
       display_answers(form, tran, session_id);
-
+  
       {
         string close = 
           "UPDATE sessions SET status='closed' "

@@ -5,16 +5,15 @@
 
 CREATE OR REPLACE FUNCTION sqltutor.next_question
 (
-   IN session_id_ integer, 
-   IN hash_       char(32)
+   IN  session_id_      integer, 
+   IN  hash_            char(32),
+   OUT next_tutorial_id integer,
+   OUT next_question_id integer
 )
-RETURNS integer
 AS $$
 DECLARE
-   next_question_ integer;
    s_dataset_     varchar(20);
    s_status_      varchar(6);
-   s_tutorial_id_ integer;
    s_points_min_  integer;
    s_points_max_  integer;
    s_help_        boolean;
@@ -22,7 +21,7 @@ DECLARE
    a_count_       integer;
 BEGIN
    SELECT tutorial_id, points_min, points_max, dataset, status 
-     INTO s_tutorial_id_, s_points_min_, s_points_max_, s_dataset_, s_status_
+     INTO next_tutorial_id, s_points_min_, s_points_max_, s_dataset_, s_status_
      FROM sqltutor.sessions
     WHERE session_id=session_id_ 
       AND hash_ = md5(time);
@@ -38,19 +37,19 @@ BEGIN
         FROM sqltutor.questions AS q
              JOIN
              sqltutor.sessions_answers AS s
-             ON (q.id = s.question_id)
+             ON (q.tutorial_id = s.tutorial_id AND q.id = s.question_id)
        WHERE session_id = session_id_;
 
       IF max_points_ < 5 THEN
 
          SELECT count(*) INTO a_count_
-           FROM sqltutor.questions
+           FROM sqltutor.questions AS q
                 JOIN
-                sqltutor.sessions_answers
-                ON (id = question_id)
-          WHERE session_id = session_id_
-            AND correct
-            AND points = max_points_;
+                sqltutor.sessions_answers AS s
+                ON (q.tutorial_id = s.tutorial_id AND q.id = s.question_id)
+          WHERE s.session_id = session_id_
+            AND s.correct
+            AND q.points = max_points_;
          
          IF a_count_ >= max_points_ THEN
             max_points_ := max_points_ + 1;
@@ -59,10 +58,11 @@ BEGIN
          IF max_points_ < 5 THEN
             s_points_min_ := max_points_;  
             
-            SELECT id INTO next_question_
+            SELECT id INTO next_question_id
               FROM (SELECT id, points, random() AS rand
                       FROM sqltutor.questions
-                     WHERE (s_points_min_ <= points) AND
+                     WHERE (tutorial_id = next_tutorial_id) AND
+                           (s_points_min_ <= points) AND
                            (s_status_ = 'open') AND
                            (id NOT IN (SELECT question_id 
                                            FROM sqltutor.sessions_answers
@@ -70,7 +70,7 @@ BEGIN
                      ORDER BY points ASC, rand
                      LIMIT 1) next;
             
-            RETURN next_question_;
+            RETURN;
          END IF;
       END IF;
 
@@ -82,10 +82,11 @@ BEGIN
 
    /* algorithm 1 */
 
-   SELECT id INTO next_question_
+   SELECT id INTO next_question_id
      FROM (SELECT q.id, random() AS rand
              FROM sqltutor.questions AS q
-            WHERE (s_dataset_ IS NULL OR s_dataset_ = q.dataset) AND
+            WHERE (next_tutorial_id = tutorial_id) AND 
+                  (s_dataset_ IS NULL OR s_dataset_ = q.dataset) AND
                   (s_points_min_ IS NULL OR s_points_min_ <= q.points) AND
                   (s_points_max_ IS NULL OR s_points_max_ >= q.points) AND
                   (s_status_ = 'open') AND
@@ -95,37 +96,6 @@ BEGIN
             ORDER BY rand
             LIMIT 1) next;
 
-   RETURN next_question_;
+   RETURN ;
 END;
 $$ LANGUAGE plpgsql;
-
-
-
-/* version 1
-
-DROP   FUNCTION next_question(integer, char(32));
-
-CREATE FUNCTION next_question(integer, char(32))  -- session_id, hash
-RETURNS integer
-AS $$
-SELECT id
-  FROM (SELECT q.id, random() AS rand
-          FROM sqltutor.questions as q
-               JOIN
-               (SELECT * 
-                  FROM sessions 
-                 WHERE session_id=$1 
-                   AND $2 = md5(time)
-               ) AS s
-               ON (q.id NOT IN (SELECT question_id 
-                                  FROM sessions_answers
-                                 WHERE session_id=$1)) AND
-                  (s.dataset IS NULL OR q.dataset=s.dataset) AND
-                  (s.points_min IS NULL OR s.points_min <= q.points) AND
-                  (s.points_max IS NULL OR s.points_max >= q.points) AND
-                  (s.status = 'open')
-         ORDER BY rand
-         LIMIT 1) next;
-$$ LANGUAGE SQL;
-
-*/
