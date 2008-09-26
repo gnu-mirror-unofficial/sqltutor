@@ -12,6 +12,8 @@ SQL = \
 " GRANT SELECT ON TABLE toky      TO PUBLIC; " \
 " REVOKE ALL   ON TABLE stanice   FROM PUBLIC; " \
 " GRANT SELECT ON TABLE stanice   TO PUBLIC; " \
+" REVOKE ALL   ON TABLE vodocty   FROM PUBLIC; " \
+" GRANT SELECT ON TABLE vodocty   TO PUBLIC; " \
 " REVOKE ALL   ON TABLE limity_cm FROM PUBLIC; " \
 " GRANT SELECT ON TABLE limity_cm TO PUBLIC; " \
 " REVOKE ALL   ON TABLE cleneni   FROM PUBLIC; " \
