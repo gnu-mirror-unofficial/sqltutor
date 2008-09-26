@@ -1,4 +1,4 @@
-/* source: http://sqlzoo.net/ with permition by Andrew Cumming
+/* source: http://sqlzoo.net/ with permission by Andrew Cumming
    diff -u bbc.sql bbc-sqlzoo.sql
 
 --- bbc.sql     2008-09-26 14:12:03.000000000 +0200

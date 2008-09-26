@@ -1,0 +1,38 @@
+###  source http://sqlzoo.net/ with permission by Andrew Cumming
+###
+###  bbc ( stat, region, populace, hdp )
+
+###  Using the SELECT statement.
+
+-- id="666101" dataset="bbc" category="select" points="1"
+-- 
+-- Show the name for the four countries that have a population of at
+-- least 200 million. (200 million is 200000000, there are eight zeros).
+
+SELECT name FROM bbc WHERE population>200000000
+
+
+-- id="666102" dataset="bbc" category="select" points="1"
+-- 
+-- Give the name and the per capita GDP for those countries with a
+-- population of at least 200 million.
+
+SELECT name, gdp/population FROM bbc
+  WHERE population>200000000
+
+
+-- id="666103" dataset="bbc" category="select" points="1"
+--
+-- Show the name and population for 'France', 'Germany', 'Italy'
+
+SELECT name, population FROM bbc
+  WHERE name IN ('France','Germany','Italy')
+
+
+-- id="666104" dataset="bbc" category="select" points="1"
+--
+-- Identify the countries which have names including the word 'United'
+
+SELECT name FROM bbc
+  WHERE name LIKE '%United%'
+
