@@ -19,7 +19,7 @@ VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
-top_builddir = ..
+top_builddir = ../..
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 INSTALL = @INSTALL@
 install_sh_DATA = $(install_sh) -c -m 644
@@ -33,14 +33,14 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-subdir = sql
+subdir = sqltutor/sql
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
-CONFIG_HEADER = $(top_builddir)/config.h
+CONFIG_HEADER = $(top_builddir)/sqltutor/config.h
 CONFIG_CLEAN_FILES =
 SOURCES =
 DIST_SOURCES =
@@ -94,6 +94,8 @@ PKG_CONFIG = @PKG_CONFIG@
 RANLIB = @RANLIB@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+SQLTUTOR_DATABASE = @SQLTUTOR_DATABASE@
+SQLTUTOR_WWW_USER = @SQLTUTOR_WWW_USER@
 STRIP = @STRIP@
 VERSION = @VERSION@
 ac_ct_CC = @ac_ct_CC@
@@ -154,9 +156,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  sql/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  sqltutor/sql/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  sql/Makefile
+	  $(AUTOMAKE) --gnu  sqltutor/sql/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \

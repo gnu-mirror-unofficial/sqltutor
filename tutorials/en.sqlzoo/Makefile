@@ -7,10 +7,10 @@ all: .tmp.$(TUTORIAL)
 
 .tmp.$(TUTORIAL) : Makefile 
 	@echo --------- $(TUTORIAL)
-	@sed s/zzzzzz/$(TUTORIAL)/g ../delete.sed | psql $(SQLTUTORDB)
-	@echo  $(INSERT) | psql $(SQLTUTORDB)
-	@echo  $(SELECT) | psql $(SQLTUTORDB) -t | ../.quiz/quiz *.quiz | \
-			psql $(SQLTUTORDB)
+	@sed s/zzzzzz/$(TUTORIAL)/g ../delete.sed | psql $(SQLTUTOR_DATABASE)
+	@echo  $(INSERT) | psql $(SQLTUTOR_DATABASE)
+	@echo  $(SELECT) | psql $(SQLTUTOR_DATABASE) -t | ../.quiz/quiz *.quiz | \
+			psql $(SQLTUTOR_DATABASE)
 	@touch $@
 
 
