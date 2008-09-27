@@ -1,8 +1,0 @@
-SQL files from this directory are processed and stored in the database
-but not used by SQLtutor.  All tables created must have explicitly
-revoked granted access rights
-
-    REVOKE ALL ON TABLE xyz FROM PUBLIC;
-    GRANT SELECT ON TABLE xyz TO $(DBUSER);
-
-
