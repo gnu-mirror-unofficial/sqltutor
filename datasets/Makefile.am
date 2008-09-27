@@ -18,7 +18,9 @@ EXTRA_DIST = cs.filmy/filmy.sql \
              cs.vodocty/Makefile \
              cs.vodocty/vodocty.sql \
              en.bbc/bbc.sql \
-             en.bbc/Makefile
+             en.bbc/Makefile \
+             en.nobel/nobel.sql \
+             en.nobel/Makefile
 
 export SQLTUTOR_DATABASE=@SQLTUTOR_DATABASE@
 export SQLTUTOR_WWW_USER=@SQLTUTOR_WWW_USER@
