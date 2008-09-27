@@ -48,8 +48,6 @@ AC_CHECK_FUNCS([memmove memset munmap pow sqrt])
 
 AC_OUTPUT([Makefile 
            sqltutor/Makefile
-           sqltutor/quiz/Makefile 
-           sqltutor/sql/Makefile
            database/Makefile
            tutorials/.quiz/Makefile
            tutorials/Makefile

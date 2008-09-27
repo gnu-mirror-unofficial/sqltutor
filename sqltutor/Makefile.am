@@ -14,7 +14,3 @@ sqltutor_SOURCES = sqltutor.cpp sqltutor.h main.cpp	\
                    show_table_data.cpp			\
 		   show_datasets.cpp			\
                    submit_sql.cpp
-
-EXTRA_DIST = autogen.sh
-
-SUBDIRS = quiz sql

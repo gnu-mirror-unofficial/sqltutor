@@ -23,7 +23,9 @@ EXTRA_DIST = delete.sed \
              cs.sqltutor/unesco.quiz \
              cs.sqltutor/vodocty.quiz \
              en.sqlzoo/Makefile \
-             en.sqlzoo/bbc.quiz
+             en.sqlzoo/bbc.quiz \
+             en.sqlzoo/nobel.quiz 
+
 SUBDIRS    = .quiz
 
 export SQLTUTOR_DATABASE=@SQLTUTOR_DATABASE@
