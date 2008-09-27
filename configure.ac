@@ -50,6 +50,8 @@ AC_OUTPUT([Makefile
            sqltutor/Makefile
            sqltutor/quiz/Makefile 
            sqltutor/sql/Makefile
-           tutorials/Makefile
+           database/Makefile
            tutorials/.quiz/Makefile
+           tutorials/Makefile
+           datasets/Makefile
           ])

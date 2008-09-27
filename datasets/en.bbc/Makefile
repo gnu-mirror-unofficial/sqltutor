@@ -10,6 +10,6 @@ SQL = \
 
 all : .tmp.en.bbc
 .tmp.en.bbc : Makefile *.sql
-	@psql  $(SQLTUTORDB) < bbc.sql
-	@echo  $(SQL) | psql $(SQLTUTORDB) 
+	@psql  $(SQLTUTOR_DATABASE) < bbc.sql
+	@echo  $(SQL) | psql $(SQLTUTOR_DATABASE) 
 	@touch $@

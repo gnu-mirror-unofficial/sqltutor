@@ -8,6 +8,6 @@ SQL = \
 
 all : .tmp.cs.premyslovci
 .tmp.cs.premyslovci : Makefile *.sql
-	@psql  $(SQLTUTORDB) < premyslovci.sql
-	@echo  $(SQL) | psql $(SQLTUTORDB) 
+	@psql  $(SQLTUTOR_DATABASE) < premyslovci.sql
+	@echo  $(SQL) | psql $(SQLTUTOR_DATABASE) 
 	@touch $@

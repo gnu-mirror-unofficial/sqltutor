@@ -16,6 +16,6 @@ SQL = \
 
 all : .tmp.cs.pracoviste
 .tmp.cs.pracoviste : Makefile *.sql
-	@psql  $(SQLTUTORDB) < pracoviste.sql
-	@echo  $(SQL) | psql $(SQLTUTORDB) 
+	@psql  $(SQLTUTOR_DATABASE) < pracoviste.sql
+	@echo  $(SQL) | psql $(SQLTUTOR_DATABASE) 
 	@touch $@

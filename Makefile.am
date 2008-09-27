@@ -1,2 +1,2 @@
 EXTRA_DIST = autogen.sh 
-SUBDIRS    = sqltutor tutorials
+SUBDIRS    = sqltutor database tutorials datasets

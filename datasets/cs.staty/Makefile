@@ -10,6 +10,6 @@ SQL = \
 
 all : .tmp.cs.staty
 .tmp.cs.staty : Makefile *.sql
-	@psql  $(SQLTUTORDB) < staty.sql
-	@echo  $(SQL) | psql $(SQLTUTORDB) 
+	@psql  $(SQLTUTOR_DATABASE) < staty.sql
+	@echo  $(SQL) | psql $(SQLTUTOR_DATABASE) 
 	@touch $@

@@ -9,7 +9,7 @@ SQL = \
 
 all : .tmp.cs.unesco
 .tmp.cs.unesco : Makefile *.sql
-	@psql  $(SQLTUTORDB) < unesco_wh.sql
-	@psql  $(SQLTUTORDB) < unesco.sql
-	@echo  $(SQL) | psql $(SQLTUTORDB) 
+	@psql  $(SQLTUTOR_DATABASE) < unesco_wh.sql
+	@psql  $(SQLTUTOR_DATABASE) < unesco.sql
+	@echo  $(SQL) | psql $(SQLTUTOR_DATABASE) 
 	@touch $@

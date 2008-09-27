@@ -33,7 +33,6 @@ export DIRS=$(shell rm -f .tmp.* && ls -l | grep -v CVS | awk '/^d/{print ".tmp.
 all:
 
 install: .quiz/quiz $(DIRS)
-
 .tmp.% : export TUTORIAL=$*
 .tmp.% :
 	@$(MAKE) -C $(TUTORIAL)

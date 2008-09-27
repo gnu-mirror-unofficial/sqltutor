@@ -12,6 +12,6 @@ SQL = \
 
 all : .tmp.cs.tramvaje
 .tmp.cs.tramvaje : Makefile *.sql
-	@psql  $(SQLTUTORDB) < tramvaje.sql
-	@echo  $(SQL) | psql $(SQLTUTORDB) 
+	@psql  $(SQLTUTOR_DATABASE) < tramvaje.sql
+	@echo  $(SQL) | psql $(SQLTUTOR_DATABASE) 
 	@touch $@

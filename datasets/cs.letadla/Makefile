@@ -16,8 +16,8 @@ SQL = \
 
 all : .tmp.cs.letadla
 .tmp.cs.letadla : Makefile *.sql
-	@psql  $(SQLTUTORDB) < ciselnik_letadel.sql
-	@psql  $(SQLTUTORDB) < dopravni_letadla.sql
-	@psql  $(SQLTUTORDB) < letecke_spolecnosti.sql
-	@echo  $(SQL) | psql $(SQLTUTORDB) 
+	@psql  $(SQLTUTOR_DATABASE) < ciselnik_letadel.sql
+	@psql  $(SQLTUTOR_DATABASE) < dopravni_letadla.sql
+	@psql  $(SQLTUTOR_DATABASE) < letecke_spolecnosti.sql
+	@echo  $(SQL) | psql $(SQLTUTOR_DATABASE) 
 	@touch $@

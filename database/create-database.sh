@@ -1,25 +1,25 @@
-# 1. create databaze SQLTUTORDB
+# 1. create databaze SQLTUTOR_DATABASE
 #    create schema sqltutor
-#    create user WEBSQLTUTOR
+#    create user SQLTUTOR_WWW_USER
 #    create language plpgsql
 # 
-#         createdb SQLTUTORDB
+#         createdb SQLTUTOR_DATABASE
 #         su -
 #         su - postgres
-#         createuser WEBSQLTUTOR
+#         createuser SQLTUTOR_WWW_USER
 #         psql
-#         ALTER USER WEBSQLTUTOR WITH PASSWORD 'xxx';
-#         psql SQLTUTORDB
+#         ALTER USER SQLTUTOR_WWW_USER WITH PASSWORD 'xxx';
+#         psql SQLTUTOR_DATABASE
 #         CREATE LANGUAGE plpgsql;
 # 
-# 2. set bash variables SQLTUTORDB and WEBSQLTUTOR if necessary
+# 2. set bash variables SQLTUTOR_DATABASE and SQLTUTOR_WWW_USER if necessary
 # 
 # 3. run ./create-database.sh 
 
 
-if [ "XX$SQLTUTORDB" = "XX" -o "XX$WEBSQLTUTOR" = "XX" ]; then
+if [ "XX$SQLTUTOR_DATABASE" = "XX" -o "XX$SQLTUTOR_WWW_USER" = "XX" ]; then
 
-echo ERROR: variables \$SQLTUTORDB and \$WEBSQLTUTOR must be both defined
+echo ERROR: variables \$SQLTUTOR_DATABASE and \$SQLTUTOR_WWW_USER must be both defined
 exit 1
 
 fi 
@@ -28,15 +28,15 @@ fi
 echo -e "\ncreating schema"
 echo       =============== 
 
-psql $SQLTUTORDB  -c "DROP SCHEMA sqltutor CASCADE;"
-psql $SQLTUTORDB  -c "CREATE SCHEMA sqltutor;"
-psql $SQLTUTORDB  -c "GRANT USAGE ON SCHEMA sqltutor TO $WEBSQLTUTOR;"
+psql $SQLTUTOR_DATABASE  -c "DROP SCHEMA sqltutor CASCADE;"
+psql $SQLTUTOR_DATABASE  -c "CREATE SCHEMA sqltutor;"
+psql $SQLTUTOR_DATABASE  -c "GRANT USAGE ON SCHEMA sqltutor TO $SQLTUTOR_WWW_USER;"
 
  
 echo -e "\ncreating tables"
 echo       =============== 
 
-psql $SQLTUTORDB < sqltutor.sql
+psql $SQLTUTOR_DATABASE < sqltutor.sql
 
 
 echo -e "\ngranting privileges"
@@ -46,42 +46,42 @@ for t in answers questions questions_categories categories \
          datasets dataset_sources
 do
    echo REVOKE ALL   ON TABLE sqltutor.$t FROM PUBLIC ";" \
-        GRANT SELECT ON TABLE sqltutor.$t TO $WEBSQLTUTOR ";" | psql $SQLTUTORDB
+        GRANT SELECT ON TABLE sqltutor.$t TO $SQLTUTOR_WWW_USER ";" | psql $SQLTUTOR_DATABASE
 done
 
 for t in tutorials questions datasets dataset_sources
 do
-   echo GRANT SELECT ON TABLE sqltutor.$t TO PUBLIC ";" | psql $SQLTUTORDB
+   echo GRANT SELECT ON TABLE sqltutor.$t TO PUBLIC ";" | psql $SQLTUTOR_DATABASE
 done 
 
 for t in sessions sessions_answers
 do 
    echo REVOKE ALL ON TABLE   sqltutor.$t FROM PUBLIC ";" \
-        GRANT INSERT ON TABLE sqltutor.$t TO $WEBSQLTUTOR ";" \
-        GRANT UPDATE ON TABLE sqltutor.$t TO $WEBSQLTUTOR ";" \
-        GRANT SELECT ON TABLE sqltutor.$t TO $WEBSQLTUTOR ";" | psql $SQLTUTORDB
+        GRANT INSERT ON TABLE sqltutor.$t TO $SQLTUTOR_WWW_USER ";" \
+        GRANT UPDATE ON TABLE sqltutor.$t TO $SQLTUTOR_WWW_USER ";" \
+        GRANT SELECT ON TABLE sqltutor.$t TO $SQLTUTOR_WWW_USER ";" | psql $SQLTUTOR_DATABASE
 done
 
 for t in sessions_session_id_seq; \
 do 
    echo REVOKE ALL ON TABLE   sqltutor.$t FROM PUBLIC ";" \
-        GRANT UPDATE ON TABLE sqltutor.$t TO $WEBSQLTUTOR ";" \
-        GRANT SELECT ON TABLE sqltutor.$t TO $WEBSQLTUTOR ";" | psql $SQLTUTORDB
+        GRANT UPDATE ON TABLE sqltutor.$t TO $SQLTUTOR_WWW_USER ";" \
+        GRANT SELECT ON TABLE sqltutor.$t TO $SQLTUTOR_WWW_USER ";" | psql $SQLTUTOR_DATABASE
 done
 
 for t in sessions sessions_answers; 
 do 
    echo REVOKE ALL ON TABLE   sqltutor.$t FROM PUBLIC ";" \
-        GRANT INSERT ON TABLE sqltutor.$t TO $WEBSQLTUTOR ";" \
-        GRANT UPDATE ON TABLE sqltutor.$t TO $WEBSQLTUTOR ";" \
-        GRANT SELECT ON TABLE sqltutor.$t TO $WEBSQLTUTOR ";" | psql $SQLTUTORDB;
+        GRANT INSERT ON TABLE sqltutor.$t TO $SQLTUTOR_WWW_USER ";" \
+        GRANT UPDATE ON TABLE sqltutor.$t TO $SQLTUTOR_WWW_USER ";" \
+        GRANT SELECT ON TABLE sqltutor.$t TO $SQLTUTOR_WWW_USER ";" | psql $SQLTUTOR_DATABASE;
 done
 
 for t in sessions_session_id_seq; 
 do 
    echo REVOKE ALL ON TABLE   sqltutor.$t FROM PUBLIC ";" \
-        GRANT UPDATE ON TABLE sqltutor.$t TO $WEBSQLTUTOR ";" \
-        GRANT SELECT ON TABLE sqltutor.$t TO $WEBSQLTUTOR ";" | psql $SQLTUTORDB; 
+        GRANT UPDATE ON TABLE sqltutor.$t TO $SQLTUTOR_WWW_USER ";" \
+        GRANT SELECT ON TABLE sqltutor.$t TO $SQLTUTOR_WWW_USER ";" | psql $SQLTUTOR_DATABASE; 
 done
 
 
@@ -90,12 +90,12 @@ echo       ==================
 
 for func in $(ls *.sql | grep -v sqltutor.sql)
 do
-  echo -e "\n   " psql $SQLTUTORDB "<" $func "\n"
-  psql $SQLTUTORDB < $func 
+  echo -e "\n   " psql $SQLTUTOR_DATABASE "<" $func "\n"
+  psql $SQLTUTOR_DATABASE < $func 
 done
  
 echo -e "\ngranting privileges to FUNCTION sqltutor.next_question(integer, char(32))"
 echo -e "REVOKE ALL ON FUNCTION sqltutor.next_question(integer, char(32)) FROM PUBLIC;\n" \
-        "GRANT EXECUTE ON FUNCTION sqltutor.next_question(integer, char(32)) TO $WEBSQLTUTOR;" \
-        | psql $SQLTUTORDB
+        "GRANT EXECUTE ON FUNCTION sqltutor.next_question(integer, char(32)) TO $SQLTUTOR_WWW_USER;" \
+        | psql $SQLTUTOR_DATABASE
  

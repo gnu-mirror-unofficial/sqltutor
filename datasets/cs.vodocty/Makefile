@@ -22,6 +22,6 @@ SQL = \
 
 all : .tmp.cs.vodocty
 .tmp.cs.vodocty : Makefile *.sql
-	@psql  $(SQLTUTORDB) < vodocty.sql
-	@echo  $(SQL) | psql $(SQLTUTORDB) 
+	@psql  $(SQLTUTOR_DATABASE) < vodocty.sql
+	@echo  $(SQL) | psql $(SQLTUTOR_DATABASE) 
 	@touch $@

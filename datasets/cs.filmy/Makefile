@@ -19,6 +19,6 @@ SQL = \
 
 all : .tmp.cs.filmy
 .tmp.cs.filmy : Makefile *.sql
-	@psql  $(SQLTUTORDB) < filmy.sql
-	@echo  $(SQL) | psql $(SQLTUTORDB) 
+	@psql  $(SQLTUTOR_DATABASE) < filmy.sql
+	@echo  $(SQL) | psql $(SQLTUTOR_DATABASE) 
 	@touch $@
