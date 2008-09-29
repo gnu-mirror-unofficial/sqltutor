@@ -36,3 +36,101 @@ SELECT name, population FROM bbc
 SELECT name FROM bbc
   WHERE name LIKE '%United%'
 
+
+
+###  Using nested SELECT.
+
+-- id="105" dataset="bbc" category="subselect" points="3"
+--
+-- List each country name where the population is larger than
+-- 'Russia'.
+
+SELECT name FROM bbc
+  WHERE population>
+     (SELECT population FROM bbc
+      WHERE name='Russia')
+
+
+-- id="106" dataset="bbc" category="subselect" points="3"
+--
+-- List the name and region of countries in the regions containing
+-- 'India', 'Iran'.
+
+SELECT name,region FROM bbc
+  WHERE region IN
+    (SELECT region FROM bbc
+     WHERE name IN ('India','Iran'))
+
+
+-- id="107" dataset="bbc" category="subselect" points="3"
+--
+-- Show the countries in Europe with a per capita GDP greater than
+-- 'United Kingdom'.
+
+SELECT name FROM bbc
+  WHERE region='Europe' AND gdp/population>
+     (SELECT gdp/population FROM bbc
+      WHERE name='United Kingdom')
+
+
+-- id="108" dataset="bbc" category="subselect" points="4"
+--
+-- Which country has a population that is more than Canada but less
+-- than Algeria?
+
+SELECT name FROM bbc WHERE
+ population >
+ (SELECT population FROM bbc WHERE name='Canada') 
+    AND
+  population <
+ (SELECT population FROM bbc WHERE name='Algeria')
+
+
+-- id="109" dataset="bbc" category="subselect" points="4"
+--
+-- Which countries have a GDP greater than any country in Europe? 
+-- [Give the name only.]
+
+SELECT name FROM bbc x
+  WHERE population >= ALL
+    (SELECT population FROM bbc y
+        WHERE y.region=x.region
+          AND population>0)
+
+
+-- id="110" dataset="bbc" category="subselect" points="4"
+--
+-- Find the largest country in each region.
+
+SELECT region, name, population FROM bbc x
+  WHERE population >= ALL
+    (SELECT population FROM bbc y
+        WHERE y.region=x.region
+          AND population>0)
+
+
+-- id="111" dataset="bbc" category="subselect" points="5"
+--
+-- Find each country that belongs to a region where all populations
+-- are less than 25000000. Show name, region and population.
+
+SELECT name,region,population FROM bbc x
+  WHERE 25000000 >= ALL (
+    SELECT population FROM bbc y
+     WHERE x.region=y.region
+       AND y.population>0)
+
+
+-- id="112" dataset="bbc" category="subselect" points="5"
+--
+-- Some countries have populations more than three times that of any
+-- of their neighbours (in the same region). Give the countries and
+-- regions.
+
+SELECT name, region FROM bbc x WHERE
+ population > ALL
+ (SELECT population*3 FROM bbc y
+ WHERE y.region = x.region
+ AND y.name <> x.name)
+
+

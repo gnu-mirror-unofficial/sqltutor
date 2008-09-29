@@ -4,7 +4,7 @@
 
 ###  More practice with SELECT:
 
--- id="151" dataset="nobel" category="select" points="1"
+-- id="121" dataset="nobel" category="select" points="1"
 -- 
 -- Show Nobel prizes for 1950.
 
@@ -13,7 +13,7 @@ SELECT yr, subject, winner
  WHERE yr = 1950
 
 
--- id="152" dataset="nobel" category="select" points="1"
+-- id="122" dataset="nobel" category="select" points="1"
 -- 
 -- Show who won the 1962 prize for Literature.
 
@@ -23,7 +23,7 @@ SELECT winner
    AND subject = 'Literature'
 
 
--- id="153" dataset="nobel" category="select" points="1"
+-- id="123" dataset="nobel" category="select" points="1"
 -- 
 -- Show the year and subject that won 'Albert Einstein' his prize.
 
@@ -32,7 +32,7 @@ SELECT yr, subject
  WHERE winner='Albert Einstein'
 
 
--- id="154" dataset="nobel" category="select" points="1"
+-- id="124" dataset="nobel" category="select" points="1"
 -- 
 -- Give the name of the 'Peace' winners since the year 2000, including 2000.
 
@@ -42,7 +42,7 @@ SELECT winner
    AND yr >= 2000
 
 
--- id="155" dataset="nobel" category="select" points="2"
+-- id="125" dataset="nobel" category="select" points="2"
 -- 
 -- Show all details (yr, subject, winner) of the Literature prize
 -- winners for 1980 to 1989 inclusive.
@@ -53,7 +53,7 @@ SELECT yr, subject, winner
    AND yr BETWEEN 1980 AND 1989
 
 
--- id="156" dataset="nobel" category="select" points="2"
+-- id="126" dataset="nobel" category="select" points="2"
 -- 
 -- Show all details of the presidential winners: 
 -- ('Theodore Roosevelt', 'Woodrow Wilson', 'Jed Bartlet', 'Jimmy Carter')
@@ -62,7 +62,7 @@ SELECT * FROM nobel
  WHERE winner IN ('Theodore Roosevelt', 'Woodrow Wilson', 
                   'Jed Bartlet', 'Jimmy Carter')
 
--- id="157" dataset="nobel" category="select" points="2"
+-- id="127" dataset="nobel" category="select" points="2"
 -- 
 -- Show the winners with first name John
 
