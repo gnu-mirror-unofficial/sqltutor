@@ -134,3 +134,76 @@ SELECT name, region FROM bbc x WHERE
  AND y.name <> x.name)
 
 
+
+# Using SUM, COUNT, MAX, AVG, DISTINCT and ORDER BY.
+
+-- id="113" dataset="bbc" category="aggregate" points="1"
+--
+-- Show the total population of the world.
+
+SELECT SUM(population) FROM bbc
+
+-- id="114" dataset="bbc" category="aggregate" points="1"
+--
+-- List all the regions - just once each.
+
+SELECT DISTINCT region 
+  FROM bbc
+  
+SELECT region 
+  FROM bbc
+ GROUP BY region
+
+
+-- id="115" dataset="bbc" category="aggregate" points="2"
+--
+-- Give the total GDP of Africa
+
+SELECT sum(gdp)
+  FROM bbc
+ WHERE region = 'Africa'
+
+
+-- id="116" dataset="bbc" category="aggregate" points="2"
+--
+-- How many countries have an area of at least 1000000
+
+SELECT COUNT(name) FROM bbc
+  WHERE area>=1000000
+
+
+-- id="117" dataset="bbc" category="aggregate" points="2"
+--
+-- What is the total population of ('France','Germany','Spain')
+
+SELECT SUM(population) FROM bbc
+  WHERE name IN ('France','Germany','Spain')
+
+
+-- id="118" dataset="bbc" category="aggregate" points="2"
+--
+-- For each region show the region and number of countries.
+
+SELECT region, COUNT(name) 
+  FROM bbc 
+ GROUP BY region
+
+
+-- id="119" dataset="bbc" category="aggregate" points="3"
+--
+-- For each region show the region and number of countries with
+-- populations of at least 10 million.
+
+SELECT region, COUNT(name) FROM bbc
+  WHERE population>=10000000
+  GROUP BY region
+
+
+-- id="120" dataset="bbc" category="aggregate" points="3"
+--
+-- List the regions with total populations of at least 100 million.
+
+SELECT region FROM bbc
+ GROUP BY region
+HAVING sum(population)>100000000
+
