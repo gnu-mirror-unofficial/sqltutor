@@ -39,7 +39,7 @@ FROM   linky JOIN zastavky ON zastavka_id=id
 WHERE  zastavka='Palmovka';
 
 
--- id="305" dataset="tramvaje" category="groupby" points="6"
+-- id="305" dataset="tramvaje" category="aggregate" points="6"
 -- 
 -- Kterými zastávkami projíždí více než 6 linek. Vypište jména
 -- zastávek a počet linek, které jimi projíždí. Seřaďte podle počtu
@@ -134,7 +134,7 @@ SELECT DISTINCT zastavka
                                          WHERE zastavka='Thákurova'));
 
 
--- id="309" dataset="tramvaje" category="groupby" points="4"
+-- id="309" dataset="tramvaje" category="aggregate" points="4"
 --
 -- Na kterých tramvajových linkách je čtyřicet a více zastávek?
 
@@ -144,7 +144,7 @@ SELECT linka, COUNT(zastavka_id) AS zastávky
 HAVING COUNT(zastavka_id) >= 40;
 
 
--- id="310" dataset="tramvaje" category="groupby" points="4"
+-- id="310" dataset="tramvaje" category="aggregate" points="4"
 --
 -- Jaký je nejvyšší počet linek projíždějících jednou zastávkou?
 

@@ -81,7 +81,7 @@ WHERE   castka < ( SELECT AVG(castka) FROM mzdy );
 
 
 
--- id="108" dataset="pracoviste" category="groupby" points="5"
+-- id="108" dataset="pracoviste" category="aggregate" points="5"
 -- 
 -- Vypište, kolik zaměstnanců je na každém pracovišti
 

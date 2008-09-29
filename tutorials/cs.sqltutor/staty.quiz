@@ -146,21 +146,21 @@ WHERE  populace > ALL (SELECT 3*populace
                        AND   B.region=A.region);
 
 
--- id="515" dataset="staty" category="groupby" points="2"
+-- id="515" dataset="staty" category="aggregate" points="2"
 --
 -- Kolik je celkový počet obyvatel všech států.
 
 SELECT SUM(populace) FROM staty;
 
 
--- id="516" dataset="staty" category="groupby" points="2"
+-- id="516" dataset="staty" category="aggregate" points="2"
 --
 -- Vypište všechny regiony (každý region uveďte jen jednou).
 
 SELECT DISTINCT region FROM staty;
 
 
--- id="517" dataset="staty" category="groupby" points="3"
+-- id="517" dataset="staty" category="aggregate" points="3"
 --
 -- Jaké je celkové HDP pro Afriku ('Africa'), tj. pro všechny
 -- africké regiony.
@@ -168,7 +168,7 @@ SELECT DISTINCT region FROM staty;
 SELECT SUM(hdp) FROM staty WHERE region LIKE '%Africa';
 
 
--- id="518" dataset="staty" category="groupby" points="3"
+-- id="518" dataset="staty" category="aggregate" points="3"
 --
 -- Jaká je celková populace Francie, Německa a Španělska
 -- ('France','Germany','Spain')?
@@ -177,7 +177,7 @@ SELECT SUM(populace) FROM staty
 WHERE stat in ('France','Germany','Spain');
 
 
--- id="519" dataset="staty" category="groupby" points="3"
+-- id="519" dataset="staty" category="aggregate" points="3"
 --
 -- Kolik je států v jednotlivých regionech? Vypište vždy 
 -- počet a region
@@ -187,7 +187,7 @@ FROM   staty
 GROUP BY region;
 
 
--- id="520" dataset="staty" category="groupby" points="3"
+-- id="520" dataset="staty" category="aggregate" points="3"
 --
 -- Pro každý region vypište jeho označení a počet státu s 
 -- počtem obyvatel větším než 10 milionů.
@@ -198,7 +198,7 @@ WHERE  populace > 10000000
 GROUP BY region;
 
 
--- id="521" dataset="staty" category="groupby" points="4"
+-- id="521" dataset="staty" category="aggregate" points="4"
 --
 -- Vypište regiony s celkovým počtem obyvatel větším než 100 milionů.
 

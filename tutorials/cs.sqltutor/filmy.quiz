@@ -244,7 +244,7 @@ FROM    filmy JOIN obsazeni ON filmy.id=obsazeni.film_id
 WHERE   rok=2003;
 
 
--- id="218" dataset="filmy" category="groupby" points="4"
+-- id="218" dataset="filmy" category="aggregate" points="4"
 --
 -- Které filmy měly více než jednoho režiséra? Vypište titul filmu a 
 -- počet režisérů.

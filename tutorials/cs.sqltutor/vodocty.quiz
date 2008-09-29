@@ -26,7 +26,7 @@ SELECT DISTINCT jmeno
  WHERE povodi = 'Berounka';
 
 
--- id="803" dataset="vodocty" category="join|groupby" points="12"
+-- id="803" dataset="vodocty" category="join|aggregate" points="12"
 --
 -- Jaké jsou denní průměry vodočtů na Dyji? 
 --
@@ -49,7 +49,7 @@ SELECT nazev, MIN(cas) + (MAX(cas) - MIN(cas))/2 AS cas,
 
 
 
--- id="804" dataset="vodocty" category="join|groupby" points="11"
+-- id="804" dataset="vodocty" category="join|aggregate" points="11"
 --
 -- Které vodočty na Blanici překročily některý z limitů SPA (stav povodňové
 -- aktivity).
@@ -98,7 +98,7 @@ SELECT MIN(cas) AS zacatek , MAX(cas) AS konec
          WHERE vodocet_cm >= bdelost) AS prehled;
 
 
--- id="806" dataset="vodocty" category="leftjoin|groupby|coalesce" points="17"
+-- id="806" dataset="vodocty" category="leftjoin|aggregate|coalesce" points="17"
 --
 -- Jaký je počet překročení limitů SPA za den (stav povodňové
 -- aktivity). Uveďte i nulové hodnoty, tj. dny ve kterých
