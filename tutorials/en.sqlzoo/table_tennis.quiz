@@ -1,0 +1,103 @@
+# The Table Tennis Olympics Database
+# http://sqlzoo.net
+#
+# The table ttms shows the Olympic medal winners for Table Tennis
+# (Men's Singles).  Women's Single's winners are in the table ttws.
+#
+# ttms    (games, color, who, country)
+# ttws    (games, color, who, country)
+# country (id, name)
+# games   (yr, city, country)
+#
+
+
+-- id="201" dataset="table_tennis" category="join" points="3" 
+--
+-- Show the athelete (who) and the country name for medal winners in
+-- 2000.
+
+SELECT who, country.name
+  FROM ttms JOIN country
+         ON (ttms.country=country.id)
+ WHERE games = 2000
+
+
+-- id="202" dataset="table_tennis" category="join" points="3" 
+--
+-- Show the who and the color of the medal for the medal winners from
+-- 'Sweden'.
+
+SELECT who, color
+  FROM ttms JOIN country
+         ON (ttms.country=country.id)
+ WHERE name = 'Sweden'
+
+
+-- id="203" dataset="table_tennis" category="join" points="3" 
+--
+-- Show the years in which 'China' won a 'gold' medal.
+
+SELECT games
+ FROM ttms JOIN country
+         ON (ttms.country=country.id)
+WHERE name='China' AND color='gold'
+
+
+-- id="204" dataset="table_tennis" category="join" points="3"
+-- 
+-- Show who won medals in the 'Barcelona' games.
+
+SELECT who
+  FROM ttws JOIN games
+            ON (ttws.games=games.yr)
+  WHERE city = 'Barcelona'
+
+
+-- id="205" dataset="table_tennis" category="join" points="3"
+-- 
+-- Show which city 'Jing Chen' won medals. Show the city and the medal
+-- color.
+
+SELECT city, color
+  FROM ttws JOIN games
+            ON (ttws.games=games.yr)
+  WHERE who = 'Jing Chen'
+
+
+-- id="206" dataset="table_tennis" category="join" points="3"
+-- 
+-- Show who won the gold medal and the city.
+
+SELECT who, city
+  FROM ttws JOIN games
+            ON (ttws.games=games.yr)
+  WHERE color = 'gold'
+
+
+-- id="207" dataset="table_tennis" category="join" points="3"
+-- 
+-- Show the games and color of the medal won by the team that includes
+-- 'Yan Sen'.
+
+SELECT games, color
+  FROM ttmd JOIN team ON team=team.id
+ WHERE name = 'Yan Sen'
+
+
+-- id="208" dataset="table_tennis" category="join" points="3"
+-- 
+-- Show the 'gold' medal winners in 2004.
+
+SELECT games, color
+  FROM ttmd JOIN team ON team=team.id
+ WHERE name = 'Yan Sen'
+
+
+-- id="209" dataset="table_tennis" category="join" points="3"
+-- 
+-- Show the name of each medal winner country 'FRA'.
+
+SELECT name
+  FROM ttmd JOIN team ON team=team.id
+ WHERE country = 'FRA'
+
