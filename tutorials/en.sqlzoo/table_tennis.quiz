@@ -11,8 +11,9 @@
 #
 
 
--- id="201" dataset="table_tennis" category="join" points="3" 
+-- id="201" dataset="ttms" category="join" points="3" 
 --
+-- Men's Singles Table Tennis Olympics Database:
 -- Show the athelete (who) and the country name for medal winners in
 -- 2000.
 
@@ -22,8 +23,9 @@ SELECT who, country.name
  WHERE games = 2000
 
 
--- id="202" dataset="table_tennis" category="join" points="3" 
+-- id="202" dataset="ttms" category="join" points="3" 
 --
+-- Men's Singles Table Tennis Olympics Database:
 -- Show the who and the color of the medal for the medal winners from
 -- 'Sweden'.
 
@@ -33,8 +35,9 @@ SELECT who, color
  WHERE name = 'Sweden'
 
 
--- id="203" dataset="table_tennis" category="join" points="3" 
+-- id="203" dataset="ttms" category="join" points="3" 
 --
+-- Men's Singles Table Tennis Olympics Database:
 -- Show the years in which 'China' won a 'gold' medal.
 
 SELECT games
@@ -43,8 +46,9 @@ SELECT games
 WHERE name='China' AND color='gold'
 
 
--- id="204" dataset="table_tennis" category="join" points="3"
+-- id="204" dataset="ttws" category="join" points="3"
 -- 
+-- Women's Singles Table Tennis Olympics Database:
 -- Show who won medals in the 'Barcelona' games.
 
 SELECT who
@@ -53,8 +57,9 @@ SELECT who
   WHERE city = 'Barcelona'
 
 
--- id="205" dataset="table_tennis" category="join" points="3"
+-- id="205" dataset="ttws" category="join" points="3"
 -- 
+-- Women's Singles Table Tennis Olympics Database:
 -- Show which city 'Jing Chen' won medals. Show the city and the medal
 -- color.
 
@@ -64,8 +69,9 @@ SELECT city, color
   WHERE who = 'Jing Chen'
 
 
--- id="206" dataset="table_tennis" category="join" points="3"
+-- id="206" dataset="ttws" category="join" points="3"
 -- 
+-- Women's Singles Table Tennis Olympics Database:
 -- Show who won the gold medal and the city.
 
 SELECT who, city
@@ -74,8 +80,9 @@ SELECT who, city
   WHERE color = 'gold'
 
 
--- id="207" dataset="table_tennis" category="join" points="3"
+-- id="207" dataset="ttmd" category="join" points="3"
 -- 
+-- Table Tennis Mens Doubles:
 -- Show the games and color of the medal won by the team that includes
 -- 'Yan Sen'.
 
@@ -84,8 +91,9 @@ SELECT games, color
  WHERE name = 'Yan Sen'
 
 
--- id="208" dataset="table_tennis" category="join" points="3"
+-- id="208" dataset="ttmd" category="join" points="3"
 -- 
+-- Table Tennis Mens Doubles:
 -- Show the 'gold' medal winners in 2004.
 
 SELECT games, color
@@ -93,8 +101,9 @@ SELECT games, color
  WHERE name = 'Yan Sen'
 
 
--- id="209" dataset="table_tennis" category="join" points="3"
+-- id="209" dataset="ttmd" category="join" points="3"
 -- 
+-- Table Tennis Mens Doubles:
 -- Show the name of each medal winner country 'FRA'.
 
 SELECT name

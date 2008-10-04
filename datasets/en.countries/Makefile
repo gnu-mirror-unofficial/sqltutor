@@ -14,20 +14,7 @@ SQL = \
 " REVOKE ALL   ON TABLE un_regions_countries FROM PUBLIC; " \
 " GRANT SELECT ON TABLE un_regions_countries TO PUBLIC; " \
 " REVOKE ALL   ON TABLE national_capitals FROM PUBLIC; " \
-" GRANT SELECT ON TABLE national_capitals TO PUBLIC; " \
-" " \
-" DELETE FROM datasets WHERE dataset='table_tennis'; " \
-" DELETE FROM dataset_sources WHERE dataset='table_tennis'; " \
-" INSERT INTO dataset_sources VALUES('table_tennis', 2008, 'sqltutor'); " \
-" INSERT INTO datasets VALUES ('table_tennis', 1, 'country', 'id, name'); " \
-" INSERT INTO datasets VALUES ('table_tennis', 2, 'ttms', 'games, color, who, country'); " \
-" INSERT INTO datasets VALUES ('table_tennis', 3, 'ttws', 'games, color, who, country'); " \
-" REVOKE ALL   ON TABLE country FROM PUBLIC; " \
-" GRANT SELECT ON TABLE country TO PUBLIC; " \
-" REVOKE ALL   ON TABLE ttms FROM PUBLIC; " \
-" GRANT SELECT ON TABLE ttms TO PUBLIC; " \
-" REVOKE ALL   ON TABLE ttws FROM PUBLIC; " \
-" GRANT SELECT ON TABLE ttws TO PUBLIC; " 
+" GRANT SELECT ON TABLE national_capitals TO PUBLIC; "
 
 
 all : .tmp.en.countries

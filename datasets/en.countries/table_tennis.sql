@@ -12,41 +12,6 @@ CREATE TABLE olympic_medal_winners
    name        varchar(30) 
 );
 
-
-
-/* Views needed by SQLzoo.net "The Table Tennis Olympics Database" 
- * ---------------------------------------------------------------
- */
-
--- ISO 3166 coutry codes standard does not contain former countries
--- like Yugoslavia, which are needed for Olympic medal records.
-
-CREATE VIEW country (id, name) AS
-   SELECT *
-     FROM (
-            SELECT a3, name FROM country_codes
-            UNION
-            SELECT 'YUG', 'Yugoslavia'   -- YUGOSLAVIA YU YUG 891
-          ) AS C;
-
--- Table Tennis (Men's Singles)
-
-CREATE VIEW ttms (games, color, who, country) AS
-   SELECT year, medal, name, nation
-     FROM olympic_medal_winners
-    WHERE discipline = 'table tennis'
-      AND event      = 'singles men';
-
--- Table Tennis (Men's Singles)
-
-CREATE VIEW ttws (games, color, who, country) AS
-   SELECT year, medal, name, nation
-     FROM olympic_medal_winners
-    WHERE discipline = 'table tennis'
-      AND event      = 'singles women';
-
-
-
 /*
  * OLYMPIC MEDAL WINNERS
  *
@@ -152,3 +117,154 @@ INSERT INTO olympic_medal_winners VALUES('Sydney'   , 2000, 'table tennis', 'sin
 INSERT INTO olympic_medal_winners VALUES('Athens'   , 2004, 'table tennis', 'doubles men'  , 'bronz'  , 'DNK', 'MAZE, Michael');
 INSERT INTO olympic_medal_winners VALUES('Athens'   , 2004, 'table tennis', 'doubles men'  , 'bronz'  , 'DNK', 'TUGWELL, Finn');
 INSERT INTO olympic_medal_winners VALUES('Athens'   , 2004, 'table tennis', 'singles men'  , 'bronz'  , 'CHN', 'WANG, Liqin');
+
+
+
+/* Views and tables needed by SQLzoo.net "The Table Tennis Olympics Database" 
+ * --------------------------------------------------------------------------
+ */
+
+-- ISO 3166 coutry codes standard does not contain former countries
+-- like Yugoslavia, which are needed for Olympic medal records.
+
+CREATE VIEW country (id, name) AS
+   SELECT *
+     FROM (
+            SELECT a3, name FROM country_codes
+            UNION
+            SELECT 'YUG', 'Yugoslavia'   -- YUGOSLAVIA YU YUG 891
+          ) AS C;
+
+-- Table Tennis (Men's Singles)
+
+CREATE VIEW ttms (games, color, who, country) AS
+   SELECT year, medal, name, nation
+     FROM olympic_medal_winners
+    WHERE discipline = 'table tennis'
+      AND event      = 'singles men';
+
+-- Table Tennis (Men's Singles)
+
+CREATE VIEW ttws (games, color, who, country) AS
+   SELECT year, medal, name, nation
+     FROM olympic_medal_winners
+    WHERE discipline = 'table tennis'
+      AND event      = 'singles women';
+
+DROP TABLE games CASCADE;
+CREATE TABLE games
+(
+   yr      integer,
+   city    varchar(30),
+   country char(3)
+);
+
+INSERT INTO games VALUES (1988, 'Seoul',     'KOR');
+INSERT INTO games VALUES (1992, 'Barcelona', 'ESP');
+INSERT INTO games VALUES (1996, 'Atlanta',   'USA');
+INSERT INTO games VALUES (2000, 'Sydney',    'AUS');
+INSERT INTO games VALUES (2004, 'Athens',    'GRE');
+
+--
+
+DELETE FROM datasets WHERE dataset='ttms';
+DELETE FROM dataset_sources WHERE dataset='ttms';
+INSERT INTO dataset_sources VALUES('ttms', 2008, 'http://sqlzoo.net');
+INSERT INTO datasets VALUES ('ttms', 1, 'ttms', 'games, color, who, country');
+INSERT INTO datasets VALUES ('ttms', 2, 'country', 'id, name');
+
+REVOKE ALL   ON TABLE ttms FROM PUBLIC;
+GRANT SELECT ON TABLE ttms TO PUBLIC;
+REVOKE ALL   ON TABLE country FROM PUBLIC;
+GRANT SELECT ON TABLE country TO PUBLIC;
+
+--
+
+DELETE FROM datasets WHERE dataset='ttws';
+DELETE FROM dataset_sources WHERE dataset='ttws';
+INSERT INTO dataset_sources VALUES('ttws', 2008, 'http://sqlzoo.net');
+INSERT INTO datasets VALUES ('ttws', 1, 'ttws', 'games, color, who, country');
+INSERT INTO datasets VALUES ('ttws', 2, 'games', 'yr, city, country');
+
+REVOKE ALL   ON TABLE ttws FROM PUBLIC;
+GRANT SELECT ON TABLE ttws TO PUBLIC;
+REVOKE ALL   ON TABLE games FROM PUBLIC;
+GRANT SELECT ON TABLE games TO PUBLIC;
+
+--
+
+CREATE TEMPORARY TABLE table_tennis_team_tmp
+(
+   id      serial,
+   games   integer,
+   country text,
+   color   varchar(6),
+
+   UNIQUE (games, country, color)
+);
+
+INSERT INTO table_tennis_team_tmp (games, country, color)
+   SELECT DISTINCT year, nation, medal
+     FROM olympic_medal_winners 
+    WHERE event = 'doubles men';
+
+
+DROP TABLE team CASCADE;
+CREATE TABLE team
+(
+   id   integer,
+   name varchar(30)
+);
+
+INSERT INTO team (id, name)
+   SELECT id, name
+     FROM table_tennis_team_tmp
+          JOIN
+          olympic_medal_winners
+          ON  games  = year
+          AND nation = country
+          AND medal  = color
+          AND event  = 'doubles men'
+          AND NOT (year = 1992 AND name IN ('KIM, Taek Soo', 'YOO, Nam-Kyu'));
+
+DROP TABLE ttmd CASCADE;
+CREATE TABLE ttmd
+(
+   games   integer,
+   color   varchar(6),
+   team    integer,
+   country char(3)
+);
+
+INSERT INTO ttmd (games, color, team, country)
+   SELECT DISTINCT year, medal, id, nation
+     FROM table_tennis_team_tmp
+          JOIN
+          olympic_medal_winners
+          ON  games  = year
+          AND nation = country
+          AND medal  = color
+          AND event  = 'doubles men'
+          AND NOT (year = 1992 AND name IN ('KIM, Taek Soo', 'YOO, Nam-Kyu'));
+
+-- fixing 4 bronze medals in 1992
+
+INSERT INTO team 
+   VALUES ((SELECT max(id)+1 FROM table_tennis_team_tmp), 'KIM, Taek Soo');
+INSERT INTO team 
+   VALUES ((SELECT max(id)+1 FROM table_tennis_team_tmp), 'YOO, Nam-Kyu');
+INSERT INTO ttmd
+   VALUES (1992, 'bronze', (SELECT max(id)+1 FROM table_tennis_team_tmp), 'KOR');
+
+DELETE FROM datasets WHERE dataset='ttmd';
+DELETE FROM dataset_sources WHERE dataset='ttmd';
+INSERT INTO dataset_sources VALUES('ttmd', 2008, 'http://sqlzoo.net');
+INSERT INTO datasets VALUES ('ttmd', 1, 'ttmd', 'games, color, team, country');
+INSERT INTO datasets VALUES ('ttmd', 2, 'team', 'id, name');
+
+REVOKE ALL   ON TABLE ttmd FROM PUBLIC;
+GRANT SELECT ON TABLE ttmd TO PUBLIC;
+REVOKE ALL   ON TABLE team FROM PUBLIC;
+GRANT SELECT ON TABLE team TO PUBLIC;
+
+
