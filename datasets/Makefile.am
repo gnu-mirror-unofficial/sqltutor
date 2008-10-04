@@ -19,6 +19,12 @@ EXTRA_DIST = cs.filmy/filmy.sql \
              cs.vodocty/vodocty.sql \
              en.bbc/bbc.sql \
              en.bbc/Makefile \
+             en.countries/countries.sql \
+             en.countries/country_codes.sql \
+             en.countries/Makefile \
+             en.countries/national_capitals.sql \
+             en.countries/table_tennis.sql \
+             en.countries/un_regions.sql \
              en.nobel/nobel.sql \
              en.nobel/Makefile
 
