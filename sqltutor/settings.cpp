@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: settings.cpp,v 1.4 2008/09/24 17:13:47 cepek Exp $ 
+ * $Id: settings.cpp,v 1.5 2008/10/05 14:37:21 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -75,6 +75,7 @@ T SQLtutor::t_session_unknown = "Unknown session ID ... ";
 T SQLtutor::t_session_closed  = "Session has been already closed ... ";
 T SQLtutor::t_select_tutorial = "Please, select tutorial first ... ";
 T SQLtutor::t_no_datasets     = "No datasets available ... ";
+T SQLtutor::t_empty_set       = "empty set";
 
 
 /********************************************************************/

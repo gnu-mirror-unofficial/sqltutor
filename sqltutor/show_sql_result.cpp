@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: show_sql_result.cpp,v 1.1 2008/05/07 15:27:35 cepek Exp $ 
+ * $Id: show_sql_result.cpp,v 1.2 2008/10/05 14:37:21 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -39,6 +39,11 @@ void SQLtutor::show_sql_result(pqxx::work& tran)
 
   form << "<table border='1'>";
   
+  if (sql_result.empty())
+    {
+      form << "<tr><td>&nbsp;"  << t_empty_set << "&nbsp;</td></tr>";
+    }
+
   for (pqxx::result::const_iterator 
          b=sql_result.begin(), e=sql_result.end(); b!=e; b++)
     {
