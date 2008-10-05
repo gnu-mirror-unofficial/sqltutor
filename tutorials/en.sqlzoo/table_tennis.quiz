@@ -82,7 +82,7 @@ SELECT who, city
 
 -- id="207" dataset="ttmd" category="join" points="3"
 -- 
--- Table Tennis Mens Doubles:
+-- Table Tennis Men's Doubles:
 -- Show the games and color of the medal won by the team that includes
 -- 'Yan Sen'.
 
@@ -93,7 +93,7 @@ SELECT games, color
 
 -- id="208" dataset="ttmd" category="join" points="3"
 -- 
--- Table Tennis Mens Doubles:
+-- Table Tennis Men's Doubles:
 -- Show the 'gold' medal winners in 2004.
 
 SELECT games, color
@@ -103,7 +103,7 @@ SELECT games, color
 
 -- id="209" dataset="ttmd" category="join" points="3"
 -- 
--- Table Tennis Mens Doubles:
+-- Table Tennis Men's Doubles:
 -- Show the name of each medal winner country 'FRA'.
 
 SELECT name
