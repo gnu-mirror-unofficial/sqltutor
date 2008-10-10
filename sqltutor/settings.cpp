@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: settings.cpp,v 1.5 2008/10/05 14:37:21 cepek Exp $ 
+ * $Id: settings.cpp,v 1.6 2008/10/10 14:50:40 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -31,7 +31,7 @@ typedef const std::string T;
 /*                                                                  */
 /********************************************************************/
 
-T SQLtutor::db_connection     = "dbname=sqlquiz host=localhost user=wwwquiz password=krok";
+T SQLtutor::db_connection     = "dbname=sqltutor host=localhost user=sqlquiz password=sqlkrok";
 T SQLtutor::title             = "SQL tutor";
 T SQLtutor::init_continue     = "Continue";
 T SQLtutor::init_datasets     = "Display datasets";

@@ -1,20 +1,4 @@
-# 1. create databaze SQLTUTOR_DATABASE
-#    create schema sqltutor
-#    create user SQLTUTOR_WWW_USER
-#    create language plpgsql
-# 
-#         createdb SQLTUTOR_DATABASE
-#         su -
-#         su - postgres
-#         createuser SQLTUTOR_WWW_USER
-#         psql
-#         ALTER USER SQLTUTOR_WWW_USER WITH PASSWORD 'xxx';
-#         psql SQLTUTOR_DATABASE
-#         CREATE LANGUAGE plpgsql;
-# 
-# 2. set bash variables SQLTUTOR_DATABASE and SQLTUTOR_WWW_USER if necessary
-# 
-# 3. run ./create-database.sh 
+#!/bin/bash
 
 
 if [ "XX$SQLTUTOR_DATABASE" = "XX" -o "XX$SQLTUTOR_WWW_USER" = "XX" ]; then

@@ -1,3 +1,76 @@
+SQLtutor - Just Another Introduction to SQL
+
+      SQLtutor is a CGI script and a PostgreSQL database of SQL
+      tutorials, collections of SQL questions and answers.
+
+      Three environment variables SQLTUTOR_DATABASE, SQLTUTOR_WWW_USER
+      and SQLTUTOR_PASSWORD are defined in configure.ac and implicitly
+      are set to 'sqltutor' (Postgresql database name) and 'sqlquiz'
+      (www user for CGI script sqlutor) and 'sqlkrok' (password for
+      CGI skript). 
+
+      These variables are used by all makefiles and you can change
+      them if needed in the configure.ac file.
+
+Building sqltutor
+
+      To build CGI script sqltutor run 
+
+         ./configue 
+         make -C sqltutor
+
+      and copy sqltutor/sqltutor to your CGI directory.
+
+      For more information see the standard Basic Installation
+      instructions bellow.
+
+Creating the database 
+
+      createdb SQLTUTOR_DATABASE
+
+      su -
+      su - postgres
+
+      createuser SQLTUTOR_WWW_USER
+
+      run psql and
+
+      ALTER USER SQLTUTOR_WWW_USER WITH PASSWORD 'xxx';
+      psql SQLTUTOR_DATABASE
+      CREATE LANGUAGE plpgsql;
+
+Populating the databse
+
+      Change directory to 'database' and run 
+
+         cd database
+         make install
+
+      Instructions for manual running of a script create-database.sh
+      are displayed.
+
+         export SQLTUTOR_DATABASE=sqltutor
+         export SQLTUTOR_WWW_USER=sqlquiz
+         /bin/sh create-database.sh
+
+Populate tutorials and datasets
+
+      Run in any order from the project home directory
+
+         make -C tutorials install
+         make -C datasets  install
+
+      If old tutorials and/or datasets have been installed, run
+
+         make -C tutorials clean install
+         make -C datasets  clean install
+
+
+
+
+--------
+
+
 Installation Instructions
 *************************
 

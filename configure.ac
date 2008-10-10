@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 #
 AC_PREREQ(2.61)
-AC_INIT([sqltutor], [0.04.91], [cepek@gnu.org])
+AC_INIT([sqltutor], [0.04.92], [cepek@gnu.org])
 AC_CONFIG_SRCDIR([sqltutor/sqltutor.cpp])
 AC_CONFIG_HEADER([sqltutor/config.h])
 AC_CONFIG_AUX_DIR([sqltutor/config.aux])
@@ -10,8 +10,9 @@ AC_CONFIG_AUX_DIR([sqltutor/config.aux])
 AM_INIT_AUTOMAKE
 
 # Environment variables for SQLtutor database
-AC_SUBST(SQLTUTOR_DATABASE, sqlquiz)
-AC_SUBST(SQLTUTOR_WWW_USER, wwwquiz)
+AC_SUBST(SQLTUTOR_DATABASE, sqltutor)
+AC_SUBST(SQLTUTOR_WWW_USER, sqlquiz)
+AC_SUBST(SQLTUTOR_PASSWORD, sqlkrok)
 
 # Checks for programs.
 AC_PROG_AWK
