@@ -1,4 +1,4 @@
--- SET search_path TO sqltutor;
+SET search_path TO sqltutor;
 
 DROP TABLE zastavky CASCADE;
 DROP TABLE linky    CASCADE;
