@@ -16,13 +16,6 @@ SELECT stat, region, populace FROM staty;
 SELECT stat FROM staty WHERE populace > 200000000;
 
 
--- id="503" dataset="staty" category="select" points="1"
--- 
--- Vypište státy, které mají více než 200 milionů obyvatel.
-
-SELECT stat FROM staty WHERE populace > 200000000;
-
-
 -- id="504" dataset="staty" category="select" points="2"
 -- 
 -- Vypište státy a hdp na hlavu, které mají více než 200 milionů obyvatel.
