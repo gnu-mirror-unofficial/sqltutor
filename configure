@@ -2218,12 +2218,31 @@ am__tar='${AMTAR} chof - "$$tardir"'; am__untar='${AMTAR} xf -'
 
 
 
-# Environment variables for SQLtutor database
+
+# C macro definitions and environment variables for the SQLtutor database
+
+
+cat >>confdefs.h <<\_ACEOF
+#define SQLTUTOR_DATABASE sqltutor
+_ACEOF
+
+
+cat >>confdefs.h <<\_ACEOF
+#define SQLTUTOR_WWW_USER sqlquiz
+_ACEOF
+
+
+cat >>confdefs.h <<\_ACEOF
+#define SQLTUTOR_PASSWORD sqlkrok
+_ACEOF
+
+
 SQLTUTOR_DATABASE=sqltutor
 
 SQLTUTOR_WWW_USER=sqlquiz
 
 SQLTUTOR_PASSWORD=sqlkrok
+
 
 
 # Checks for programs.
@@ -8141,4 +8160,5 @@ if test "$no_create" != yes; then
   # would make configure fail if this is the last instruction.
   $ac_cs_success || { (exit 1); exit 1; }
 fi
+
 

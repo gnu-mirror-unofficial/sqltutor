@@ -9,10 +9,17 @@ AC_CONFIG_AUX_DIR([sqltutor/config.aux])
 
 AM_INIT_AUTOMAKE
 
-# Environment variables for SQLtutor database
-AC_SUBST(SQLTUTOR_DATABASE, sqltutor)
-AC_SUBST(SQLTUTOR_WWW_USER, sqlquiz)
-AC_SUBST(SQLTUTOR_PASSWORD, sqlkrok)
+
+# C macro definitions and environment variables for the SQLtutor database
+
+AC_DEFINE(SQLTUTOR_DATABASE, sqltutor, [SQLtutor database name])
+AC_DEFINE(SQLTUTOR_WWW_USER, sqlquiz,  [SQLtutor web/cgi user name])
+AC_DEFINE(SQLTUTOR_PASSWORD, sqlkrok,  [SQLtutor web/cgi user password])
+
+AC_SUBST(SQLTUTOR_DATABASE,  sqltutor )
+AC_SUBST(SQLTUTOR_WWW_USER,  sqlquiz  )
+AC_SUBST(SQLTUTOR_PASSWORD,  sqlkrok  )
+
 
 # Checks for programs.
 AC_PROG_AWK
@@ -54,3 +61,4 @@ AC_OUTPUT([Makefile
            tutorials/Makefile
            datasets/Makefile
           ])
+
