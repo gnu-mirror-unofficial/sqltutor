@@ -20,7 +20,7 @@
 SELECT who, country.name
   FROM ttms JOIN country
          ON (ttms.country=country.id)
- WHERE games = 2000
+ WHERE games = 2000;
 
 
 -- id="202" dataset="ttms" category="join" points="3" 
@@ -32,7 +32,7 @@ SELECT who, country.name
 SELECT who, color
   FROM ttms JOIN country
          ON (ttms.country=country.id)
- WHERE name = 'Sweden'
+ WHERE name = 'Sweden';
 
 
 -- id="203" dataset="ttms" category="join" points="3" 
@@ -43,7 +43,7 @@ SELECT who, color
 SELECT games
  FROM ttms JOIN country
          ON (ttms.country=country.id)
-WHERE name='China' AND color='gold'
+WHERE name='China' AND color='gold';
 
 
 -- id="204" dataset="ttws" category="join" points="3"
@@ -54,19 +54,19 @@ WHERE name='China' AND color='gold'
 SELECT who
   FROM ttws JOIN games
             ON (ttws.games=games.yr)
-  WHERE city = 'Barcelona'
+  WHERE city = 'Barcelona';
 
 
 -- id="205" dataset="ttws" category="join" points="3"
 -- 
 -- Women's Singles Table Tennis Olympics Database:
--- Show which city 'Jing Chen' won medals. Show the city and the medal
+-- Show which city 'CHEN, Jing' won medals. Show the city and the medal
 -- color.
 
 SELECT city, color
   FROM ttws JOIN games
             ON (ttws.games=games.yr)
-  WHERE who = 'Jing Chen'
+  WHERE who = 'CHEN, Jing';
 
 
 -- id="206" dataset="ttws" category="join" points="3"
@@ -77,18 +77,18 @@ SELECT city, color
 SELECT who, city
   FROM ttws JOIN games
             ON (ttws.games=games.yr)
-  WHERE color = 'gold'
+  WHERE color = 'gold';
 
 
 -- id="207" dataset="ttmd" category="join" points="3"
 -- 
 -- Table Tennis Men's Doubles:
 -- Show the games and color of the medal won by the team that includes
--- 'Yan Sen'.
+-- 'YAN, Sen'.
 
 SELECT games, color
   FROM ttmd JOIN team ON team=team.id
- WHERE name = 'Yan Sen'
+ WHERE name = 'YAN, Sen';
 
 
 -- id="208" dataset="ttmd" category="join" points="3"
@@ -96,9 +96,9 @@ SELECT games, color
 -- Table Tennis Men's Doubles:
 -- Show the 'gold' medal winners in 2004.
 
-SELECT games, color
+SELECT name
   FROM ttmd JOIN team ON team=team.id
- WHERE name = 'Yan Sen'
+ WHERE color='gold' AND games=2004;
 
 
 -- id="209" dataset="ttmd" category="join" points="3"
@@ -108,5 +108,5 @@ SELECT games, color
 
 SELECT name
   FROM ttmd JOIN team ON team=team.id
- WHERE country = 'FRA'
+ WHERE country = 'FRA';
 
