@@ -34,20 +34,20 @@ SELECT B.jmeno
           AND A.id = B.otec;
 
 
--- id="904" dataset="premyslovci" category="selfjoin" points="14"
---
--- Uveďte manželky Karla IV. Lucemburského, se kterými měl děti? Poznámka:
--- bezdětná manželství nejsou registrovaná v databázi.
-
-SELECT DISTINCT C.jmeno
-  FROM premyslovci A
-       JOIN
-       premyslovci B
-       ON A.jmeno = 'Karel IV. Lucemburský'
-          AND A.id = B.otec
-       JOIN
-       premyslovci C
-       ON B.matka=C.id;
+# -- id="904" dataset="premyslovci" category="selfjoin" points="14"
+# --
+# -- Uveďte manželky Karla IV. Lucemburského, se kterými měl děti? Poznámka:
+# -- bezdětná manželství nejsou registrovaná v databázi.
+# 
+# SELECT DISTINCT C.jmeno
+#   FROM premyslovci A
+#        JOIN
+#        premyslovci B
+#        ON A.jmeno = 'Karel IV. Lucemburský'
+#           AND A.id = B.otec
+#        JOIN
+#        premyslovci C
+#        ON B.matka=C.id;
 
 
 -- id="905" dataset="premyslovci" category="selfjoin" points="14"
@@ -79,24 +79,24 @@ SELECT C.jmeno
        premyslovci C
        ON B.id IN (C.otec, C.matka);
 
--- id="907" dataset="premyslovci" category="selfjoin" points="17"
---
--- Najděte snachy a zetě Břetislava I, které lze v databázi určit. 
--- Poznámka: tabulka premyslovci neregistruje bezdětná manželství.
-
-SELECT DISTINCT D.jmeno
-  FROM premyslovci A
-       JOIN 
-       premyslovci B
-       ON A.jmeno='Břetislav I.'
-          AND A.id = B.otec
-       JOIN 
-       premyslovci C
-       ON B.id IN (C.otec, C.matka)
-       JOIN
-       premyslovci D
-       ON D.id <> B.id
-          AND D.id IN (C.otec, C.matka);
+# -- id="907" dataset="premyslovci" category="selfjoin" points="17"
+# --
+# -- Najděte snachy a zetě Břetislava I, které lze v databázi určit. 
+# -- Poznámka: tabulka premyslovci neregistruje bezdětná manželství.
+# 
+# SELECT DISTINCT D.jmeno
+#   FROM premyslovci A
+#        JOIN 
+#        premyslovci B
+#        ON A.jmeno='Břetislav I.'
+#           AND A.id = B.otec
+#        JOIN 
+#        premyslovci C
+#        ON B.id IN (C.otec, C.matka)
+#        JOIN
+#        premyslovci D
+#        ON D.id <> B.id
+#           AND D.id IN (C.otec, C.matka);
 
 
 -- id="908" dataset="premyslovci" category="selfjoin" points="15"
