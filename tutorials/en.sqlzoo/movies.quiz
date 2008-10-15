@@ -1,0 +1,34 @@
+###  source http://sqlzoo.net/ with permission by Andrew Cumming
+###
+###  actor   ( id, name )
+###  movie   ( id, title, yr, score, votes, director )
+###  casting ( movieid, actorid, ord )
+
+-- id="301" dataset="movies" category="select" points="1"
+-- 
+-- List the films where the yr is 1962 [Show id, title]
+
+SELECT id, title
+ FROM movie
+ WHERE yr=1962;
+
+
+# not used, empty set!
+#
+# -- id="302" dataset="movies" category="select" points="1"
+# -- 
+# -- Give year of 'Citizen Kane'.
+# 
+# SELECT yr
+#   FROM movie
+#  WHERE title like 'Citizen Kane';
+
+
+-- id="303" dataset="movies" category="select" points="1"
+-- 
+-- List the films where the yr is 1962 [Show id, title]
+
+SELECT id, title, yr
+ FROM movie
+ WHERE title LIKE 'Star Trek%';
+

@@ -78,15 +78,16 @@ CREATE TABLE sqltutor.questions_categories (
 
 
 CREATE TABLE sqltutor.datasets (
-  dataset   VARCHAR(12),
-  ord       INT,
-  ds_table  VARCHAR(20),
-  columns   VARCHAR(65)
+  dataset   VARCHAR(12) NOT NULL,
+  ord       INT         NOT NULL,
+  ds_table  VARCHAR(20) NOT NULL,
+  columns   VARCHAR(65) NOT NULL,
+  PRIMARY KEY (dataset, ord)
 );
 
 
 CREATE TABLE sqltutor.dataset_sources (
-  dataset   VARCHAR(12),
+  dataset   VARCHAR(12) PRIMARY KEY,
   year      INT,
   sources   VARCHAR(120)
 );
