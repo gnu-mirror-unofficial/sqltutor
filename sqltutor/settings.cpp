@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: settings.cpp,v 1.7 2008/10/13 17:20:55 cepek Exp $ 
+ * $Id: settings.cpp,v 1.8 2008/10/16 06:38:13 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -25,8 +25,8 @@
 
 typedef const std::string T;
 
-#define stringification(s) literal_text(s)
-#define literal_text(s) #s
+#define str(s)  # s
+#define xstr(s) str(s)
 
 /********************************************************************/
 /*                                                                  */
@@ -34,10 +34,10 @@ typedef const std::string T;
 /*                                                                  */
 /********************************************************************/
 
-T SQLtutor::db_connection = " dbname="   stringification(SQLTUTOR_DATABASE)
-                            " host=localhost"
-                            " user="     stringification(SQLTUTOR_WWW_USER)
-                            " password=" stringification(SQLTUTOR_PASSWORD);
+T SQLtutor::db_connection     = " dbname="   xstr(SQLTUTOR_DATABASE)
+                                " host=localhost"
+                                " user="     xstr(SQLTUTOR_WWW_USER)
+                                " password=" xstr(SQLTUTOR_PASSWORD);
 T SQLtutor::title             = "SQL tutor";
 T SQLtutor::init_continue     = "Continue";
 T SQLtutor::init_datasets     = "Display datasets";
