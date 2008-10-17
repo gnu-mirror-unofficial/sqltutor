@@ -3,7 +3,7 @@
 # premyslovci  (id, jmeno, narozeni, umrti, otec, matka, rod)
 
 
--- id="901" dataset="premyslovci" category="agregace" points="2"
+-- id="901" dataset="premyslovci" category="aggregate" points="2"
 --
 -- Kolik přemyslovců je registrováno v databázi?
 

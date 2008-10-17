@@ -32,3 +32,142 @@ SELECT id, title, yr
  FROM movie
  WHERE title LIKE 'Star Trek%';
 
+
+-- id="304" dataset="movies" category="select" points="1"
+-- 
+-- What are the titles of the films with id 1, 2, 3 ?
+
+SELECT title FROM movie WHERE id IN (1,2,3);
+
+
+-- id="305" dataset="movies" category="select" points="1"
+-- 
+-- What id number does the actor 'Glenn Close' have?
+
+ELECT id FROM actor
+  WHERE name= 'Glenn Close';
+
+
+-- id="306" dataset="movies" category="select" points="1"
+-- 
+-- What is the id of the film 'Casablanca'?
+
+SELECT id FROM movie WHERE title='Casablanca';
+
+
+-- id="307" dataset="movies" category="subselect" points="3"
+-- 
+-- Obtain the cast list for 'Casablanca'. 
+
+SELECT name
+  FROM casting, actor
+  WHERE movieid=(SELECT id FROM movie WHERE title='Casablanca')
+    AND actorid=actor.id;
+
+
+-- id="308" dataset="movies" category="join" points="4"
+-- 
+-- Obtain the cast list for the film 'Alien'
+
+SELECT name
+  FROM movie, casting, actor
+  WHERE title='Alien'
+    AND movieid=movie.id
+    AND actorid=actor.id;
+
+
+-- id="309" dataset="movies" category="join" points="4"
+-- 
+-- List the films in which 'Harrison Ford' has appeared
+
+SELECT title
+  FROM movie, casting, actor
+ WHERE name='Harrison Ford'
+    AND movieid=movie.id
+    AND actorid=actor.id
+  AND ord>1;
+
+
+-- id="310" dataset="movies" category="join" points="4"
+-- 
+-- List the films together with the leading star for all 1962 films.
+
+SELECT title, name
+  FROM movie, casting, actor
+ WHERE yr=1962
+    AND movieid=movie.id
+    AND actorid=actor.id
+    AND ord=1;
+
+
+-- id="311" dataset="movies" category="aggregate" points="10"
+-- 
+-- Which were the busiest years for 'John Travolta'. Show the number
+-- of movies he made for each year.
+
+SELECT yr,COUNT(title) FROM
+  movie JOIN casting ON movie.id=movieid
+         JOIN actor   ON actorid=actor.id
+where name='John Travolta'
+GROUP BY yr
+HAVING COUNT(title)=(SELECT MAX(c) FROM
+(SELECT yr,COUNT(title) AS c FROM
+   movie JOIN casting ON movie.id=movieid
+         JOIN actor   ON actorid=actor.id
+ where name='John Travolta'
+ GROUP BY yr) AS t;
+
+
+-- id="312" dataset="movies" category="join|subselect" points="10"
+--
+-- List the film title and the leading actor for all of 'Julie Andrews' films.
+
+SELECT title, name
+  FROM movie, casting, actor
+  WHERE movieid=movie.id
+    AND actorid=actor.id
+    AND ord=1
+    AND movieid IN
+    (SELECT movieid FROM casting, actor
+     WHERE actorid=actor.id
+     AND name='Julie Andrews');
+
+
+-- id="313" dataset="movies" category="join|aggregate" points="10"
+--
+-- Obtain a list of actors in who have had at least 10 starring roles.
+
+SELECT name
+    FROM casting JOIN actor
+      ON  actorid = actor.id
+    WHERE ord=1
+    GROUP BY name
+    HAVING COUNT(movieid)>=10;
+
+
+-- id="314" dataset="movies" category="join|aggregate" points="10"
+--
+-- List the 1978 films by order of cast list size.
+
+SELECT title, COUNT(actorid)
+  FROM casting, movie
+  WHERE yr=1978
+    AND movieid=movie.id
+  GROUP BY title
+  ORDER BY 2 DESC;
+
+
+-- id="315" dataset="movies" category="join|aggregate" points="10"
+--
+-- List all the people who have worked with 'Art Garfunkel'.
+
+SELECT DISTINCT name
+  FROM actor, casting
+  WHERE actorid=actor.id
+    AND movieid IN (
+    SELECT movieid FROM casting, actor
+      WHERE actorid=actor.id
+        AND name='Art Garfunkel'
+    )
+    AND NOT name='Art Garfunkel';
+

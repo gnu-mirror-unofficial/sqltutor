@@ -60,16 +60,15 @@ CREATE TABLE sqltutor.answers (
 
 
 CREATE TABLE sqltutor.categories (
-   id        integer,
-   category  VARCHAR(20),
-   UNIQUE (id, category)
+   id        integer PRIMARY KEY,
+   category  VARCHAR(20) UNIQUE
 );
 
 
 CREATE TABLE sqltutor.questions_categories (
    tutorial_id  integer,
    question_id  integer,
-   category_id  integer NOT NULL,
+   category_id  integer,
    PRIMARY KEY (tutorial_id, question_id, category_id),
    FOREIGN KEY (tutorial_id, question_id)
                REFERENCES
@@ -78,8 +77,8 @@ CREATE TABLE sqltutor.questions_categories (
 
 
 CREATE TABLE sqltutor.datasets (
-  dataset   VARCHAR(12) NOT NULL,
-  ord       INT         NOT NULL,
+  dataset   VARCHAR(12),
+  ord       INT,
   ds_table  VARCHAR(20) NOT NULL,
   columns   VARCHAR(65) NOT NULL,
   PRIMARY KEY (dataset, ord)
