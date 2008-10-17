@@ -6,8 +6,6 @@
  * 
  */
 
-SET search_path TO sqltutor;
-
 --- createneeps, 1, 50
 drop table teaches cascade;
 drop table attends cascade;
