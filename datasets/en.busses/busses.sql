@@ -1,3 +1,12 @@
+/* source: http://sqlzoo.net/ with permission by Andrew Cumming
+ * 
+ * Edinburgh Buses
+ * ***************
+ */
+
+
+SET search_path TO sqltutor;
+
 --- createbuses, 1, 50
 DROP TABLE route;
 DROP TABLE stops;
@@ -15,10 +24,8 @@ CREATE TABLE route (
  ,FOREIGN KEY(stop) REFERENCES stops(id)
  ,PRIMARY KEY(num,company,pos)
  );
-GRANT ALL ON route TO andrew; 
-GRANT ALL ON stops TO andrew; 
-GRANT SELECT ON stops TO PUBLIC;
-GRANT SELECT ON route TO PUBLIC;
+
+BEGIN;
 
 --- tabstops, 1, 50
 insert into stops values (1,'Aberlady');
@@ -45,7 +52,7 @@ insert into stops values (21,'Blackford');
 insert into stops values (22,'Blackhall');
 insert into stops values (23,'Blackridge');
 insert into stops values (24,'Bonaly Avenue');
-insert into stops values (25,'Bo’ness');
+insert into stops values (25,'Bo???ness'); 
 insert into stops values (26,'Bonnington');
 insert into stops values (27,'Bonnyrigg');
 insert into stops values (28,'Boswall');
@@ -241,7 +248,7 @@ insert into stops values (217,'South Gyle');
 insert into stops values (218,'South Queensferry');
 insert into stops values (219,'St Andrew Square');
 insert into stops values (220,'St Boswells');
-insert into stops values (221,'St John’s Hospital');
+insert into stops values (221,'St John''s Hospital');
 insert into stops values (222,'St Leonards');
 insert into stops values (223,'Stenhouse');
 insert into stops values (224,'Stirling');
@@ -1469,3 +1476,5 @@ insert into route values ('VL2','VL',1,109);
 insert into route values ('VL2','VL',2,201);
 insert into route values ('VL2','VL',3,60);
 insert into route values ('VL2','VL',4,10);
+
+COMMIT;

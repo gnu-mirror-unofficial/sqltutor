@@ -1,15 +1,23 @@
+/* source: http://sqlzoo.net/ with permission by Andrew Cumming
+ *
+ * The "Neeps" database includes details of all teaching events in the
+ * School of Computing at Napier University in Semester 1 of the
+ * 2000/2001 academic year.
+ * 
+ */
+
+SET search_path TO sqltutor;
+
 --- createneeps, 1, 50
-drop table teaches;
-drop table attends;
-drop table staff;
-drop table student cascade constraints;
-drop table student;
-drop table occurs;
-drop table event;
-drop table modle;
-drop table room cascade constraints;
-drop table room;
-drop table week;
+drop table teaches cascade;
+drop table attends cascade;
+drop table staff   cascade;
+drop table student cascade ;
+drop table occurs  cascade;
+drop table event   cascade;
+drop table modle   cascade;
+drop table room    cascade;
+drop table week    cascade;
 
 create table week (
    id char(2) NOT NULL
@@ -74,15 +82,10 @@ create table teaches (
   ,foreign key (event)   references event(id)
   ,primary key (staff,event)
   );
-GRANT SELECT ON teaches TO PUBLIC;
-GRANT SELECT ON attends TO PUBLIC;
-GRANT SELECT ON staff TO PUBLIC;
-GRANT SELECT ON student TO PUBLIC;
-GRANT SELECT ON occurs TO PUBLIC;
-GRANT SELECT ON event TO PUBLIC;
-GRANT SELECT ON modle TO PUBLIC;
-GRANT SELECT ON room TO PUBLIC;
-GRANT SELECT ON week TO PUBLIC;
+
+
+BEGIN;
+
 --- tabweek, 1, 50
 insert into week values ('01',DATE '2000-10-02');
 insert into week values ('02',DATE '2000-10-09');
@@ -3701,3 +3704,5 @@ insert into teaches values ('co.ZZ7','coh8560095.L01');
 insert into teaches values ('co.ZZ7','coh8560095.T01');
 insert into teaches values ('co.ZZ7','coh8560095.T02');
 insert into teaches values ('co.ZZ7','coh8560095.T03');
+
+COMMIT;
