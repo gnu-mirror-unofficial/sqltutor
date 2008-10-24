@@ -96,8 +96,7 @@ SELECT LS.spolecnost AS dopravce, DL.vyrobce AS vyrobce,
 -- id="607" dataset="letadla" category="aggregate" points="6"
 --
 -- Které letecké společnosti mají sto a více letadel. Uveďte
--- společnost, zemi a celkový počet letadel dané společnosti. Seřaďte
--- sestupně podle počtu letadel.
+-- společnost, zemi a celkový počet letadel dané společnosti.
 
 SELECT spolecnost, zeme, SUM(pocet_letadel)
   FROM letecke_spolecnosti
@@ -174,8 +173,7 @@ SELECT LS.spolecnost, SUM(pocet_letadel*kapacita) AS "celkova kapacita"
 -- id="612" dataset="letadla" category="aggregate" points="6"
 --
 -- U kterých společností není známa kapacita ani jednoho letadla?
--- Uveďte společnost, zemi a světadíl a seřaďte podle svetadílů, zemí
--- a společností.
+-- Uveďte společnost, zemi a světadíl.
 
 SELECT S.spolecnost, zeme, svetadil
   FROM letecke_spolecnosti   S
@@ -363,8 +361,7 @@ SELECT vyrobce, letadlo, v_provozu_od
 --
 -- Které evropské společnosti mají ve své flotile letadla, která byla
 -- uvedena do provozu v letech 1993 až 1995? Uveďte společnost,
--- výrobce, typ letadla a rok. Seřaďte podle leteckých společností a
--- roků.
+-- výrobce, typ letadla a rok.
 
 SELECT DISTINCT S.spolecnost AS dopravce, L.vyrobce AS vyrobce, 
        letadlo, v_provozu_od
@@ -450,8 +447,7 @@ SELECT spolecnost, zeme, zalozeno
 
 -- id="625" dataset="letadla" category="aggregate" points="4"
 --
--- Pro každého výrobce určete počet typů jeho letadel. Seřaďte
--- sestupně podle počtu letadel.
+-- Pro každého výrobce určete počet typů jeho letadel.
 
 SELECT vyrobce, COUNT(letadlo) AS letadla
   FROM dopravni_letadla
@@ -499,8 +495,7 @@ LIMIT 1;
 -- id="628" dataset="letadla" category="select" points="2"
 --
 -- Která letadla mají dolet větší než 10000 km? Uveďte výrobce,
--- letadlo, kapacitu, rok uvedení do provozu a dolet. Seřaďte sestupně
--- podle doletu.
+-- letadlo, kapacitu, rok uvedení do provozu a dolet.
 
 SELECT vyrobce, letadlo, kapacita, v_provozu_od, dolet_km
   FROM dopravni_letadla

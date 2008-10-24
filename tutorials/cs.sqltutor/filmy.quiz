@@ -197,8 +197,8 @@ SELECT jmeno
 
 -- id="214" dataset="filmy" category="subselect" points="6"
 --
--- Vypište filmy z roku 2006 seřazené podle obsazení (tj. počtu herců 
--- uvedených v databázi) Uveďte počet herců a titul filmu.
+-- Vypište filmy z roku 2006 (tj. počtu herců 
+-- uvedených v databázi). Uveďte počet herců a titul filmu.
 
 SELECT   count(umelec_id), titul
 FROM     filmy JOIN obsazeni ON filmy.id=film_id

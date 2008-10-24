@@ -113,7 +113,7 @@ HAVING COUNT(pamatka) >= 10;
 --
 -- Které země Latinské Ameriky ('Latin America') mají v seznamu
 -- světového dědictví UNESCO zapsáno alespoň pět památek?  Uveďte vždy
--- zemi a počet, výpis seřaďte sestupně podle počtu památek.
+-- zemi a počet.
 
 SELECT zeme, COUNT(pamatka)
   FROM unesco

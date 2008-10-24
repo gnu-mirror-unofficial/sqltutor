@@ -42,8 +42,8 @@ WHERE  zastavka='Palmovka';
 -- id="305" dataset="tramvaje" category="aggregate" points="6"
 -- 
 -- Kterými zastávkami projíždí více než 6 linek. Vypište jména
--- zastávek a počet linek, které jimi projíždí. Seřaďte podle počtu
--- linek a zastávek. Poznámka: na některých linkách jsou dvě zastávky
+-- zastávek a počet linek, které jimi projíždí. 
+-- Poznámka: na některých linkách jsou dvě zastávky
 -- stejného jména, linku musíte ale započítat jen jednou.
 
 SELECT zastavka, COUNT(DISTINCT linka) AS pocet
@@ -81,7 +81,7 @@ WHERE  id IN (SELECT zastavka_id
 -- 
 -- Které linky mají na trase různé zastávky stejného jména. Vypiště
 -- čisla linek a opakující se jména zastávek (pro každou linku a
--- zastávku jen jednou). Seřeďte vzestupně podle čísel linek.
+-- zastávku jen jednou).
 
 SELECT linka, zastavka
   FROM linky

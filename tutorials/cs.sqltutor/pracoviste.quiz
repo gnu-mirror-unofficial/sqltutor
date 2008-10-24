@@ -57,8 +57,7 @@ SELECT jmeno, prijmeni, castka
 -- id="106" dataset="pracoviste" category="join" points="4"
 -- 
 -- Vypište jméno, příjmení, částku všech zaměstnanců, jejichž příjem
--- je vyšší než 20000, jejich příjmeni je Stehule. Seřaďte je dle výše
--- mzdy
+-- je vyšší než 20000, jejich příjmeni je Stehule.
 
 SELECT  jmeno, prijmeni, castka
 FROM    zamestnanci JOIN mzdy
