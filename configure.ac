@@ -60,5 +60,6 @@ AC_OUTPUT([Makefile
            tutorials/.quiz/Makefile
            tutorials/Makefile
            datasets/Makefile
+           doc/Makefile
           ])
 
