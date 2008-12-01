@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.cpp,v 1.3 2008/09/24 17:13:47 cepek Exp $ 
+ * $Id: sqltutor.cpp,v 1.4 2008/12/01 19:44:23 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -61,7 +61,7 @@ void SQLtutor::run()
 }
 
 
-bool SQLtutor::empty_or_reject(std::string sql)
+bool SQLtutor::empty(std::string sql)
 {
   bool empty = true;
   for (std::string::const_iterator b=sql.begin(), e=sql.end(); b!=e; ++b)
@@ -70,15 +70,8 @@ bool SQLtutor::empty_or_reject(std::string sql)
       empty = false;
       break;
     }
-  if (empty) return true;
 
-
-  /* rejected queries */
-
-  if (std::string::npos != sql.find("answers"))  return true;
-  if (std::string::npos != sql.find("sessions")) return true;
-
-  return false;
+  return empty;
 }
 
 
@@ -125,7 +118,7 @@ std::string SQLtutor::tutorial_selection()
 
       return s;
     }
-  catch (pqxx::sql_error e)
+  catch (const std::exception& e)
     {
       return e.what();
     }

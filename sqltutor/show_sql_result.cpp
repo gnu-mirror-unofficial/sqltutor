@@ -17,20 +17,18 @@
  */
 
 /* 
- * $Id: show_sql_result.cpp,v 1.3 2008/10/06 13:49:06 cepek Exp $ 
+ * $Id: show_sql_result.cpp,v 1.4 2008/12/01 19:44:22 cepek Exp $ 
  */
 
 #include "sqltutor.h"
 
-void SQLtutor::show_sql_result(pqxx::work& tran)
+void SQLtutor::show_sql_result()
 {
   using namespace pqxx;
 
-  std::string::size_type fake = sql.find("answers");
-  if (fake != std::string::npos)
-    {
-      return; 
-    }
+  connection conn( db_connection_sql ); 
+  work   tran(conn, "show_sql_result");
+  set_schema(tran);
 
   result sql_result(tran.exec(sql));
   

@@ -1,4 +1,8 @@
-2008-09-14  Ales Cepek  <cepek@localhost>
+2008-12-01  Stepan Kasal  <kasal@ucw.cz>
+
+	* several corrections and improvements in configure.ac
+
+2008-09-14  Ales Cepek  <cepek@gnu.org>
 
 	* added sqltutor schema in version 0.04
 

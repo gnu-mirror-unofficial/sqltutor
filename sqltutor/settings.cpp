@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: settings.cpp,v 1.8 2008/10/16 06:38:13 cepek Exp $ 
+ * $Id: settings.cpp,v 1.9 2008/12/01 19:44:22 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -38,6 +38,10 @@ T SQLtutor::db_connection     = " dbname="   xstr(SQLTUTOR_DATABASE)
                                 " host=localhost"
                                 " user="     xstr(SQLTUTOR_WWW_USER)
                                 " password=" xstr(SQLTUTOR_PASSWORD);
+T SQLtutor::db_connection_sql = " dbname="   xstr(SQLTUTOR_DATABASE)
+                                " host=localhost"
+                                " user="     xstr(SQLTUTOR_WWW_EXEC)
+                                " password=" xstr(SQLTUTOR_PASSEXEC);
 T SQLtutor::title             = "SQL tutor";
 T SQLtutor::init_continue     = "Continue";
 T SQLtutor::init_datasets     = "Display datasets";

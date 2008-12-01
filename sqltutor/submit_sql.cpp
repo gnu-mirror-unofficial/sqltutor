@@ -17,14 +17,14 @@
  */
 
 /* 
- * $Id: submit_sql.cpp,v 1.1 2008/05/07 15:27:35 cepek Exp $ 
+ * $Id: submit_sql.cpp,v 1.2 2008/12/01 19:44:23 cepek Exp $ 
  */
 
 #include "sqltutor.h"
 
 void SQLtutor::submit_sql(pqxx::work& tran)
 {  
-  if (empty_or_reject(sql)) return;
+  if (empty(sql)) return;
 
   check_answer(tran);
 

@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.6 2008/09/24 17:13:47 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.7 2008/12/01 19:44:22 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -145,7 +145,7 @@ void SQLtutor::form_init()
 
         return form_main();
       }
-    catch (const pqxx::sql_error& s) 
+    catch (const std::exception& s) 
       {
         form << s.what() << "<br/><br/>";
         form_stop();

@@ -17,13 +17,14 @@
  */
 
 /* 
- * $Id: sqltutor.h,v 1.8 2008/10/05 14:37:21 cepek Exp $ 
+ * $Id: sqltutor.h,v 1.9 2008/12/01 19:44:23 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor
 #define __h___SQLTUTOR_H___sqltutor_h___SQLtutor
 
 #include <iostream>
+#include <exception>
 #include <pqxx/pqxx>
 #include "cgi.h"
 
@@ -48,6 +49,7 @@ private:
   // user settings
 
   static const std::string db_connection;
+  static const std::string db_connection_sql;
   static const std::string state;
   static const std::string init_continue;
   static const std::string init_datasets;
@@ -101,8 +103,16 @@ private:
   static const std::string init_state;
   static const std::string main_state;
 
-  class Exception {};
-  class AllQuestionsDone : public Exception {};
+  class Exception : public std::exception   
+  {
+  public:
+    const char* what() { return "SQLtutor : Base Exception";     }
+  };
+  
+  class AllQuestionsDone : public Exception 
+  {
+    const char* what() { return "SQLtutor : All Questions Done"; }
+  };
 
   CGI           cgi;
   Form          form;
@@ -126,7 +136,6 @@ private:
 
   void check_answer    (pqxx::work& transaction);
   void submit_sql      (pqxx::work& transaction);
-  void show_sql_result (pqxx::work& transaction);
   void show_table_data (pqxx::work& transaction);
   void get_new_question(pqxx::work& transaction);
   void save_answer     (pqxx::work& transaction);
@@ -135,9 +144,10 @@ private:
     transaction.exec("SET search_path TO sqltutor;");
   }
 
-  void show_datasets();
+  void show_sql_result  ();
+  void show_datasets    ();
   std::string button_sep() { return "&nbsp;&nbsp;&nbsp;&nbsp;"; }
-  bool empty_or_reject(std::string);
+  bool empty            (std::string);
 
   std::string tutorial_selection();
 };

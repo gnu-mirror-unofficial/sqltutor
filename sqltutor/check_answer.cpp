@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: check_answer.cpp,v 1.2 2008/09/26 19:40:38 cepek Exp $ 
+ * $Id: check_answer.cpp,v 1.3 2008/12/01 19:44:22 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -69,12 +69,22 @@ void SQLtutor::check_answer(pqxx::work& tran)
   using std::string;
 
   correct_answer = false; 
-  if (empty_or_reject(sql)) return save_answer(tran);
+  if (empty(sql)) return save_answer(tran);
 
-  result sql_result(tran.exec(sql));
-  sql_result_size    = sql_result.size();
-  sql_result_columns = sql_result.columns();
-  
+  { // Opening new connection for user SQLTUTOR_WWW_EXEC protects
+    // against SQL injection exploits. Only dataset tables with
+    // granted select are available here. Exceptions are caugth
+    // outside the check_answer()
+    
+    connection conn( db_connection_sql ); 
+    work   tran(conn, "show_sql_result");
+    set_schema(tran);
+    
+    result sql_result(tran.exec(sql));
+    sql_result_size    = sql_result.size();
+    sql_result_columns = sql_result.columns();
+  }
+
   result tmp1(tran.exec("SELECT answer FROM answers"
                         " WHERE tutorial_id = '" + tutorial_id + "'"
                         "   AND question_id = '" + question_id + "'" ));

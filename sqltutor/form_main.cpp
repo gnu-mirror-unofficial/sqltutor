@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_main.cpp,v 1.4 2008/09/26 19:40:39 cepek Exp $ 
+ * $Id: form_main.cpp,v 1.5 2008/12/01 19:44:22 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -42,7 +42,7 @@ void SQLtutor::form_main()
   if (state == main_stop) 
     {
       sql = CGI::map["sql_query"];
-      if (sql_checked != "yes" && !empty_or_reject(sql))
+      if (sql_checked != "yes" && !empty(sql))
         try
           {
             connection   conn( db_connection );
@@ -76,7 +76,7 @@ void SQLtutor::form_main()
       if (state == main_next)
         {
           sql = CGI::map["sql_query"];
-          if (sql_checked != "yes" && !empty_or_reject(sql))
+          if (sql_checked != "yes" && !empty(sql))
             try {
               connection   conn( db_connection );
               work   tran (conn, "form_main4");
@@ -145,11 +145,11 @@ void SQLtutor::form_main()
             }
         }
 
-      if (!empty_or_reject(sql))
+      if (!empty(sql))
         try 
           {
             submit_sql(tran);
-            show_sql_result(tran);
+            show_sql_result();
           }
         catch (sql_error s)
           {

@@ -9,7 +9,6 @@
 @finalout
 @c %**end of header
 
-
 @copying
 This manual (@value{UPDATED}) is for SQLtutor (version
 @value{VERSION}).
@@ -63,6 +62,9 @@ freedom.''
 Tutorial sections:
 * Concepts::          Basic concepts for understanding SQLtutor.
 
+Installation:
+* How to install SQLtutor::
+
 Reference sections:
 * Copying This Manual::  License for copying this manual.
 * Index::
@@ -85,7 +87,9 @@ This edition corresponds to version @value{VERSION} of SQLtutor.
 
 This chapter introduces basic concepts of SQLtutor project.
 
-
+@node How to install SQLtutor
+@chapter How to install SQLtutor
+@include install.texi
 
 @node Copying This Manual
 @appendix Copying This Manual

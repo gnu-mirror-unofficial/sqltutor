@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: save_answer.cpp,v 1.4 2008/09/14 11:09:21 cepek Exp $ 
+ * $Id: save_answer.cpp,v 1.5 2008/12/01 19:44:22 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -43,7 +43,7 @@ void SQLtutor::save_answer(pqxx::work& transaction)
   if (correct_answer) sql_checked = "yes";
 
   std::string tmp = "'" + apostrophes(sql) + "'"; 
-  if (empty_or_reject(sql)) tmp = "NULL";
+  if (empty(sql)) tmp = "NULL";
 
   using namespace pqxx;
   connection  conn( db_connection );

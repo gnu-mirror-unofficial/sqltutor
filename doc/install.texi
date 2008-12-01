@@ -1,71 +1,145 @@
 @c This file is intended to be included within another document,
 @c hence no sectioning command or @node.
 
-@c SQLtutor - Just Another Introduction to SQL
+SQLtutor is a CGI script and a PostgreSQL database of SQL tutorials,
+collections of SQL questions and answers.  All SQLtutor database
+objects are defined in the SCHEMA @code{sqltutor}.
 
-SQLtutor is a CGI script and a PostgreSQL database of SQL
-tutorials, collections of SQL questions and answers.
+Five C preprocessor macros are defined in @file{configure.ac} with the
+following implicit values.
 
-Three environment variables SQLTUTOR_DATABASE, SQLTUTOR_WWW_USER
-and SQLTUTOR_PASSWORD are defined in configure.ac and implicitly
-are set to 'sqltutor' (Postgresql database name) and 'sqlquiz'
-(www user for CGI script sqlutor) and 'sqlkrok' (password for
-CGI skript). 
+@table @env
+@item SQLTUTOR_DATABASE=sqltutor
+PostgreSQL database name used by SQLtutor.
 
-These variables are used by all makefiles and you can change
-them if needed in the configure.ac file.
+@item SQLTUTOR_WWW_USER=sqlquiz
+WWW user for CGI script @code{sqlutor} with full access rights to all
+tables.
 
+@item SQLTUTOR_PASSWORD=sqlkrok
+Password for CGI script for the user @env{SQLTUTOR_WWW_USER}
+
+@item SQLTUTOR_WWW_EXEC=sqlexec
+Database role used for running queries entered by
+users. @env{SQLTUTOR_WWW_EXEC} is granted @code{SLECT} to datasets'
+tables and revoked all rigths on all other @code{sqltutor} tables.
+
+@item SQLTUTOR_PASSEXEC=sqlkrok
+Password for CGI script for the user @env{SQLTUTOR_WWW_EXEC}
+(implicitly the same password as for @env{SQLTUTOR_WWW_USER}).
+@end table
+
+@noindent These macros are used by all modules and you can change
+their implicit values if needed in the @file{configure.ac} file.
 
 @section Building sqltutor
 
-To build CGI script sqltutor run 
+To build CGI script sqltutor go to SQLtutor home directory, run
 
 @example
    ./configue 
    make -C sqltutor
 @end example
 
-and copy sqltutor/sqltutor to your CGI directory.
+@noindent and copy sqltutor/sqltutor to your CGI directory.
 
-For more information see the standard Basic Installation
-instructions bellow.
+For general information on using GNU autotool see the standard Basic
+Installation instructions in the @file{INSTALL}.
 
 @section Creating the database 
 
-@examle
+To create a database, the PostgreSQL server must be up and
+running. Database is created with SQL command
+
+@example
+CREATE DATABASE SQLTUTOR_DATABASE
+@end example
+
+@noindent or you can use a progam @command{createdb}
+
+@example
 createdb SQLTUTOR_DATABASE
+@end example
 
-su -
-su - postgres
+Two database roles must be created for SQLtutor with SQL command
+@code{CREATE ROLE}
 
+@example
+CREATE ROLE SQLTUTOR_WWW_USER LOGIN;
+CREATE ROLE SQLTUTOR_WWW_EXEC LOGIN;
+@end example 
+
+@noindent or using a program @command{createuser}
+
+@example
 createuser SQLTUTOR_WWW_USER
+createuser SQLTUTOR_WWW_EXEC
+@end example 
 
-run psql and
 
+@noindent To set passwords for these new roles run @command{psql} and
+enter SQL @command{ALTER} command
+
+@example
 ALTER USER SQLTUTOR_WWW_USER WITH PASSWORD 'xxx';
+ALTER USER SQLTUTOR_WWW_EXEC WITH PASSWORD 'yyy';
+@end example
+
+@noindent or 
+
+@example
+CREATE ROLE SQLTUTOR_WWW_USER PASSWORD 'xxx' LOGIN;
+CREATE ROLE SQLTUTOR_WWW_EXEC PASSWORD 'yyy' LOGIN;
+@end example
+
+
+If PostgreSQL language is not defined in datatabase @code{template1}
+you must create it explicitly in the SQLtutor database
+
+@example
 psql SQLTUTOR_DATABASE
 CREATE LANGUAGE plpgsql;
 @end example
 
-@section Populating the databse
+@section Populating the database
 
-Change directory to 'database' and run 
+Apart from module @code{sqltutor} there are three modules responsible for
+populating the database
+
+@table @samp
+@item database
+SQL schema @code{sqltutor}, general SQL tables and functions
+
+@item tutorial
+tutorials table
+
+@item datasets
+dataset tables which are used by one or more tutorials
+@end table
+
+These three modules must be made explicitly by running @code{make
+install} in the corresponding subdirectory.
+
+@subsection Creating schema and general tables
+
+Module @code{database} creates SQL SCHEMA sqltutor and all system
+tables used by SQLtutor . This module must be installed before
+populating the database.
 
 @example
-cd database
-make install
+make -C database install
 @end example
 
-Instructions for manual running of a script create-database.sh
-are displayed.
+The @code{database} modules creates a lock file @file{.tmp.database}
+that protects against inelligible recreation of the database. If you
+want to rebuild the dayabase from the scratch, you must remove the
+lock file either manully or by running
 
 @example
-export SQLTUTOR_DATABASE=sqltutor
-export SQLTUTOR_WWW_USER=sqlquiz
-/bin/sh create-database.sh
+make -C database clean
 @end example
 
-@section Populate tutorials and datasets
+@subsection Populating tutorials and datasets
 
 Run in any order from the project home directory
 
@@ -74,7 +148,7 @@ make -C tutorials install
 make -C datasets  install
 @end example
 
-If old tutorials and/or datasets have been installed, run
+@noindent If old tutorials and/or datasets have been installed, run
 
 @example
 make -C tutorials clean install
