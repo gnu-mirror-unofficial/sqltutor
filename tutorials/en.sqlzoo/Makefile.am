@@ -9,6 +9,6 @@ install: .tmp.en.sqlzoo
 .tmp.en.sqlzoo : ../.quiz/quiz
 	@psql @SQLTUTOR_DATABASE@ -t -c \
            "SELECT sqltutor.init_tutorial('English', 'SQLzoo', 'en.sqlzoo');" \
-	   | ../.quiz/quiz *.quiz | psql @SQLTUTOR_DATABASE@
+	   | ../.quiz/quiz $(srcdir)/*.quiz | psql @SQLTUTOR_DATABASE@
 	@touch .tmp.en.sqlzoo
 

@@ -15,6 +15,6 @@ install: .tmp.cs.sqltutor
 .tmp.cs.sqltutor : ../.quiz/quiz
 	@psql @SQLTUTOR_DATABASE@ -t -c \
            "SELECT sqltutor.init_tutorial('Czech', 'SQLtutor', 'cs.sqltutor');" \
-	   | ../.quiz/quiz *.quiz | psql @SQLTUTOR_DATABASE@
+	   | ../.quiz/quiz $(srcdir)/*.quiz | psql @SQLTUTOR_DATABASE@
 	@touch .tmp.cs.sqltutor
 

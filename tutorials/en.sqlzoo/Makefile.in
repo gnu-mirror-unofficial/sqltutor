@@ -301,7 +301,7 @@ install: .tmp.en.sqlzoo
 .tmp.en.sqlzoo : ../.quiz/quiz
 	@psql @SQLTUTOR_DATABASE@ -t -c \
            "SELECT sqltutor.init_tutorial('English', 'SQLzoo', 'en.sqlzoo');" \
-	   | ../.quiz/quiz *.quiz | psql @SQLTUTOR_DATABASE@
+	   | ../.quiz/quiz $(srcdir)/*.quiz | psql @SQLTUTOR_DATABASE@
 	@touch .tmp.en.sqlzoo
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
