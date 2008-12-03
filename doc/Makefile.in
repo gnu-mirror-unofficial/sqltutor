@@ -124,7 +124,9 @@ RANLIB = @RANLIB@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 SQLTUTOR_DATABASE = @SQLTUTOR_DATABASE@
+SQLTUTOR_PASSEXEC = @SQLTUTOR_PASSEXEC@
 SQLTUTOR_PASSWORD = @SQLTUTOR_PASSWORD@
+SQLTUTOR_WWW_EXEC = @SQLTUTOR_WWW_EXEC@
 SQLTUTOR_WWW_USER = @SQLTUTOR_WWW_USER@
 STRIP = @STRIP@
 VERSION = @VERSION@
@@ -168,7 +170,7 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AM_MAKEINFOFLAGS = --no-split
 info_TEXINFOS = sqltutor.texinfo
-sqltutor_TEXINFOS = gpl-3.0.texi fdl.texi
+sqltutor_TEXINFOS = install.texi gpl-3.0.texi fdl.texi
 all: all-am
 
 .SUFFIXES:

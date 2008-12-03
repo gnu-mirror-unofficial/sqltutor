@@ -148,36 +148,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-
-# Each tutorial must be defined in a separate directory with Makefile
-# that deletes all records dependend on the tutorial label (see script
-# delete.sed) and runs INSERT like the following
-#
-#    INSERT INTO sqltutor.tutorials (language, tutorial, label)
-#                VALUES             ('English','SQLzoo', 'en.sqlzoo');
-#
-# Name of the tutorial directory must correspond to its label,
-# 'en.sqlzoo.sql' for the example above.
-#
-# Tutorial label is passed to subdirectories as the environment
-# variable TUTORIAL
-#
-#
-EXTRA_DIST = delete.sed \
-             cs.sqltutor/Makefile \
-             cs.sqltutor/filmy.quiz \
-             cs.sqltutor/letadla.quiz \
-             cs.sqltutor/pracoviste.quiz \
-             cs.sqltutor/premyslovci.quiz \
-             cs.sqltutor/staty.quiz \
-             cs.sqltutor/tramvaje.quiz \
-             cs.sqltutor/unesco.quiz \
-             cs.sqltutor/vodocty.quiz \
-             en.sqlzoo/Makefile \
-             en.sqlzoo/bbc.quiz \
-             en.sqlzoo/nobel.quiz 
-
-SUBDIRS = .quiz
+SUBDIRS = .quiz cs.sqltutor en.sqlzoo
 all: all-recursive
 
 .SUFFIXES:
@@ -345,7 +316,6 @@ distclean-tags:
 	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
 
 distdir: $(DISTFILES)
-	$(mkdir_p) $(distdir)/cs.sqltutor $(distdir)/en.sqlzoo
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
@@ -392,6 +362,7 @@ check: check-recursive
 all-am: Makefile
 installdirs: installdirs-recursive
 installdirs-am:
+install: install-recursive
 install-exec: install-exec-recursive
 install-data: install-data-recursive
 uninstall: uninstall-recursive
@@ -415,6 +386,8 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+clean: clean-recursive
+
 clean-am: clean-generic mostlyclean-am
 
 distclean: distclean-recursive
@@ -473,25 +446,6 @@ uninstall-info: uninstall-info-recursive
 	mostlyclean-recursive pdf pdf-am ps ps-am tags tags-recursive \
 	uninstall uninstall-am uninstall-info-am
 
-
-export SQLTUTOR_DATABASE=@SQLTUTOR_DATABASE@
-export DIRS=$(shell rm -f .tmp.* && ls -l | grep -v CVS | awk '/^d/{print ".tmp."$$8}')
-
-all:
-
-install: .quiz/quiz $(DIRS)
-.tmp.% : export TUTORIAL=$*
-.tmp.% :
-	@$(MAKE) -C $(TUTORIAL)
-
-.quiz/quiz : .quiz/quiz.cpp .quiz/Makefile
-	$(MAKE) -C .quiz
-
-clean:
-	@for t in $(shell echo $(DIRS) | sed s/.tmp.//g ); \
-	do \
-		rm -f $$t/.tmp.* ; \
-	done;
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

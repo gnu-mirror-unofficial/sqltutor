@@ -6836,7 +6836,7 @@ fi
 done
 
 
-ac_config_files="$ac_config_files Makefile sqltutor/Makefile database/Makefile tutorials/.quiz/Makefile tutorials/Makefile datasets/Makefile doc/Makefile"
+ac_config_files="$ac_config_files Makefile sqltutor/Makefile database/Makefile tutorials/.quiz/Makefile tutorials/Makefile tutorials/cs.sqltutor/Makefile tutorials/en.sqlzoo/Makefile datasets/Makefile doc/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -7428,6 +7428,8 @@ do
     "database/Makefile") CONFIG_FILES="$CONFIG_FILES database/Makefile" ;;
     "tutorials/.quiz/Makefile") CONFIG_FILES="$CONFIG_FILES tutorials/.quiz/Makefile" ;;
     "tutorials/Makefile") CONFIG_FILES="$CONFIG_FILES tutorials/Makefile" ;;
+    "tutorials/cs.sqltutor/Makefile") CONFIG_FILES="$CONFIG_FILES tutorials/cs.sqltutor/Makefile" ;;
+    "tutorials/en.sqlzoo/Makefile") CONFIG_FILES="$CONFIG_FILES tutorials/en.sqlzoo/Makefile" ;;
     "datasets/Makefile") CONFIG_FILES="$CONFIG_FILES datasets/Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
 

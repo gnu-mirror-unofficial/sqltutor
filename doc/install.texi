@@ -55,12 +55,6 @@ running. Database is created with SQL command
 CREATE DATABASE SQLTUTOR_DATABASE
 @end example
 
-@noindent or you can use a progam @command{createdb}
-
-@example
-createdb SQLTUTOR_DATABASE
-@end example
-
 Two database roles must be created for SQLtutor with SQL command
 @code{CREATE ROLE}
 
@@ -68,14 +62,6 @@ Two database roles must be created for SQLtutor with SQL command
 CREATE ROLE SQLTUTOR_WWW_USER LOGIN;
 CREATE ROLE SQLTUTOR_WWW_EXEC LOGIN;
 @end example 
-
-@noindent or using a program @command{createuser}
-
-@example
-createuser SQLTUTOR_WWW_USER
-createuser SQLTUTOR_WWW_EXEC
-@end example 
-
 
 @noindent To set passwords for these new roles run @command{psql} and
 enter SQL @command{ALTER} command
@@ -85,7 +71,7 @@ ALTER USER SQLTUTOR_WWW_USER WITH PASSWORD 'xxx';
 ALTER USER SQLTUTOR_WWW_EXEC WITH PASSWORD 'yyy';
 @end example
 
-@noindent or 
+@noindent or passwords can be set directly when creating roles
 
 @example
 CREATE ROLE SQLTUTOR_WWW_USER PASSWORD 'xxx' LOGIN;
@@ -97,6 +83,8 @@ If PostgreSQL language is not defined in datatabase @code{template1}
 you must create it explicitly in the SQLtutor database
 
 @example
+su -
+su - postgres
 psql SQLTUTOR_DATABASE
 CREATE LANGUAGE plpgsql;
 @end example

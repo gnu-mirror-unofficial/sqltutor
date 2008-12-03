@@ -143,7 +143,8 @@ CLEANFILES = .tmp.database
 EXTRA_DIST = sqltutor.sql \
              merge_category.sql \
              next_question.sql \
-             open_session.sql
+             open_session.sql \
+             init_tutorial.sql
 
 all: all-am
 
@@ -306,10 +307,10 @@ install : .tmp.database
 	@echo -e "\ncreating schema"
 	@echo -e  "===============\n"
 #
-	psql @SQLTUTOR_DATABASE@  -c "DROP SCHEMA sqltutor CASCADE;"
-	psql @SQLTUTOR_DATABASE@  -c "CREATE SCHEMA sqltutor;"
-	psql @SQLTUTOR_DATABASE@  -c "GRANT USAGE ON SCHEMA sqltutor TO @SQLTUTOR_WWW_USER@;"
-	psql @SQLTUTOR_DATABASE@  -c "GRANT USAGE ON SCHEMA sqltutor TO @SQLTUTOR_WWW_EXEC@;"
+	-psql @SQLTUTOR_DATABASE@  -c "DROP SCHEMA sqltutor CASCADE;"
+	 psql @SQLTUTOR_DATABASE@  -c "CREATE SCHEMA sqltutor;"
+	 psql @SQLTUTOR_DATABASE@  -c "GRANT USAGE ON SCHEMA sqltutor TO @SQLTUTOR_WWW_USER@;"
+	 psql @SQLTUTOR_DATABASE@  -c "GRANT USAGE ON SCHEMA sqltutor TO @SQLTUTOR_WWW_EXEC@;"
 #
 	@echo -e "\ncreating tables"
 	@echo -e  "===============\n";
@@ -320,16 +321,11 @@ install : .tmp.database
 	@echo -e   "===================\n"
 #
 	@for t in answers questions questions_categories categories \
-	         datasets dataset_sources ; \
+	         tutorials datasets dataset_sources ; \
 	do \
 	   echo REVOKE ALL   ON TABLE sqltutor.$$t FROM PUBLIC ";"  \
 	        GRANT SELECT ON TABLE sqltutor.$$t TO @SQLTUTOR_WWW_USER@ ";" | psql @SQLTUTOR_DATABASE@  ; \
 	done
-#
-	@for t in tutorials questions datasets dataset_sources; \
-	do \
-	   echo GRANT SELECT ON TABLE sqltutor.$$t TO PUBLIC ";" | psql @SQLTUTOR_DATABASE@ ; \
-	done 
 #
 	@for t in sessions sessions_answers ; \
 	do \
