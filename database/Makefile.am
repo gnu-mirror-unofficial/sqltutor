@@ -9,7 +9,7 @@ all:
 
 install : .tmp.database
 
-.tmp.database : Makefile *.sql
+.tmp.database : Makefile
 #
 	@echo -e "\ncreating schema"
 	@echo -e  "===============\n"
