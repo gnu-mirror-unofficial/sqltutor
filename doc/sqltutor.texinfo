@@ -64,6 +64,7 @@ Tutorial sections:
 
 Installation:
 * How to install SQLtutor::
+* Internals::
 
 Reference sections:
 * Copying This Manual::  License for copying this manual.
@@ -89,7 +90,13 @@ This chapter introduces basic concepts of SQLtutor project.
 
 @node How to install SQLtutor
 @chapter How to install SQLtutor
+@cindex how to install
 @include install.texi
+
+@node Internals
+@chapter Internals
+@cindex internals
+@include internals.texi
 
 @node Copying This Manual
 @appendix Copying This Manual
