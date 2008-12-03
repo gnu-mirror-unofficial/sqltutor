@@ -2,7 +2,8 @@ CLEANFILES = .tmp.database
 EXTRA_DIST = sqltutor.sql \
              merge_category.sql \
              next_question.sql \
-             open_session.sql
+             open_session.sql \
+             init_tutorial.sql
 
 all: 
 
