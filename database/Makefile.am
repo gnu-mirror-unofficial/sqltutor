@@ -22,7 +22,7 @@ install : .tmp.database
 	@echo -e "\ncreating tables"
 	@echo -e  "===============\n";
 #
-	psql @SQLTUTOR_DATABASE@ < sqltutor.sql
+	psql @SQLTUTOR_DATABASE@ < $(srcdir)/sqltutor.sql
 #
 	@echo -e "\ngranting privileges"
 	@echo -e   "===================\n"
@@ -67,9 +67,10 @@ install : .tmp.database
 	@echo -e "\ncreating functions"
 	@echo -e   "==================\n"
 #
-	@for func in $$(ls *.sql | grep -v sqltutor.sql) ; \
+	@for func in init_tutorial.sql merge_category.sql \
+                     next_question.sql open_session.sql ; \
 	do \
-	  psql @SQLTUTOR_DATABASE@ < $$func ; \
+	  psql @SQLTUTOR_DATABASE@ < $(srcdir)/$$func ; \
 	done
 # 
 	@echo -e "\ngranting privileges"
