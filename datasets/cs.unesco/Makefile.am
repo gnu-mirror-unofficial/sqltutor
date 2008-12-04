@@ -1,6 +1,6 @@
 CLEANFILES = .tmp.cs.unesco
 EXTRA_DIST = unesco.sql \
-             unseco_wh.sql
+             unesco_wh.sql
 
 all :
 
