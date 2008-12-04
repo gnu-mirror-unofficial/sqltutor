@@ -6,6 +6,6 @@ This edition corresponds to version @value{VERSION} of SQLtutor.
 @section SQLzoo
 
 English SQLzoo tutorial is based on the collection of SQL questions
-and answers and datasets from @url{http://sqlzoo.net/}. We would like
+and answers and datasets from @url{http://sqlzoo.ne/}. We would like
 to thank Andrew Cumming for his kind approval to use his data and
 tutorials in our project.
