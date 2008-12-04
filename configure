@@ -6836,7 +6836,7 @@ fi
 done
 
 
-ac_config_files="$ac_config_files Makefile sqltutor/Makefile database/Makefile tutorials/.quiz/Makefile tutorials/Makefile tutorials/cs.sqltutor/Makefile tutorials/en.sqlzoo/Makefile datasets/Makefile doc/Makefile"
+ac_config_files="$ac_config_files Makefile sqltutor/Makefile database/Makefile tutorials/.quiz/Makefile tutorials/Makefile tutorials/cs.sqltutor/Makefile tutorials/en.sqlzoo/Makefile datasets/Makefile datasets/cs.filmy/Makefile doc/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -7431,6 +7431,7 @@ do
     "tutorials/cs.sqltutor/Makefile") CONFIG_FILES="$CONFIG_FILES tutorials/cs.sqltutor/Makefile" ;;
     "tutorials/en.sqlzoo/Makefile") CONFIG_FILES="$CONFIG_FILES tutorials/en.sqlzoo/Makefile" ;;
     "datasets/Makefile") CONFIG_FILES="$CONFIG_FILES datasets/Makefile" ;;
+    "datasets/cs.filmy/Makefile") CONFIG_FILES="$CONFIG_FILES datasets/cs.filmy/Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5

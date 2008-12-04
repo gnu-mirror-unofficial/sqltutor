@@ -66,6 +66,7 @@ AC_OUTPUT([Makefile
            tutorials/cs.sqltutor/Makefile
            tutorials/en.sqlzoo/Makefile
            datasets/Makefile
+           datasets/cs.filmy/Makefile
            doc/Makefile
           ])
 

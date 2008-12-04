@@ -259,6 +259,16 @@ HAVING   count(umelec_id) > 1;
 -- Ve kterých filmech byl režisér zároveň hercem? Vypište titul a 
 -- jméno režiséra/herce.
 
+SELECT titul, jmeno
+  FROM obsazeni
+       JOIN rezie
+          ON  obsazeni.film_id   = rezie.film_id
+          AND obsazeni.umelec_id = rezie.umelec_id
+       JOIN filmy
+          ON filmy.id  = obsazeni.film_id
+       JOIN umelci
+          ON umelci.id = rezie.umelec_id;
+
 SELECT  titul, umelci.jmeno
 FROM    filmy JOIN rezie ON filmy.id=rezie.film_id
         JOIN umelci ON rezie.umelec_id=umelci.id
