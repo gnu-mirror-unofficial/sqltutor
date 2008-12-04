@@ -67,7 +67,7 @@ install : .tmp.database
 	@echo -e "\ncreating functions"
 	@echo -e   "==================\n"
 #
-	@for func in init_tutorial.sql merge_category.sql \
+	@for func in init_tutorial.sql init_dataset.sql merge_category.sql \
                      next_question.sql open_session.sql ; \
 	do \
 	  psql @SQLTUTOR_DATABASE@ < $(srcdir)/$$func ; \
