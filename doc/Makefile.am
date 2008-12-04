@@ -16,4 +16,5 @@
 
 AM_MAKEINFOFLAGS = --no-split
 info_TEXINFOS = sqltutor.texinfo
-sqltutor_TEXINFOS = install.texi internals.texi gpl-3.0.texi fdl.texi
+sqltutor_TEXINFOS = intro.texi concepts.texi install.texi internals.texi \
+                    gpl-3.0.texi fdl.texi

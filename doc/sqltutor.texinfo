@@ -74,10 +74,7 @@ Reference sections:
 @node Introduction
 @unnumbered Introduction
 @cindex introduction
-
-@dfn{SQLtutor} is a web based interactive tutorial of SQL.
-
-This edition corresponds to version @value{VERSION} of SQLtutor.
+@include intro.texi
 
 @node Copying
 @unnumbered GNU GENERAL PUBLIC LICENSE
@@ -85,8 +82,7 @@ This edition corresponds to version @value{VERSION} of SQLtutor.
 
 @node Concepts
 @chapter The Concepts of SQLtutor
-
-This chapter introduces basic concepts of SQLtutor project.
+@include concepts.texi
 
 @node How to install SQLtutor
 @chapter How to install SQLtutor
