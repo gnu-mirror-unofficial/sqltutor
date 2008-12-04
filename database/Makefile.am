@@ -3,7 +3,8 @@ EXTRA_DIST = sqltutor.sql \
              merge_category.sql \
              next_question.sql \
              open_session.sql \
-             init_tutorial.sql
+             init_tutorial.sql \
+             init_dataset.sql
 
 all: 
 
