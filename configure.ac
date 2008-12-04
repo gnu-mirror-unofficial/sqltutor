@@ -67,6 +67,19 @@ AC_OUTPUT([Makefile
            tutorials/en.sqlzoo/Makefile
            datasets/Makefile
            datasets/cs.filmy/Makefile
+           datasets/cs.letadla/Makefile
+           datasets/cs.pracoviste/Makefile
+           datasets/cs.premyslovci/Makefile
+           datasets/cs.staty/Makefile
+           datasets/cs.tramvaje/Makefile
+           datasets/cs.unesco/Makefile
+           datasets/cs.vodocty/Makefile
+           datasets/en.bbc/Makefile
+           datasets/en.busses/Makefile
+           datasets/en.countries/Makefile
+           datasets/en.movies/Makefile
+           datasets/en.neeps/Makefile
+           datasets/en.nobel/Makefile
            doc/Makefile
           ])
 

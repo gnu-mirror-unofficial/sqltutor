@@ -33,7 +33,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-subdir = datasets/cs.filmy
+subdir = datasets/en.neeps
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -139,8 +139,8 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-CLEANFILES = .tmp.cs.filmy
-EXTRA_DIST = filmy.sql
+CLEANFILES = .tmp.en.neeps
+EXTRA_DIST = neeps.sql
 all: all-am
 
 .SUFFIXES:
@@ -153,9 +153,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  datasets/cs.filmy/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  datasets/en.neeps/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  datasets/cs.filmy/Makefile
+	  $(AUTOMAKE) --gnu  datasets/en.neeps/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -292,17 +292,22 @@ uninstall-am: uninstall-info-am
 	uninstall-info-am
 
 
-all : 
+all :
 
-install : .tmp.cs.filmy
+install : .tmp.en.neeps
 
-.tmp.cs.filmy : 
-	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/filmy.sql
-	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.init_dataset('filmy', 2007, 'http://www.fdb.cz/')"
-	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('filmy', 1, 'filmy',    'id, rok, titul')"
-	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('filmy', 2, 'umelci',   'id, jmeno')"
-	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('filmy', 3, 'obsazeni', 'film_id, umelec_id, poradi')"
-	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('filmy', 4, 'rezie',    'film_id, umelec_id')"
+.tmp.en.neeps :
+	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/neeps.sql
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.init_dataset('neeps', 2008, 'http://sqlzoo.net')"
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('neeps', 1, 'week', 'id, wkstart')"
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('neeps', 2, 'room', 'id, name, capacity, parent')"
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('neeps', 3, 'modle', 'id, name')"
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('neeps', 4, 'event', 'id, modle, kind, dow, tod, duration, room')"
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('neeps', 5, 'occurs', 'event, week')"
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('neeps', 6, 'student', 'id, name, sze, parent')"
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('neeps', 7, 'staff', 'id, name')"
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('neeps', 8, 'attends', 'student, event')"
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('neeps', 9, 'teaches', 'staff, event')"
 	@touch $@
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
