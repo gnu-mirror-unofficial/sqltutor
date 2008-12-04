@@ -1,6 +1,7 @@
 CLEANFILES = .tmp.en.sqlzoo
-EXTRADIST  = bbc.quiz \
-             nobel.quiz 
+EXTRA_DIST = bbc.quiz \
+             nobel.quiz \
+             movies.quiz
 
 all:
 

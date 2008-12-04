@@ -140,7 +140,7 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 CLEANFILES = .tmp.cs.sqltutor
-EXTRADIST = filmy.quiz \
+EXTRA_DIST = filmy.quiz \
              letadla.quiz \
              pracoviste.quiz \
              premyslovci.quiz \

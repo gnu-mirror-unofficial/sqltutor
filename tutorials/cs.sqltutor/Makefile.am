@@ -1,5 +1,5 @@
 CLEANFILES = .tmp.cs.sqltutor
-EXTRADIST  = filmy.quiz \
+EXTRA_DIST = filmy.quiz \
              letadla.quiz \
              pracoviste.quiz \
              premyslovci.quiz \
