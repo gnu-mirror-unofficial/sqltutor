@@ -141,8 +141,9 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 CLEANFILES = .tmp.en.sqlzoo
 EXTRA_DIST = bbc.quiz \
+             movies.quiz \
              nobel.quiz \
-             movies.quiz
+             table_tennis.quiz
 
 all: all-am
 
