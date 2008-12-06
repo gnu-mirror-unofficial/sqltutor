@@ -110,6 +110,17 @@ ORDER BY LA.linka;
 -- Vypište seznam zastávek, které jsou dosažitelné bez přestupu
 -- ze stanice Thákurova.
 
+SELECT DISTINCT AZ.zastavka
+  FROM linky AL
+       JOIN zastavky AZ
+          ON AL.zastavka_id = AZ.id
+       JOIN linky BL
+          ON AL.linka=BL.linka
+       JOIN zastavky BZ
+          ON BL.zastavka_id = BZ.id
+ WHERE AZ.zastavka <> 'Thákurova'
+   AND BZ.zastavka =  'Thákurova';
+
 SELECT DISTINCT zastavka
   FROM zastavky
        JOIN
@@ -124,7 +135,7 @@ SELECT DISTINCT zastavka
                                AND zastavka = 'Thákurova');
 
 SELECT DISTINCT zastavka
-  FROM zastavky 
+  FROM zastavky
        JOIN 
        linky ON id=zastavka_id AND zastavka <> 'Thákurova'
  WHERE linka IN ( SELECT linka 
