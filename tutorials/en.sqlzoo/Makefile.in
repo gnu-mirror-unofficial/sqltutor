@@ -140,11 +140,12 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 CLEANFILES = .tmp.en.sqlzoo
-EXTRA_DIST = bbc.quiz \
-             movies.quiz \
-             nobel.quiz \
-             table_tennis.quiz
+QUIZ_FILES = $(srcdir)/bbc.quiz \
+             $(srcdir)/movies.quiz \
+             $(srcdir)/nobel.quiz \
+             $(srcdir)/table_tennis.quiz
 
+EXTRA_DIST = $(QUIZ_FILES)
 all: all-am
 
 .SUFFIXES:
@@ -186,6 +187,7 @@ CTAGS:
 
 
 distdir: $(DISTFILES)
+	$(mkdir_p) $(distdir)/$(srcdir)
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
@@ -296,14 +298,12 @@ uninstall-am: uninstall-info-am
 	uninstall-info-am
 
 
-all:
-
 install: .tmp.en.sqlzoo
 
-.tmp.en.sqlzoo : ../.quiz/quiz
-	@psql @SQLTUTOR_DATABASE@ -t -c \
-           "SELECT sqltutor.init_tutorial('English', 'SQLzoo', 'en.sqlzoo');" \
-	   | ../.quiz/quiz $(srcdir)/*.quiz | psql @SQLTUTOR_DATABASE@
+.tmp.en.sqlzoo :
+	@psql @SQLTUTOR_DATABASE@ -c \
+           "SELECT sqltutor.init_tutorial('English', 'SQLzoo', 'en.sqlzoo');"
+	../.quiz/quiz en.sqlzoo $(QUIZ_FILES) | psql @SQLTUTOR_DATABASE@
 	@touch .tmp.en.sqlzoo
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

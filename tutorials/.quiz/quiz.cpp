@@ -7,7 +7,7 @@
 class Quiz
 {
 public:
-  Quiz(const char* file, int tutorial_id);
+  Quiz(const char* file, const char*);
 
   enum { TEXT, SQL };
 
@@ -24,7 +24,7 @@ public:
 private:
 
   const char* input_file_name;
-  int tutorial_id;
+  const std::string tutorial_label;
   typedef std::vector<std::string> Rows;    // nonempty lines
   Rows rows;                        
   typedef std::vector<int> Pars;            // paragraph index
@@ -35,7 +35,8 @@ private:
   std::string sql(int, const char* str) const;
 };
 
-Quiz::Quiz(const char* file, int id) : input_file_name(file), tutorial_id(id)
+Quiz::Quiz(const char* file, const char* label) 
+  : input_file_name(file), tutorial_label(label)
 {
   std::ifstream inp(input_file_name);
   std::string   line;  
@@ -154,20 +155,27 @@ std::ostream& Quiz::write_sql(std::ostream& ostr) const
        << "-- generated from input file : " << input_file_name << "\n"
        << "--\n\n";
 
-  ostr << "BEGIN;\n\nSET search_path TO sqltutor;\n\n";
+  ostr << 
+    "BEGIN;\n\n"
+    "SET search_path TO sqltutor;\n\n"
+    "CREATE TEMPORARY TABLE xxx (\n"
+    "   tutorial_id int\n"
+    ");\n\n"
+    "INSERT INTO xxx SELECT tutorial_id FROM tutorials WHERE label='"
+    +  tutorial_label + "';\n\n";
+
   for (int b=0; b<blocks();)
     if (block_type(b) == SQL)
       {
         std::string id = sql_id(b);
 
         ostr << "INSERT INTO questions "
-             << "(id, tutorial_id, dataset, points, question) VALUES ("
-             << " " << id << ", "
-             << " " << tutorial_id << ", "
+             << "(id, tutorial_id, dataset, points, question) SELECT "
+             << id << ", tutorial_id, "
              << "'" << sql_dataset (b) << "', "
              << " " << sql_points  (b) << ","
              << "'" << sql_text    (b) << "'"
-             << " );\n";
+             << " FROM xxx;\n";
 
         {
           using std::string;
@@ -179,7 +187,8 @@ std::ostream& Quiz::write_sql(std::ostream& ostr) const
             if (*i == '|')
               {
                 ostr << "SELECT merge_category(" 
-                     << tutorial_id << ", " << id << ", '"+category+"');\n"; 
+                     << "(SELECT tutorial_id FROM xxx), " 
+                     << id << ", '"+category+"');\n"; 
                 category.clear();
               }
             else
@@ -195,14 +204,16 @@ std::ostream& Quiz::write_sql(std::ostream& ostr) const
           {
             ostr << "INSERT INTO answers "
                  << "(tutorial_id, question_id, priority, answer) "
-                 << "VALUES ( " << tutorial_id << ", " <<id << ", " 
+                 << "SELECT tutorial_id, " << id << ", " 
                  << priority++  << ", '"
                  << sql_text(b) << "'"
-                 << " );\n";
+                 << " FROM xxx;\n";
             b++;
           }
       }
-  ostr << "COMMIT;\n\n";
+  ostr << 
+    "DROP TABLE xxx;\n"
+    "COMMIT;\n\n";
 
   return ostr;
 }
@@ -231,14 +242,12 @@ std::string Quiz::sql_text(int index) const
 
 int main(int argc, char* argv[])
 {
-  int id;
-  std::cin >> id;
-
-  for (int i=1; i<argc; i++)
+  std::cerr << "\ntutorial     : " << argv[1] << std::endl;
+  for (int i=2; i<argc; i++)
     {
       std::cerr << "reading file : " << argv[i] << std::endl;
 
-      Quiz quiz(argv[i], id);
+      Quiz quiz(argv[i], argv[1]);
       quiz.write_sql(std::cout);
     }
 }
