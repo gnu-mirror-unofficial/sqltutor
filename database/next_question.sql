@@ -12,7 +12,7 @@ CREATE OR REPLACE FUNCTION sqltutor.next_question
 )
 AS $$
 DECLARE
-   s_dataset_     varchar(20);
+   s_dataset_     varchar(21);
    s_status_      varchar(6);
    s_points_min_  integer;
    s_points_max_  integer;

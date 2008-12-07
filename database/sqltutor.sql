@@ -14,7 +14,7 @@ CREATE TABLE sqltutor.sessions (
    password    varchar(20),
    points_min  integer,
    points_max  integer,
-   dataset     varchar(12),
+   dataset     varchar(21),
    help        boolean NOT NULL DEFAULT false,
    host        inet,
    time        timestamp,
@@ -77,7 +77,7 @@ CREATE TABLE sqltutor.questions_categories (
 
 
 CREATE TABLE sqltutor.datasets (
-  dataset   VARCHAR(12),
+  dataset   VARCHAR(21),
   ord       INT,
   ds_table  VARCHAR(20) NOT NULL,
   columns   VARCHAR(65) NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE sqltutor.datasets (
 
 
 CREATE TABLE sqltutor.dataset_sources (
-  dataset   VARCHAR(12) PRIMARY KEY,
+  dataset   VARCHAR(21) PRIMARY KEY,
   year      INT,
   sources   VARCHAR(120)
 );

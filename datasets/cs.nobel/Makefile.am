@@ -8,3 +8,6 @@ install : .tmp.cs.nobel
 	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.init_dataset('nobelova_cena', 2008, 'http://sqlzoo.net/')"
 	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('nobelova_cena', 1, 'nobelova_cena', 'rok, obor, nositel')"
 	@touch $@
+
+../en.nobel/.tmp.en.nobel :
+	make -C ../en.nobel install

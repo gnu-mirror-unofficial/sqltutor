@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION sqltutor.open_session
       IN  password_   varchar(20),
       IN  points_min_ integer,
       IN  points_max_ integer,
-      IN  dataset_    varchar(12),
+      IN  dataset_    varchar(21),
       IN  help_       boolean,
       IN  host_       inet,
       OUT session_id_ integer,

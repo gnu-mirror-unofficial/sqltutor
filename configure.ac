@@ -68,6 +68,7 @@ AC_OUTPUT([Makefile
            datasets/Makefile
            datasets/cs.filmy/Makefile
            datasets/cs.letadla/Makefile
+           datasets/cs.nobel/Makefile
            datasets/cs.pracoviste/Makefile
            datasets/cs.premyslovci/Makefile
            datasets/cs.staty/Makefile
