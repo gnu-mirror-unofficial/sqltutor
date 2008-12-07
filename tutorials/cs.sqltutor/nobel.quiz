@@ -4,7 +4,7 @@
 
 ### převzato z tutoriálu en.sqlzoo
 
--- id="151" dataset="nobel" category="select" points="1"
+-- id="151" dataset="nobelova_cena" category="select" points="1"
 -- 
 -- Uveďte nositele Nobelovy ceny za rok 1950
 
@@ -12,7 +12,7 @@ SELECT rok, obor, laureat
   FROM laureati
  WHERE rok = 1950
 
--- id="152" dataset="nobel" category="select" points="2"
+-- id="152" dataset="nobelova_cena" category="select" points="2"
 -- 
 -- Kdo získal Nobelovu cenu za literaturu v roce 1962?
 
@@ -22,7 +22,7 @@ SELECT laureat
    AND obor = 'Literatura'
 
 
--- id="153" dataset="nobel" category="select" points="2"
+-- id="153" dataset="nobelova_cena" category="select" points="2"
 -- 
 -- Uveďte rok a obor ve kterém získal Nobelovu cenu 'Albert Einstein'.
 
@@ -31,7 +31,7 @@ SELECT rok, obor
  WHERE laureat='Albert Einstein'
 
 
--- id="154" dataset="nobel" category="select" points="2"
+-- id="154" dataset="nobelova_cena" category="select" points="2"
 -- 
 -- Uveďte jména nositelů Nobelovy ceny míru od roku 2000 (včetně).
 
@@ -41,7 +41,7 @@ SELECT laureat
    AND rok >= 2000
 
 
--- id="155" dataset="nobel" category="select" points="2"
+-- id="155" dataset="nobelova_cena" category="select" points="2"
 -- 
 -- Uveďte všechny údaje (rok, obor, laureat) o laureátech Nobelovy
 -- ceny míru z let 1980 až 1989.
@@ -52,7 +52,7 @@ SELECT rok, obor, laureat
    AND rok BETWEEN 1980 AND 1989;
 
 
--- id="156" dataset="nobel" category="select" points="3"
+-- id="156" dataset="nobelova_cena" category="select" points="3"
 -- 
 -- Uveďte všechny údaje (rok, obor, laureat) o "prezinetských"
 -- laureátech ('Theodore Roosevelt', 'Woodrow Wilson', 'Jed Bartlet',
@@ -63,7 +63,7 @@ SELECT rok, obor, laureat FROM laureati
                   'Jed Bartlet', 'Jimmy Carter')
 
 
--- id="157" dataset="nobel" category="select" points="2"
+-- id="157" dataset="nobelova_cena" category="select" points="2"
 -- 
 -- Uveďte laureáty, jejichž jméno je John.
 
@@ -75,7 +75,7 @@ SELECT laureat
 ### doplněny další otázky, které nebyly v sqlzoo
 
 
--- id="158" dataset="nobel" category="aggregate" points="4"
+-- id="158" dataset="nobelova_cena" category="aggregate" points="4"
 -- 
 -- Kdo získal Nobelovu cenu více než jedenkrát?
 
@@ -85,7 +85,7 @@ SELECT laureat
 HAVING count(*) > 1;
 
 
--- id="159" dataset="nobel" category="aggregate|subselect" points="6"
+-- id="159" dataset="nobelova_cena" category="aggregate|subselect" points="6"
 -- 
 -- Kdo získal Nobelovu cenu více než jedenkrát? Uveďte rok, obor a
 -- jméno laureáta.
@@ -98,7 +98,7 @@ SELECT rok, obor, laureat
                   HAVING count(*) > 1);
 
 
--- id="160" dataset="nobel" category="aggregate|subselect|derivedtable" points="15"
+-- id="160" dataset="nobelova_cena" category="aggregate|subselect|derivedtable" points="15"
 -- 
 -- Kdo získal Nobelovu cenu ve více oborech? Uveďte rok, obor a
 -- jméno laureáta.
