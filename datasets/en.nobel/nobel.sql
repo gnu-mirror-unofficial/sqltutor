@@ -9,7 +9,7 @@ CREATE TABLE nobel(
 );
 GRANT SELECT ON nobel TO PUBLIC;
 --- tabnobel, 1, 50
-insert into nobel values (1901,'Chemistry','Jacobus H. van ''t Hoff');
+insert into nobel values (1901,'Chemistry','Jacobus H. van''t Hoff');
 insert into nobel values (1902,'Chemistry','Emil Fischer');
 insert into nobel values (1903,'Chemistry','Svante Arrhenius');
 insert into nobel values (1904,'Chemistry','Sir William Ramsay');

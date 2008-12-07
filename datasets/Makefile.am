@@ -1,6 +1,7 @@
 SUBDIRS = \
 	cs.filmy \
 	cs.letadla \
+	cs.nobel \
 	cs.pracoviste \
 	cs.premyslovci \
 	cs.staty \
