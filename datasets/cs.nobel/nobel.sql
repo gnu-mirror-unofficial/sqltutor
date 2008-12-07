@@ -1,5 +1,5 @@
-DROP   VIEW sqltutor.nobelova_cena;
-CREATE VIEW sqltutor.nobelova_cena (rok, obor, nositel)
+DROP   VIEW sqltutor.laureati;
+CREATE VIEW sqltutor.laureati (rok, obor, laureat)
 AS
 SELECT yr, CASE subject
               WHEN 'Chemistry'  THEN 'Chemie'

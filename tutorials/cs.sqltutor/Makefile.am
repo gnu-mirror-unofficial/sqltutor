@@ -1,6 +1,7 @@
 CLEANFILES = .tmp.cs.sqltutor
 QUIZ_FILES = $(srcdir)/filmy.quiz \
              $(srcdir)/letadla.quiz \
+             $(srcdir)/nobel.quiz \
              $(srcdir)/pracoviste.quiz \
              $(srcdir)/premyslovci.quiz \
              $(srcdir)/staty.quiz \
