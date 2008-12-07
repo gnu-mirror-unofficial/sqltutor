@@ -124,9 +124,10 @@ SELECT A.den, x+COALESCE(y,0)
 -- id="807" dataset="vodocty" category="join|notin" points="8"
 --
 -- Které vodní toky nemají definovány limity SPA (stav povodňové
--- aktivity). Uveďte jméno toku a povodí.
+-- aktivity), tj. nejsou uvedeny v tabulce limity_cm. Uveďte jméno
+-- toku a povodí a odstraňte případné duplicity.
 
-SELECT jmeno, povodi
+SELECT DISTINCT jmeno, povodi
   FROM toky
        JOIN
        cleneni 

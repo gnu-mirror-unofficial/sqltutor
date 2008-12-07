@@ -148,6 +148,7 @@ SELECT DISTINCT zastavka
 -- id="309" dataset="tramvaje" category="aggregate" points="4"
 --
 -- Na kterých tramvajových linkách je čtyřicet a více zastávek?
+-- Uveďte číslo linky a počet zastávek.
 
 SELECT linka, COUNT(zastavka_id) AS zastávky
   FROM linky

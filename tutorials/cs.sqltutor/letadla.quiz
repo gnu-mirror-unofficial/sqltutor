@@ -170,7 +170,7 @@ SELECT LS.spolecnost, SUM(pocet_letadel*kapacita) AS "celkova kapacita"
  LIMIT 2;
 
 
--- id="612" dataset="letadla" category="aggregate" points="6"
+-- id="612" dataset="letadla" category="aggregate" points="7"
 --
 -- U kterých společností není známa kapacita ani jednoho letadla?
 -- Uveďte společnost, zemi a světadíl.

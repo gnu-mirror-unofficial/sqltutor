@@ -180,15 +180,15 @@ FROM   staty
 GROUP BY region;
 
 
--- id="520" dataset="staty" category="aggregate" points="3"
+-- id="520" dataset="staty" category="aggregate|case" points="7"
 --
 -- Pro každý region vypište jeho označení a počet státu s 
 -- počtem obyvatel větším než 10 milionů.
+-- Poznámka: uveďte i regiony s nulovým počtem států.
 
-SELECT region, count(stat) 
-FROM   staty 
-WHERE  populace > 10000000
-GROUP BY region;
+SELECT region, sum(CASE WHEN populace > 10000000 THEN 1 ELSE 0 END) 
+  FROM staty 
+ GROUP BY region;
 
 
 -- id="521" dataset="staty" category="aggregate" points="4"
