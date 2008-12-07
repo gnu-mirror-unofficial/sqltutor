@@ -52,13 +52,13 @@ SELECT rok, obor, laureat
    AND rok BETWEEN 1980 AND 1989;
 
 
--- id="156" dataset="nobel" category="select" points="2"
+-- id="156" dataset="nobel" category="select" points="3"
 -- 
 -- Uveďte všechny údaje (rok, obor, laureat) o "prezinetských"
 -- laureátech ('Theodore Roosevelt', 'Woodrow Wilson', 'Jed Bartlet',
 -- 'Jimmy Carter')
 
-SELECT * FROM laureati
+SELECT rok, obor, laureat FROM laureati
  WHERE laureat IN ('Theodore Roosevelt', 'Woodrow Wilson', 
                   'Jed Bartlet', 'Jimmy Carter')
 
