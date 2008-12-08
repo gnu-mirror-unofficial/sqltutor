@@ -9,7 +9,7 @@ SUBDIRS = \
 	cs.unesco \
 	cs.vodocty \
 	en.bbc \
-	en.busses \
+	en.buses \
 	en.countries \
 	en.movies \
 	en.neeps \

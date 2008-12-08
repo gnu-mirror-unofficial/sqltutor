@@ -33,7 +33,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-subdir = datasets/en.busses
+subdir = datasets/en.buses
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -139,8 +139,8 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-CLEANFILES = .tmp.en.busses
-EXTRA_DIST = busses.sql
+CLEANFILES = .tmp.en.buses
+EXTRA_DIST = buses.sql
 all: all-am
 
 .SUFFIXES:
@@ -153,9 +153,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  datasets/en.busses/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  datasets/en.buses/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  datasets/en.busses/Makefile
+	  $(AUTOMAKE) --gnu  datasets/en.buses/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -294,13 +294,13 @@ uninstall-am: uninstall-info-am
 
 all :
 
-install : .tmp.en.busses
+install : .tmp.en.buses
 
-.tmp.en.busses :
-	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/busses.sql
-	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.init_dataset('busses', 2008, 'http://sqlzoo.net/')"
-	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('busses', 1, 'stops',   'id, name')"
-	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('busses', 2, 'route',   'num, company, pos, stop')"
+.tmp.en.buses :
+	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/buses.sql
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.init_dataset('buses', 2008, 'http://sqlzoo.net/')"
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('buses', 1, 'stops',   'id, name')"
+	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('buses', 2, 'route',   'num, company, pos, stop')"
 	@touch $@
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

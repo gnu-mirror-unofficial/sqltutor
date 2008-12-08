@@ -76,7 +76,7 @@ AC_OUTPUT([Makefile
            datasets/cs.unesco/Makefile
            datasets/cs.vodocty/Makefile
            datasets/en.bbc/Makefile
-           datasets/en.busses/Makefile
+           datasets/en.buses/Makefile
            datasets/en.countries/Makefile
            datasets/en.movies/Makefile
            datasets/en.neeps/Makefile
