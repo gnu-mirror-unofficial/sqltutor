@@ -1,5 +1,6 @@
 CLEANFILES = .tmp.en.sqlzoo
 QUIZ_FILES = $(srcdir)/bbc.quiz \
+             $(srcdir)/buses.quiz \
              $(srcdir)/movies.quiz \
              $(srcdir)/nobel.quiz \
              $(srcdir)/table_tennis.quiz
