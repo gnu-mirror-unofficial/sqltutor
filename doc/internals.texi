@@ -1,2 +1,50 @@
-@
+@section How to add new tutorial
 
+Tutorials are stored in the directory @file{sqltutor/tutorials}. Each
+tutorial is by convention placed in a single directory named
+@file{xx.name} wher xx is a two letter language code (for example 
+@file{en.zqlzoo}).
+
+To add the a tutorial to the database run SQL function
+@code{init_tutorial} like
+
+@example
+SELECT sqltutor.init_tutorial('English', 'SQLzoo', 'en.sqlzoo');
+@end example
+
+@noindent where first two parameters define tutorial language and name (used in
+the opening dialogue) and internal tutorial label.
+
+To populate the new tutorial with questions you can use plain text
+files in @file{quiz} format, that is converted to SQL by helper
+program @file{quiz}.
+
+@example
+../.quiz/quiz en.sqlzoo $(QUIZ_FILES) | psql $(SQLTUTOR_DATABASE)
+@end example
+
+@noindent where first parameter is the tutorial label.
+
+@section How to add new dataset
+
+Datasets are organized similarly to tutorials in a directory
+@file{tutorials} in separate subdirectories. After populating the
+database with tutoral tables and data you run SQL function
+@code{sqltutor.init_dataset('buses', 2008, 'http://sqlzoo.net/')} with
+parameters tutorial name, year and data source. For each table the
+function @code{sqltutor.add_ds_table('buses', 1, 'route', 'num,
+company, pos, stop')"} where second parameter is the order in which
+the table is listed in tutorial dialog, table name and list of
+columns.
+
+@noindent Example:
+
+@example
+psql $(SQLTUTOR_DATABASE) \
+   -c "SELECT sqltutor.init_dataset('buses', 2008, 'http://sqlzoo.net/')"
+psql $(SQLTUTOR_DATABASE) \
+   -c "SELECT sqltutor.add_ds_table('buses', 1, 'stops',   'id, name')"
+psql $(SQLTUTOR_DATABASE) \
+   -c "SELECT sqltutor.add_ds_table('buses', 2, 'route',   \
+                                    'num, company, pos, stop')"
+@end example
