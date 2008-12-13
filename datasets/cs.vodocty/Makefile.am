@@ -1,11 +1,11 @@
-CLEANFILES = .tmp.cs.vodocty
+CLEANFILES = lock..cs.vodocty
 EXTRA_DIST = vodocty.sql
 
 all :
 
-install : .tmp.cs.vodocty
+install : lock..cs.vodocty
 
-.tmp.cs.vodocty :
+lock..cs.vodocty :
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/vodocty.sql
 	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.init_dataset('vodocty', 2007, 'http://hydro.chmi.cz/hpps/op_list.php')"
 	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('vodocty', 1, 'toky',      'id, jmeno')"

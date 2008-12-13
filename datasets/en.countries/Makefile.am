@@ -1,4 +1,4 @@
-CLEANFILES = .tmp.en.countries
+CLEANFILES = lock..en.countries
 EXTRA_DIST = countries.sql \
              country_codes.sql \
              national_capitals.sql \
@@ -7,9 +7,9 @@ EXTRA_DIST = countries.sql \
 
 all :
 
-install : .tmp.en.countries
+install : lock..en.countries
 
-.tmp.en.countries :
+lock..en.countries :
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/countries.sql
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/country_codes.sql
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/un_regions.sql

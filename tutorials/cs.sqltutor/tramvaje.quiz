@@ -1,7 +1,7 @@
 ###  zastavky ( id, zastavka )
-###  linky    ( linka, poradi, zastavka_id )
+###  linky    ( linka, smer, poradi, zastavka_id )
 
-###  stav léto 2007
+###  stav prosinec 2008
 
 -- id="301" dataset="tramvaje" category="select" points="1"
 -- 
@@ -14,18 +14,14 @@ SELECT count(*) FROM zastavky;
 -- 
 -- Kolik linek je v databázi?
 
-SELECT count (*) FROM (SELECT linka FROM linky GROUP BY linka) seznam_linek;
-
-SELECT count (*) FROM (SELECT DISTINCT linka FROM linky) seznam_linek;
-
 SELECT count(DISTINCT linka) FROM linky;
 
 
 -- id="303" dataset="tramvaje" category="join" points="3"
 -- 
--- Vypište zastávky na lince 4.
+-- Vypište jména zastávek na lince 4.
 
-SELECT zastavka
+SELECT DISTINCT zastavka
 FROM   linky JOIN zastavky ON zastavka_id=id
 WHERE  linka=4;
 
@@ -46,63 +42,53 @@ WHERE  zastavka='Palmovka';
 -- Poznámka: na některých linkách jsou dvě zastávky
 -- stejného jména, linku musíte ale započítat jen jednou.
 
-SELECT zastavka, COUNT(DISTINCT linka) AS pocet
+SELECT zastavka, count(DISTINCT linka) AS pocet
   FROM zastavky
        JOIN
        linky
        ON zastavka_id = zastavky.id
  GROUP BY zastavka
-HAVING COUNT(DISTINCT linka) > 6
+HAVING count(DISTINCT linka) > 6
  ORDER BY pocet, zastavka;
 
 
 -- id="306" dataset="tramvaje" category="subselect" points="6"
 -- 
--- Kterymi zastávkami projíždí nejvíc linek. 
+-- Kterou zastávkou, resp. kterymi zastávkami, projíždí nejvíc linek?
 
 SELECT zastavka  
 FROM linky JOIN zastavky ON zastavka_id = id 
-GROUP BY zastavka HAVING count(*) >= ALL (SELECT count(*)
-      FROM linky JOIN zastavky ON zastavka_id = id GROUP BY id);
+GROUP BY zastavka HAVING count(distinct linka) >= ALL 
+          (SELECT count(distinct linka)
+             FROM linky JOIN zastavky ON zastavka_id = id GROUP BY id);
 
 SELECT zastavka
 FROM   zastavky
 WHERE  id IN (SELECT zastavka_id
               FROM linky
               GROUP BY zastavka_id
-              HAVING count(linka)=(SELECT MAX(pocet) FROM ( 
-                        SELECT count(linka) AS pocet 
+              HAVING count(distinct linka)=(SELECT MAX(pocet) FROM ( 
+                        SELECT count(distinct linka) AS pocet 
                         FROM linky
-                        GROUP BY zastavka_id) pocty) 
-             );
+                        GROUP BY zastavka_id) pocty) );
 
 
 -- id="307" dataset="tramvaje" category="join" points="8"
 -- 
--- Které linky mají na trase různé zastávky stejného jména. Vypiště
--- čisla linek a opakující se jména zastávek (pro každou linku a
--- zastávku jen jednou).
+-- Které linky mají na trase v jednom nebo obou směrech různé zastávky
+-- stejného jména. Vypiště čisla linek a opakující se jména zastávek
+-- (pro každou linku a zastávku jen jednou).
 
-SELECT linka, zastavka
-  FROM linky
-       JOIN 
-       zastavky
-       ON zastavka_id=id
- GROUP BY linka, zastavka
-HAVING COUNT(*) > 1
- ORDER BY linka ASC
-
-SELECT DISTINCT LA.linka, zastavka
-  FROM zastavky
-       JOIN 
-       linky LA 
-       ON id=LA.zastavka_id
-       JOIN 
-       linky LB 
-       ON LA.linka=LB.linka 
-          AND LA.zastavka_id=LB.zastavka_id 
-          AND LA.poradi<>LB.poradi
-ORDER BY LA.linka;
+SELECT DISTINCT A.linka, zastavka
+  FROM linky A
+       JOIN linky B
+          ON  A.linka = B.linka
+          AND A.smer  = B.smer
+          AND A.zastavka_id = B.zastavka_id
+          AND A.poradi <> B.poradi
+        JOIN zastavky
+          ON A.zastavka_id = id
+ ORDER BY A.linka;
 
 
 -- id="308" dataset="tramvaje" category="subselect" points="10"
@@ -148,11 +134,12 @@ SELECT DISTINCT zastavka
 -- id="309" dataset="tramvaje" category="aggregate" points="4"
 --
 -- Na kterých tramvajových linkách je čtyřicet a více zastávek?
--- Uveďte číslo linky a počet zastávek.
+-- Uveďte číslo linky, smer a počet zastávek.  Poznámka: počet
+-- zastávek se na jedné lince může lišit pro oba směry.
 
-SELECT linka, COUNT(zastavka_id) AS zastávky
+SELECT linka, smer, COUNT(zastavka_id) AS zastávky
   FROM linky
- GROUP BY linka
+ GROUP BY linka, smer
 HAVING COUNT(zastavka_id) >= 40;
 
 
@@ -175,30 +162,23 @@ SELECT COUNT(DISTINCT linka) AS pocet
  LIMIT 1;
 
 
--- id="311" dataset="tramvaje" category="derivedtable" points="10"
+-- id="311" dataset="tramvaje" category="derivedtable" points="12"
 --
--- Které zastávky na tramvajovych linkách jsou konečné (tj. zastávky,
--- které mají pořadí 1 nebo maximální pořadí na dané lince)?
+-- Které zastávky na tramvajových linkách jsou konečné (tj. zastávky,
+-- které mají pořadí 1 nebo maximální pořadí na dané lince)?  Uveďte
+-- číslo linky a konečnou zastávku. Poznámka: na některých linkách se
+-- konečné liší pro oba směry.
 
-SELECT DISTINCT zastavka         /* nekorelovaný poddotaz */
-  FROM zastavky
+SELECT DISTINCT linka, zastavka
+  FROM linky A
        JOIN
-       linky AS A
-       ON zastavka_id = id    
-       JOIN                      /* derivovaná tabulka */
-       (SELECT linka, MAX(poradi) AS posledni
-          FROM linky 
-         GROUP BY linka) B
-       ON A.linka = B.linka
- WHERE poradi = 1 OR poradi = posledni;
-
-SELECT DISTINCT zastavka         /* korelovaný poddotaz */
-  FROM zastavky
-       JOIN
-       linky AS A
-    ON zastavka_id = id
- WHERE poradi=1 OR poradi =
-         (select max(poradi)
-            from linky AS B
-           where B.linka = A.linka);
-
+       zastavky
+       ON id = zastavka_id
+ WHERE poradi = 1 
+    OR (linka, smer, poradi) IN (SELECT linka, smer, max(poradi)
+                                   FROM linky B
+                                  WHERE A.linka=B.linka 
+                                    AND A.smer=B.smer
+                                  GROUP BY linka, smer)
+ ORDER BY linka, zastavka;
+        

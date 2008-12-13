@@ -139,7 +139,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-CLEANFILES = .tmp.en.movies
+CLEANFILES = lock..en.movies
 EXTRA_DIST = movies.sql
 all: all-am
 
@@ -294,9 +294,9 @@ uninstall-am: uninstall-info-am
 
 all :
 
-install : .tmp.en.movies
+install : lock..en.movies
 
-.tmp.en.movies :
+lock..en.movies :
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/movies.sql
 	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.init_dataset('movies', 2008, 'http://sqlzoo.net/')"
 	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('movies', 1, 'actor',   'id, name')"

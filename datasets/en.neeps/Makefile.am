@@ -1,11 +1,11 @@
-CLEANFILES = .tmp.en.neeps
+CLEANFILES = lock..en.neeps
 EXTRA_DIST = neeps.sql
 
 all :
 
-install : .tmp.en.neeps
+install : lock..en.neeps
 
-.tmp.en.neeps :
+lock..en.neeps :
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/neeps.sql
 	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.init_dataset('neeps', 2008, 'http://sqlzoo.net')"
 	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('neeps', 1, 'week', 'id, wkstart')"

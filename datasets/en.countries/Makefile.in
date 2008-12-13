@@ -139,7 +139,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-CLEANFILES = .tmp.en.countries
+CLEANFILES = lock..en.countries
 EXTRA_DIST = countries.sql \
              country_codes.sql \
              national_capitals.sql \
@@ -299,9 +299,9 @@ uninstall-am: uninstall-info-am
 
 all :
 
-install : .tmp.en.countries
+install : lock..en.countries
 
-.tmp.en.countries :
+lock..en.countries :
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/countries.sql
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/country_codes.sql
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/un_regions.sql

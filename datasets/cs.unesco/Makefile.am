@@ -1,12 +1,12 @@
-CLEANFILES = .tmp.cs.unesco
+CLEANFILES = lock..cs.unesco
 EXTRA_DIST = unesco.sql \
              unesco_wh.sql
 
 all :
 
-install : .tmp.cs.unesco
+install : lock..cs.unesco
 
-.tmp.cs.unesco :
+lock..cs.unesco :
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/unesco_wh.sql
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/unesco.sql
 	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.init_dataset('unesco', 2007, 'http://whc.unesco.org/en/list/')"

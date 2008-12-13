@@ -139,7 +139,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-CLEANFILES = .tmp.cs.sqltutor
+CLEANFILES = lock..cs.sqltutor
 QUIZ_FILES = $(srcdir)/filmy.quiz \
              $(srcdir)/letadla.quiz \
              $(srcdir)/nobel.quiz \
@@ -303,13 +303,13 @@ uninstall-am: uninstall-info-am
 	uninstall-info-am
 
 
-install: .tmp.cs.sqltutor
+install: lock..cs.sqltutor
 
-.tmp.cs.sqltutor :
+lock..cs.sqltutor :
 	@psql @SQLTUTOR_DATABASE@ -c \
            "SELECT sqltutor.init_tutorial('Czech', 'SQLtutor', 'cs.sqltutor');"
 	../.quiz/quiz cs.sqltutor $(QUIZ_FILES) | psql @SQLTUTOR_DATABASE@
-	@touch .tmp.cs.sqltutor
+	@touch lock..cs.sqltutor
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

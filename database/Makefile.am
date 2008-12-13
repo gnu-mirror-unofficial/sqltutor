@@ -1,4 +1,4 @@
-CLEANFILES = .tmp.database
+CLEANFILES = lock..database
 EXTRA_DIST = sqltutor.sql \
              merge_category.sql \
              next_question.sql \
@@ -8,9 +8,9 @@ EXTRA_DIST = sqltutor.sql \
 
 all: 
 
-install : .tmp.database
+install : lock..database
 
-.tmp.database : Makefile
+lock..database : Makefile
 #
 	@echo -e "\ncreating schema"
 	@echo -e  "===============\n"
@@ -80,5 +80,5 @@ install : .tmp.database
 	         "GRANT EXECUTE ON FUNCTION sqltutor.next_question(integer, char(32)) TO @SQLTUTOR_WWW_USER@;" \
 	         | psql @SQLTUTOR_DATABASE@
 # 
-	@touch .tmp.database
+	@touch lock..database
 #

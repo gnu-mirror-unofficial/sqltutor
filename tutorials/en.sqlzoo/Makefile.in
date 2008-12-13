@@ -139,7 +139,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-CLEANFILES = .tmp.en.sqlzoo
+CLEANFILES = lock..en.sqlzoo
 QUIZ_FILES = $(srcdir)/bbc.quiz \
              $(srcdir)/buses.quiz \
              $(srcdir)/movies.quiz \
@@ -299,13 +299,13 @@ uninstall-am: uninstall-info-am
 	uninstall-info-am
 
 
-install: .tmp.en.sqlzoo
+install: lock..en.sqlzoo
 
-.tmp.en.sqlzoo :
+lock..en.sqlzoo :
 	@psql @SQLTUTOR_DATABASE@ -c \
            "SELECT sqltutor.init_tutorial('English', 'SQLzoo', 'en.sqlzoo');"
 	../.quiz/quiz en.sqlzoo $(QUIZ_FILES) | psql @SQLTUTOR_DATABASE@
-	@touch .tmp.en.sqlzoo
+	@touch lock..en.sqlzoo
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

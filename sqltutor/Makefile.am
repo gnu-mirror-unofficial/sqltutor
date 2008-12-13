@@ -1,4 +1,4 @@
-bin_PROGRAMS     = sqltutor
+noinst_PROGRAMS  = sqltutor
 sqltutor_SOURCES = sqltutor.cpp sqltutor.h main.cpp	\
 	           cgi.h cgi.cpp			\
                    check_answer.cpp			\

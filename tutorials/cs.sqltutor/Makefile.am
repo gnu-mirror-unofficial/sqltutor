@@ -1,4 +1,4 @@
-CLEANFILES = .tmp.cs.sqltutor
+CLEANFILES = lock..cs.sqltutor
 QUIZ_FILES = $(srcdir)/filmy.quiz \
              $(srcdir)/letadla.quiz \
              $(srcdir)/nobel.quiz \
@@ -10,11 +10,11 @@ QUIZ_FILES = $(srcdir)/filmy.quiz \
              $(srcdir)/vodocty.quiz
 EXTRA_DIST = $(QUIZ_FILES)
 
-install: .tmp.cs.sqltutor
+install: lock..cs.sqltutor
 
-.tmp.cs.sqltutor :
+lock..cs.sqltutor :
 	@psql @SQLTUTOR_DATABASE@ -c \
            "SELECT sqltutor.init_tutorial('Czech', 'SQLtutor', 'cs.sqltutor');"
 	../.quiz/quiz cs.sqltutor $(QUIZ_FILES) | psql @SQLTUTOR_DATABASE@
-	@touch .tmp.cs.sqltutor
+	@touch lock..cs.sqltutor
 

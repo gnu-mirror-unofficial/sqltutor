@@ -139,7 +139,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-CLEANFILES = .tmp.database
+CLEANFILES = lock..database
 EXTRA_DIST = sqltutor.sql \
              merge_category.sql \
              next_question.sql \
@@ -150,7 +150,6 @@ EXTRA_DIST = sqltutor.sql \
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .database .tmp
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -301,9 +300,9 @@ uninstall-am: uninstall-info-am
 
 all: 
 
-install : .tmp.database
+install : lock..database
 
-.tmp.database : Makefile
+lock..database : Makefile
 #
 	@echo -e "\ncreating schema"
 	@echo -e  "===============\n"
@@ -373,7 +372,7 @@ install : .tmp.database
 	         "GRANT EXECUTE ON FUNCTION sqltutor.next_question(integer, char(32)) TO @SQLTUTOR_WWW_USER@;" \
 	         | psql @SQLTUTOR_DATABASE@
 # 
-	@touch .tmp.database
+	@touch lock..database
 #
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

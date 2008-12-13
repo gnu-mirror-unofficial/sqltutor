@@ -1,11 +1,11 @@
-CLEANFILES = .tmp.en.buses
+CLEANFILES = lock..en.buses
 EXTRA_DIST = buses.sql
 
 all :
 
-install : .tmp.en.buses
+install : lock..en.buses
 
-.tmp.en.buses :
+lock..en.buses :
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/buses.sql
 	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.init_dataset('buses', 2008, 'http://sqlzoo.net/')"
 	@psql @SQLTUTOR_DATABASE@ -c "SELECT sqltutor.add_ds_table('buses', 1, 'stops',   'id, name')"

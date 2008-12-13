@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 #
 AC_PREREQ(2.61)
-AC_INIT([sqltutor], [0.04.94], [cepek@gnu.org])
+AC_INIT([sqltutor], [0.04.95], [cepek@gnu.org])
 AC_CONFIG_SRCDIR([sqltutor/sqltutor.cpp])
 AC_CONFIG_HEADER([sqltutor/config.h])
 AC_CONFIG_AUX_DIR([sqltutor/config.aux])

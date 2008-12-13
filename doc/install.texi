@@ -34,14 +34,16 @@ their implicit values if needed in the @file{configure.ac} file.
 
 @section Building sqltutor
 
-To build CGI script sqltutor go to SQLtutor home directory, run
+To build CGI script @file{sqltutor} go to SQLtutor home directory, run
 
 @example
    ./configue 
    make -C sqltutor
 @end example
 
-@noindent and copy sqltutor/sqltutor to your CGI directory.
+@noindent and copy @file{sqltutor/sqltutor} to the cgi-bin directory.
+Ensure that the file permissions are readable and executable by all
+(-rwxr-xr-x).
 
 For general information on using GNU autotool see the standard Basic
 Installation instructions in the @file{INSTALL}.
@@ -91,8 +93,16 @@ CREATE LANGUAGE plpgsql;
 
 @section Populating the database
 
-Apart from module @code{sqltutor} there are three modules responsible for
-populating the database
+Database is populated simply by running
+
+@example
+make install
+@end example
+
+@noindent from the main source directory.
+
+Apart from module @code{sqltutor} there are three modules responsible
+for populating the database
 
 @table @samp
 @item database
@@ -105,8 +115,8 @@ tutorials table
 dataset tables which are used by one or more tutorials
 @end table
 
-These three modules must be made explicitly by running @code{make
-install} in the corresponding subdirectory.
+These three modules can be installed explicitly by running @code{make
+install} in their corresponding subdirectories.
 
 @subsection Creating schema and general tables
 
@@ -118,7 +128,7 @@ populating the database.
 make -C database install
 @end example
 
-The @code{database} modules creates a lock file @file{.tmp.database}
+The @code{database} modules creates a lock file @file{lock..database}
 that protects against inelligible recreation of the database. If you
 want to rebuild the dayabase from the scratch, you must remove the
 lock file either manully or by running

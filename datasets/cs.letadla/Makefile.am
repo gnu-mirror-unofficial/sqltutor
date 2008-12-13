@@ -1,11 +1,11 @@
-CLEANFILES = .tmp.cs.letadla
+CLEANFILES = lock..cs.letadla
 EXTRA_DIST = ciselnik_letadel.sql dopravni_letadla.sql letecke_spolecnosti.sql
 
 all :
 
-install : .tmp.cs.letadla
+install : lock..cs.letadla
 
-.tmp.cs.letadla :
+lock..cs.letadla :
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/ciselnik_letadel.sql
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/dopravni_letadla.sql
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/letecke_spolecnosti.sql
