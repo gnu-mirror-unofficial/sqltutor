@@ -44,7 +44,7 @@ SELECT title FROM movie WHERE id IN (1,2,3);
 -- 
 -- What id number does the actor 'Glenn Close' have?
 
-ELECT id FROM actor
+SELECT id FROM actor
   WHERE name= 'Glenn Close';
 
 
@@ -107,7 +107,7 @@ SELECT title, name
 
 SELECT yr,COUNT(title) FROM
   movie JOIN casting ON movie.id=movieid
-         JOIN actor   ON actorid=actor.id
+        JOIN actor   ON actorid=actor.id
 where name='John Travolta'
 GROUP BY yr
 HAVING COUNT(title)=(SELECT MAX(c) FROM
@@ -115,7 +115,7 @@ HAVING COUNT(title)=(SELECT MAX(c) FROM
    movie JOIN casting ON movie.id=movieid
          JOIN actor   ON actorid=actor.id
  where name='John Travolta'
- GROUP BY yr) AS t;
+ GROUP BY yr) AS t);
 
 
 -- id="312" dataset="movies" category="join|subselect" points="10"
