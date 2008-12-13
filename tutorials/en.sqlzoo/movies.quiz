@@ -26,7 +26,7 @@ SELECT id, title
 
 -- id="303" dataset="movies" category="select" points="1"
 -- 
--- List the films where the yr is 1962 [Show id, title]
+-- List all of the Star Trek movies, include the id  title and yr.
 
 SELECT id, title, yr
  FROM movie
