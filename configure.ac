@@ -2,28 +2,19 @@
 # Process this file with autoconf to produce a configure script.
 #
 AC_PREREQ(2.61)
-AC_INIT([sqltutor], [0.04.95], [cepek@gnu.org])
+AC_INIT([sqltutor], [0.04.96], [cepek@gnu.org])
 AC_CONFIG_SRCDIR([sqltutor/sqltutor.cpp])
 AC_CONFIG_HEADER([sqltutor/config.h])
 AC_CONFIG_AUX_DIR([sqltutor/config.aux])
 
 AM_INIT_AUTOMAKE
 
-
-# C macro definitions and environment variables for the SQLtutor database
-
-AC_SUBST([SQLTUTOR_DATABASE],  [sqltutor] )
-AC_SUBST([SQLTUTOR_WWW_USER],  [sqlquiz]  )
-AC_SUBST([SQLTUTOR_PASSWORD],  [sqlkrok]  )
-AC_SUBST([SQLTUTOR_WWW_EXEC],  [sqlexec]  )
-AC_SUBST([SQLTUTOR_PASSEXEC],  [sqlkrok]  )
-
-AC_DEFINE_UNQUOTED([SQLTUTOR_DATABASE], [$SQLTUTOR_DATABASE], [SQLtutor database name])
-AC_DEFINE_UNQUOTED([SQLTUTOR_WWW_USER], [$SQLTUTOR_WWW_USER], [SQLtutor web/cgi  user name])
-AC_DEFINE_UNQUOTED([SQLTUTOR_PASSWORD], [$SQLTUTOR_PASSWORD], [SQLtutor web/cgi  user password])
-AC_DEFINE_UNQUOTED([SQLTUTOR_WWW_EXEC], [$SQLTUTOR_WWW_EXEC], [SQLtutor user/sql user name])
-AC_DEFINE_UNQUOTED([SQLTUTOR_PASSEXEC], [$SQLTUTOR_PASSEXEC], [SQLtutor user/sql user password])
-
+# Output variables for the SQLtutor database
+AC_SUBST([SQLTUTOR_DATABASE], [sqltutor])
+AC_SUBST([SQLTUTOR_WWW_USER], [sqlquiz])
+AC_SUBST([SQLTUTOR_PASSWORD], [sqlkrok])
+AC_SUBST([SQLTUTOR_WWW_EXEC], [sqlexec])
+AC_SUBST([SQLTUTOR_PASSEXEC], [sqlkrok])
 
 # Checks for programs.
 AC_PROG_AWK

@@ -5,7 +5,7 @@ SQLtutor is a CGI script and a PostgreSQL database of SQL tutorials,
 collections of SQL questions and answers.  All SQLtutor database
 objects are defined in the SCHEMA @code{sqltutor}.
 
-Five C preprocessor macros are defined in @file{configure.ac} with the
+Five output variables are defined in @file{configure.ac} with the
 following implicit values.
 
 @table @env

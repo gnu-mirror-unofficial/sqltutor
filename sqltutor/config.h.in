@@ -91,21 +91,6 @@
    release 3. */
 #undef SETVBUF_REVERSED
 
-/* SQLtutor database name */
-#undef SQLTUTOR_DATABASE
-
-/* SQLtutor user/sql user password */
-#undef SQLTUTOR_PASSEXEC
-
-/* SQLtutor web/cgi user password */
-#undef SQLTUTOR_PASSWORD
-
-/* SQLtutor user/sql user name */
-#undef SQLTUTOR_WWW_EXEC
-
-/* SQLtutor web/cgi user name */
-#undef SQLTUTOR_WWW_USER
-
 /* Define to 1 if the `S_IS*' macros in <sys/stat.h> do not work properly. */
 #undef STAT_MACROS_BROKEN
 
