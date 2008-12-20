@@ -2232,6 +2232,32 @@ SQLTUTOR_WWW_EXEC=sqlexec
 SQLTUTOR_PASSEXEC=sqlkrok
 
 
+
+cat >>confdefs.h <<_ACEOF
+#define SQLTUTOR_DATABASE $SQLTUTOR_DATABASE
+_ACEOF
+
+
+cat >>confdefs.h <<_ACEOF
+#define SQLTUTOR_WWW_USER $SQLTUTOR_WWW_USER
+_ACEOF
+
+
+cat >>confdefs.h <<_ACEOF
+#define SQLTUTOR_PASSWORD $SQLTUTOR_PASSWORD
+_ACEOF
+
+
+cat >>confdefs.h <<_ACEOF
+#define SQLTUTOR_WWW_EXEC $SQLTUTOR_WWW_EXEC
+_ACEOF
+
+
+cat >>confdefs.h <<_ACEOF
+#define SQLTUTOR_PASSEXEC $SQLTUTOR_PASSEXEC
+_ACEOF
+
+
 # Checks for programs.
 for ac_prog in gawk mawk nawk awk
 do
