@@ -60,8 +60,8 @@ CONFIG_CLEAN_FILES =
 SOURCES =
 DIST_SOURCES =
 INFO_DEPS = $(srcdir)/sqltutor.info
-TEXINFO_TEX = $(top_srcdir)/sqltutor/config.aux/texinfo.tex
-am__TEXINFO_TEX_DIR = $(top_srcdir)/sqltutor/config.aux
+TEXINFO_TEX = $(top_srcdir)/config.aux/texinfo.tex
+am__TEXINFO_TEX_DIR = $(top_srcdir)/config.aux
 DVIS = sqltutor.dvi
 PDFS = sqltutor.pdf
 PSS = sqltutor.ps
@@ -259,7 +259,7 @@ sqltutor.html: sqltutor.texinfo $(srcdir)/version.texi $(sqltutor_TEXINFOS)
 $(srcdir)/version.texi:  $(srcdir)/stamp-vti
 $(srcdir)/stamp-vti: sqltutor.texinfo $(top_srcdir)/configure
 	@(dir=.; test -f ./sqltutor.texinfo || dir=$(srcdir); \
-	set `$(SHELL) $(top_srcdir)/sqltutor/config.aux/mdate-sh $$dir/sqltutor.texinfo`; \
+	set `$(SHELL) $(top_srcdir)/config.aux/mdate-sh $$dir/sqltutor.texinfo`; \
 	echo "@set UPDATED $$1 $$2 $$3"; \
 	echo "@set UPDATED-MONTH $$2 $$3"; \
 	echo "@set EDITION $(VERSION)"; \

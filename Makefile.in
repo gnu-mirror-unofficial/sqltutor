@@ -49,9 +49,9 @@ POST_UNINSTALL = :
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(top_srcdir)/configure AUTHORS COPYING \
-	ChangeLog INSTALL NEWS sqltutor/config.aux/depcomp \
-	sqltutor/config.aux/install-sh sqltutor/config.aux/mdate-sh \
-	sqltutor/config.aux/missing sqltutor/config.aux/texinfo.tex
+	ChangeLog INSTALL NEWS config.aux/depcomp \
+	config.aux/install-sh config.aux/mdate-sh config.aux/missing \
+	config.aux/texinfo.tex
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -352,7 +352,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/sqltutor/config.aux
+	$(mkdir_p) $(distdir)/config.aux
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \

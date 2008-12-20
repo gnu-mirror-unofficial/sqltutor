@@ -49,7 +49,7 @@ am_quiz_OBJECTS = quiz.$(OBJEXT)
 quiz_OBJECTS = $(am_quiz_OBJECTS)
 quiz_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/sqltutor
-depcomp = $(SHELL) $(top_srcdir)/sqltutor/config.aux/depcomp
+depcomp = $(SHELL) $(top_srcdir)/config.aux/depcomp
 am__depfiles_maybe = depfiles
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
