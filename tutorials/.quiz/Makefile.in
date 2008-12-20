@@ -42,13 +42,13 @@ am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
-CONFIG_HEADER = $(top_builddir)/sqltutor/config.h
+CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am_quiz_OBJECTS = quiz.$(OBJEXT)
 quiz_OBJECTS = $(am_quiz_OBJECTS)
 quiz_LDADD = $(LDADD)
-DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/sqltutor
+DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/config.aux/depcomp
 am__depfiles_maybe = depfiles
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \

@@ -1753,7 +1753,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-ac_config_headers="$ac_config_headers sqltutor/config.h"
+ac_config_headers="$ac_config_headers config.h"
 
 ac_aux_dir=
 for ac_dir in config.aux "$srcdir"/config.aux; do
@@ -7392,7 +7392,7 @@ cat >>$CONFIG_STATUS <<\_ACEOF
 for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
-    "sqltutor/config.h") CONFIG_HEADERS="$CONFIG_HEADERS sqltutor/config.h" ;;
+    "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "sqltutor/Makefile") CONFIG_FILES="$CONFIG_FILES sqltutor/Makefile" ;;

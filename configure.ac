@@ -4,7 +4,7 @@
 AC_PREREQ(2.61)
 AC_INIT([sqltutor], [0.04.97], [cepek@gnu.org])
 AC_CONFIG_SRCDIR([sqltutor/sqltutor.cpp])
-AC_CONFIG_HEADER([sqltutor/config.h])
+AC_CONFIG_HEADER([config.h])
 AC_CONFIG_AUX_DIR([config.aux])
 
 AM_INIT_AUTOMAKE
