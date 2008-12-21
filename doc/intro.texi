@@ -9,9 +9,10 @@ selects SQL questions from its database, checks the answers and
 evaluates the final score.  The second part of the project is a free
 collection of SQL questions and answers representing SQL
 tutorials. SQLtutor enables to run one or more tutorials in different
-languages from a single database.  SQLtutor is implemented on the top
-of a relational database system PostgreSQL.
+languages from a single database.  
 
+SQLtutor is implemented on the top
+of a relational database system PostgreSQL.
 You can try SQLtutor online from
 
 @url{http://sqltutor.fsv.cvut.cz/cgi-bin/sqltutor}

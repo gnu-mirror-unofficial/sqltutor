@@ -138,8 +138,8 @@ Evaluation page contains only one dialog button
 @table @env
 
 @item New test
-Close the evaluation page anf return to the new section opening
-dialog.  
+Close the evaluation page anf return to the new seession opening
+dialog.
 
 @end table
 
@@ -157,7 +157,7 @@ missing queries.
 
 @ifinfo
 @example
-Test finished ...   00:02:09   (session 11)
+Test finished ...   00:00:50   (session 48)
 
 Number of questions :  1
 Correct answers     :  1
