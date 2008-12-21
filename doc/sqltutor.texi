@@ -56,17 +56,17 @@ freedom.''
 
 @menu
 * Introduction::
-* Copying::           The @acronym{GNU} General Public License says
-                        how you can copy and share SQLtutor
 
 Tutorial sections:
-* Concepts::          Basic concepts for understanding SQLtutor.
+* Concepts::             Basic concepts for understanding SQLtutor.
 
 Installation:
 * How to install SQLtutor::
 * Internals::
 
 Reference sections:
+* Copying::              The @acronym{GNU} General Public License says 
+                         how you can copy and share SQLtutor
 * Copying This Manual::  License for copying this manual.
 * Index::
 @end menu
