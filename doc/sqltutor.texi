@@ -9,27 +9,27 @@
 @finalout
 @c %**end of header
 
-@copying
-This manual (@value{UPDATED}) is for SQLtutor (version
-@value{VERSION}).
-
-Copyright @copyright{} 2008 Ales Cepek
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the @acronym{GNU} Free Documentation License,
-Version 1.2 or any later version published by the Free Software
-Foundation; with no Invariant Sections, with the Front-Cover texts
-being ``A @acronym{GNU} Manual,'' and with the Back-Cover Texts as in
-(a) below.  A copy of the license is included in the section entitled
-``@acronym{GNU} Free Documentation License.''
-
-(a) The FSF's Back-Cover Text is: ``You have the freedom to copy and
-modify this @acronym{GNU} manual.  Buying copies from the @acronym{FSF}
-supports it in developing @acronym{GNU} and promoting software
-freedom.''
-@end quotation
-@end copying
+@c @copying
+@c This manual (@value{UPDATED}) is for SQLtutor (version
+@c @value{VERSION}).
+@c 
+@c Copyright @copyright{} 2008 Ales Cepek
+@c 
+@c @quotation
+@c Permission is granted to copy, distribute and/or modify this document
+@c under the terms of the @acronym{GNU} Free Documentation License,
+@c Version 1.2 or any later version published by the Free Software
+@c Foundation; with no Invariant Sections, with the Front-Cover texts
+@c being ``A @acronym{GNU} Manual,'' and with the Back-Cover Texts as in
+@c (a) below.  A copy of the license is included in the section entitled
+@c ``@acronym{GNU} Free Documentation License.''
+@c 
+@c (a) The FSF's Back-Cover Text is: ``You have the freedom to copy and
+@c modify this @acronym{GNU} manual.  Buying copies from the @acronym{FSF}
+@c supports it in developing @acronym{GNU} and promoting software
+@c freedom.''
+@c @end quotation
+@c @end copying
 
 @c .... dircategory
 
@@ -42,7 +42,7 @@ freedom.''
 
 @page
 @vskip 0pt plus 1filll
-@insertcopying
+@c insertcopying
 @end titlepage
 
 @c Output the table of the contents at the beginning.
@@ -51,23 +51,18 @@ freedom.''
 @ifnottex
 @node Top
 @top SQLtutor
-@insertcopying
+@c @insertcopying
 @end ifnottex
 
 @menu
 * Introduction::
-
-Tutorial sections:
-* Concepts::             Basic concepts for understanding SQLtutor.
-
-Installation:
+* Concepts::
 * How to install SQLtutor::
 * Internals::
 
-Reference sections:
-* Copying::              The @acronym{GNU} General Public License says 
-                         how you can copy and share SQLtutor
-* Copying This Manual::  License for copying this manual.
+* Copying::
+* Copying This Manual::
+
 * Index::
 @end menu
 
@@ -75,10 +70,6 @@ Reference sections:
 @unnumbered Introduction
 @cindex introduction
 @include intro.texi
-
-@node Copying
-@unnumbered GNU GENERAL PUBLIC LICENSE
-@include gpl-3.0.texi
 
 @node Concepts
 @chapter The Concepts of SQLtutor
@@ -93,6 +84,10 @@ Reference sections:
 @chapter Internals
 @cindex internals
 @include internals.texi
+
+@node Copying
+@unnumbered GNU GENERAL PUBLIC LICENSE
+@include gpl-3.0.texi
 
 @node Copying This Manual
 @appendix Copying This Manual
