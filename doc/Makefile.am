@@ -18,3 +18,14 @@ AM_MAKEINFOFLAGS = --no-split
 info_TEXINFOS = sqltutor.texinfo
 sqltutor_TEXINFOS = intro.texi concepts.texi install.texi internals.texi \
                     gpl-3.0.texi fdl.texi
+
+EXTRA_DIST = \
+   sqltutor-dialog-1.eps \
+   sqltutor-dialog-1.pdf \
+   sqltutor-dialog-1.png \
+   sqltutor-dialog-2.eps \
+   sqltutor-dialog-2.pdf \
+   sqltutor-dialog-2.png \
+   sqltutor-dialog-3.eps \
+   sqltutor-dialog-3.pdf \
+   sqltutor-dialog-3.png 
