@@ -1,1 +1,192 @@
 This chapter introduces basic concepts of SQLtutor project.
+
+@section Tutorial Dialog
+
+SQLtutor dialog consists of three main pages: opening dialog, tutorial
+and final evaluation page. Tutorial dialog is designed to be as simple
+as possible and is based on the very basic HTML construct so it
+hopefully should run safely on any web browser.
+
+
+@subsection Opening Dialog
+
+From the drop down list tutorial must be selected from the opening
+dialog page.  Other options are optional. 
+
+@ifinfo
+@example
+Tutorial    [None____]
+
+User        guest________________     Password    _____________________
+
+Min points  _____________________     Max points  _____________________
+Dataset     _____________________     Help        [ ]
+
+
+[ Continue ]      [ Display datasets ]
+@end example
+@end ifinfo
+
+@ifnotinfo
+@float Figure,dialog1
+@image{sqltutor-dialog-1,,3.5in}
+@caption{Opening dialog}
+@end float
+@end ifnotinfo
+
+
+@table @env
+
+@item Tutorial
+Mandatory selection of the SQL tutorial. 
+
+@item Continue
+Press the @emph{Continue} button to open new session and start the
+selected tutorial.
+
+@item Display datasets
+For the selected tutorial displays the table of available datasets,
+tables and columns. Datasets are ordered by number of columns.
+
+@item User
+@itemx Password
+Unused in the current version.
+
+@item Min points
+@itemx Max points
+Options to limit the tutorial questions according to their point rating.
+
+@item Help
+When checked, @emph{help} button is displayed during the dialog, where
+@emph{help} displays the correct answer(s) for the given tutorial
+question.
+
+@end table
+
+@subsection Tutorial Dialog
+
+Tutorial dialog displays selected tutorial question, its corresponding
+tables an their columns and text area for entering SQL code. 
+
+@ifinfo
+@example
+[ Finish test ]
+
++---------------------------------------------------------+
+|    Table    |                  Columns                  |
+|-------------+-------------------------------------------|
+|   actor     |   id, name                                |
+|-------------+-------------------------------------------|
+|   movie     |   id, title, yr, score, votes, director   |
+|-------------+-------------------------------------------|
+|   casting   |   movieid, actorid, ord                   |
++---------------------------------------------------------+
+
+What is the id of the film 'Casablanca'?
+
+[ Next question ]
+
+SELECT id FROM movie WHERE title='Casablanca'______________
+___________________________________________________________
+___________________________________________________________
+___________________________________________________________
+
+[ Execute SQL ]      [ Display data ]
+@end example
+@end ifinfo
+
+@ifnotinfo
+@float Figure,dialog2
+@image{sqltutor-dialog-2,,3.5in}
+@caption{Tutorial dialog}
+@end float
+@end ifnotinfo
+
+
+@table @env
+
+@item Execute SQL 
+Executes SQL query written in the text area edit component, evaluates
+the result (correct or wrong answer) and displays the resulting rows.
+Only correct answers are registered, user can execute his/her query as
+many times as needed for getting a correct solution.
+
+@item Display data
+Display rows for all tables from the given dataset. Number of rows or
+a table is limited to 50 for larger tables.
+
+@item Help
+This button is available if @emph{help} was checked in the Opening
+dialog page. When clicked, SQLtutor displays one or more correct SQL
+queries for the given question.
+
+
+@item Next question
+Next tutorial question. If all questions has been answered, tutorial
+is ended.
+
+@item Finish test
+Close the session and go to the final evaluation page and close the
+test.
+
+@end table
+
+@subsection Evaluation page
+
+Evaluation page contains only one dialog button
+
+@table @env
+
+@item New test
+Close the evaluation page anf return to the new section opening
+dialog.  
+
+@end table
+
+@noindent Evaluation page presents the basic review of the
+closed session: elapsed time, session number, number of
+quesitons. correct answers, total points from correct answers and
+session evaluation. The final evaluation is calculated as the number
+of correct points multiplied by ratio of correct to all questions.
+
+All questions from the session dataset tables and answers are shown at
+the evaluation page.  For wrong answers correct solution is also
+given. For each question internal id and the number of points is
+displayd in green font for correct answers and red for wrong or
+missing queries.
+
+@ifinfo
+@example
+Test finished ...   00:02:09   (session 11)
+
+Number of questions :  1
+Correct answers     :  1
+Total points        :  1
+Evaluation          :  1
+
+[ New test ]
+
+306 (1):
+
+        +---------------------------------------------------------+
+        |    Table    |                  Columns                  |
+        |-------------+-------------------------------------------|
+        |   actor     |   id, name                                |
+        |-------------+-------------------------------------------|
+        |   movie     |   id, title, yr, score, votes, director   |
+        |-------------+-------------------------------------------|
+        |   casting   |   movieid, actorid, ord                   |
+        +---------------------------------------------------------+
+
+        What is the id of the film 'Casablanca'?
+
+SELECT id FROM movie WHERE title='Casablanca'
+@end example
+@end ifinfo
+
+@ifnotinfo
+@float Figure,dialog3
+@image{sqltutor-dialog-3,,3.5in}
+@caption{Evaluation page}
+@end float
+@end ifnotinfo

@@ -1,11 +1,36 @@
 
-This edition corresponds to version @value{VERSION} of SQLtutor.
-@dfn{SQLtutor} is a web based interactive tutorial of SQL.
+
+
+@dfn{SQLtutor} is a web based interactive tutorial of @emph{Structured
+Query Language} (SQL).  The project consists in part of a C++ program
+of the same name @file{sqltutor} released under the GNU General Public
+License (GNU GPL).  The @file{sqltutor} program is a CGI script that
+selects SQL questions from its database, checks the answers and
+evaluates the final score.  The second part of the project is a free
+collection of SQL questions and answers representing SQL
+tutorials. SQLtutor enables to run one or more tutorials in different
+languages from a single database.  SQLtutor is implemented on the top
+of a relational database system PostgreSQL.
+
+You can try SQLtutor online from
+
+@url{http://sqltutor.fsv.cvut.cz/cgi-bin/sqltutor}
+
+@noindent First, a tutorial must be selected from the opening 
+page and started. A series of tutorial questions follows in a simple
+dialog. When finished SQLtutor displays final evaluation with the
+review of all questions asked during the session together with user's
+SQL queries and correct answers for wrong solutions.
 
 
 @section SQLzoo
 
-English SQLzoo tutorial is based on the collection of SQL questions
-and answers and datasets from @url{http://sqlzoo.ne/}. We would like
-to thank Andrew Cumming for his kind approval to use his data and
-tutorials in our project.
+SQLtutor was inspired by an interactive tutorial SQLzoo by Andrew
+Cumming from the School of Computing, Napier University, Edinburg,
+UK. Implementation of the database and the @file{sqltutor} program is
+not dependent neither derived from the SQLzoo tutorial.
+
+English SQLzoo tutorial distributed with SQLtutor is based on the
+collection of SQL questions and answers and datasets from
+@url{http://sqlzoo.net/}. We would like to thank Andrew Cumming for
+his kind approval to use his data and tutorials in our project.
