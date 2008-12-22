@@ -2,11 +2,23 @@
 @c hence no sectioning command or @node.
 
 SQLtutor is a CGI script and a PostgreSQL database of SQL tutorials,
-collections of SQL questions and answers.  All SQLtutor database
-objects are defined in the SCHEMA @code{sqltutor}.
+collections of SQL questions and answers.  
 
-Five output variables are defined in @file{configure.ac} with the
-following implicit values.
+@section How to get SQLtutor
+
+The project is hosted as the Savannah software forge
+
+@url{http://savannah.nongnu.org/projects/sqltutor/}
+
+@noindent A copy of the SQLtutor can be get by anonymous CVS access
+
+@url{cvs -z3 -d:pserver:anonymous@@cvs.savannah.nongnu.org:/sources/sqltutor co sqltutor}
+
+@subsection How to change implicit settings
+
+All SQLtutor database objects are defined in the SCHEMA
+@code{sqltutor}.  Five output variables are defined in
+@file{configure.ac} with the following implicit values.
 
 @table @env
 @item SQLTUTOR_DATABASE=sqltutor

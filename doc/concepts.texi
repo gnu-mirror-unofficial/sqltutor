@@ -141,21 +141,21 @@ Evaluation page contains only one dialog button
 @table @env
 
 @item New test
-Close the evaluation page anf return to the new seession opening
+Close the evaluation page and return to the new seession opening
 dialog.
 
 @end table
 
 @noindent Evaluation page presents the basic review of the
 closed session: elapsed time, session number, number of
-quesitons. correct answers, total points from correct answers and
+questions. correct answers, total points from correct answers and
 session evaluation. The final evaluation is calculated as the number
 of correct points multiplied by ratio of correct to all questions.
 
 All questions from the session dataset tables and answers are shown at
 the evaluation page.  For wrong answers correct solution is also
 given. For each question internal id and the number of points is
-displayd in green font for correct answers and red for wrong or
+displayed in green font for correct answers and red for wrong or
 missing queries.
 
 @ifinfo
@@ -204,33 +204,40 @@ be @emph{open} or @emph{closed}. Session is closed when the tutorial
 dialogue is regularly finished.
 
 All @dfn{questions} asked during the tutorial sessions are recorded
-keeping the track of your SQL ansqered queries. Number of tries during
+keeping the track of your SQL answered queries. Number of tries during
 tutorial dialog is not relevant for the final evaluation, only the
-latest solution is recorded. An answer is registerd when @emph{Execute
+latest solution is recorded. An answer is registered when @emph{Execute
 SQL}, @emph{Next question} or @emph{Finish test} button is pressed.
 
 Each @dfn{question} registered in the tutorial database has a point
 evaluation. Trivial questions are rated by 1 point, nontrivial
 questions can have point rating up to 15 points. For each question one
-or more correct answer is stored in the database. When help is enbled
-during opening dialog, correct answers are displaed when @emph{help}
+or more correct answer is stored in the database. When help is enabled
+during opening dialog, correct answers are displayed when @emph{help}
 button is pressed. 
 
 Questions are asked about data from @dfn{datasets}, where dataset is
 one or more SQL tables. Datasets can be shared by different tutorials,
 unlike questions which are indivisible part of its tutorial.
 
-SQLtutor asks questions in a random manner, starting from easy ones to
-the nontrivial. The test starts with a trivial questions with one
-point evauation, first correct answer switches the level to two points
-where two correct answers must be given. Then similarly three and four
-correct answers must be solved for point levels 3 and 4. Thus at least
-ten simple questions must be answered in the first test stage
+SQLtutor select questions in a random manner, starting from easy ones
+to the nontrivial. The test starts with a trivial questions with one
+point evaluation, first correct answer switches the level to two
+points where two correct answers must be given. Then similarly three
+and four correct answers must be solved for point levels 3 and 4. Thus
+at least ten simple questions must be answered in the first test stage
 (1+2+3+4). In the second stage questions are randomly selected by
 SQLtutor with point evaluation 5 or higher.@footnote{In future
-versions the algorithm for selecting questions should take into account
-also question categories.}
+versions the algorithm for selecting questions may take into
+account also question categories.} 
 
+The algorihm for selecting questions described in the previous
+paragraph is not used if you explicitly chose min/max value of points
+and/or dataset. I any of these three parametres is entered during
+opening dialog, questions are selected from the resulting subset
+simply in random.
+
+@subsection Final evaluation
 
 Final evaluation of sessions is calculated as 
 @ifnotinfo
