@@ -50,7 +50,7 @@ To build CGI script @file{sqltutor} go to SQLtutor home directory, run
 
 @example
    ./configue 
-   make -C sqltutor
+   make
 @end example
 
 @noindent and copy @file{sqltutor/sqltutor} to the cgi-bin directory.
