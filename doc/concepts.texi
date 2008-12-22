@@ -5,7 +5,9 @@ This chapter introduces basic concepts of SQLtutor project.
 SQLtutor dialog consists of three main pages: opening dialog, tutorial
 and final evaluation page. Tutorial dialog is designed to be as simple
 as possible and is based on the very basic HTML construct so it
-hopefully should run safely on any web browser.
+hopefully should run safely on any web browser. The dialog is going to
+be described on a case of trivial session in which we answer one
+simple SQL query.
 
 
 @subsection Opening Dialog
@@ -65,8 +67,9 @@ question.
 
 @subsection Tutorial Dialog
 
-Tutorial dialog displays selected tutorial question, its corresponding
-tables an their columns and text area for entering SQL code. 
+Tutorial dialog page displays selected tutorial question, its
+corresponding tables an their columns and text area for entering SQL
+code.
 
 @ifinfo
 @example
@@ -190,3 +193,53 @@ SELECT id FROM movie WHERE title='Casablanca'
 @caption{Evaluation page}
 @end float
 @end ifnotinfo
+
+
+@section Sessions, questions and answers
+
+When tutorial is selected from the opening dialog page and started a
+new @dfn{session} is opened. Sessions record all options selected in
+the opening dialogue, the start time and the session status which can
+be @emph{open} or @emph{closed}. Session is closed when the tutorial
+dialogue is regularly finished.
+
+All @dfn{questions} asked during the tutorial sessions are recorded
+keeping the track of your SQL ansqered queries. Number of tries during
+tutorial dialog is not relevant for the final evaluation, only the
+latest solution is recorded. An answer is registerd when @emph{Execute
+SQL}, @emph{Next question} or @emph{Finish test} button is pressed.
+
+Each @dfn{question} registered in the tutorial database has a point
+evaluation. Trivial questions are rated by 1 point, nontrivial
+questions can have point rating up to 15 points. For each question one
+or more correct answer is stored in the database. When help is enbled
+during opening dialog, correct answers are displaed when @emph{help}
+button is pressed. 
+
+Questions are asked about data from @dfn{datasets}, where dataset is
+one or more SQL tables. Datasets can be shared by different tutorials,
+unlike questions which are indivisible part of its tutorial.
+
+SQLtutor asks questions in a random manner, starting from easy ones to
+the nontrivial. The test starts with a trivial questions with one
+point evauation, first correct answer switches the level to two points
+where two correct answers must be given. Then similarly three and four
+correct answers must be solved for point levels 3 and 4. Thus at least
+ten simple questions must be answered in the first test stage
+(1+2+3+4). In the second stage questions are randomly selected by
+SQLtutor with point evaluation 5 or higher.@footnote{In future
+versions the algorithm for selecting questions should take into account
+also question categories.}
+
+
+Final evaluation of sessions is calculated as 
+@ifnotinfo
+@math{p \times (c / t)},
+@end ifnotinfo
+@ifinfo
+p x (c / t),
+@end ifinfo
+where @math{p} is the sum of points for correct answers, @math{c} is
+the number of correct answers and @math{t} is the number of all
+questions asked.
+
