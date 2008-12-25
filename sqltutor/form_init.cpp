@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.7 2008/12/01 19:44:22 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.8 2008/12/25 15:29:18 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -84,13 +84,6 @@ void SQLtutor::form_init()
   string pmax  = CGI::map["points_max"];
   string dset  = CGI::map["dataset"];
 
-  string help  = CGI::map["help"];
-  if (help != "true") 
-    {
-      help = "false";
-      CGI::map["help"] = help;
-    }
-
   if (!number(pmin))
     {
       error = true;
@@ -115,6 +108,12 @@ void SQLtutor::form_init()
   if (state == init_continue && tutorial != "0")
     try 
       {
+        string help; 
+        if (!CGI::map["help"].empty())
+          help = "true";
+        else
+          help = "false";
+
         const string open = 
           "SELECT session_id_, hash_ FROM open_session (" +
           param(" ", tutorial                  ) + ", " +   
@@ -141,7 +140,7 @@ void SQLtutor::form_init()
         CGI::map["session_id"] = session_id;
         CGI::map["state"]      = main_next;
         CGI::map["hash"]       = hash;
-        CGI::map["help"]       = help;
+        CGI::map["help"]       = help;            // checked by form_main() 
 
         return form_main();
       }
@@ -192,7 +191,8 @@ void SQLtutor::form_init()
        << "<td>" + t_help + "&nbsp;</td>"
        << "<td>";
 
-  form << Input().type("checkbox").name("help").value("true");
+  form << Input().type("checkbox").name("help").value("true").checked(!CGI::map["help"].empty());
+  CGI::map["help"].erase();
 
   form << "</td>"
        << "</tr>";

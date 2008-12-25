@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.cpp,v 1.4 2008/12/01 19:44:23 cepek Exp $ 
+ * $Id: sqltutor.cpp,v 1.5 2008/12/25 15:29:18 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -27,8 +27,7 @@
 SQLtutor::SQLtutor() : form(action) 
 {
   CGI::map["state"]    = init_state;  // implicit initial state
-  CGI::map["help"]     = "";
-  
+
   cgi.init( title + " " + version );
 }
 

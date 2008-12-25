@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.cpp,v 1.1 2008/05/07 15:27:33 cepek Exp $ 
+ * $Id: cgi.cpp,v 1.2 2008/12/25 15:29:18 cepek Exp $ 
  */
 
 #include <iostream>
@@ -34,7 +34,7 @@ Element::Elist Element::dlist;
 int            CGI::instances = 0;
 Element::Elist CGI::cgi_elist;
 std::string    CGI::title;
-CGI::CGImap    CGI::map;
+CGI::Map       CGI::map;
 
 Element::Element()
 {
@@ -100,7 +100,7 @@ void Form::run()
 {
   cout << "<form action='" << action << "' method='" << method << "'>";
   cout << "<fieldset style=\"display: none\">";
-  for (CGI::CGImap::iterator i=CGI::map.begin(); i!=CGI::map.end(); ++i)
+  for (CGI::Map::iterator i=CGI::map.begin(); i!=CGI::map.end(); ++i)
     {
       const std::string& att = (*i).first;
       const std::string& val = (*i).second;
@@ -123,12 +123,13 @@ std::string Input::string() const
 {
   std::string str("<input");
 
-  if (!itype .empty()) str += " type='"  + itype  + "'";
-  if (!iname .empty()) str += " name='"  + iname  + "'";
-  if (!ivalue.empty()) str += " value='" + ivalue + "'";
-  if (!isrc  .empty()) str += " src='"   + isrc   + "'";
-  if (!ialt  .empty()) str += " alt='"   + itype  + "'";
-  if (!idis  .empty()) str += " "        + idis   + " ";
+  if (!type_ .empty()) str += " type='"  + type_  + "'";
+  if (!name_ .empty()) str += " name='"  + name_  + "'";
+  if (!value_.empty()) str += " value='" + value_ + "'";
+  if (!src_  .empty()) str += " src='"   + src_   + "'";
+  if (!alt_  .empty()) str += " alt='"   + type_  + "'";
+  if (!dis_  .empty()) str += " "        + dis_   + " ";
+  if (!chk_  .empty()) str += " "        + chk_   + " ";
 
   str += " />";
 
@@ -142,12 +143,12 @@ void Input::run()
 
 Input& Input::value(std::string s)
 {
-  ivalue="";
+  value_="";
   for (int i=0; i<s.length(); i++)
     switch (s[i])
       {
-      case '\'': ivalue += "&apos;"; break;
-      default  : ivalue += s[i];
+      case '\'': value_ += "&apos;"; break;
+      default  : value_ += s[i];
       }
   return *this;
 }

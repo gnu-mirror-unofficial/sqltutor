@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.h,v 1.2 2008/09/21 10:45:35 cepek Exp $ 
+ * $Id: cgi.h,v 1.3 2008/12/25 15:29:18 cepek Exp $ 
  */
 
 #ifndef cgi_h___SQLTUTOR_CGI_H___sqltutor_cgi_h
@@ -127,20 +127,22 @@ public:
   Input(std::string t) { type(t); }
   void run();
   
-  Input& type (std::string s) { itype =s; return *this; }
-  Input& name (std::string s) { iname =s; return *this; }
   Input& value(std::string s);
-  Input& src  (std::string s) { isrc  =s; return *this; }
-  Input& alt  (std::string s) { ialt  =s; return *this; }
-  Input& disabled()  { idis = "disabled"; return *this; } 
+  Input& type (std::string s)  { type_ = s; return *this; }
+  Input& name (std::string s)  { name_ = s; return *this; }
+  Input& src  (std::string s)  { src_  = s; return *this; }
+  Input& alt  (std::string s)  { alt_  = s; return *this; }
+  Input& disabled(bool t=true) { dis_ = t ? "disabled": ""; return *this; } 
+  Input& checked (bool t=true) { chk_ = t ? "checked" : ""; return *this; } 
   
 private:
-  std::string itype;
-  std::string iname;
-  std::string ivalue;
-  std::string isrc;
-  std::string ialt;
-  std::string idis;
+  std::string type_;
+  std::string name_;
+  std::string value_;
+  std::string src_;
+  std::string alt_;
+  std::string dis_;
+  std::string chk_;
   
   friend class Element;
   friend class Form;
@@ -225,8 +227,8 @@ public:
    * Must be explicitly initialized by calling init().
    */
   
-  typedef std::map <std::string, std::string>  CGImap;
-  static CGImap        map;
+  typedef std::map <std::string, std::string>  Map;
+  static Map map;
   
   /** Static method returns CGI environment (CGI Scope) variable or
    *  empty string if not available. 
