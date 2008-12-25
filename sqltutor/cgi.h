@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.h,v 1.3 2008/12/25 15:29:18 cepek Exp $ 
+ * $Id: cgi.h,v 1.4 2008/12/25 17:23:04 cepek Exp $ 
  */
 
 #ifndef cgi_h___SQLTUTOR_CGI_H___sqltutor_cgi_h
@@ -198,22 +198,22 @@ private:
  * 
  *   cgi.run();
  * }\endcode
- *
- * TODO: CGI should be singleton.
  */
 
 class CGI : public Element {
 public:
+
+  static CGI* instance();
   
   ~CGI();
   
-  /** Init() reads CGI variables, attribute/value pairs, into the
-   *  CGImap container.
+  /** Init() reads CGI variables, attribute/value pairs, into the 
+   *  Map container.
    * 
    * This method must be called explicitly.
    */
   
-  void init();
+   void init();
   
   /** Calls init() and set_title() to set the page title. */
   void init(std::string t) { init(); set_title(t); }
@@ -256,9 +256,14 @@ public:
   
 protected:
   
-  static int         instances;
-  static Elist       cgi_elist;
-  static std::string title;
+  CGI() {}
+
+private:
+
+  static CGI* instance_;
+
+  Elist       cgi_elist;
+  std::string title;
   
   friend class Form;
 };

@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.cpp,v 1.2 2008/12/25 15:29:18 cepek Exp $ 
+ * $Id: cgi.cpp,v 1.3 2008/12/25 17:23:04 cepek Exp $ 
  */
 
 #include <iostream>
@@ -31,10 +31,19 @@ using std::endl;
 
 
 Element::Elist Element::dlist;
-int            CGI::instances = 0;
-Element::Elist CGI::cgi_elist;
-std::string    CGI::title;
+
+CGI*           CGI::instance_ = 0;
 CGI::Map       CGI::map;
+
+
+CGI* CGI::instance() 
+{
+  if (instance_ == 0) 
+    {
+      instance_ = new CGI;
+    }
+  return instance_;
+}
 
 Element::Element()
 {
@@ -155,10 +164,8 @@ Input& Input::value(std::string s)
 
 CGI::~CGI()
 {
-  --instances;
-  if (instances == 0)
-    for (Elist::const_iterator e=dlist.end(), b=dlist.begin(); b!=e; b++) 
-      delete (*b);
+  for (Elist::const_iterator e=dlist.end(), b=dlist.begin(); b!=e; b++) 
+    delete (*b);
 }
 
 void CGI::init()
@@ -166,7 +173,6 @@ void CGI::init()
   using std::cin;
 
   elements = &cgi_elist; 
-  instances++;
 
   char        c;
   std::string atr, val;

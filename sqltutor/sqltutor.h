@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.h,v 1.9 2008/12/01 19:44:23 cepek Exp $ 
+ * $Id: sqltutor.h,v 1.10 2008/12/25 17:23:04 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor
@@ -114,7 +114,7 @@ private:
     const char* what() { return "SQLtutor : All Questions Done"; }
   };
 
-  CGI           cgi;
+  CGI&          cgi;
   Form          form;
   size_t        sql_result_size; 
   size_t        sql_result_columns; 
