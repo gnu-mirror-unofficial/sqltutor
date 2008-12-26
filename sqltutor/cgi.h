@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.h,v 1.4 2008/12/25 17:23:04 cepek Exp $ 
+ * $Id: cgi.h,v 1.5 2008/12/26 13:12:07 cepek Exp $ 
  */
 
 #ifndef cgi_h___SQLTUTOR_CGI_H___sqltutor_cgi_h
@@ -31,10 +31,10 @@
 class Input;
 
   
-/** Base abstract FORM element class.
+/** Base abstract element class.
  *
- * Base abstract FORM element class is a sequential container 
- * of FORM element objects. 
+ * Base abstract element class is a sequential container of HTML
+ * element objects.
  */
 
 class Element {
@@ -65,10 +65,10 @@ protected:
   
   // list of pointers to child elements
   Elist* elements;
-  Elist elist;
+  Elist  elist;
   
   // pointers to internal objects created on free store, must be
-  // explicitly deleted by CGI
+  // explicitly deleted by CGI if necessary
   static Elist dlist;
 };
 
@@ -166,11 +166,9 @@ private:
  *
  * int main()
  * {
- *   CGI cgi;
+ *   CGI& cgi = * CGI::instance();
  *   cgi.set_title("Simple CGI Demo");
  * 
- *   // read CGI variables
- *   cgi.init();
  *   std::string hdn = CGI::map["hdn"];
  * 
  *   Par p1;  
@@ -203,20 +201,23 @@ private:
 class CGI : public Element {
 public:
 
+  /** CGI is a singleton class, the only way to create the CGI
+   *  instance is by calling the static CGI::instance() member
+   *  function.
+   */
+
   static CGI* instance();
   
+  /** Destructor deletes all element objects created on free store. If
+   *  necessary the destructor must be called explicitly (normally not
+   *  needed).
+   */
+
   ~CGI();
   
-  /** Init() reads CGI variables, attribute/value pairs, into the 
-   *  Map container.
-   * 
-   * This method must be called explicitly.
+  /** Write HTML object tree.
    */
   
-   void init();
-  
-  /** Calls init() and set_title() to set the page title. */
-  void init(std::string t) { init(); set_title(t); }
   void run();
   
   /** Set the page title (HTML tag \<title\>) */
@@ -224,7 +225,7 @@ public:
   
   /** Container with attribute/value pairs (CGI variables). 
    *
-   * Must be explicitly initialized by calling init().
+   * The contianer is implicitly initialised by the CGI() constructor.
    */
   
   typedef std::map <std::string, std::string>  Map;
@@ -256,15 +257,17 @@ public:
   
 protected:
   
-  CGI() {}
+  /** Protected constructor ensures that only one instance can ever
+   *  get created.
+   */
+
+  CGI();
 
 private:
 
-  static CGI* instance_;
-
-  Elist       cgi_elist;
-  std::string title;
-  
+  static CGI*  instance_;
+  Elist        cgi_elist;
+  std::string  title;
   friend class Form;
 };
 

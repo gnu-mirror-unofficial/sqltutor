@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.8 2008/12/25 15:29:18 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.9 2008/12/26 13:12:07 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -29,7 +29,7 @@ using std::string;
 
 namespace
 {
-  string emptyrow() { return "<tr><td>&nbsp;</td></tr>";     }
+  string emptyrow() { return "<tr><td>&nbsp;</td></tr>";    }
   string emptycol() { return "<td>&nbsp;&nbsp;&nbsp;</td>"; }
   
   bool number(string s)

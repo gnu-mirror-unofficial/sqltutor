@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.cpp,v 1.3 2008/12/25 17:23:04 cepek Exp $ 
+ * $Id: cgi.cpp,v 1.4 2008/12/26 13:12:07 cepek Exp $ 
  */
 
 #include <iostream>
@@ -153,7 +153,7 @@ void Input::run()
 Input& Input::value(std::string s)
 {
   value_="";
-  for (int i=0; i<s.length(); i++)
+  for (size_t i=0; i<s.length(); i++)
     switch (s[i])
       {
       case '\'': value_ += "&apos;"; break;
@@ -168,7 +168,7 @@ CGI::~CGI()
     delete (*b);
 }
 
-void CGI::init()
+CGI::CGI()
 {
   using std::cin;
 
