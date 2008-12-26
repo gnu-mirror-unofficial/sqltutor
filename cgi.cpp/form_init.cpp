@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.9 2008/12/26 13:12:07 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.1 2008/12/26 17:23:06 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>

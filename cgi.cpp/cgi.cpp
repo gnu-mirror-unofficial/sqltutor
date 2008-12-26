@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.cpp,v 1.4 2008/12/26 13:12:07 cepek Exp $ 
+ * $Id: cgi.cpp,v 1.1 2008/12/26 17:23:05 cepek Exp $ 
  */
 
 #include <iostream>

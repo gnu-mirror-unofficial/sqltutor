@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: submit_sql.cpp,v 1.2 2008/12/01 19:44:23 cepek Exp $ 
+ * $Id: submit_sql.cpp,v 1.1 2008/12/26 17:23:08 cepek Exp $ 
  */
 
 #include "sqltutor.h"

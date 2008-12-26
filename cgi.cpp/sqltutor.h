@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.h,v 1.10 2008/12/25 17:23:04 cepek Exp $ 
+ * $Id: sqltutor.h,v 1.1 2008/12/26 17:23:07 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor

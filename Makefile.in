@@ -177,7 +177,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-SUBDIRS = sqltutor database tutorials datasets doc
+SUBDIRS = cgi.cpp database tutorials datasets doc
 EXTRA_DIST = autogen.sh 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive

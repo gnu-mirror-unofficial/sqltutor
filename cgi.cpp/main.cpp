@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: main.cpp,v 1.1 2008/05/07 15:27:35 cepek Exp $ 
+ * $Id: main.cpp,v 1.1 2008/12/26 17:23:06 cepek Exp $ 
  */
 
 #include "sqltutor.h"

@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.h,v 1.5 2008/12/26 13:12:07 cepek Exp $ 
+ * $Id: cgi.h,v 1.1 2008/12/26 17:23:06 cepek Exp $ 
  */
 
 #ifndef cgi_h___SQLTUTOR_CGI_H___sqltutor_cgi_h

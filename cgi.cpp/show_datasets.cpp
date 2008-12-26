@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: show_datasets.cpp,v 1.3 2008/09/24 17:13:47 cepek Exp $ 
+ * $Id: show_datasets.cpp,v 1.1 2008/12/26 17:23:07 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>

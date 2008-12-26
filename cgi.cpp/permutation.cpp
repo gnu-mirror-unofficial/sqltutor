@@ -17,35 +17,41 @@
  */
 
 /* 
- * $Id: permutation.h,v 1.1 2008/05/07 15:27:35 cepek Exp $ 
+ * $Id: permutation.cpp,v 1.1 2008/12/26 17:23:06 cepek Exp $ 
  */
 
-#ifndef Permutation_h__PERMUTATION_H__Permutation_H__
-#define Permutation_h__PERMUTATION_H__Permutation_H__
-
-#include <vector>
-#include <algorithm>
+#include "permutation.h"
 
 
-class Permutation {
-public:
+void Permutation::reset(int size)
+{
+  N = std::max(size, 0);
+  perm.resize(N);
+  total = N;
+  int t = N;
+    while (--t > 1) total *= t;
+    avail = total;
+    for (int i=0; i<N; i++) perm[i] = i;
+}
 
-  Permutation() : N(0), avail(0), total(0) {}
-  Permutation(int k)     { reset(k);        }
 
-  void next();
-  void reset(int size);
-
-  int  size () const     { return N;        }
-  int  perms() const     { return total;    }
-  bool empty() const     { return avail==0; }
-  int& operator[](int i) { return perm[i];  }
-
-private:
-  int N; 
-  std::vector<int> perm;
-  int avail;
-  int total;
-};
-
-#endif
+void Permutation::next()
+{
+  if (avail) avail--;
+  if (avail == 0) return;
+  
+  int i = N - 1;
+  while (perm[i-1] >= perm[i]) i--;
+  int j = N;
+  while (perm[j-1] <= perm[i-1]) j--;
+  
+  std::swap(perm[i-1], perm[j-1]);    
+  
+  i++; j = N;
+  while (i < j)
+    {
+      std::swap(perm[i-1], perm[j-1]);
+      i++;
+      j--;
+    }
+}

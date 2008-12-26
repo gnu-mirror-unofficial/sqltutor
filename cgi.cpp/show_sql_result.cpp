@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: show_sql_result.cpp,v 1.4 2008/12/01 19:44:22 cepek Exp $ 
+ * $Id: show_sql_result.cpp,v 1.1 2008/12/26 17:23:07 cepek Exp $ 
  */
 
 #include "sqltutor.h"
