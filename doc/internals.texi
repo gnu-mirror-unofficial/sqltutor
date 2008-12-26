@@ -48,3 +48,11 @@ psql $(SQLTUTOR_DATABASE) \
    -c "SELECT sqltutor.add_ds_table('buses', 2, 'route',   \
                                     'num, company, pos, stop')"
 @end example
+
+@section Doxygen
+
+Doxygen generated source documentation is available only partly for
+classes implementing CGI interface for SQLtutor. Change to directory
+@file{doc} and run @file{make doxygen}. Generated output is stored in
+directories @file{html} ne @file{latex}.
+
