@@ -29,3 +29,37 @@ EXTRA_DIST = \
    sqltutor-dialog-3.eps \
    sqltutor-dialog-3.pdf \
    sqltutor-dialog-3.png 
+
+
+CLEANFILES =
+CLEANDIRS  =
+
+# Doxygen section dopted from bison-2.4/doc/Makefile.am
+
+## -------------- ##      
+## Doxygenation.  ##
+## -------------- ##
+
+DOXYGEN = doxygen
+
+.PHONY: doc html
+
+doc: html
+
+doxygen: Doxyfile
+	$(DOXYGEN)
+
+edit = sed -e 's,@PACKAGE_NAME\@,$(PACKAGE_NAME),g' \
+           -e 's,@PACKAGE_VERSION\@,$(PACKAGE_VERSION),g' \
+           -e 's,@top_builddir\@,$(top_builddir),g' \
+           -e 's,@top_srcdir\@,$(top_srcdir),g'
+
+EXTRA_DIST += Doxyfile.in
+CLEANFILES += Doxyfile
+# Sed is used to generate Doxyfile from Doxyfile.in instead of
+# configure, because the former is way faster than the latter.
+Doxyfile: $(srcdir)/Doxyfile.in
+	$(edit) $(srcdir)/Doxyfile.in >Doxyfile
+
+CLEANDIRS += html latex
+

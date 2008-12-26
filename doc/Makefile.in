@@ -173,16 +173,20 @@ info_TEXINFOS = sqltutor.texi
 sqltutor_TEXINFOS = intro.texi concepts.texi install.texi internals.texi \
                     gpl-3.0.texi fdl.texi
 
-EXTRA_DIST = \
-   sqltutor-dialog-1.eps \
-   sqltutor-dialog-1.pdf \
-   sqltutor-dialog-1.png \
-   sqltutor-dialog-2.eps \
-   sqltutor-dialog-2.pdf \
-   sqltutor-dialog-2.png \
-   sqltutor-dialog-3.eps \
-   sqltutor-dialog-3.pdf \
-   sqltutor-dialog-3.png 
+EXTRA_DIST = sqltutor-dialog-1.eps sqltutor-dialog-1.pdf \
+	sqltutor-dialog-1.png sqltutor-dialog-2.eps \
+	sqltutor-dialog-2.pdf sqltutor-dialog-2.png \
+	sqltutor-dialog-3.eps sqltutor-dialog-3.pdf \
+	sqltutor-dialog-3.png Doxyfile.in
+CLEANFILES = Doxyfile
+CLEANDIRS = html latex
+
+# Doxygen section dopted from bison-2.4/doc/Makefile.am
+DOXYGEN = doxygen
+edit = sed -e 's,@PACKAGE_NAME\@,$(PACKAGE_NAME),g' \
+           -e 's,@PACKAGE_VERSION\@,$(PACKAGE_VERSION),g' \
+           -e 's,@top_builddir\@,$(top_builddir),g' \
+           -e 's,@top_srcdir\@,$(top_srcdir),g'
 
 all: all-am
 
@@ -404,6 +408,7 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
@@ -500,6 +505,17 @@ uninstall-am: uninstall-info-am
 	mostlyclean-aminfo mostlyclean-generic mostlyclean-vti pdf \
 	pdf-am ps ps-am uninstall uninstall-am uninstall-info-am
 
+
+.PHONY: doc html
+
+doc: html
+
+doxygen: Doxyfile
+	$(DOXYGEN)
+# Sed is used to generate Doxyfile from Doxyfile.in instead of
+# configure, because the former is way faster than the latter.
+Doxyfile: $(srcdir)/Doxyfile.in
+	$(edit) $(srcdir)/Doxyfile.in >Doxyfile
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
