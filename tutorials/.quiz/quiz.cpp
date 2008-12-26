@@ -2,7 +2,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <cctype>
+#include <cstring>
+
 
 class Quiz
 {
