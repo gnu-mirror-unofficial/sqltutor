@@ -54,5 +54,5 @@ psql $(SQLTUTOR_DATABASE) \
 Doxygen generated source documentation is available only partly for
 classes implementing CGI interface for SQLtutor. Change to directory
 @file{doc} and run @file{make doxygen}. Generated output is stored in
-directories @file{html} ne @file{latex}.
+directories @file{html} and @file{latex}.
 
