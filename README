@@ -1,0 +1,11 @@
+SQLtutor - Summary
+
+Interactive web based tool for learning SQL by examples. SQLtutor
+consists of two main modules: a database of questions and answers and
+a simple CGI interface for running tests. Questions are chosen at
+random for each session, submitted queries are checked against correct
+answers stored in the database. Query results differing only in column
+permutations are evaluated as correct. For each session queries and
+answers are logged and the final score is evaluated when the test is
+finished. SQLtutor is written in C++ with lipqxx library to connect to
+PostgreSQL database. SQLtutor runs on GNU/Linux.
