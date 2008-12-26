@@ -1,6 +1,6 @@
 @section How to add new tutorial
 
-Tutorials are stored in the directory @file{sqltutor/tutorials}. Each
+Tutorials are stored in the directory @file{tutorials}. Each
 tutorial is by convention placed in a single directory named
 @file{xx.name} wher xx is a two letter language code (for example 
 @file{en.zqlzoo}).

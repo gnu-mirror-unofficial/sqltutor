@@ -53,7 +53,7 @@ To build CGI script @file{sqltutor} go to SQLtutor home directory, run
    make
 @end example
 
-@noindent and copy @file{sqltutor/sqltutor} to the cgi-bin directory.
+@noindent and copy @file{cgi.cpp/sqltutor} to the cgi-bin directory.
 Ensure that the file permissions are readable and executable by all
 (-rwxr-xr-x).
 
