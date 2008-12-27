@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.h,v 1.1 2008/12/26 17:23:06 cepek Exp $ 
+ * $Id: cgi.h,v 1.2 2008/12/27 12:46:30 cepek Exp $ 
  */
 
 #ifndef cgi_h___SQLTUTOR_CGI_H___sqltutor_cgi_h
@@ -31,7 +31,7 @@
 class Input;
 
   
-/** Base abstract element class.
+/** \brief Base abstract HTML element class.
  *
  * Base abstract element class is a sequential container of HTML
  * element objects.
@@ -74,7 +74,9 @@ protected:
 
 
 
-/** Text helper objects are inserted into CGI element containers, but
+/** \brief HTML text/string element
+ *
+ *  Text helper objects are inserted into CGI element containers, but
  *  cannot contain other elements.
  */
    
@@ -90,7 +92,9 @@ private:
 
 
 
-/** Par class implements HTML \<p\> tag. Par objects can be constracted
+/** \brief Implemention of HTML \<p\> tag.
+ *
+ *  Par class implements HTML \<p\> tag. Par objects can be constracted
  *  before insertion into another CGI container. Text parameters of
  *  constructor are inserted as Text objects.
  */
@@ -105,7 +109,7 @@ public:
 
 
 
-/** Pre class implements HTML /<pre/> tag.
+/** \brief  Implemention of HTML \<pre\> tag.
  */
 
 class Pre : public Element {
@@ -118,7 +122,7 @@ public:
 
 
 
-/** Implementation of HTML \<INPUT\> tag.
+/** \brief Implementation of HTML \<INPUT\> tag.
  */
 
 class Input : public Element {
@@ -151,7 +155,7 @@ private:
 
 
 
-/** Common Gateway Interface (CGI) class.
+/** \brief Common Gateway Interface class.
  *
  * All HTML objects must be inserted into a single CGI object. HTML page is
  * created by calling its run() method.
@@ -273,7 +277,7 @@ private:
 
 
 
-/** Implementation of HTML \<FORM\> tag.
+/** \brief Implementation of HTML \<FORM\> tag.
  */
 
 class Form : public Element {
