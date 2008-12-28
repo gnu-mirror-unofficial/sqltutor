@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.cpp,v 1.2 2008/12/28 14:17:25 cepek Exp $ 
+ * $Id: cgi.cpp,v 1.3 2008/12/28 15:31:10 cepek Exp $ 
  */
 
 #include <iostream>
@@ -62,7 +62,7 @@ Element& Element::operator << (Element& e)
   return *this;
 }
 
-Element& Element::operator << (Input& input)
+Element& Element::operator << (const Input& input)
 {
   *this << input.string();
   return *this;

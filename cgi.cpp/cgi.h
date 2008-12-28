@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.h,v 1.3 2008/12/28 14:17:25 cepek Exp $ 
+ * $Id: cgi.h,v 1.4 2008/12/28 15:31:10 cepek Exp $ 
  */
 
 #ifndef cgi_h___SQLTUTOR_CGI_H___sqltutor_cgi_h
@@ -51,11 +51,11 @@ public:
    */
   virtual void run() = 0;
   
-  Element& operator << (Element& element);
-  Element& operator << (Input&   input);
-  Element& operator << (const char*    text);
-  Element& operator << (std::string    text);
-  Element& operator << (unsigned int    num);
+  Element& operator << (Element&     element);
+  Element& operator << (const Input&   input);
+  Element& operator << (const char*     text);
+  Element& operator << (std::string     text);
+  Element& operator << (unsigned int     num);
   
 protected:
   
