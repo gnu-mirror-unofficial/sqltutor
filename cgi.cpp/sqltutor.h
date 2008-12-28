@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.h,v 1.2 2008/12/27 12:46:30 cepek Exp $ 
+ * $Id: sqltutor.h,v 1.3 2008/12/28 14:17:26 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor
@@ -133,9 +133,9 @@ private:
   std::string   session_id;
   std::string   hash;
 
-  void form_init();   /**< opening dialog       */
-  void form_main();   /**< main tutorial dialog */
-  void form_stop();   /**< evaluation page      */
+  void form_init();
+  void form_main();
+  void form_stop();
 
   void check_answer    (pqxx::work& transaction);
   void submit_sql      (pqxx::work& transaction);

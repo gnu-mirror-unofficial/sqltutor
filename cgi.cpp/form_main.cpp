@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_main.cpp,v 1.1 2008/12/26 17:23:06 cepek Exp $ 
+ * $Id: form_main.cpp,v 1.2 2008/12/28 14:17:26 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -31,48 +31,54 @@ void SQLtutor::form_main()
   using std::string;
 
   const string state = CGI::map["state"];
-  bool   help        = CGI::map["help"] == "true";
-  
-  tutorial_id = CGI::map["tutorial_id"];
-  question_id = CGI::map["question_id"];
-  sql_checked = CGI::map["sql_checked"];
   session_id  = CGI::map["session_id"];
+  sql_checked = CGI::map["sql_checked"];
+  question_id = CGI::map["question_id"];
   hash        = CGI::map["hash"];
-
-  if (state == main_stop) 
-    {
-      sql = CGI::map["sql_query"];
-      if (sql_checked != "yes" && !empty(sql))
-        try
-          {
-            connection   conn( db_connection );
-            work   tran (conn, "form_main1");
-            set_schema(tran);
-            check_answer(tran);
-          }
-        catch (sql_error err)
-          {
-            // we need to catch syntax errors and save wrong answers 
-            connection   conn( db_connection );
-            work   tran (conn, "form_main2");
-            set_schema(tran);
-            sql = std::string(err.what()) + "\n" + sql;
-            save_answer(tran);
-          }
-        catch (...)
-          {
-            throw;
-          }
-
-      return form_stop();
-    }
+  bool help = false;
 
   try    
     {
       connection  conn( db_connection );
       work   tran(conn, "form_main3");
       set_schema(tran);
+  
+      result session(tran.exec("SELECT help, tutorial_id FROM sessions"
+                               " WHERE session_id = " + session_id + ""));
       
+      help        = session.begin()[0].as(bool());
+      tutorial_id = session.begin()[1].as(string());
+  
+
+      if (state == main_stop) 
+        {
+          sql = CGI::map["sql_query"];
+          if (sql_checked != "yes" && !empty(sql))
+            try
+              {
+                connection   conn( db_connection );
+                work   tran (conn, "form_main1");
+                set_schema(tran);
+                check_answer(tran);
+              }
+            catch (sql_error err)
+              {
+                // we need to catch syntax errors and save wrong answers 
+                connection   conn( db_connection );
+                work   tran (conn, "form_main2");
+                set_schema(tran);
+                sql = std::string(err.what()) + "\n" + sql;
+                save_answer(tran);
+              }
+            catch (...)
+              {
+                throw;
+              }
+          
+          return form_stop();
+        }
+
+
       if (state == main_next)
         {
           sql = CGI::map["sql_query"];
@@ -93,37 +99,38 @@ void SQLtutor::form_main()
               {
                 throw;
               }
-
-
+          
           CGI::map["sql_query"] = "";
           sql_checked = "no";
           get_new_question(tran);
         }
 
+      form << InputHidden("sql_checked").value( sql_checked );
+      form << InputHidden("session_id" ).value( session_id  );
+      form << InputHidden("hash"       ).value( hash        );
+      form << InputHidden("tutorial_id").value( tutorial_id );
+      form << InputHidden("question_id").value( question_id );
+
       form << "<p style='text-align:right'>";
-      form << Input().type("submit").name("state").value(main_stop);
+      form << InputSubmit("state").value(main_stop);
       form << "</p>";
 
       display_question(form, tran, tutorial_id, question_id);
-
-      form << Input().type("hidden").name("tutorial_id").value( tutorial_id );
-      form << Input().type("hidden").name("question_id").value( question_id );
-      form << Input().type("submit").name("state").value(main_next);
+      form << InputSubmit("state"      ).value( main_next   );
       
       sql = CGI::map["sql_query"];
 
       form << "<br/><br/><textarea name='sql_query' rows='15' cols='80'>";
       form << sql;
       form << "</textarea><br/>";
-      form << Input().type("submit").name("state").value(main_sql);
+      form << InputSubmit("state").value(main_sql);
       form << button_sep();
-      form << Input().type("submit").name("state").value(main_data);
+      form << InputSubmit("state").value(main_data);
       if (help)
         {
           form << button_sep();
-          form << Input().type("submit").name("state").value(main_help);
+          form << InputSubmit("state").value(main_help);
         }
-
       form << "<br/><br/>";
 
 
@@ -160,7 +167,7 @@ void SQLtutor::form_main()
             form << t_sql_error;
           }
       
-      form << Input().type("hidden").name("sql_checked").value( sql_checked );
+      form << InputHidden("sql_checked").value( sql_checked );
     }
   catch (sql_error s)
     {

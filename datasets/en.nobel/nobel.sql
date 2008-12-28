@@ -3,7 +3,7 @@ SET search_path TO sqltutor;
 --- createnobel, 1, 50
 DROP TABLE nobel;
 CREATE TABLE nobel(
-  yr INT
+  year INT
  ,subject VARCHAR(15)
  ,winner VARCHAR(60)
 );

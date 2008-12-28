@@ -1,16 +1,16 @@
 ###  source http://sqlzoo.net/ with permission by Andrew Cumming
 ###
 ###  actor   ( id, name )
-###  movie   ( id, title, yr, score, votes, director )
+###  movie   ( id, title, year, score, votes, director )
 ###  casting ( movieid, actorid, ord )
 
 -- id="301" dataset="movies" category="select" points="1"
 -- 
--- List the films where the yr is 1962 [Show id, title]
+-- List the films where the year is 1962 [Show id, title]
 
 SELECT id, title
  FROM movie
- WHERE yr=1962;
+ WHERE year=1962;
 
 
 # not used, empty set!
@@ -19,16 +19,16 @@ SELECT id, title
 # -- 
 # -- Give year of 'Citizen Kane'.
 # 
-# SELECT yr
+# SELECT year
 #   FROM movie
 #  WHERE title like 'Citizen Kane';
 
 
 -- id="303" dataset="movies" category="select" points="1"
 -- 
--- List all of the Star Trek movies, include the id  title and yr.
+-- List all of the Star Trek movies, include the id  title and year.
 
-SELECT id, title, yr
+SELECT id, title, year
  FROM movie
  WHERE title LIKE 'Star Trek%';
 
@@ -94,7 +94,7 @@ SELECT title
 
 SELECT title, name
   FROM movie, casting, actor
- WHERE yr=1962
+ WHERE year=1962
     AND movieid=movie.id
     AND actorid=actor.id
     AND ord=1;
@@ -105,17 +105,17 @@ SELECT title, name
 -- Which were the busiest years for 'John Travolta'. Show the number
 -- of movies he made for each year.
 
-SELECT yr,COUNT(title) FROM
+SELECT year,COUNT(title) FROM
   movie JOIN casting ON movie.id=movieid
         JOIN actor   ON actorid=actor.id
 where name='John Travolta'
-GROUP BY yr
+GROUP BY year
 HAVING COUNT(title)=(SELECT MAX(c) FROM
-(SELECT yr,COUNT(title) AS c FROM
+(SELECT year,COUNT(title) AS c FROM
    movie JOIN casting ON movie.id=movieid
          JOIN actor   ON actorid=actor.id
  where name='John Travolta'
- GROUP BY yr) AS t);
+ GROUP BY year) AS t);
 
 
 -- id="312" dataset="movies" category="join|subselect" points="10"
@@ -151,7 +151,7 @@ SELECT name
 
 SELECT title, COUNT(actorid)
   FROM casting, movie
-  WHERE yr=1978
+  WHERE year=1978
     AND movieid=movie.id
   GROUP BY title
   ORDER BY 2 DESC;

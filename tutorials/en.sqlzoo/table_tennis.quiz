@@ -7,7 +7,7 @@
 # ttms    (games, color, who, country)
 # ttws    (games, color, who, country)
 # country (id, name)
-# games   (yr, city, country)
+# games   (year, city, country)
 #
 
 
@@ -53,7 +53,7 @@ WHERE name='China' AND color='gold';
 
 SELECT who
   FROM ttws JOIN games
-            ON (ttws.games=games.yr)
+            ON (ttws.games=games.year)
   WHERE city = 'Barcelona';
 
 
@@ -65,7 +65,7 @@ SELECT who
 
 SELECT city, color
   FROM ttws JOIN games
-            ON (ttws.games=games.yr)
+            ON (ttws.games=games.year)
   WHERE who = 'CHEN, Jing';
 
 
@@ -76,7 +76,7 @@ SELECT city, color
 
 SELECT who, city
   FROM ttws JOIN games
-            ON (ttws.games=games.yr)
+            ON (ttws.games=games.year)
   WHERE color = 'gold';
 
 

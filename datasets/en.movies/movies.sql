@@ -18,7 +18,7 @@ CREATE INDEX actor_name ON actor(name);
 CREATE TABLE movie
 (id INTEGER NOT NULL
 , title VARCHAR(80)
-, yr DECIMAL(4) 
+, year DECIMAL(4) 
 , score FLOAT
 , votes INTEGER
 , director INTEGER

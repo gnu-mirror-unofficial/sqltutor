@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.h,v 1.2 2008/12/27 12:46:30 cepek Exp $ 
+ * $Id: cgi.h,v 1.3 2008/12/28 14:17:25 cepek Exp $ 
  */
 
 #ifndef cgi_h___SQLTUTOR_CGI_H___sqltutor_cgi_h
@@ -123,22 +123,25 @@ public:
 
 
 /** \brief Implementation of HTML \<INPUT\> tag.
+ *
+ *  Constructor Input::Input(std::string t, std::string n) is
+ *  protected so that only derived classes can be instantiated.
  */
 
 class Input : public Element {
 public:
-  Input() {}
-  Input(std::string t) { type(t); }
+
   void run();
   
   Input& value(std::string s);
-  Input& type (std::string s)  { type_ = s; return *this; }
-  Input& name (std::string s)  { name_ = s; return *this; }
   Input& src  (std::string s)  { src_  = s; return *this; }
   Input& alt  (std::string s)  { alt_  = s; return *this; }
   Input& disabled(bool t=true) { dis_ = t ? "disabled": ""; return *this; } 
   Input& checked (bool t=true) { chk_ = t ? "checked" : ""; return *this; } 
   
+protected:
+  Input(std::string t, std::string n) : type_(t), name_(n) {}
+
 private:
   std::string type_;
   std::string name_;
@@ -151,6 +154,56 @@ private:
   friend class Element;
   friend class Form;
   std::string string() const;
+};
+
+
+
+/** \brief Implementation of \<INPUT type='submit' ... \> tag.
+ */
+
+class InputSubmit : public Input {
+public:
+  InputSubmit(std::string name) : Input("submit", name) {}
+};
+
+
+
+/** \brief Implementation of \<INPUT type='text' ... \> tag.
+ */
+
+class InputText : public Input {
+public:
+  InputText(std::string name) : Input("text", name) {}
+};
+
+
+
+/** \brief Implementation of \<INPUT type='password' ... \> tag.
+ */
+
+class InputPassword : public Input {
+public:
+  InputPassword(std::string name) : Input("password", name) {}
+};
+
+
+
+/** \brief Implementation of \<INPUT type='checkbox' ... \> tag.
+ */
+
+class InputCheckbox : public Input {
+public:
+  InputCheckbox(std::string name) : Input("checkbox", name) {}
+};
+
+
+
+/** \brief Implementation of \<INPUT type='hidden' ... \> tag.
+ */
+
+class InputHidden : public Input {
+public:
+  InputHidden(std::string name) : Input("hidden", name) {}
 };
 
 
@@ -180,7 +233,7 @@ private:
  * 
  *   // constructor parameter: name of the CGI script to be run on submit 
  *   Form f1("demo");    
- *   f1 << Input().type("submit");
+ *   f1 << InputSubmit("sbmt");
  * 
  *   Par p2;
  *   int n = hdn.length();
@@ -194,7 +247,7 @@ private:
  *   // change the value of 'hdn' variable
  *   hdn += "*";
  *   // send CGI variable hdn to "demo" CGI script using a named hidden field
- *   f1 << Input().type("hidden").name("hdn").value(hdn);
+ *   f1 << InputHidden("hdn").value(hdn);
  * 
  *   cgi << p1 << f1  << p2;
  * 

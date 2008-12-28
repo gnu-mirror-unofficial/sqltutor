@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_stop.cpp,v 1.1 2008/12/26 17:23:06 cepek Exp $ 
+ * $Id: form_stop.cpp,v 1.2 2008/12/28 14:17:26 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -156,7 +156,7 @@ void SQLtutor::form_stop()
         }
 
       form  << "<br/>" 
-            << Input().type("submit").value( new_test );
+            << InputSubmit("next").value( new_test );
       form << "<br/>";
 
       display_answers(form, tran, session_id);

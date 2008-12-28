@@ -154,7 +154,7 @@ CREATE VIEW ttws (games, color, who, country) AS
 DROP TABLE games CASCADE;
 CREATE TABLE games
 (
-   yr      integer,
+   year    integer,
    city    varchar(30),
    country char(3)
 );
@@ -184,7 +184,7 @@ DELETE FROM datasets WHERE dataset='ttws';
 DELETE FROM dataset_sources WHERE dataset='ttws';
 INSERT INTO dataset_sources VALUES('ttws', 2008, 'http://sqlzoo.net');
 INSERT INTO datasets VALUES ('ttws', 1, 'ttws', 'games, color, who, country');
-INSERT INTO datasets VALUES ('ttws', 2, 'games', 'yr, city, country');
+INSERT INTO datasets VALUES ('ttws', 2, 'games', 'year, city, country');
 
 REVOKE ALL   ON TABLE ttws FROM PUBLIC;
 GRANT SELECT ON TABLE ttws TO PUBLIC;

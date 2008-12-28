@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.cpp,v 1.1 2008/12/26 17:23:05 cepek Exp $ 
+ * $Id: cgi.cpp,v 1.2 2008/12/28 14:17:25 cepek Exp $ 
  */
 
 #include <iostream>
@@ -108,20 +108,6 @@ void Pre::run()
 void Form::run()
 {
   cout << "<form action='" << action << "' method='" << method << "'>";
-  cout << "<fieldset style=\"display: none\">";
-  for (CGI::Map::iterator i=CGI::map.begin(); i!=CGI::map.end(); ++i)
-    {
-      const std::string& att = (*i).first;
-      const std::string& val = (*i).second;
-
-      for (size_t i=0; i<val.length(); i++)
-        if (!std::isspace(val[i]))
-          {
-            cout << Input().type("hidden").name(att).value(val).string();
-            break;
-          }
-    }
-  cout << "</fieldset>";
 
   run_elist();
 

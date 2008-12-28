@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.1 2008/12/26 17:23:06 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.2 2008/12/28 14:17:26 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -162,37 +162,36 @@ void SQLtutor::form_init()
   form << "<tr>"
        << "<td>" + t_user + "&nbsp;</td>" 
        << "<td>" 
-       << Input().type("text").name("user").value("guest").disabled()
+       << InputText("user").value("guest").disabled()
        << "</td>"
        << emptycol()
        << "<td>" + t_password + "&nbsp;</td>"
        << "<td>"
-       << Input().type("password").name("password").value("").disabled()
+       << InputPassword("password").value("").disabled()
        << "</td>"
        << "</tr>";
   form << emptyrow();
   form << "<tr>"
        << "<td>" + t_points_min + "&nbsp;</td>"
        << "<td>"
-       << Input().type("text").name("points_min").value(pmin)
+       << InputText("points_min").value(pmin)
        << "</td>"
        << emptycol()
        << "<td>" + t_points_max + "&nbsp;</td>" 
        << "<td>"
-       << Input().type("text").name("points_max").value(pmax)
+       << InputText("points_max").value(pmax)
        << "</td>"
        << "</tr>";
   form << "<tr>"
        << "<td>" + t_dataset + "&nbsp;</td>"
        << "<td>"
-       << Input().type("text").name("dataset").value(dset) 
+       << InputText("dataset").value(dset) 
        << "</td>" 
        << emptycol()
        << "<td>" + t_help + "&nbsp;</td>"
        << "<td>";
 
-  form << Input().type("checkbox").name("help").value("true").checked(!CGI::map["help"].empty());
-  CGI::map["help"].erase();
+  form << InputCheckbox("help").value("true").checked(!CGI::map["help"].empty());
 
   form << "</td>"
        << "</tr>";
@@ -200,9 +199,9 @@ void SQLtutor::form_init()
   form << "</table>";
 
   form << "<p>";
-  form << Input().type("submit").name("state").value(init_continue)
+  form << InputSubmit("state").value(init_continue)
        << button_sep()
-       << Input().type("submit").name("state").value(init_datasets);
+       << InputSubmit("state").value(init_datasets);
 
   if (state == init_datasets && tutorial != "0")
     {

@@ -1,6 +1,6 @@
 ###  source http://sqlzoo.net/ with permission by Andrew Cumming
 ###
-###  nobel ( yr, subject, winner )
+###  nobel ( year, subject, winner )
 
 ###  More practice with SELECT:
 
@@ -8,9 +8,9 @@
 -- 
 -- Show Nobel prizes for 1950.
 
-SELECT yr, subject, winner
+SELECT year, subject, winner
   FROM nobel
- WHERE yr = 1950
+ WHERE year = 1950
 
 
 -- id="152" dataset="nobel" category="select" points="2"
@@ -19,7 +19,7 @@ SELECT yr, subject, winner
 
 SELECT winner
   FROM nobel
- WHERE yr = 1962
+ WHERE year = 1962
    AND subject = 'Literature'
 
 
@@ -27,7 +27,7 @@ SELECT winner
 -- 
 -- Show the year and subject that won 'Albert Einstein' his prize.
 
-SELECT yr, subject
+SELECT year, subject
   FROM nobel
  WHERE winner='Albert Einstein'
 
@@ -39,18 +39,18 @@ SELECT yr, subject
 SELECT winner
   FROM nobel
  WHERE subject='Peace'
-   AND yr >= 2000
+   AND year >= 2000
 
 
 -- id="155" dataset="nobel" category="select" points="2"
 -- 
--- Show all details (yr, subject, winner) of the Literature prize
+-- Show all details (year, subject, winner) of the Literature prize
 -- winners for 1980 to 1989 inclusive.
 
-SELECT yr, subject, winner
+SELECT year, subject, winner
   FROM nobel
  WHERE subject = 'Literature'
-   AND yr BETWEEN 1980 AND 1989
+   AND year BETWEEN 1980 AND 1989
 
 
 -- id="156" dataset="nobel" category="select" points="2"
