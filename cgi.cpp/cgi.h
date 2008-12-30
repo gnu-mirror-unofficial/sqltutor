@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: cgi.h,v 1.4 2008/12/28 15:31:10 cepek Exp $ 
+ * $Id: cgi.h,v 1.5 2008/12/30 18:49:21 cepek Exp $ 
  */
 
 #ifndef cgi_h___SQLTUTOR_CGI_H___sqltutor_cgi_h
@@ -28,8 +28,6 @@
 #include <string>
 #include <iostream>
 
-class Input;
-
   
 /** \brief Base abstract HTML element class.
  *
@@ -37,62 +35,218 @@ class Input;
  * element objects.
  */
 
+
 class Element {
 public:
-  
-  Element();
+
   virtual ~Element() {}
-  
-  /** Write the object to the HTML/CGI output page.
-   *
-   * Each derived class must call private method run_elist() to
-   * trigger sequential processing all objects (FROM elements,
-   * strings, numbers) stored in the container.
-   */
-  virtual void run() = 0;
-  
-  Element& operator << (Element&     element);
-  Element& operator << (const Input&   input);
-  Element& operator << (const char*     text);
-  Element& operator << (std::string     text);
-  Element& operator << (unsigned int     num);
-  
+
+  Element& operator << (const Element& element);
+  Element& operator << (const char*    text);
+  Element& operator << (std::string    text);
+  Element& operator << (int            num);
+
 protected:
+
+  class Element_ {
+  public:
+    
+    Element_() {};
+    virtual ~Element_() {}
+    
+    /** Write the object to the HTML/CGI output page.
+     *
+     * Each derived class must call private method run_elist() to
+     * trigger sequential processing all objects (FROM elements,
+     * strings, numbers) stored in the container.
+     */
+    virtual void run() = 0;
+        
+  protected:
+    
+    typedef std::list<Element_*> Elist;
+    
+    void run_elist();
+    
+    // list of pointers to child elements
+    Elist elements;
+    
+    // pointers to internal objects created on free store
+    static Elist dlist;
+
+    friend class Element;
+  };
   
-  typedef std::list<Element*>            Elist;
+
+  Element(Element_* e) : element_(e) { Element_::dlist.push_back(e); } 
+  Element_* element_;
+};
+
+
+
+/** \brief Common Gateway Interface class.
+ *
+ * All HTML objects must be inserted into a single CGI object. HTML page is
+ * created by calling its run() method.
+ *
+ * CGI variables (information to the HTTP server) are send only by the
+ * POST method. The GET method is currently not supported by the CGI
+ * class.
+ *
+ * Example:
+ *\code
+ * #include "cgi.h"
+ *
+ * int main()
+ * {
+ *   CGI cgi;
+ *   cgi.set_title("Simple CGI Demo");
+ * 
+ *   std::string hdn = CGI::map["hdn"];
+ * 
+ *   Par p1;  
+ *   p1 << "Some text ... " << hdn ;
+ * 
+ *   // constructor parameter: name of the CGI script to be run on submit 
+ *   Form f1("demo");    
+ *   f1 << InputSubmit("sbmt");
+ * 
+ *   Par p2;
+ *   int n = hdn.length();
+ *   if (n == 1)
+ *     p2 << "Submit button pressed once";
+ *   if (n == 2)
+ *     p2 << "Submit button pressed twice";
+ *   else if (n > 2)
+ *     p2 << "Submit button pressed " << n << " times";
+ * 
+ *   // change the value of 'hdn' variable
+ *   hdn += "*";
+ *   // send CGI variable hdn to "demo" CGI script using a named hidden field
+ *   f1 << InputHidden("hdn").value(hdn);
+ * 
+ *   cgi << p1 << f1  << p2;
+ * 
+ *   cgi.run();
+ * }\endcode
+ */
+
+
+class CGI : public Element {
+
+  class CGI_ : public Element_ {
+  public:
+    
+    /** CGI_ is a singleton class, the only way to create the CGI_
+     *  instance is by calling the static CGI_::instance() member
+     *  function.
+     */
+    
+    static CGI_* instance();
+        
+    /** Write HTML object tree.
+     *
+     *  All internal dynamically created objects are freed by the
+     *  run() member function.
+     */
+    
+    void run();
+    
+    /** Set the page title (HTML tag \<TITLE\>) */
+    void set_title(std::string t)  { title_ = t; }
+    
+    /** Container with attribute/value pairs (CGI variables). 
+     *
+     * The contianer is implicitly initialised by the CGI_() constructor.
+     */
+    
+  protected:
+    
+    /** Protected constructor ensures that only one instance can ever
+     *  get created.
+     */
+    
+    CGI_();
+    
+  private:
+    
+    static CGI_*  instance_;
+    Elist         cgi_elist;
+    std::string   title_;
+    friend class  Form;
+  };
+
+  CGI_* cgi_;
+  friend class  Element;
   
-  void run_elist();
-  
-  // list of pointers to child elements
-  Elist* elements;
-  Elist  elist;
-  
-  // pointers to internal objects created on free store, must be
-  // explicitly deleted by CGI if necessary
-  static Elist dlist;
+public:
+
+  CGI() : Element( CGI_::instance() ) { cgi_ = CGI_::instance(); }
+  void run()                          { cgi_->run(); }
+  void set_title(std::string t)       { cgi_->set_title(t); }
+
+  /** Static method returns CGI environment (CGI Scope) variable or
+   *  empty string if not available. 
+   *
+   * Examples of some CGI environment variables:
+   * - SERVER_SOFTWARE
+   * - SERVER_NAME
+   * - GATEWAY_INTERFACE
+   * - SERVER_PROTOCOL
+   * - SERVER_PORT
+   * - REQUEST_METHOD
+   * - PATH_INFO
+   * - PATH_TRANSLATED
+   * - SCRIPT_NAME
+   * - QUERY_STRING
+   * - REMOTE_HOST
+   * - REMOTE_ADDR
+   * - AUTH_TYPE
+   * - REMOTE_USER
+   * - REMOTE_IDENT
+   * - CONTENT_TYPE
+   * - CONTENT_LENGTH
+   */
+  static  std::string getenv(const char* env);
+
+  typedef std::map <std::string, std::string>  Map;
+  static  Map  map;
 };
 
 
 
 /** \brief HTML text/string element
  *
- *  Text helper objects are inserted into CGI element containers, but
+ *  String helper objects are inserted into CGI element containers, but
  *  cannot contain other elements.
  */
-   
-class Text : public Element {
+
+class String : Element {
+
+  class String_ : public Element_ {
+  public:
+    String_() {}
+    String_(const char* t) : text(t) {}
+    String_(std::string t) : text(t) {}
+    void run();
+    
+  private:
+    std::string text;
+  };
+
+  friend class Element;
+
 public:
-  Text(const char* t) : text(t) {}
-  Text(std::string t) : text(t) {}
-  void run() { std::cout << text; }
-  
-private:
-  std::string text;
+
+  String() : Element(new String_) {}
+  String(const char* t) : Element(new String_(t)) {}
+  String(std::string t) : Element(new String_(t)) {}
+   
 };
 
 
 
-/** \brief Implemention of HTML \<p\> tag.
+/** \brief Implemention of HTML \<P\> tag.
  *
  *  Par class implements HTML \<p\> tag. Par objects can be constracted
  *  before insertion into another CGI container. Text parameters of
@@ -100,24 +254,119 @@ private:
  */
 
 class Par : public Element {
+
+  class Par_ : public Element_ {
+  public:
+    Par_() {}
+    Par_(const char* t) : attr(t) {}
+    Par_(std::string t) : attr(t) {}
+    void run();
+  private:
+    std::string attr;
+  };
+
 public:
-  Par() {}
-  Par(const char* t) { *this << t; }
-  Par(std::string t) { *this << t; }
-  void run();
+  
+  Par()              : Element(new Par_   ) {}
+  Par(const char* t) : Element(new Par_(t)) {}
+  Par(std::string t) : Element(new Par_(t)) {}  
 };
 
 
 
-/** \brief  Implemention of HTML \<pre\> tag.
+/** \brief Implemention of HTML \<DIV\> tag.
  */
 
-class Pre : public Element {
+class Div : public Element {
+
+  class Div_ : public Element_ {
+  public:
+    Div_() {}
+    Div_(const char* t) : attr(t) {}
+    Div_(std::string t) : attr(t) {}
+    void run();
+  private:
+    std::string attr;
+  };
+
 public:
-  Pre() {}
-  Pre(const char* t) { *this << t; }
-  Pre(std::string t) { *this << t; }
-  void run();
+  
+  Div()              : Element(new Div_   ) {}
+  Div(const char* t) : Element(new Div_(t)) {}
+  Div(std::string t) : Element(new Div_(t)) {}  
+};
+
+
+
+/** \brief Implemention of HTML \<SPAN\> tag.
+ */
+
+class Span : public Element {
+
+  class Span_ : public Element_ {
+  public:
+    Span_() {}
+    Span_(const char* t) : attr(t) {}
+    Span_(std::string t) : attr(t) {}
+    void run();
+  private:
+    std::string attr;
+  };
+
+public:
+  
+  Span()              : Element(new Span_   ) {}
+  Span(const char* t) : Element(new Span_(t)) {}
+  Span(std::string t) : Element(new Span_(t)) {}  
+};
+
+
+
+/** \brief  Implemention of HTML \<PRE\> tag.
+  */
+ 
+class Pre : public Element {
+
+  class Pre_ : public Element_ {
+  public:
+    Pre_() {}
+    Pre_(const char* t) : attr(t) {}
+    Pre_(std::string t) : attr(t) {}
+    void run();
+  private:
+    std::string attr;
+  };
+
+public:
+  
+  Pre()              : Element(new Pre_   ) {}
+  Pre(const char* t) : Element(new Pre_(t)) {}
+  Pre(std::string t) : Element(new Pre_(t)) {}  
+};
+
+
+
+/** \brief Implementation of HTML \<FORM\> tag.
+ */
+
+class Form : public Element {
+
+  class Form_ : public Element_ {
+  public:
+    Form_(std::string a, std::string m="post", std::string x="") 
+      : action(a), method(m), attr(x) {}
+    void run();
+    
+  private:
+    std::string action;
+    std::string method;
+    std::string attr;
+  };
+
+public:
+
+  Form(std::string act, std::string meth="post", std::string atr="") 
+    : Element(new Form_(act, meth, atr)) {}
 };
 
 
@@ -125,35 +374,48 @@ public:
 /** \brief Implementation of HTML \<INPUT\> tag.
  *
  *  Constructor Input::Input(std::string t, std::string n) is
- *  protected so that only derived classes can be instantiated.
+ *  protected, only derived classes can be instantiated.
  */
 
 class Input : public Element {
+
+  class Inp_ : public Element_ {
+  public:
+    
+    void run();
+    
+    void val_(std::string s);
+    
+    Inp_(std::string t, std::string n) : type_(t), name_(n) {}
+    
+    std::string type_;
+    std::string name_;
+    std::string value_;
+    std::string src_;
+    std::string alt_;
+    std::string dis_;
+    std::string chk_;  
+
+    std::string string() const;
+  };
+  
+  Inp_* inp_;
+
 public:
 
-  void run();
-  
-  Input& value(std::string s);
-  Input& src  (std::string s)  { src_  = s; return *this; }
-  Input& alt  (std::string s)  { alt_  = s; return *this; }
-  Input& disabled(bool t=true) { dis_ = t ? "disabled": ""; return *this; } 
-  Input& checked (bool t=true) { chk_ = t ? "checked" : ""; return *this; } 
+  Input& value(std::string s)  {inp_->val_(s);  return *this; }
+  Input& src  (std::string s)  {inp_->src_= s;  return *this; }
+  Input& alt  (std::string s)  {inp_->alt_= s;  return *this; }
+  Input& disabled(bool t=true) {inp_->dis_= t?"disabled" : ""; return *this; }
+  Input& checked (bool t=true) {inp_->chk_= t?"checked"  : ""; return *this; }
   
 protected:
-  Input(std::string t, std::string n) : type_(t), name_(n) {}
 
-private:
-  std::string type_;
-  std::string name_;
-  std::string value_;
-  std::string src_;
-  std::string alt_;
-  std::string dis_;
-  std::string chk_;
-  
-  friend class Element;
-  friend class Form;
-  std::string string() const;
+  Input(std::string t, std::string n) : Element(new Inp_(t, n)) 
+  {
+    inp_ = static_cast<Inp_*>(element_);
+  }
+
 };
 
 
@@ -206,143 +468,6 @@ public:
   InputHidden(std::string name) : Input("hidden", name) {}
 };
 
-
-
-/** \brief Common Gateway Interface class.
- *
- * All HTML objects must be inserted into a single CGI object. HTML page is
- * created by calling its run() method.
- *
- * CGI variables (information to the HTTP server) are send only by the
- * POST method. The GET method is currently not supported by the CGI
- * class.
- *
- * Example:
- *\code
- * #include "cgi.h"
- *
- * int main()
- * {
- *   CGI& cgi = * CGI::instance();
- *   cgi.set_title("Simple CGI Demo");
- * 
- *   std::string hdn = CGI::map["hdn"];
- * 
- *   Par p1;  
- *   p1 << "Some text ... " << hdn ;
- * 
- *   // constructor parameter: name of the CGI script to be run on submit 
- *   Form f1("demo");    
- *   f1 << InputSubmit("sbmt");
- * 
- *   Par p2;
- *   int n = hdn.length();
- *   if (n == 1)
- *     p2 << "Submit button pressed once";
- *   if (n == 2)
- *     p2 << "Submit button pressed twice";
- *   else if (n > 2)
- *     p2 << "Submit button pressed " << n << " times";
- * 
- *   // change the value of 'hdn' variable
- *   hdn += "*";
- *   // send CGI variable hdn to "demo" CGI script using a named hidden field
- *   f1 << InputHidden("hdn").value(hdn);
- * 
- *   cgi << p1 << f1  << p2;
- * 
- *   cgi.run();
- * }\endcode
- */
-
-class CGI : public Element {
-public:
-
-  /** CGI is a singleton class, the only way to create the CGI
-   *  instance is by calling the static CGI::instance() member
-   *  function.
-   */
-
-  static CGI* instance();
-  
-  /** Destructor deletes all element objects created on free store. If
-   *  necessary the destructor must be called explicitly (normally not
-   *  needed).
-   */
-
-  ~CGI();
-  
-  /** Write HTML object tree.
-   */
-  
-  void run();
-  
-  /** Set the page title (HTML tag \<title\>) */
-  void set_title(std::string t);
-  
-  /** Container with attribute/value pairs (CGI variables). 
-   *
-   * The contianer is implicitly initialised by the CGI() constructor.
-   */
-  
-  typedef std::map <std::string, std::string>  Map;
-  static Map map;
-  
-  /** Static method returns CGI environment (CGI Scope) variable or
-   *  empty string if not available. 
-   *
-   * Examples of some CGI environment variables:
-   * - SERVER_SOFTWARE
-   * - SERVER_NAME
-   * - GATEWAY_INTERFACE
-   * - SERVER_PROTOCOL
-   * - SERVER_PORT
-   * - REQUEST_METHOD
-   * - PATH_INFO
-   * - PATH_TRANSLATED
-   * - SCRIPT_NAME
-   * - QUERY_STRING
-   * - REMOTE_HOST
-   * - REMOTE_ADDR
-   * - AUTH_TYPE
-   * - REMOTE_USER
-   * - REMOTE_IDENT
-   * - CONTENT_TYPE
-   * - CONTENT_LENGTH
-   */
-  static std::string getenv(const char* env);
-  
-protected:
-  
-  /** Protected constructor ensures that only one instance can ever
-   *  get created.
-   */
-
-  CGI();
-
-private:
-
-  static CGI*  instance_;
-  Elist        cgi_elist;
-  std::string  title;
-  friend class Form;
-};
-
-
-
-/** \brief Implementation of HTML \<FORM\> tag.
- */
-
-class Form : public Element {
-public:
-  Form(std::string a, std::string m="post") : action(a), method(m) {}
-  void run();
-  
-private:
-  std::string action;
-  std::string method;
-  std::string attributes;
-};
 
 
 #endif

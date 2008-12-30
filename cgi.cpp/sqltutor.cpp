@@ -17,14 +17,14 @@
  */
 
 /* 
- * $Id: sqltutor.cpp,v 1.1 2008/12/26 17:23:07 cepek Exp $ 
+ * $Id: sqltutor.cpp,v 1.2 2008/12/30 18:49:21 cepek Exp $ 
  */
 
 #include "sqltutor.h"
 #include <cctype>
 
 
-SQLtutor::SQLtutor() : cgi(*CGI::instance()), form(action) 
+SQLtutor::SQLtutor() : form(action) 
 {
   cgi.set_title(title + " " + version );
 }
