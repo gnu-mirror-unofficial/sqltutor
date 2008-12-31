@@ -1,3 +1,8 @@
+version 0.5.01  2008-12-26
+
+                updated dataset nobel.sql according to http://nobelprize.org/
+
+
 version 0.5     2008-12-26
 
                 added autotools support
