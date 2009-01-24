@@ -1,3 +1,10 @@
+2009-01-24  Ales Cepek  <cepek@gnu.org>
+
+	* sqltutor moved from cvs.savannah.nognu.org to
+	cvs.savannah.gnu.org:/sources/sqltutor
+
+	* rms dubbed sqltutor a GNU package (2009-01-23)
+
 2008-12-01  Stepan Kasal  <kasal@ucw.cz>
 
 	* several corrections and improvements in configure.ac
