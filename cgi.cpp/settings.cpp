@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: settings.cpp,v 1.1 2008/12/26 17:23:07 cepek Exp $ 
+ * $Id: settings.cpp,v 1.2 2009/02/10 18:19:09 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -45,6 +45,7 @@ T SQLtutor::db_connection_sql = " dbname="   xstr(SQLTUTOR_DATABASE)
 T SQLtutor::title             = "SQL tutor";
 T SQLtutor::init_continue     = "Continue";
 T SQLtutor::init_datasets     = "Display datasets";
+T SQLtutor::init_gstarted     = "Getting started";
 T SQLtutor::main_stop         = "Finish test";
 T SQLtutor::main_next         = "Next question";
 T SQLtutor::main_help         = "Help";
@@ -86,6 +87,7 @@ T SQLtutor::t_session_closed  = "Session has been already closed ... ";
 T SQLtutor::t_select_tutorial = "Please, select tutorial first ... ";
 T SQLtutor::t_no_datasets     = "No datasets available ... ";
 T SQLtutor::t_empty_set       = "empty set";
+T SQLtutor::t_welcome         = "Welcome to GNU Sqltutor";
 
 
 /********************************************************************/

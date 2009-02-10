@@ -50,7 +50,8 @@ am_sqltutor_OBJECTS = sqltutor.$(OBJEXT) main.$(OBJEXT) cgi.$(OBJEXT) \
 	form_stop.$(OBJEXT) get_new_question.$(OBJEXT) \
 	permutation.$(OBJEXT) save_answer.$(OBJEXT) settings.$(OBJEXT) \
 	show_sql_result.$(OBJEXT) show_table_data.$(OBJEXT) \
-	show_datasets.$(OBJEXT) submit_sql.$(OBJEXT)
+	show_datasets.$(OBJEXT) getting_started.$(OBJEXT) \
+	submit_sql.$(OBJEXT)
 sqltutor_OBJECTS = $(am_sqltutor_OBJECTS)
 sqltutor_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -178,6 +179,7 @@ sqltutor_SOURCES = sqltutor.cpp sqltutor.h main.cpp	\
                    show_sql_result.cpp			\
                    show_table_data.cpp			\
 		   show_datasets.cpp			\
+		   getting_started.cpp			\
                    submit_sql.cpp
 
 all: all-am
@@ -232,6 +234,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/form_main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/form_stop.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/get_new_question.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/getting_started.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/permutation.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/save_answer.Po@am__quote@

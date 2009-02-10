@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.2 2008/12/28 14:17:26 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.3 2009/02/10 18:19:09 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -150,7 +150,11 @@ void SQLtutor::form_init()
         form_stop();
         return;
       }
-  
+
+  Par welcome;
+  welcome << "<strong>" << t_welcome << "</strong>";
+  form    << welcome;
+
   form << "<table>";
   form << "<tr>" 
        << "<td>" + t_tutorial + "&nbsp;</td>"
@@ -201,11 +205,18 @@ void SQLtutor::form_init()
   form << "<p>";
   form << InputSubmit("state").value(init_continue)
        << button_sep()
-       << InputSubmit("state").value(init_datasets);
+       << InputSubmit("state").value(init_datasets)
+       << button_sep()
+       << InputSubmit("state").value(init_gstarted);
 
   if (state == init_datasets && tutorial != "0")
     {
       show_datasets();
+    }
+
+  if (state == init_gstarted)
+    {
+      getting_started();
     }
 
   form << "</p>";

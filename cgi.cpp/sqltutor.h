@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.h,v 1.4 2008/12/30 18:49:21 cepek Exp $ 
+ * $Id: sqltutor.h,v 1.5 2009/02/10 18:19:10 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor
@@ -56,6 +56,7 @@ private:
   static const std::string state;
   static const std::string init_continue;
   static const std::string init_datasets;
+  static const std::string init_gstarted;
   static const std::string main_stop;
   static const std::string main_next;
   static const std::string main_help;
@@ -97,6 +98,7 @@ private:
   static const std::string t_select_tutorial;
   static const std::string t_no_datasets;
   static const std::string t_empty_set;
+  static const std::string t_welcome;
 
   // program settings
 
@@ -149,6 +151,7 @@ private:
 
   void show_sql_result  ();
   void show_datasets    ();
+  void getting_started  ();
   std::string button_sep() { return "&nbsp;&nbsp;&nbsp;&nbsp;"; }
   bool empty            (std::string);
 

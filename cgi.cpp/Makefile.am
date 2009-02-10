@@ -13,4 +13,5 @@ sqltutor_SOURCES = sqltutor.cpp sqltutor.h main.cpp	\
                    show_sql_result.cpp			\
                    show_table_data.cpp			\
 		   show_datasets.cpp			\
+		   getting_started.cpp			\
                    submit_sql.cpp
