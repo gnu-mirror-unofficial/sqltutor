@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.h,v 1.5 2009/02/10 18:19:10 cepek Exp $ 
+ * $Id: sqltutor.h,v 1.6 2009/02/11 19:34:07 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor
@@ -56,7 +56,7 @@ private:
   static const std::string state;
   static const std::string init_continue;
   static const std::string init_datasets;
-  static const std::string init_gstarted;
+  static const std::string init_manual;
   static const std::string main_stop;
   static const std::string main_next;
   static const std::string main_help;

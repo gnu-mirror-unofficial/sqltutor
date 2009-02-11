@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: sqltutor.cpp,v 1.3 2009/02/10 18:19:10 cepek Exp $ 
+ * $Id: sqltutor.cpp,v 1.4 2009/02/11 19:34:07 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -47,7 +47,7 @@ void SQLtutor::run()
            state == main_stop)        form_main();
   else if (state == init_state    || 
            state == init_continue || 
-           state == init_gstarted || 
+           state == init_manual || 
            state == init_datasets)    form_init();
   else
     {

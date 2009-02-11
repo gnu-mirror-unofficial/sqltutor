@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: settings.cpp,v 1.2 2009/02/10 18:19:09 cepek Exp $ 
+ * $Id: settings.cpp,v 1.3 2009/02/11 19:34:07 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -45,7 +45,7 @@ T SQLtutor::db_connection_sql = " dbname="   xstr(SQLTUTOR_DATABASE)
 T SQLtutor::title             = "SQL tutor";
 T SQLtutor::init_continue     = "Continue";
 T SQLtutor::init_datasets     = "Display datasets";
-T SQLtutor::init_gstarted     = "Getting started";
+T SQLtutor::init_manual       = "Online manual";
 T SQLtutor::main_stop         = "Finish test";
 T SQLtutor::main_next         = "Next question";
 T SQLtutor::main_help         = "Help";
