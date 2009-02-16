@@ -1,5 +1,6 @@
 #include "cgi.h"
 #include <sstream>
+#include <cstdlib>
 
 Element::Element_::Elist Element::Element_::dlist;
 CGI::Map    CGI::map;
