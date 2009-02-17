@@ -1,21 +1,41 @@
-# podle databáze filmu http://www.fdb.cz/
-# 
-# filmy    +--------+     umelci   +--------+
-#          | id     |              | id     |
-#          | rok    |              | jmeno  |
-#          | titul  |              +--------+
-#          +--------+   
-#                    
-# rezie    +-----------+  obsazeni +-----------+
-#          | film_id   |           | film_id   |
-#          | umelec_id |           | umelec_id |
-#          +-----------+           | poradi    |
-#                                  +-----------+
-# 
+/* 
+   This file is part of GNU Sqltutor
+   Copyright (C) 2008  Ales Cepek <cepek@gnu.org>
+ 
+   GNU Sqltutor is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   GNU Sqltutor is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 
-# následující otázky jsou přejaty ze SQLzoo.ne (sekce More Join Operations)
-###########################################################################
+/*
+  podle databáze filmu http://www.fdb.cz/
+  
+  filmy    +--------+     umelci   +--------+
+           | id     |              | id     |
+           | rok    |              | jmeno  |
+           | titul  |              +--------+
+           +--------+   
+                     
+  rezie    +-----------+  obsazeni +-----------+
+           | film_id   |           | film_id   |
+           | umelec_id |           | umelec_id |
+           +-----------+           | poradi    |
+                                   +-----------+
+  
+*/
+
+/* následující otázky jsou přejaty ze SQLzoo.ne (sekce More Join Operations) */
+/* ######################################################################### */
 
 -- id="201" dataset="filmy" category="select" points="1"
 --
@@ -132,11 +152,13 @@ WHERE   rok=2003 AND poradi=1;
 --
 -- Ve kterém roce natočil Tom Hanks nejvíc filmů? Vypište rok a počet filmů.
 
-# SELECT  rok, count(titul)
-# FROM    filmy JOIN obsazeni ON filmy.id=film_id
-#         JOIN umelci ON umelci.id=umelec_id
-# WHERE   jmeno='Tom Hanks'
-# GROUP BY rok;
+/*
+  SELECT  rok, count(titul)
+  FROM    filmy JOIN obsazeni ON filmy.id=film_id
+          JOIN umelci ON umelci.id=umelec_id
+  WHERE   jmeno='Tom Hanks'
+  GROUP BY rok;
+*/
 
 SELECT  rok, count(titul)
 FROM    filmy JOIN obsazeni ON filmy.id=film_id
@@ -220,8 +242,8 @@ WHERE   jmeno != 'Al Pacino' AND
                             (SELECT id FROM umelci WHERE jmeno='Al Pacino'));
         
 
-#### konec příkladů podle SQLzoo.net 
-#############################################################################
+/* konec příkladů podle SQLzoo.net  */
+/* ################################ */
 
 
 

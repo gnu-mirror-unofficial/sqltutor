@@ -1,7 +1,27 @@
-# zdroj http://www.vicher.cz/
-# 
-# premyslovci  (id, jmeno, narozeni, umrti, otec, matka, rod)
+/* 
+   This file is part of GNU Sqltutor
+   Copyright (C) 2008  Ales Cepek <cepek@gnu.org>
+ 
+   GNU Sqltutor is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   GNU Sqltutor is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
+
+/*
+  zdroj http://www.vicher.cz/
+  
+  premyslovci  (id, jmeno, narozeni, umrti, otec, matka, rod)
+*/
 
 -- id="901" dataset="premyslovci" category="aggregate" points="2"
 --
@@ -34,6 +54,7 @@ SELECT B.jmeno
           AND A.id = B.otec;
 
 
+/*
 # -- id="904" dataset="premyslovci" category="selfjoin" points="14"
 # --
 # -- Uveďte manželky Karla IV. Lucemburského, se kterými měl děti? Poznámka:
@@ -48,7 +69,7 @@ SELECT B.jmeno
 #        JOIN
 #        premyslovci C
 #        ON B.matka=C.id;
-
+*/
 
 -- id="905" dataset="premyslovci" category="selfjoin" points="14"
 --
@@ -79,6 +100,7 @@ SELECT C.jmeno
        premyslovci C
        ON B.id IN (C.otec, C.matka);
 
+/*
 # -- id="907" dataset="premyslovci" category="selfjoin" points="17"
 # --
 # -- Najděte snachy a zetě Břetislava I, které lze v databázi určit. 
@@ -97,6 +119,7 @@ SELECT C.jmeno
 #        premyslovci D
 #        ON D.id <> B.id
 #           AND D.id IN (C.otec, C.matka);
+*/
 
 
 -- id="908" dataset="premyslovci" category="selfjoin" points="15"

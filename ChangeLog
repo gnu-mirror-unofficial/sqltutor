@@ -1,8 +1,17 @@
-2009-02-17  Ales Cepek  <cepek@fsv.cvut.cz>
+2009-02-17  Ales Cepek  <cepek@gnu.org>
 
+	* in helper program `.quiz/quiz' precessing of comment lines
+	starting with # replaced by standard SQL comments /* ... */.  All
+	quiz files updated correspodingly.
+	
+	* updated licence for c++ codes and added to all *.sql and *.quiz
+	files
+	
 	* upgrade to PostgreSQL 8.3 (Debian 5.0 Lenny) C-style escape
 	characters we removed from all SQL constant strings
 
+2009-01-24  Ales Cepek  <cepek@gnu.org>
+	
 	* sqltutor moved from cvs.savannah.nognu.org to
 	cvs.savannah.gnu.org:/sources/sqltutor
 

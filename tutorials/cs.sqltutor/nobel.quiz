@@ -1,8 +1,27 @@
-###  source http://sqlzoo.net/ with permission by Andrew Cumming
-###
-###  laureati ( rok, obor, laureat )
+/* 
+   This file is part of GNU Sqltutor
+   Copyright (C) 2008  Ales Cepek <cepek@gnu.org>
+ 
+   GNU Sqltutor is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   GNU Sqltutor is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-### převzato z tutoriálu en.sqlzoo
+
+/* source http://sqlzoo.net/ with permission by Andrew Cumming */
+/*                                                             */
+/* laureati ( rok, obor, laureat )                             */
+/*                                                             */
+/* převzato z tutoriálu en.sqlzoo                              */
 
 -- id="151" dataset="nobelova_cena" category="select" points="1"
 -- 
@@ -72,7 +91,7 @@ SELECT laureat
  WHERE laureat LIKE 'John %';
 
 
-### doplněny další otázky, které nebyly v sqlzoo
+/* další otázky, které nebyly v sqlzoo */
 
 
 -- id="158" dataset="nobelova_cena" category="aggregate" points="4"

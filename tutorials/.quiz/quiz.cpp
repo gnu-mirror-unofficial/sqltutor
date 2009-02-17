@@ -36,6 +36,7 @@ private:
   std::string sql(int, const char* str) const;
 };
 
+
 Quiz::Quiz(const char* file, const char* label) 
   : input_file_name(file), tutorial_label(label)
 {
@@ -44,10 +45,36 @@ Quiz::Quiz(const char* file, const char* label)
 
   blocks_ = 0;
   int  line_count = 0;
-  bool previous, current = true;  
+  bool previous, current = true, comment = false;  
 
   while(std::getline(inp, line))
     {
+      /* recursive comments are not handled */
+
+      const int E = line.size();
+      const int D = E - 1;
+      char  ccur = '\0', cpre;
+
+      for (int i=0; i<E; i++)
+        {
+          cpre = ccur;
+          ccur  = line[i];
+          if (comment)
+            {
+              line[i] = ' ';
+              if (ccur == '/' && cpre == '*') comment = false;
+            }
+          else
+            {
+              if (ccur == '/' && i < D && line[i+1] == '*')
+                {
+                  comment = true;
+                  line[i] = ' ';
+                }
+            }
+        }
+
+
       previous = current;
       current  = isempty(line);
       if (current) continue;

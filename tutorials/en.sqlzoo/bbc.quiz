@@ -1,8 +1,27 @@
-###  source http://sqlzoo.net/ with permission by Andrew Cumming
-###
-###  bbc ( stat, region, populace, hdp )
+/* 
+   This file is part of GNU Sqltutor
+   Copyright (C) 2008  Ales Cepek <cepek@gnu.org>
+ 
+   GNU Sqltutor is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   GNU Sqltutor is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-###  Using the SELECT statement.
+
+/* source http://sqlzoo.net/ with permission by Andrew Cumming */
+/*                                                             */
+/* bbc ( stat, region, populace, hdp )                         */
+/*                                                             */
+/* Using the SELECT statement.                                 */
 
 -- id="101" dataset="bbc" category="select" points="1"
 -- 
@@ -38,7 +57,7 @@ SELECT name FROM bbc
 
 
 
-###  Using nested SELECT.
+/* Using nested SELECT */
 
 -- id="105" dataset="bbc" category="subselect" points="3"
 --
@@ -135,7 +154,7 @@ SELECT name, region FROM bbc x WHERE
 
 
 
-# Using SUM, COUNT, MAX, AVG, DISTINCT and ORDER BY.
+/* Using SUM, COUNT, MAX, AVG, DISTINCT and ORDER BY */
 
 -- id="113" dataset="bbc" category="aggregate" points="1"
 --
