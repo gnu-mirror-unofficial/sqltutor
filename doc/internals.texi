@@ -15,9 +15,10 @@ SELECT sqltutor.init_tutorial('English', 'SQLzoo', 'en.sqlzoo');
 @noindent where first two parameters define tutorial language and name (used in
 the opening dialogue) and internal tutorial label.
 
-To populate the new tutorial with questions you can use plain text
-files in @file{quiz} format, that is converted to SQL by helper
-program @file{quiz}.
+To populate the new tutorial with questions you can use @file{quiz}
+files, which are just plain SQL scripts with some functionality and
+parameters defined in SQL comments.  Quiz files are converted to a
+standard SQL batch by helper program @file{quiz}.
 
 @example
 ../.quiz/quiz en.sqlzoo $(QUIZ_FILES) | psql $(SQLTUTOR_DATABASE)
