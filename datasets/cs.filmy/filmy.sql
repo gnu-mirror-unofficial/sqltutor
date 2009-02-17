@@ -168,7 +168,7 @@ INSERT INTO obsazeni ( film_id, umelec_id, poradi ) VALUES ( 12, 59, 1 );
 INSERT INTO obsazeni ( film_id, umelec_id, poradi ) VALUES ( 12, 25, 2 );
 INSERT INTO umelci (id, jmeno) VALUES ( 66, 'Tom Schulman' );
 INSERT INTO umelci (id, jmeno) VALUES ( 67, 'Julianne Moore' );
-INSERT INTO filmy (id, rok, titul) VALUES ( 13, 2007, 'Morgan\'s Summit' );
+INSERT INTO filmy (id, rok, titul) VALUES ( 13, 2007, 'Morgan''s Summit' );
 INSERT INTO rezie ( film_id, umelec_id ) VALUES ( 13, 66 );
 INSERT INTO obsazeni ( film_id, umelec_id, poradi ) VALUES ( 13, 59, 1 );
 INSERT INTO obsazeni ( film_id, umelec_id, poradi ) VALUES ( 13, 67, 2 );

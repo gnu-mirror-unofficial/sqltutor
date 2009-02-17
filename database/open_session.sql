@@ -24,6 +24,6 @@ BEGIN
                          dataset_, help_,     host_,       time_);
 
    SELECT INTO session_id_ lastval();
-   hash_ = md5(time_);
+   hash_ = md5(cast(time_ AS text));
 END;
 $$ LANGUAGE plpgsql;

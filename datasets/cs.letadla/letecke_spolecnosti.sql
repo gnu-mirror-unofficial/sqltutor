@@ -126,7 +126,7 @@ INSERT INTO letecke_spolecnosti ( id, spolecnost, zeme, svetadil, aliance, zaloz
 INSERT INTO tmp_letecke_flotily VALUES ( 23, 5, 2 );
 INSERT INTO tmp_letecke_flotily VALUES ( 23, 15, 4 );
 INSERT INTO tmp_letecke_flotily VALUES ( 23, 33, 1 );
-INSERT INTO letecke_spolecnosti ( id, spolecnost, zeme, svetadil, aliance, zalozeno ) VALUES ( 24, 'Sun D\'Or', 'Izrael', 'Asie', NULL, 1977 );
+INSERT INTO letecke_spolecnosti ( id, spolecnost, zeme, svetadil, aliance, zalozeno ) VALUES ( 24, 'Sun D''Or', 'Izrael', 'Asie', NULL, 1977 );
 INSERT INTO tmp_letecke_flotily VALUES ( 24, 32, 2 );
 INSERT INTO letecke_spolecnosti ( id, spolecnost, zeme, svetadil, aliance, zalozeno ) VALUES ( 25, 'Asiana Airlines', 'Jižní Korea', 'Asie', 'Star Alliance', 1988 );
 INSERT INTO tmp_letecke_flotily VALUES ( 25, 5, 5 );
@@ -455,7 +455,7 @@ INSERT INTO tmp_letecke_flotily VALUES ( 107, 31, 6 );
 INSERT INTO letecke_spolecnosti ( id, spolecnost, zeme, svetadil, aliance, zalozeno ) VALUES ( 108, 'Eagle Aviation France', 'Francie', 'Evropa', NULL, 1998 );
 INSERT INTO letecke_spolecnosti ( id, spolecnost, zeme, svetadil, aliance, zalozeno ) VALUES ( 109, 'Europe Air Post', 'Francie', 'Evropa', NULL, 1991 );
 INSERT INTO tmp_letecke_flotily VALUES ( 109, 30, 15 );
-INSERT INTO letecke_spolecnosti ( id, spolecnost, zeme, svetadil, aliance, zalozeno ) VALUES ( 110, 'L\'Avion', 'Francie', 'Evropa', NULL, 2006 );
+INSERT INTO letecke_spolecnosti ( id, spolecnost, zeme, svetadil, aliance, zalozeno ) VALUES ( 110, 'L''Avion', 'Francie', 'Evropa', NULL, 2006 );
 INSERT INTO tmp_letecke_flotily VALUES ( 110, 32, 1 );
 INSERT INTO letecke_spolecnosti ( id, spolecnost, zeme, svetadil, aliance, zalozeno ) VALUES ( 111, 'Pan Européenne Air Service', 'Francie', 'Evropa', NULL, 1977 );
 INSERT INTO tmp_letecke_flotily VALUES ( 111, 50, 1 );

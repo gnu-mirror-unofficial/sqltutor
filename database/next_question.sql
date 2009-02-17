@@ -24,7 +24,7 @@ BEGIN
      INTO next_tutorial_id, s_points_min_, s_points_max_, s_dataset_, s_status_
      FROM sqltutor.sessions
     WHERE session_id=session_id_ 
-      AND hash_ = md5(time);
+      AND hash_ = md5(cast(time AS text));
 
 
    IF s_points_min_ IS NULL AND 

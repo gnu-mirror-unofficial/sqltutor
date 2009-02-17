@@ -88,7 +88,7 @@ INSERT INTO staty VALUES ('Iraq', 'Western Asia', 28807000, 17111358000);
 INSERT INTO staty VALUES ('Ireland', 'Northern Europe', 4148000, 161207872000);
 INSERT INTO staty VALUES ('Israel', 'Western Asia', 6725000, 121729225000);
 INSERT INTO staty VALUES ('Italy', 'Southern Europe', 58093000, 1482940011000);
-INSERT INTO staty VALUES ('Côte d\'Ivoire', 'Western Africa', 18154000, 16084444000);
+INSERT INTO staty VALUES ('Côte d''Ivoire', 'Western Africa', 18154000, 16084444000);
 INSERT INTO staty VALUES ('Jamaica', 'Caribbean', 2651000, 7428102000);
 INSERT INTO staty VALUES ('Japan', 'Eastern Asia', 128085000, 4331706615000);
 INSERT INTO staty VALUES ('Kazakhstan', 'Central Asia', 14825000, 26462625000);

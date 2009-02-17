@@ -54,9 +54,9 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Great Zimbabwe National Monument', 'cultural', 'Zimbabwe', 'Africa', 1986, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Khami Ruins National Monument', 'cultural', 'Zimbabwe', 'Africa', 1986, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Matobo Hills', 'cultural', 'Zimbabwe', 'Africa', 2003, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Al Qal\'a of Beni Hammad', 'cultural', 'Algeria', 'Arab States', 1980, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Al Qal''a of Beni Hammad', 'cultural', 'Algeria', 'Arab States', 1980, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Djémila', 'cultural', 'Algeria', 'Arab States', 1982, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'M\'Zab Valley', 'cultural', 'Algeria', 'Arab States', 1982, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'M''Zab Valley', 'cultural', 'Algeria', 'Arab States', 1982, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Timgad', 'cultural', 'Algeria', 'Arab States', 1982, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Tipasa', 'cultural', 'Algeria', 'Arab States', 1982, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Kasbah of Algiers', 'cultural', 'Algeria', 'Arab States', 1992, NULL );
@@ -68,12 +68,12 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Nubian Monuments from Abu Simbel to Philae', 'cultural', 'Egypt', 'Arab States', 1979, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Saint Catherine Area', 'cultural', 'Egypt', 'Arab States', 2002, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Hatra', 'cultural', 'Iraq', 'Arab States', 1985, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Ashur (Qal\'at Sherqat)', 'cultural', 'Iraq', 'Arab States', 2003, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Ashur (Qal''at Sherqat)', 'cultural', 'Iraq', 'Arab States', 2003, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Samarra Archaeological City', 'cultural', 'Iraq', 'Arab States', 2007, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Old City of Jerusalem and its Walls', 'cultural', 'Jerusalem (Site proposed by Jordan)', 'Arab States', 1981, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Petra', 'cultural', 'Jordan', 'Arab States', 1985, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Quseir Amra', 'cultural', 'Jordan', 'Arab States', 1985, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Um er-Rasas (Kastrom Mefa\'a)', 'cultural', 'Jordan', 'Arab States', 2004, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Um er-Rasas (Kastrom Mefa''a)', 'cultural', 'Jordan', 'Arab States', 2004, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Anjar', 'cultural', 'Lebanon', 'Arab States', 1984, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Baalbek', 'cultural', 'Lebanon', 'Arab States', 1984, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Byblos', 'cultural', 'Lebanon', 'Arab States', 1984, NULL );
@@ -111,7 +111,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Medina of Sousse', 'cultural', 'Tunisia', 'Arab States', 1988, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Dougga / Thugga', 'cultural', 'Tunisia', 'Arab States', 1997, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Old Walled City of Shibam', 'cultural', 'Yemen', 'Arab States', 1982, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Old City of Sana\'a', 'cultural', 'Yemen', 'Arab States', 1986, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Old City of Sana''a', 'cultural', 'Yemen', 'Arab States', 1986, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Historic Town of Zabid', 'cultural', 'Yemen', 'Arab States', 1993, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Minaret and Archaeological Remains of Jam', 'cultural', 'Afghanistan', 'Asia and the Pacific', 2002, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Cultural Landscape and Archaeological Remains of the Bamiyan Valley', 'cultural', 'Afghanistan', 'Asia and the Pacific', 2003, NULL );
@@ -145,7 +145,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Historic Centre of Macao', 'cultural', 'China', 'Asia and the Pacific', 2005, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Yin Xu', 'cultural', 'China', 'Asia and the Pacific', 2006, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Kaiping Diaolou and Villages', 'cultural', 'China', 'Asia and the Pacific', 2007, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Complex of Koguryo Tombs', 'cultural', 'Democratic People\'s Republic of Korea', 'Asia and the Pacific', 2004, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Complex of Koguryo Tombs', 'cultural', 'Democratic People''s Republic of Korea', 'Asia and the Pacific', 2004, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Agra Fort', 'cultural', 'India', 'Asia and the Pacific', 1983, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Ajanta Caves', 'cultural', 'India', 'Asia and the Pacific', 1983, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Ellora Caves', 'cultural', 'India', 'Asia and the Pacific', 1983, NULL );
@@ -160,7 +160,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Great Living Chola Temples', 'cultural', 'India', 'Asia and the Pacific', 1987, '2004' );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Group of Monuments at Pattadakal', 'cultural', 'India', 'Asia and the Pacific', 1987, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Buddhist Monuments at Sanchi', 'cultural', 'India', 'Asia and the Pacific', 1989, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Humayun\'s Tomb, Delhi', 'cultural', 'India', 'Asia and the Pacific', 1993, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Humayun''s Tomb, Delhi', 'cultural', 'India', 'Asia and the Pacific', 1993, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Qutb Minar and its Monuments, Delhi', 'cultural', 'India', 'Asia and the Pacific', 1993, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Mountain Railways of India', 'cultural', 'India', 'Asia and the Pacific', 1999, '2005' );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Mahabodhi Temple Complex at Bodh Gaya', 'cultural', 'India', 'Asia and the Pacific', 2002, NULL );
@@ -192,8 +192,8 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Iwami Ginzan Silver Mine and its Cultural Landscape', 'cultural', 'Japan', 'Asia and the Pacific', 2007, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Mausoleum of Khoja Ahmed Yasawi', 'cultural', 'Kazakhstan', 'Asia and the Pacific', 2003, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Petroglyphs within the Archaeological Landscape of Tamgaly', 'cultural', 'Kazakhstan', 'Asia and the Pacific', 2004, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Town of Luang Prabang', 'cultural', 'Lao People\'s Democratic Republic', 'Asia and the Pacific', 1995, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Vat Phou and Associated Ancient Settlements within the Champasak Cultural Landscape', 'cultural', 'Lao People\'s Democratic Republic', 'Asia and the Pacific', 2001, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Town of Luang Prabang', 'cultural', 'Lao People''s Democratic Republic', 'Asia and the Pacific', 1995, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Vat Phou and Associated Ancient Settlements within the Champasak Cultural Landscape', 'cultural', 'Lao People''s Democratic Republic', 'Asia and the Pacific', 2001, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Orkhon Valley Cultural Landscape', 'cultural', 'Mongolia', 'Asia and the Pacific', 2004, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Kathmandu Valley', 'cultural', 'Nepal', 'Asia and the Pacific', 1979, '2006' );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Lumbini, the Birthplace of the Lord Buddha', 'cultural', 'Nepal', 'Asia and the Pacific', 1997, NULL );
@@ -246,7 +246,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Wachau Cultural Landscape', 'cultural', 'Austria', 'Europe and North America', 2000, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Fertö / Neusiedlersee Cultural Landscape', 'cultural', 'Austria', 'Europe and North America', 2001, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Historic Centre of Vienna', 'cultural', 'Austria', 'Europe and North America', 2001, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Walled City of Baku with the Shirvanshah\'s Palace and Maiden Tower', 'cultural', 'Azerbaijan', 'Europe and North America', 2000, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Walled City of Baku with the Shirvanshah''s Palace and Maiden Tower', 'cultural', 'Azerbaijan', 'Europe and North America', 2000, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Gobustan Rock Art Cultural Landscape', 'cultural', 'Azerbaijan', 'Europe and North America', 2007, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Mir Castle Complex', 'cultural', 'Belarus', 'Europe and North America', 2000, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Architectural, Residential and Cultural Complex of the Radziwill Family at Nesvizh', 'cultural', 'Belarus', 'Europe and North America', 2005, NULL );
@@ -294,7 +294,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Litomyšl Castle', 'cultural', 'Czech Republic', 'Europe and North America', 1999, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Holy Trinity Column in Olomouc', 'cultural', 'Czech Republic', 'Europe and North America', 2000, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Tugendhat Villa in Brno', 'cultural', 'Czech Republic', 'Europe and North America', 2001, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Jewish Quarter and St Procopius\' Basilica in Třebíč', 'cultural', 'Czech Republic', 'Europe and North America', 2003, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Jewish Quarter and St Procopius'' Basilica in Třebíč', 'cultural', 'Czech Republic', 'Europe and North America', 2003, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Jelling Mounds, Runic Stones and Church', 'cultural', 'Denmark', 'Europe and North America', 1994, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Roskilde Cathedral', 'cultural', 'Denmark', 'Europe and North America', 1995, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Kronborg Castle', 'cultural', 'Denmark', 'Europe and North America', 2000, NULL );
@@ -318,7 +318,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Roman Theatre and its Surroundings and the "Triumphal Arch" of Orange', 'cultural', 'France', 'Europe and North America', 1981, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Royal Saltworks of Arc-et-Senans', 'cultural', 'France', 'Europe and North America', 1982, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Abbey Church of Saint-Savin sur Gartempe', 'cultural', 'France', 'Europe and North America', 1983, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Place Stanislas, Place de la Carrière and Place d\'Alliance in Nancy', 'cultural', 'France', 'Europe and North America', 1983, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Place Stanislas, Place de la Carrière and Place d''Alliance in Nancy', 'cultural', 'France', 'Europe and North America', 1983, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Pont du Gard (Roman Aqueduct)', 'cultural', 'France', 'Europe and North America', 1985, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Strasbourg – Grande île', 'cultural', 'France', 'Europe and North America', 1988, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Cathedral of Notre-Dame, Former Abbey of Saint-Remi and Palace of Tau, Reims', 'cultural', 'France', 'Europe and North America', 1991, NULL );
@@ -343,7 +343,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Würzburg Residence with the Court Gardens and Residence Square', 'cultural', 'Germany', 'Europe and North America', 1981, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Pilgrimage Church of Wies', 'cultural', 'Germany', 'Europe and North America', 1983, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Castles of Augustusburg and Falkenlust at Brühl', 'cultural', 'Germany', 'Europe and North America', 1984, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'St Mary\'s Cathedral and St Michael\'s Church at Hildesheim', 'cultural', 'Germany', 'Europe and North America', 1985, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'St Mary''s Cathedral and St Michael''s Church at Hildesheim', 'cultural', 'Germany', 'Europe and North America', 1985, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Roman Monuments, Cathedral of St Peter and Church of Our Lady in Trier', 'cultural', 'Germany', 'Europe and North America', 1986, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Frontiers of the Roman Empire', 'cultural', 'Germany', 'Europe and North America', 1987, '2005' );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Hanseatic City of Lübeck', 'cultural', 'Germany', 'Europe and North America', 1987, NULL );
@@ -410,7 +410,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Historic Centre of San Gimignano', 'cultural', 'Italy', 'Europe and North America', 1990, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'The Sassi and the park of the Rupestrian Churches of Matera', 'cultural', 'Italy', 'Europe and North America', 1993, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'City of Vicenza and the Palladian Villas of the Veneto', 'cultural', 'Italy', 'Europe and North America', 1994, '1996' );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Crespi d\'Adda', 'cultural', 'Italy', 'Europe and North America', 1995, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Crespi d''Adda', 'cultural', 'Italy', 'Europe and North America', 1995, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Ferrara, City of the Renaissance, and its Po Delta', 'cultural', 'Italy', 'Europe and North America', 1995, '1999' );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Historic Centre of Naples', 'cultural', 'Italy', 'Europe and North America', 1995, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Historic Centre of Siena', 'cultural', 'Italy', 'Europe and North America', 1995, NULL );
@@ -434,11 +434,11 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Villa Adriana (Tivoli)', 'cultural', 'Italy', 'Europe and North America', 1999, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Assisi, the Basilica of San Francesco and Other Franciscan Sites', 'cultural', 'Italy', 'Europe and North America', 2000, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'City of Verona', 'cultural', 'Italy', 'Europe and North America', 2000, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Villa d\'Este, Tivoli', 'cultural', 'Italy', 'Europe and North America', 2001, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Villa d''Este, Tivoli', 'cultural', 'Italy', 'Europe and North America', 2001, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Late Baroque Towns of the Val di Noto (South-Eastern Sicily)', 'cultural', 'Italy', 'Europe and North America', 2002, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Sacri Monti of Piedmont and Lombardy', 'cultural', 'Italy', 'Europe and North America', 2003, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Etruscan Necropolises of Cerveteri and Tarquinia', 'cultural', 'Italy', 'Europe and North America', 2004, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Val d\'Orcia', 'cultural', 'Italy', 'Europe and North America', 2004, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Val d''Orcia', 'cultural', 'Italy', 'Europe and North America', 2004, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Syracuse and the Rocky Necropolis of Pantalica', 'cultural', 'Italy', 'Europe and North America', 2005, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Genoa: Le Strade Nuove and the system of the Palazzi dei Rolli', 'cultural', 'Italy', 'Europe and North America', 2006, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Historic Centre of Riga', 'cultural', 'Latvia', 'Europe and North America', 1997, NULL );
@@ -465,7 +465,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Rock Art of Alta', 'cultural', 'Norway', 'Europe and North America', 1985, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Vegaøyan -- The Vega Archipelago', 'cultural', 'Norway', 'Europe and North America', 2004, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Struve Geodetic Arc', 'cultural', 'Norway', 'Europe and North America', 2005, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Cracow\'s Historic Centre', 'cultural', 'Poland', 'Europe and North America', 1978, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Cracow''s Historic Centre', 'cultural', 'Poland', 'Europe and North America', 1978, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Wieliczka Salt Mine', 'cultural', 'Poland', 'Europe and North America', 1978, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Auschwitz Birkenau German Nazi Concentration and Extermination Camp (1940-1945)', 'cultural', 'Poland', 'Europe and North America', 1979, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Historic Centre of Warsaw', 'cultural', 'Poland', 'Europe and North America', 1980, NULL );
@@ -579,7 +579,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'City of Safranbolu', 'cultural', 'Turkey', 'Europe and North America', 1994, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Archaeological Site of Troy', 'cultural', 'Turkey', 'Europe and North America', 1998, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Kiev: Saint-Sophia Cathedral and Related Monastic Buildings, Kiev-Pechersk Lavra', 'cultural', 'Ukraine', 'Europe and North America', 1990, '2005' );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'L\'viv – the Ensemble of the Historic Centre', 'cultural', 'Ukraine', 'Europe and North America', 1998, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'L''viv – the Ensemble of the Historic Centre', 'cultural', 'Ukraine', 'Europe and North America', 1998, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Struve Geodetic Arc', 'cultural', 'Ukraine', 'Europe and North America', 2005, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Castles and Town Walls of King Edward in Gwynedd', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1986, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Durham Castle and Cathedral', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1986, NULL );
@@ -589,8 +589,8 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Blenheim Palace', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1987, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'City of Bath', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1987, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Frontiers of the Roman Empire', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1987, '2005' );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Westminster Palace, Westminster Abbey and Saint Margaret\'s Church', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1987, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Canterbury Cathedral, St Augustine\'s Abbey, and St Martin\'s Church', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1988, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Westminster Palace, Westminster Abbey and Saint Margaret''s Church', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1987, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Canterbury Cathedral, St Augustine''s Abbey, and St Martin''s Church', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1988, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Tower of London', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1988, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Old and New Towns of Edinburgh', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1995, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Maritime Greenwich', 'cultural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1997, NULL );
@@ -695,7 +695,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Ecosystem and Relict Cultural Landscape of Lopé-Okanda', 'mixed', 'Gabon', 'Africa', 2007, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Cliff of Bandiagara (Land of the Dogons)', 'mixed', 'Mali', 'Africa', 1989, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'uKhahlamba / Drakensberg Park', 'mixed', 'South Africa', 'Africa', 2000, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Tassili n\'Ajjer', 'mixed', 'Algeria', 'Arab States', 1982, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Tassili n''Ajjer', 'mixed', 'Algeria', 'Arab States', 1982, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Kakadu National Park', 'mixed', 'Australia', 'Asia and the Pacific', 1981, '1987, 1992' );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Willandra Lakes Region', 'mixed', 'Australia', 'Asia and the Pacific', 1981, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Tasmanian Wilderness', 'mixed', 'Australia', 'Asia and the Pacific', 1982, '1989' );
@@ -720,9 +720,9 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Río Abiseo National Park', 'mixed', 'Peru', 'Latin America and the Caribbean', 1990, '1992' );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Dja Faunal Reserve', 'natural', 'Cameroon', 'Africa', 1987, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Manovo-Gounda St Floris National Park', 'natural', 'Central African Republic', 'Africa', 1988, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Mount Nimba Strict Nature Reserve', 'natural', 'Côte d\'Ivoire', 'Africa', 1981, '1982' );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Taï National Park', 'natural', 'Côte d\'Ivoire', 'Africa', 1982, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Comoé National Park', 'natural', 'Côte d\'Ivoire', 'Africa', 1983, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Mount Nimba Strict Nature Reserve', 'natural', 'Côte d''Ivoire', 'Africa', 1981, '1982' );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Taï National Park', 'natural', 'Côte d''Ivoire', 'Africa', 1982, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Comoé National Park', 'natural', 'Côte d''Ivoire', 'Africa', 1983, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Virunga National Park', 'natural', 'Democratic Republic of the Congo', 'Africa', 1979, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Garamba National Park', 'natural', 'Democratic Republic of the Congo', 'Africa', 1980, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Kahuzi-Biega National Park', 'natural', 'Democratic Republic of the Congo', 'Africa', 1980, NULL );
@@ -754,7 +754,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Mana Pools National Park, Sapi and Chewore Safari Areas', 'natural', 'Zimbabwe', 'Africa', 1984, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Mosi-oa-Tunya / Victoria Falls', 'natural', 'Zimbabwe', 'Africa', 1989, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Wadi Al-Hitan (Whale Valley)', 'natural', 'Egypt', 'Arab States', 2005, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Banc d\'Arguin National Park', 'natural', 'Mauritania', 'Arab States', 1989, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Banc d''Arguin National Park', 'natural', 'Mauritania', 'Arab States', 1989, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Ichkeul National Park', 'natural', 'Tunisia', 'Arab States', 1980, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Great Barrier Reef', 'natural', 'Australia', 'Asia and the Pacific', 1981, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Lord Howe Island Group', 'natural', 'Australia', 'Asia and the Pacific', 1982, NULL );
@@ -843,7 +843,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Jungfrau-Aletsch-Bietschhorn', 'natural', 'Switzerland', 'Europe and North America', 2001, '2007' );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Monte San Giorgio', 'natural', 'Switzerland', 'Europe and North America', 2003, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Primeval Beech Forests of the Carpathians', 'natural', 'Ukraine', 'Europe and North America', 2007, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Giant\'s Causeway and Causeway Coast', 'natural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1986, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Giant''s Causeway and Causeway Coast', 'natural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1986, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Henderson Island', 'natural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1988, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Gough and Inaccessible Islands', 'natural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 1995, '2004' );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Dorset and East Devon Coast', 'natural', 'United Kingdom of Great Britain and Northern Ireland', 'Europe and North America', 2001, NULL );
@@ -883,7 +883,7 @@ INSERT INTO unesco_wh (description, category, country, region, inscription, exte
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Galápagos Islands', 'natural', 'Ecuador', 'Latin America and the Caribbean', 1978, '2001' );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Sangay National Park', 'natural', 'Ecuador', 'Latin America and the Caribbean', 1983, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Río Plátano Biosphere Reserve', 'natural', 'Honduras', 'Latin America and the Caribbean', 1982, NULL );
-INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Sian Ka\'an', 'natural', 'Mexico', 'Latin America and the Caribbean', 1987, NULL );
+INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Sian Ka''an', 'natural', 'Mexico', 'Latin America and the Caribbean', 1987, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Whale Sanctuary of El Vizcaino', 'natural', 'Mexico', 'Latin America and the Caribbean', 1993, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Islands and Protected Areas of the Gulf of California', 'natural', 'Mexico', 'Latin America and the Caribbean', 2005, NULL );
 INSERT INTO unesco_wh (description, category, country, region, inscription, extension) VALUES ( 'Darien National Park', 'natural', 'Panama', 'Latin America and the Caribbean', 1981, NULL );

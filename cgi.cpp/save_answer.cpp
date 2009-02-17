@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: save_answer.cpp,v 1.1 2008/12/26 17:23:07 cepek Exp $ 
+ * $Id: save_answer.cpp,v 1.2 2009/02/17 11:08:10 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -53,7 +53,7 @@ void SQLtutor::save_answer(pqxx::work& transaction)
   result res2(tran.exec("SELECT status "
                         "  FROM sessions "
                         " WHERE session_id = " + session_id + " "
-                        "   AND '" +  CGI::map["hash"] + "' = md5(time);"
+                        "   AND '" +  CGI::map["hash"] + "' = md5(cast(time as TEXT));"
                         ));
 
   if (res2.empty()) 

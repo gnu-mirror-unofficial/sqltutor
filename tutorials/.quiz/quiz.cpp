@@ -173,10 +173,9 @@ std::ostream& Quiz::write_sql(std::ostream& ostr) const
         ostr << "INSERT INTO questions "
              << "(id, tutorial_id, dataset, points, question) SELECT "
              << id << ", tutorial_id, "
-             << "'" << sql_dataset (b) << "', "
+             << "'" << sql_dataset (b) << "',"
              << " " << sql_points  (b) << ","
-             << "'" << sql_text    (b) << "'"
-             << " FROM xxx;\n";
+             << " " << sql_text    (b) << " FROM xxx;\n";
 
         {
           using std::string;
@@ -206,9 +205,8 @@ std::ostream& Quiz::write_sql(std::ostream& ostr) const
             ostr << "INSERT INTO answers "
                  << "(tutorial_id, question_id, priority, answer) "
                  << "SELECT tutorial_id, " << id << ", " 
-                 << priority++  << ", '"
-                 << sql_text(b) << "'"
-                 << " FROM xxx;\n";
+                 << priority++  << ", "
+                 << sql_text(b) << " FROM xxx;\n";
             b++;
           }
       }
@@ -222,22 +220,26 @@ std::ostream& Quiz::write_sql(std::ostream& ostr) const
 std::string Quiz::sql_text(int index) const
 {
   const std::string& block = block_text(index);
-  std::string sql;
+  const std::string sqlstr = "'";
+  std::string sql = sqlstr;
   
   for (int i=0; i<block.length(); i++)
     {
       char c = block[i];
       
-      switch(c)
-        {
-        case '\n':
-        case '\'': 
-        case '\"': sql += '\\';
-        }
-      
+      // switch(c)
+      //   {
+      //   case '\n':
+      //   case '\'': 
+      //   case '\"': sql += '\\';
+      //   }
+      if (c == '\'') sql += c;
+
       sql += c;
     }
 
+  sql += sqlstr;
+  
   return sql;
 }
 

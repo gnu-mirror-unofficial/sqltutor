@@ -1,4 +1,7 @@
-2009-01-24  Ales Cepek  <cepek@gnu.org>
+2009-02-17  Ales Cepek  <cepek@fsv.cvut.cz>
+
+	* upgrade to PostgreSQL 8.3 (Debian 5.0 Lenny) C-style escape
+	characters we removed from all SQL constant strings
 
 	* sqltutor moved from cvs.savannah.nognu.org to
 	cvs.savannah.gnu.org:/sources/sqltutor
