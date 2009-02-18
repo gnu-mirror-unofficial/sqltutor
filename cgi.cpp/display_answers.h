@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: display_answers.h,v 1.2 2009/02/17 15:20:25 cepek Exp $ 
+ * $Id: display_answers.h,v 1.3 2009/02/18 19:16:59 cepek Exp $ 
  */
 
 #ifndef __h___SQLTUTOR_H___display_answers_h___Display_Answers
@@ -25,7 +25,7 @@
 
 #include <pqxx/pqxx>
 #include <string>
-#include <sqltutor.h>
+#include "sqltutor.h"
 
 template <typename Form>
 void SQLtutor::display_answers(Form& form, 
