@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: show_table_data.cpp,v 1.3 2009/02/19 12:00:18 cepek Exp $ 
+ * $Id: show_table_data.cpp,v 1.4 2009/02/19 13:34:07 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -43,7 +43,7 @@ try
     {
       const string table = t[0].as(string());
 
-      form << "<table border='1'>"
+      form << "<p></p><table border='1'>"
            << "<tr><th colspan='0'>" + table + "</th></tr>";
 
       string columns = "<tr><th><i>";
