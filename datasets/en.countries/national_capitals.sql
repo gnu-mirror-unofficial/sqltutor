@@ -17,6 +17,8 @@
  */
 
 
+SET search_path TO sqltutor;
+
 INSERT INTO national_capitals (country, city) VALUES ('AFG', 'Kabul');
 INSERT INTO national_capitals (country, city) VALUES ('ALA', 'Mariehamn');
 INSERT INTO national_capitals (country, city) VALUES ('ALB', 'Tirana');

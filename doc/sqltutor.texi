@@ -3,14 +3,14 @@
 @setfilename sqltutor.info
 @c documentencoding UTF-8
 @include version.texi
-@settitle SQLtutor @value{VERSION}
+@settitle Sqltutor @value{VERSION}
 @setchapternewpage odd
 
 @finalout
 @c %**end of header
 
 @copying
-This manual (@value{UPDATED}) is for SQLtutor (version
+This manual (@value{UPDATED}) is for Sqltutor (version
 @value{VERSION}).
 
 Copyright @copyright{} 2008 Ales Cepek
@@ -34,9 +34,9 @@ freedom.''
 @c .... dircategory
 
 @titlepage
-@title SQLtutor
+@title Sqltutor
 @subtitle SQL interactive tutorial
-@subtitle @value{UPDATED}, SQLtutor Version @value{VERSION}
+@subtitle @value{UPDATED}, Sqltutor Version @value{VERSION}
 
 @author by Ales Cepek
 
@@ -50,14 +50,14 @@ freedom.''
 
 @ifnottex
 @node Top
-@top SQLtutor
+@top Sqltutor
 @c @insertcopying
 @end ifnottex
 
 @menu
 * Introduction::
 * Concepts::
-* How to install SQLtutor::
+* How to install Sqltutor::
 * Internals::
 
 * Copying::
@@ -72,11 +72,11 @@ freedom.''
 @include intro.texi
 
 @node Concepts
-@chapter The Concepts of SQLtutor
+@chapter The Concepts of Sqltutor
 @include concepts.texi
 
-@node How to install SQLtutor
-@chapter How to install SQLtutor
+@node How to install Sqltutor
+@chapter How to install Sqltutor
 @cindex how to install
 @include install.texi
 

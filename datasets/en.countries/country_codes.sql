@@ -17,6 +17,8 @@
  */
 
 
+SET search_path TO sqltutor;
+
 INSERT INTO country_codes VALUES ('AF', 'AFG', 004, 'Afghanistan');
 INSERT INTO country_codes VALUES ('AL', 'ALB', 008, 'Albania');
 INSERT INTO country_codes VALUES ('DZ', 'DZA', 012, 'Algeria');

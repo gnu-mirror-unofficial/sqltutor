@@ -17,8 +17,10 @@ the opening dialogue) and internal tutorial label.
 
 To populate the new tutorial with questions you can use @file{quiz}
 files, which are just plain SQL scripts with some functionality and
-parameters defined in SQL comments.  Quiz files are converted to a
-standard SQL batch by helper program @file{quiz}.
+parameters defined in SQL comments.@footnote{SQL comments, both
+@code{/* @dots{} */} and @code{-- @dots{}}, in quiz files must not be
+used recursively.}  Quiz files are converted to a standard
+SQL batch by helper program @file{quiz}.
 
 @example
 ../.quiz/quiz en.sqlzoo $(QUIZ_FILES) | psql $(SQLTUTOR_DATABASE)
@@ -53,7 +55,7 @@ psql $(SQLTUTOR_DATABASE) \
 @section Doxygen
 
 Doxygen generated source documentation is available only partly for
-classes implementing CGI interface for SQLtutor. Change to directory
+classes implementing CGI interface for Sqltutor. Change to directory
 @file{doc} and run @file{make doxygen}. Generated output is stored in
 directories @file{html} and @file{latex}.
 

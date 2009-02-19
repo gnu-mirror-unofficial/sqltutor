@@ -1,28 +1,28 @@
 @c This file is intended to be included within another document,
 @c hence no sectioning command or @node.
 
-SQLtutor is a CGI script and a PostgreSQL database of SQL tutorials,
+Sqltutor is a CGI script and a PostgreSQL database of SQL tutorials,
 collections of SQL questions and answers.  
 
-@section How to get SQLtutor
+@section How to get Sqltutor
 
 The project is hosted as the Savannah software forge
 
-@url{http://savannah.nongnu.org/projects/sqltutor/}
+@url{http://savannah.gnu.org/projects/sqltutor/}
 
-@noindent A copy of the SQLtutor can be get by anonymous CVS access
+@noindent A copy of the Sqltutor can be get by anonymous CVS access
 
-@url{cvs -z3 -d:pserver:anonymous@@cvs.savannah.nongnu.org:/sources/sqltutor co sqltutor}
+@url{cvs -z3 -d:pserver:anonymous@@cvs.savannah.gnu.org:/sources/sqltutor co sqltutor}
 
 @subsection How to change implicit settings
 
-All SQLtutor database objects are defined in the SCHEMA
+All Sqltutor database objects are defined in the SCHEMA
 @code{sqltutor}.  Five output variables are defined in
 @file{configure.ac} with the following implicit values.
 
 @table @env
 @item SQLTUTOR_DATABASE=sqltutor
-PostgreSQL database name used by SQLtutor.
+PostgreSQL database name used by Sqltutor.
 
 @item SQLTUTOR_WWW_USER=sqlquiz
 WWW user for CGI script @code{sqlutor} with full access rights to all
@@ -46,7 +46,7 @@ their implicit values if needed in the @file{configure.ac} file.
 
 @section Building sqltutor
 
-To build CGI script @file{sqltutor} go to SQLtutor home directory, run
+To build CGI script @file{sqltutor} go to Sqltutor home directory, run
 
 @example
    ./configue 
@@ -69,7 +69,7 @@ running. Database is created with SQL command
 CREATE DATABASE SQLTUTOR_DATABASE
 @end example
 
-Two database roles must be created for SQLtutor with SQL command
+Two database roles must be created for Sqltutor with SQL command
 @code{CREATE ROLE}
 
 @example
@@ -94,7 +94,7 @@ CREATE ROLE SQLTUTOR_WWW_EXEC PASSWORD 'yyy' LOGIN;
 
 
 If PostgreSQL language is not defined in datatabase @code{template1}
-you must create it explicitly in the SQLtutor database
+you must create it explicitly in the Sqltutor database
 
 @example
 su -
@@ -133,7 +133,7 @@ install} in their corresponding subdirectories.
 @subsection Creating schema and general tables
 
 Module @code{database} creates SQL SCHEMA sqltutor and all system
-tables used by SQLtutor . This module must be installed before
+tables used by Sqltutor . This module must be installed before
 populating the database.
 
 @example
@@ -165,5 +165,8 @@ make -C tutorials clean install
 make -C datasets  clean install
 @end example
 
+@subsection  Info documentation
 
+By default, Sqltutor Info documentation is installed in
+@file{/usr/local/share/info} directory.
 

@@ -25,6 +25,8 @@
 
 /* Geographical region and composition */
 
+SET search_path TO sqltutor;
+
 INSERT INTO un_regions VALUES (001, 'World');
 INSERT INTO un_regions VALUES (002, 'Africa');
 INSERT INTO un_regions VALUES (014, 'Eastern Africa');
