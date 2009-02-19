@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_init.cpp,v 1.5 2009/02/17 15:20:26 cepek Exp $ 
+ * $Id: form_init.cpp,v 1.6 2009/02/19 12:00:17 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -208,18 +208,21 @@ void SQLtutor::form_init()
        << InputSubmit("state").value(init_datasets)
        << button_sep()
        << InputSubmit("state").value(init_manual);
+  form << "</p>";
 
-  if (state == init_datasets && tutorial != "0")
+  const string prev_state = CGI::map["prev_state"];
+
+  if (prev_state != init_datasets && state == init_datasets && tutorial != "0")
     {
+      form << InputHidden("prev_state").value(init_datasets);
       show_datasets();
     }
 
-  if (state == init_manual)
+  if (prev_state != init_manual && state == init_manual)
     {
+      form << InputHidden("prev_state").value(init_manual);
       getting_started();
     }
-
-  form << "</p>";
 
   if (tutorial == "0" && (state == init_datasets || state == init_continue))
     {

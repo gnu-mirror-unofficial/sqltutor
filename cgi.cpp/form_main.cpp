@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: form_main.cpp,v 1.3 2009/02/17 15:20:26 cepek Exp $ 
+ * $Id: form_main.cpp,v 1.4 2009/02/19 12:00:18 cepek Exp $ 
  */
 
 #include <pqxx/pqxx>
@@ -120,9 +120,9 @@ void SQLtutor::form_main()
       
       sql = CGI::map["sql_query"];
 
-      form << "<br/><br/><textarea name='sql_query' rows='15' cols='80'>";
+      form << "<p><textarea name='sql_query' rows='15' cols='80'>";
       form << sql;
-      form << "</textarea><br/>";
+      form << "</textarea><p/><p>";
       form << InputSubmit("state").value(main_sql);
       form << button_sep();
       form << InputSubmit("state").value(main_data);
@@ -131,15 +131,20 @@ void SQLtutor::form_main()
           form << button_sep();
           form << InputSubmit("state").value(main_help);
         }
-      form << "<br/><br/>";
+      form << "<p/>";
 
+      const string prev_state = CGI::map["prev_state"];
 
-      if (state == main_data)
+      if (prev_state != main_data && state == main_data)
         {
+          form << InputHidden("prev_state").value(main_data);
           show_table_data(tran);
         }
-      if (state == main_help)
+
+      if (prev_state != main_help && state == main_help)
         {
+          form << InputHidden("prev_state").value(main_help);
+
           result tmp(tran.exec("SELECT answer FROM answers"
                                " WHERE tutorial_id = '" + tutorial_id + "'"
                                "   AND question_id = '" + question_id + "'"));
@@ -147,7 +152,7 @@ void SQLtutor::form_main()
           for (result::const_iterator a=tmp.begin(), e=tmp.end(); a!=e; a++)
             {
               form << "<PRE>";
-              form << a[0].as(string()) << "\n";
+              form << a[0].as(string());    // no need for << "\n"; !
               form << "</PRE>";
             }
         }

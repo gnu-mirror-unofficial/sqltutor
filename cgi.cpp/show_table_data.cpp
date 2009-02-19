@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: show_table_data.cpp,v 1.2 2009/02/17 15:20:34 cepek Exp $ 
+ * $Id: show_table_data.cpp,v 1.3 2009/02/19 12:00:18 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -71,8 +71,7 @@ try
           }
       }
 
-      form << "</table>"
-           << "<br/>";
+      form << "</table>";
     }
 }
 catch (sql_error)

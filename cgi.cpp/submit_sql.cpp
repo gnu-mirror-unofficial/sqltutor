@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: submit_sql.cpp,v 1.2 2009/02/17 15:20:35 cepek Exp $ 
+ * $Id: submit_sql.cpp,v 1.3 2009/02/19 12:00:19 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -31,16 +31,16 @@ void SQLtutor::submit_sql(pqxx::work& tran)
   bool error = false;
   if (sql_result_columns != sql_tutor_columns)
     {
-      if (!error) form << "<b>" + t_wrong_answer + "</b><br/>";
+      if (!error) form << "<p><b>" + t_wrong_answer + "</b><br/>";
       form << t_unmatched_cols << " " << sql_result_columns 
-           << ", " << t_should_be << " " << sql_tutor_columns << "<br/>";
+           << ", " << t_should_be << " " << sql_tutor_columns << "</p>";
       error = true;
     }
   if (sql_result_size != sql_tutor_size)
     {
-      if (!error) form << "<b>" + t_wrong_answer + "</b><br/>";
+      if (!error) form << "<p><b>" + t_wrong_answer + "</b><br/>";
       form << t_unmatched_rows << " " << sql_result_size 
-           << ", " << t_should_be << " " << sql_tutor_size << "<br/>";
+           << ", " << t_should_be << " " << sql_tutor_size << "</p>";
       error = true;
     }
   
@@ -49,13 +49,13 @@ void SQLtutor::submit_sql(pqxx::work& tran)
 
   if (correct_answer)
     {
-      form << "<b>" + t_correct_answer + "</b><br/>";
-      if (!first_permutation) form << t_permutation << "<br/>";
+      form << "<p><b>" + t_correct_answer + "</b><br/>";
+      if (!first_permutation) form << t_permutation << "</p>";
       sql_checked = "yes";
     }
   else
     {
-      form << "<b>" + t_wrong_answer + "</b><br/>";
+      form << "<p><b>" + t_wrong_answer + "</b></p>";
     }
 }
 
