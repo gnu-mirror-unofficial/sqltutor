@@ -6,14 +6,14 @@
 @setfilename sqltutor.info
 @c documentencoding UTF-8
 @include version.texi
-@settitle Sqltutor @value{VERSION}
+@settitle GNU Sqltutor @value{VERSION}
 @setchapternewpage odd
 
 @finalout
 @c %**end of header
 
 @copying
-This manual (@value{UPDATED}) is for Sqltutor (version
+This manual (@value{UPDATED}) is for GNU Sqltutor (version
 @value{VERSION}).
 
 Copyright @copyright{} 2008 Ales Cepek
@@ -37,9 +37,9 @@ freedom.''
 @c .... dircategory
 
 @titlepage
-@title Sqltutor
-@subtitle SQL interactive tutorial
-@subtitle @value{UPDATED}, Sqltutor Version @value{VERSION}
+@title GNU Sqltutor
+@subtitle Web based interactive tutorial of SQL
+@subtitle @value{UPDATED}, Sqltutor version @value{VERSION}
 
 @author by Ales Cepek
 
@@ -53,7 +53,7 @@ freedom.''
 
 @ifnottex
 @node Top
-@top Sqltutor
+@top GNU Sqltutor
 @c @insertcopying
 @end ifnottex
 
