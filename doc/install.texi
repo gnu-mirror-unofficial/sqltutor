@@ -97,7 +97,7 @@ go to Sqltutor home directory and run
    ./configure --bindir=/usr/lib/cgi-bin
 @end example
 
-@noindent Parameter @code{--bindir} is optional and defines to which directory
+@noindent Parameter @code{--bindir} defines to which directory
 CGI script @file{sqltutor} will be installed.@footnote{For general
 information on using GNU autotool see the standard Basic Installation
 instructions in the @file{INSTALL}.}
