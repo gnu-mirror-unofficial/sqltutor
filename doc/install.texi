@@ -6,7 +6,7 @@ collections of SQL questions and answers.
 
 @section How to get Sqltutor
 
-The project is hosted as the Savannah software forge
+The project is hosted at the Savannah software forge
 
 @url{http://savannah.gnu.org/projects/sqltutor/}
 
@@ -43,22 +43,6 @@ Password for CGI script for the user @env{SQLTUTOR_WWW_EXEC}
 
 @noindent These macros are used by all modules and you can change
 their implicit values if needed in the @file{configure.ac} file.
-
-@section Building sqltutor
-
-To build CGI script @file{sqltutor} go to Sqltutor home directory, run
-
-@example
-   ./configue 
-   make
-@end example
-
-@noindent and copy @file{cgi.cpp/sqltutor} to the cgi-bin directory.
-Ensure that the file permissions are readable and executable by all
-(-rwxr-xr-x).
-
-For general information on using GNU autotool see the standard Basic
-Installation instructions in the @file{INSTALL}.
 
 @section Creating the database 
 
@@ -103,15 +87,41 @@ psql SQLTUTOR_DATABASE
 CREATE LANGUAGE plpgsql;
 @end example
 
-@section Populating the database
+@section Building and installing Sqltutor
 
-Database is populated simply by running
+To create all Makefiles needed for building binary CGI script
+@file{sqltutor}, populating Sqltutor database and making info manual
+go to Sqltutor home directory and run
 
 @example
-make install
+   ./configure --bindir=/usr/lib/cgi-bin
 @end example
 
-@noindent from the main source directory.
+@noindent Parameter @code{--bindir} is optional and defines to which directory
+CGI script @file{sqltutor} will be installed.@footnote{For general
+information on using GNU autotool see the standard Basic Installation
+instructions in the @file{INSTALL}.}
+
+Sqltutor CGI binary with info manual is installed and the database is
+populated by running
+
+@example
+make DESTDIR=@emph{install_root_directory} install
+@end example
+
+@noindent from the main source directory.  Parameter @code{DESTDIR} is 
+optional and defines a root directory into which binary
+@file{sqltutor} and @file{sqltutor.info} will be installed.  This
+parameter is needed if you do not have access ritght for writing to
+@file{/usr/local/cgi-bin} and @file{/usr/share/info} (implicit values).
+
+
+@subsection Sqltutor modules
+
+For installing Sqltutor you normally need only the commands described
+in previous sections. However, it is possible to install individual
+modules separatelly, for example in cases like preparing new dataset,
+new tutorial etc.
 
 Apart from module @code{sqltutor} there are three modules responsible
 for populating the database
@@ -130,7 +140,7 @@ dataset tables which are used by one or more tutorials
 These three modules can be installed explicitly by running @code{make
 install} in their corresponding subdirectories.
 
-@subsection Creating schema and general tables
+@subsubsection Creating schema and general tables
 
 Module @code{database} creates SQL SCHEMA sqltutor and all system
 tables used by Sqltutor . This module must be installed before
@@ -149,7 +159,7 @@ lock file either manully or by running
 make -C database clean
 @end example
 
-@subsection Populating tutorials and datasets
+@subsubsection Populating tutorials and datasets
 
 Run in any order from the project home directory
 
@@ -165,8 +175,4 @@ make -C tutorials clean install
 make -C datasets  clean install
 @end example
 
-@subsection  Info documentation
-
-By default, Sqltutor Info documentation is installed in
-@file{/usr/local/share/info} directory.
 
