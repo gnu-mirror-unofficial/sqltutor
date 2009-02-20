@@ -1,3 +1,9 @@
+2009-02-20  Ales Cepek  <cepek@gnu.org>
+
+	* in HTML all colspan='0' replaced by explicit values
+	  colspan='N' (IE6 doesn't honor the colspan="0", with or without
+	  a colgroup defined)
+
 2009-02-17  Ales Cepek  <cepek@gnu.org>
 
 	* in helper program `.quiz/quiz' precessing of comment lines

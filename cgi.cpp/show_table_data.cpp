@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: show_table_data.cpp,v 1.4 2009/02/19 13:34:07 cepek Exp $ 
+ * $Id: show_table_data.cpp,v 1.5 2009/02/20 15:49:35 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -43,18 +43,25 @@ try
     {
       const string table = t[0].as(string());
 
-      form << "<p></p><table border='1'>"
-           << "<tr><th colspan='0'>" + table + "</th></tr>";
+      // IE6 doesn't honor the colspan="0", with or without a colgroup
+      // defined
+      // 
+      // form << "<p></p><table border='1'>"
+      //      << "<tr><th colspan='0'>" + table + "</th></tr>";
 
+      int icols = 1;
       string columns = "<tr><th><i>";
       const string col = t[1].as(string());
       for (string::const_iterator c=col.begin(), e=col.end(); c!=e; c++)
         switch (*c)
           {
-          case ',': columns += "</i></th><th><i>"; break;
+          case ',': columns += "</i></th><th><i>"; icols++; break;
           default : columns += *c;
           }
       columns += "</i></th></tr>";
+
+      form << "<p></p><table border='1'>"
+           << "<tr><th colspan='" << icols << "'>" + table + "</th></tr>";
       form << columns;
 
       {

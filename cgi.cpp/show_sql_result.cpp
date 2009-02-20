@@ -17,7 +17,7 @@
  */
 
 /* 
- * $Id: show_sql_result.cpp,v 1.2 2009/02/17 15:20:34 cepek Exp $ 
+ * $Id: show_sql_result.cpp,v 1.3 2009/02/20 15:49:35 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -47,7 +47,13 @@ void SQLtutor::show_sql_result()
     {
       if (++row_count > max_count && row_count != total_count) 
         {
-          form << "<tr><td colspan='0'>"
+          // IE6 doesn't honor the colspan="0", with or without a
+          // colgroup defined
+          // 
+          // form << "<tr><td colspan='0'>"
+          //      << "<i>" << remaining_rows << "</i></td></tr>";
+          //
+          form << "<tr><td colspan='" << columns << "'>"
                << "<i>" << remaining_rows << "</i></td></tr>";
           break;
         }
