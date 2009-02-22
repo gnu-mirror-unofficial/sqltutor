@@ -12,5 +12,4 @@ SUBDIRS = \
 	en.buses \
 	en.countries \
 	en.movies \
-	en.neeps \
 	en.nobel 
