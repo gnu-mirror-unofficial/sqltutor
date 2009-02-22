@@ -76,7 +76,6 @@ AC_OUTPUT([Makefile
            datasets/en.buses/Makefile
            datasets/en.countries/Makefile
            datasets/en.movies/Makefile
-           datasets/en.neeps/Makefile
            datasets/en.nobel/Makefile
            doc/Makefile
           ])
