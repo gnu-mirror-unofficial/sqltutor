@@ -1,41 +1,10 @@
 /* 
-   This file is part of GNU Sqltutor
-   Copyright (C) 2008  Ales Cepek <cepek@gnu.org>
- 
-   GNU Sqltutor is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-   
-   GNU Sqltutor is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   
-   You should have received a copy of the GNU General Public License
-   along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
+   This file is public domain.
+
+   The data is a matter of public record, and comes from
+   http://sqlzoo.net/
  */
 
-
-/* source: http://sqlzoo.net/ with permission by Andrew Cumming
-   diff -u bbc.sql bbc-sqlzoo.sql
-
---- bbc.sql     2008-09-26 14:12:03.000000000 +0200
-+++ bbc-sqlzoo.sql      2008-09-26 14:10:58.000000000 +0200
-@@ -1,5 +1,3 @@
--SET search_path TO sqltutor;
--
- --- createbbc, 1, 50
- DROP TABLE bbc;
- CREATE TABLE bbc(
-@@ -10,6 +8,7 @@
-    ,gdp DECIMAL(14)
-    ,PRIMARY KEY (name)
-    );
-+GRANT ALL ON bbc TO andrew;
- CREATE INDEX bbc_region ON bbc(region);
- GRANT SELECT ON bbc TO PUBLIC;
-*/
 
 SET search_path TO sqltutor;
 
