@@ -25,9 +25,9 @@
 
 -- id="151" dataset="nobelova_cena" category="select" points="1"
 -- 
--- Uveďte nositele Nobelovy ceny za rok 1950
+-- Uveďte nositele Nobelovy ceny za rok 1950.
 
-SELECT rok, obor, laureat
+SELECT laureat
   FROM laureati
  WHERE rok = 1950
 
