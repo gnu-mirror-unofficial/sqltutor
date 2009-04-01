@@ -1,6 +1,7 @@
 /* 
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Ales Cepek <cepek@gnu.org>
+   Copyright (C) 2008  Free Software Foundation, Inc.
+   Contributed by Ales Cepek <cepek@gnu.org>
  
    GNU Sqltutor is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,7 +18,7 @@
  */
 
 /* 
- * $Id: show_sql_result.cpp,v 1.3 2009/02/20 15:49:35 cepek Exp $ 
+ * $Id: show_sql_result.cpp,v 1.4 2009/04/01 18:12:38 cepek Exp $ 
  */
 
 #include "sqltutor.h"
