@@ -125,6 +125,22 @@ SELECT MIN(cas) AS zacatek , MAX(cas) AS konec
 -- aktivity). Uveďte i nulové hodnoty, tj. dny ve kterých
 -- nebyly limity SPA překročeny. 
 
+SELECT cast(cas as date), 
+       sum (CASE WHEN vodocet_cm >= bdelost THEN 1 ELSE 0 END)
+  FROM vodocty 
+       NATURAL LEFT JOIN
+       limity_cm
+ GROUP BY cast (cas as date);
+       
+SELECT cast(cas as date), count(bdelost)
+  FROM vodocty AS V
+       LEFT JOIN
+       limity_cm AS L
+       ON V.tok_id = L.tok_id 
+          AND V.stanice_id  = L.stanice_id
+          AND V.vodocet_cm >= L.bdelost
+ GROUP BY cast (cas as date);
+       
 SELECT A.den, x+COALESCE(y,0)
   FROM (
         SELECT DISTINCT DATE(cas) AS den, 0 AS x
