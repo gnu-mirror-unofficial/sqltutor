@@ -118,20 +118,17 @@ SELECT rok, obor, laureat
                   HAVING count(*) > 1);
 
 
--- id="160" dataset="nobelova_cena" category="aggregate|subselect|derivedtable" points="15"
+-- id="160" dataset="nobelova_cena" category="aggregate|subselect|derivedtable" points="13"
 -- 
 -- Kdo získal Nobelovu cenu ve více oborech? Uveďte rok, obor a
 -- jméno laureáta.
 
-SELECT rok, obor, laureat
-  FROM laureati
- WHERE laureat IN (SELECT laureat
-                     FROM (SELECT obor, laureat
-                             FROM laureati
-                            WHERE laureat IN (SELECT laureat
-                                                FROM laureati
-                                               GROUP BY laureat
-                                              HAVING count(*) > 1) 
-                          ) A
-                    GROUP BY laureat
-                   HAVING count(DISTINCT obor) > 1);
+SELECT A.rok, A.obor, A.laureat
+  FROM laureati AS A
+       JOIN 
+       laureati AS B
+       ON A.laureat=B.laureat
+ GROUP BY A.rok, A.obor, A.laureat
+HAVING count(distinct B.obor) > 1
+ ORDER BY A.rok;
+
