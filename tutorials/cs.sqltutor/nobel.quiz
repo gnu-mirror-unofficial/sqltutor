@@ -83,13 +83,13 @@ SELECT rok, obor, laureat FROM laureati
                   'Jed Bartlet', 'Jimmy Carter')
 
 
--- id="157" dataset="nobelova_cena" category="select" points="2"
+-- id="157" dataset="nobelova_cena" category="select" points="3"
 -- 
 -- Uveďte laureáty, jejichž jméno je John.
 
 SELECT laureat
   FROM laureati
- WHERE laureat LIKE 'John %';
+ WHERE laureat LIKE 'John %' OR laureat LIKE '% John %';
 
 
 /* další otázky, které nebyly v sqlzoo */
