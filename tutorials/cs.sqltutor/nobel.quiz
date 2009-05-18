@@ -87,7 +87,7 @@ SELECT rok, obor, laureat FROM laureati
 -- 
 -- Uveďte laureáty, jejichž jméno je John.
 
-SELECT laureat
+SELECT DISTINCT laureat
   FROM laureati
  WHERE laureat LIKE 'John %' OR laureat LIKE '% John %';
 
