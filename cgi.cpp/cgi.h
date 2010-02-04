@@ -1,4 +1,4 @@
-/* 
+/*
    This file is part of GNU Sqltutor
    Copyright (C) 2008  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
@@ -18,7 +18,7 @@
  */
 
 /* 
- * $Id: cgi.h,v 1.7 2009/04/01 18:12:37 cepek Exp $ 
+ * $Id: cgi.h,v 1.8 2010/02/04 12:51:40 cepek Exp $ 
  */
 
 #ifndef cgi_h___SQLTUTOR_CGI_H___sqltutor_cgi_h
@@ -29,7 +29,15 @@
 #include <string>
 #include <iostream>
 
+
+/** \mainpage CGI C++ classes
+ *
+ * This is a brief description of a set of C++ CGI classes used in <a
+ * href="http://www.gnu.org/software/sqltutor">GNU Sqltutor</a>
+ * project.
+ */
   
+
 /** \brief Base abstract HTML element class.
  *
  * Base abstract element class is a sequential container of HTML
@@ -67,12 +75,12 @@ protected:
     
     typedef std::list<Element_*> Elist;
     
-    void run_elist();
+    virtual void run_elist();
     
     // list of pointers to child elements
     Elist elements;
     
-    // pointers to internal objects created on free store
+    // pointers to internal objects created on the free store
     static Elist dlist;
 
     friend class Element;
@@ -81,6 +89,49 @@ protected:
 
   Element(Element_* e) : element_(e) { Element_::dlist.push_back(e); } 
   Element_* element_;
+};
+
+
+
+/** \brief HTML element object with attributes.
+ *
+ *  Base abstract class thar adds attributes to Element class.
+ */
+
+class ElementAttributes : public Element {
+public:
+
+  ElementAttributes& operator += (std::string s)
+  {
+    add_attr(s);
+    return *this;
+  }
+
+  ElementAttributes& add_attr(std::string s)
+  {
+    static_cast<ElementAttributes_*>(element_)->add_attr(s);
+    return *this;
+  }
+
+protected:  
+
+  class ElementAttributes_ : public Element_ {
+  public:
+    ElementAttributes_() {}
+    ElementAttributes_(const char* t) : attr(t) {}
+    ElementAttributes_(std::string t) : attr(t) {}
+
+    ElementAttributes_& add_attr(std::string s)
+    {
+      attr += " " + s;
+      return *this;
+    }
+
+    std::string attr;
+  };
+
+  ElementAttributes(Element_* e) : Element(e) {}
+
 };
 
 
@@ -247,127 +298,26 @@ public:
 
 
 
-/** \brief Implemention of HTML \<P\> tag.
- *
- *  Par class implements HTML \<p\> tag. Par objects can be constracted
- *  before insertion into another CGI container. Text parameters of
- *  constructor are inserted as Text objects.
- */
-
-class Par : public Element {
-
-  class Par_ : public Element_ {
-  public:
-    Par_() {}
-    Par_(const char* t) : attr(t) {}
-    Par_(std::string t) : attr(t) {}
-    void run();
-  private:
-    std::string attr;
-  };
-
-public:
-  
-  Par()              : Element(new Par_   ) {}
-  Par(const char* t) : Element(new Par_(t)) {}
-  Par(std::string t) : Element(new Par_(t)) {}  
-};
-
-
-
-/** \brief Implemention of HTML \<DIV\> tag.
- */
-
-class Div : public Element {
-
-  class Div_ : public Element_ {
-  public:
-    Div_() {}
-    Div_(const char* t) : attr(t) {}
-    Div_(std::string t) : attr(t) {}
-    void run();
-  private:
-    std::string attr;
-  };
-
-public:
-  
-  Div()              : Element(new Div_   ) {}
-  Div(const char* t) : Element(new Div_(t)) {}
-  Div(std::string t) : Element(new Div_(t)) {}  
-};
-
-
-
-/** \brief Implemention of HTML \<SPAN\> tag.
- */
-
-class Span : public Element {
-
-  class Span_ : public Element_ {
-  public:
-    Span_() {}
-    Span_(const char* t) : attr(t) {}
-    Span_(std::string t) : attr(t) {}
-    void run();
-  private:
-    std::string attr;
-  };
-
-public:
-  
-  Span()              : Element(new Span_   ) {}
-  Span(const char* t) : Element(new Span_(t)) {}
-  Span(std::string t) : Element(new Span_(t)) {}  
-};
-
-
-
-/** \brief  Implemention of HTML \<PRE\> tag.
-  */
- 
-class Pre : public Element {
-
-  class Pre_ : public Element_ {
-  public:
-    Pre_() {}
-    Pre_(const char* t) : attr(t) {}
-    Pre_(std::string t) : attr(t) {}
-    void run();
-  private:
-    std::string attr;
-  };
-
-public:
-  
-  Pre()              : Element(new Pre_   ) {}
-  Pre(const char* t) : Element(new Pre_(t)) {}
-  Pre(std::string t) : Element(new Pre_(t)) {}  
-};
-
-
-
 /** \brief Implementation of HTML \<FORM\> tag.
  */
 
-class Form : public Element {
+class Form : public ElementAttributes {
 
-  class Form_ : public Element_ {
+  class Form_ : public ElementAttributes_ {
   public:
     Form_(std::string a, std::string m="post", std::string x="") 
-      : action(a), method(m), attr(x) {}
+      : ElementAttributes_(x), action(a), method(m) {}
     void run();
     
   private:
     std::string action;
     std::string method;
-    std::string attr;
   };
 
 public:
 
   Form(std::string act, std::string meth="post", std::string atr="") 
-    : Element(new Form_(act, meth, atr)) {}
+    : ElementAttributes(new Form_(act, meth, atr)) {}
 };
 
 
@@ -395,7 +345,8 @@ class Input : public Element {
     std::string src_;
     std::string alt_;
     std::string dis_;
-    std::string chk_;  
+    std::string chk_;
+    std::string size_;
 
     std::string string() const;
   };
@@ -404,11 +355,12 @@ class Input : public Element {
 
 public:
 
-  Input& value(std::string s)  {inp_->val_(s);  return *this; }
-  Input& src  (std::string s)  {inp_->src_= s;  return *this; }
-  Input& alt  (std::string s)  {inp_->alt_= s;  return *this; }
-  Input& disabled(bool t=true) {inp_->dis_= t?"disabled" : ""; return *this; }
-  Input& checked (bool t=true) {inp_->chk_= t?"checked"  : ""; return *this; }
+  Input& value(std::string s)  {inp_->val_(s);   return *this; }
+  Input& src  (std::string s)  {inp_->src_ = s;  return *this; }
+  Input& alt  (std::string s)  {inp_->alt_ = s;  return *this; }
+  Input& disabled(bool t=true) {inp_->dis_ = t?"disabled" : ""; return *this; }
+  Input& checked (bool t=true) {inp_->chk_ = t?"checked"  : ""; return *this; }
+  Input& size (unsigned int n);
   
 protected:
 
@@ -469,6 +421,326 @@ public:
   InputHidden(std::string name) : Input("hidden", name) {}
 };
 
+
+
+/** \brief Implementation of \<INPUT type='reset' ... \> tag.
+ */
+
+class InputReset : public Input {
+public:
+  InputReset(std::string name) : Input("reset", name) {}
+};
+
+
+
+/** \brief Implementation of simplified \<TABLE\> tag.
+ *
+ * The number of table columns must be explicitly defined as the first
+ * constructor parameter.
+ *
+ * Example:
+ *\code
+ * void Demo::dbg_info()
+ * {
+ *   Table tab(2, "border='1'");
+ * 
+ *   tab.caption("dbg info ..." );
+ *   tab.th("attribute");
+ *   tab.th("value");
+ *
+ *   for (CGI::Map::const_iterator m=CGI::map.begin(), e=CGI::map.end(); m!=e; m++)
+ *     {
+ *       tab << m->first 
+ *           << m->second;
+ *     }
+ * 
+ *   cgi << tab;
+ * }\endcode
+ */
+
+class Table : public ElementAttributes {
+
+  class Table_ : public ElementAttributes_ {
+  public:
+    Table_(int cols, std::string atts) : ElementAttributes_(atts), cols_(cols) {}
+
+    void caption(std::string c) { caption_ = c;     }
+    void th     (std::string h) { th_.push_back(h); }
+    void td     (std::string h) { td_.push_back(h); }
+
+    void run();
+    void run_elist();
+
+  private:
+    int         cols_;
+    std::string caption_;
+    std::list<std::string> th_;
+    std::list<std::string> td_;
+  };
+
+  Table_* table_;
+
+public:
+
+  Table(int cols=1, std::string atts="") 
+  : ElementAttributes(new Table_(cols,atts)) 
+  {
+    table_ = static_cast<Table_*>(element_);
+  }
+
+  void caption(std::string c) { table_->caption(c); }
+  void th     (std::string h) { table_->th(h);      }
+  void td     (std::string h) { table_->td(h);      }
+};
+
+
+
+/** \brief Implementation of the base class Tag with a single
+ *  protected constructor.
+ */
+
+class Tag : public ElementAttributes {
+
+  class Tag_ : public ElementAttributes_ {
+  public:
+    
+    void run();
+    
+    Tag_(std::string t) : type_(t) {}
+
+    std::string type_;
+  };
+  
+protected:
+  
+  Tag(std::string t) : ElementAttributes(new Tag_(t)) {}
+  
+};
+
+
+
+/** \brief Implementation of \<H1> tag.
+ */
+
+class H1 : public Tag {
+public:
+  H1() : Tag("h1") {}
+  H1(std::string a) : Tag("h1") { add_attr(a); }
+};
+
+
+
+/** \brief Implementation of \<H2> tag.
+ */
+
+class H2 : public Tag {
+public:
+  H2() : Tag("h2") {}
+  H2(std::string a) : Tag("h2") { add_attr(a); }
+};
+
+
+
+/** \brief Implementation of \<H3> tag.
+ */
+
+class H3 : public Tag {
+public:
+  H3() : Tag("h3") {}
+  H3(std::string a) : Tag("h3") { add_attr(a); }
+};
+
+
+
+/** \brief Implementation of \<H4> tag.
+ */
+
+class H4 : public Tag {
+public:
+  H4() : Tag("h4") {}
+  H4(std::string a) : Tag("h4") { add_attr(a); }
+};
+
+
+
+/** \brief Implementation of \<H5> tag.
+ */
+
+class H5 : public Tag {
+public:
+  H5() : Tag("h1") {}
+  H5(std::string a) : Tag("h1") { add_attr(a); }
+};
+
+
+
+/** \brief Implementation of \<H1> tag.
+ */
+
+class H6 : public Tag {
+public:
+  H6() : Tag("h5") {}
+  H6(std::string a) : Tag("h5") { add_attr(a); }
+};
+
+
+
+/** \brief Implementation of the \<STRONG> tag
+ */
+
+class Strong : public Tag {
+public:
+  Strong() : Tag("strong") {}
+  Strong(std::string a) : Tag("strong") { add_attr(a); }
+};
+
+
+
+/** \brief Implementation of the \<EM> tag
+ */
+
+class Em : public Tag {
+public:
+  Em() : Tag("em") {}
+  Em(std::string a) : Tag("em") { add_attr(a); }
+};
+
+
+/** \brief Implemention of HTML \<P\> tag.
+ *
+ *  Par class implements HTML \<p\> tag. Par objects can be constracted
+ *  before insertion into another CGI container. Text parameters of
+ *  constructor are inserted as Text objects.
+ */
+
+class Par : public Tag {
+public:
+  Par() : Tag("p") {}
+  Par(std::string a) : Tag("p") { add_attr(a); }
+};
+
+
+
+/** \brief Implemention of HTML \<DIV\> tag.
+ */
+
+class Div : public Tag {
+public:
+  Div() : Tag("div") {}
+  Div(std::string a) : Tag("div") { add_attr(a); }
+};
+
+
+
+/** \brief Implemention of HTML \<SPAN\> tag.
+ */
+
+class Span : public Tag {
+public:
+  Span() : Tag("span") {}
+  Span(std::string a) : Tag("span") { add_attr(a); }
+};
+
+
+
+/** \brief  Implemention of HTML \<PRE\> tag.
+  */
+ 
+class Pre : public Tag {
+public:
+  Pre() : Tag("pre") {}
+  Pre(std::string a) : Tag("pre") { add_attr(a); }
+};
+
+
+
+/** \brief  Implemention of HTML \<TEXTAREA\> tag.
+  */
+ 
+class TextArea : public ElementAttributes {
+
+  class TextArea_ : public ElementAttributes_ {
+  public:
+    TextArea_(std::string name, int rows, int cols) : 
+      name_(name), rows_(rows), cols_(cols)
+    {
+    }
+
+    void run();
+    TextArea_& val_(std::string t) { text_ = t; return *this; }
+
+  private:
+    std::string name_;
+    int         rows_;
+    int         cols_;
+    std::string text_;
+  };
+
+  TextArea_* textarea_;
+
+public:
+
+  TextArea(std::string name, int rows, int cols) 
+    : ElementAttributes(new TextArea_(name, rows, cols))
+  {
+    textarea_ = static_cast<TextArea_*>(element_);
+  }
+
+  TextArea& value(std::string text) { textarea_->val_(text); return *this; }
+};
+
+
+
+/** \brief  Implementation of HTML tag \<OPTION\> (see Select)
+  */
+
+class Option : public Tag {
+public:
+    Option(std::string value, std::string description) : Tag("option")
+    {
+        add_attr("value='" + value + "'");
+        *this << description;
+    }
+};
+
+
+/** \brief  Implementation of HTML tag \<OPTGROUP\> (see Select)
+  */
+
+class Optgroup : public Tag {
+public:
+  Optgroup(std::string label) : Tag("optgroup")
+  {
+      add_attr("label='" + label + "'");
+  }
+};
+
+
+
+/** \brief  Implementation of HTML tag \<SELECT\>
+  *
+  * Example:
+  *\code
+  *   Select   cities("city");
+  *   Optgroup europe("Europe");
+  *   europe    << Option("1", "London") << Option("2", "Paris")
+  *             << Option("3", "Rome") << Option("4", "Berlin") << Option("5", "Prague");
+  *   Optgroup america("North America");
+  *   namerica  << Option("6", "New York") << Option("7", "Washington")
+  *             << Option("8", "San Francisco") << Option("9", "Vancouver");
+  *   Optgroup australia("Australia");
+  *   australia << Option("10", "Sydney") << Option("11", "Adelaide")
+  *             << Option("12", "Perth");
+  *   cities  << europe << namerica << australia;\endcode
+  */
+
+class Select : public Tag {
+public:
+  Select(std::string name) : Tag("select")
+  {
+      add_attr("name='" + name + "'");
+  }
+};
 
 
 #endif

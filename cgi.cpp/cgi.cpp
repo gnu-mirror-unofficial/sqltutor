@@ -93,7 +93,7 @@ void CGI::CGI_::run()
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "<!DOCTYPE html\n"
     "     PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n"
-    "     \"DTD/xhtml1-strict.dtd\">\n"
+    "     \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
     "<html xmlns=\"http://www.w3.org/1999/xhtml\"" 
     " xml:lang=\"en\" lang=\"en\">\n"
     "  <head>\n"
@@ -166,41 +166,12 @@ void String::String_::run()
 }
 
 
-void Par::Par_::run()
-{
-  std::cout << "<p " << attr << ">";
-  run_elist();
-  std::cout << "</p>";
-}
-
-void Div::Div_::run()
-{
-  std::cout << "<div " << attr << ">";
-  run_elist();
-  std::cout << "</div>";
-}
-
-void Span::Span_::run()
-{
-  std::cout << "<span " << attr << ">";
-  run_elist();
-  std::cout << "</span>";
-}
-
-void Pre::Pre_::run()
-{
-  std::cout << "<pre " << attr << ">";
-  run_elist();
-  std::cout << "</pre>";
-}
-
-
 void Form::Form_::run()
 {
   std::cout << "<form action='" << action 
-            << "' method='" << method << "' " << attr << ">";
+            << "' method='" << method << "' " << attr << ">\n";
   run_elist();
-  std::cout << "</form>";
+  std::cout << "</form>\n";
 }
 
 
@@ -216,6 +187,16 @@ void Input::Inp_::val_(std::string s)
 }
 
 
+Input& Input::size(unsigned int n)
+{
+  std::ostringstream ostr;
+  ostr << n;
+  inp_->size_ = ostr.str();
+  
+  return *this;
+}
+
+
 std::string Input::Inp_::string() const
 {
   std::string str("<input");
@@ -225,6 +206,7 @@ std::string Input::Inp_::string() const
   if (!value_.empty()) str += " value='" + value_ + "'";
   if (!src_  .empty()) str += " src='"   + src_   + "'";
   if (!alt_  .empty()) str += " alt='"   + type_  + "'";
+  if (!size_ .empty()) str += " size='"  + size_  + "'";
   if (!dis_  .empty()) str += " "        + dis_   + " ";
   if (!chk_  .empty()) str += " "        + chk_   + " ";
 
@@ -237,4 +219,65 @@ std::string Input::Inp_::string() const
 void Input::Inp_::run()
 {
   std::cout << this->string();
+}
+
+
+void Table::Table_::run()
+{
+  std::cout << "<table " + attr + ">\n";
+  run_elist();
+  std::cout << "</table>\n";
+}
+
+
+void Table::Table_::run_elist()
+{
+  if (!caption_.empty())
+    {
+      std::cout << "<caption>" + caption_ + "</caption>\n";
+    }
+
+  if (!th_.empty())
+    {
+      std::cout << "<tr>\n";
+      for (std::list<std::string>::const_iterator 
+             e=th_.end(), b=th_.begin(); b!=e; b++)
+        {
+          std::cout << "<th>" + *b + "</th>";
+        }
+      std::cout << "</tr>\n";
+    }
+
+  for (Elist::iterator e=elements.end(), b=elements.begin(); b!=e;)
+    { 
+      std::cout << "<tr>\n";
+      std::list<std::string>::const_iterator atr = td_.begin();
+      for (int c=0; c<cols_ && b!=e; c++, b++)
+        {
+          std::cout << "<td ";
+          if (atr != td_.end()) std::cout << *atr++ ;
+          std::cout << ">";
+          (*b)->run();
+          std::cout << "</td>";
+        }
+      std::cout << "</tr>\n";
+    }
+}
+
+
+void Tag::Tag_::run()
+{
+  std::cout << "<"  + type_ + attr + ">";
+  run_elist();
+  std::cout << "</" + type_ + ">\n";
+}
+
+
+void TextArea::TextArea_::run()
+{
+  std::cout << "<textarea name='" << name_
+            << "' rows='" << rows_ << "' cols='" << cols_ << "'>\n";
+  // run_elist();
+  std::cout << text_;
+  std::cout << "</textarea>\n";
 }
