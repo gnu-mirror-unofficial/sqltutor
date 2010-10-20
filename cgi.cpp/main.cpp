@@ -17,10 +17,6 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: main.cpp,v 1.3 2009/04/01 18:12:38 cepek Exp $ 
- */
-
 #include "sqltutor.h"
 
 int main()

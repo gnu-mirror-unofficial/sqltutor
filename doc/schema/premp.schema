@@ -1,0 +1,108 @@
+input boxes
+
+prologues:=3;       % zařazení fontů do EPS
+
+beginfig(1);
+
+  tq :=    1.0;     % meřítko pro tabulky
+  tw :=  96*tq;     % šířka tabulky
+  th :=  13*tq;     % výška řádku v tabulce
+  tx :=   2*tq;     % odsazení textu zleva
+  er := th/2.9;     % velikost symbolu ER 1:N
+  
+  posun := 1.7;     % odsazení tabulek
+
+  a  := 0;
+  ar := a + tw;
+  b  := a + tw + 4*(2*tw*posun - 2*tw)/8;
+  c  := 2*tw*posun;
+
+  z10 = (1.0*th,0); % odsazeni lomene cary
+
+
+  #Tutorials           a, th, tw,                          tutorial_id, tutorial, language_id, t_ord;
+  #Tutorials_Problems  a, #Tutorials.b-th, tw,             tutorial_id, dataset_id, problem_id;
+  #Datasets            a, #Tutorials_Problems.b-3.5*th,tw, dataset_id, dataset;
+  #Dataset_Tables      a, #Datasets.b-th,tw,               dataset_id, ds_table, columns, dt_ord;
+  #Dataset_Sources     a, #Dataset_Tables.b-th,tw,         dataset_id, year, source;
+  #Problems            b, -1.5*th, tw,                     dataset_id, problem_id, points;
+  #Answers             b, #Problems.b-th, tw,              dataset_id, problem_id, answer, priority;
+  #Questions           b, #Answers.b-th, tw,               dataset_id, problem_id, q_ord, language_id, question;
+  #Problems_Categories b, #Questions.b-2*th, tw,           dataset_id, problem_id, category_id; 
+  #Categories          b, #Problems_Categories.b-1*th, tw, category_id, category;
+  #Sessions            c, -0.5*th, tw,                      session_id, tutorial_id, login, password, points_min, points_max, ds_id, algorithm, help, host, start, is_open;
+  #Sessions_Questions  c, #Sessions.b-1.5*th, tw,          session_id, dataset_id, problem_id, q_ord, language_id, answer, correct, time;
+  #Languages           c, #Sessions_Questions.b-1.5*th,tw, language_id, language; 
+
+  draw #Tutorials_Problems.w(1)--#Tutorials_Problems.w(1)-z10--
+  #Tutorials.w(1)-z10--#Tutorials.w(1);
+  #Tutorials_Problems.W(1);
+
+  draw #Tutorials_Problems.e(2)--#Tutorials_Problems.e(2)+((b-ar)/4,0)--
+  #Problems.w(1)-(3*(b-ar)/4,0)--#Problems.w(1);
+  #Tutorials_Problems.E(2);
+
+  draw #Problems.w(3)--#Problems.w(3)-((b-ar)/4,0)--
+  #Problems_Categories.w(1)-((b-ar)/4,0)--#Problems_Categories.w(1);
+  #Problems_Categories.W(1);
+
+  #Problems_Categories.W(2);
+  draw #Problems_Categories.w(2)--#Problems_Categories.w(2)-((b-ar)/4,0)--
+  #Categories.w(1)-((b-ar)/4,0)--#Categories.w(1);
+  
+  draw #Problems.w(2)--#Problems.w(2)-((b-ar)/2,0)--
+  #Datasets.e(0)+((b-ar)/2,0)--#Datasets.e(0);
+  #Problems.W(2);
+   
+  z25 = #Questions.e(2);
+  z26 = #Sessions_Questions.w(2);
+  draw z25--((x25+3*x26)/4,y25)--((x25+3*x26)/4,y26)--z26;
+  #Sessions_Questions.W(2);
+
+  z11 = #Tutorials.e(1);
+  z12 = #Sessions.w(2);
+  draw z11--((x25+3*x26)/4,y11)--((x25+3*x26)/4,y12)--z12;
+  #Sessions.W(2);
+  
+  draw #Sessions.s(0.5)--#Sessions_Questions.n(0.5);
+  #Sessions_Questions.N(0.5);
+  
+  z23 = #Problems.e(1);
+  z24 = #Questions.e(1);
+  draw z23--((x25+x26)/2,y23)--((x25+x26)/2,y24)--z24;
+  #Questions.E(1)
+
+  z21 = #Problems.e(2);
+  z22 = #Answers.e(1);
+  draw z21--((3*x25+x26)/4,y21)--((3*x25+x26)/4,y22)--z22;
+  #Answers.E(1);
+
+  z31 = #Datasets.e(2);
+  z32 = #Dataset_Tables.e(1);
+  draw z31--z31+(((b-ar)/4,0))--
+  z32+(((b-ar)/4,0))--z32;
+  #Dataset_Tables.E(1);
+  
+  z33 = #Datasets.e(1);
+  z34 = #Dataset_Sources.e(1);
+  draw z33--z33+((b-ar)/2,0)--
+  z34+((b-ar)/2,0)--z34;
+  #Dataset_Sources.E(1);
+
+  z27 = #Questions.e(3);
+  z28 = #Languages.w(1);
+  draw z27--((x27+x28)/2,y27)--((x27+x28)/2,y28)--z28;
+  #Questions.E(3);
+
+  z29 = #Tutorials.e(0);
+  z30 = #Languages.e(1) + z10;
+  draw z29--(x30,y29)--z30--#Languages.e(1);
+  #Tutorials.E(0);
+  
+endfig;
+
+
+end;
+
+
+

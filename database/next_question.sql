@@ -1,6 +1,6 @@
 /* 
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2010  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
  
    GNU Sqltutor is free software: you can redistribute it and/or modify
@@ -25,97 +25,146 @@
 
 CREATE OR REPLACE FUNCTION sqltutor.next_question
 (
-   IN  session_id_      integer, 
-   IN  hash_            char(32),
-   OUT next_tutorial_id integer,
-   OUT next_question_id integer
+   IN  session_id_  integer, 
+   IN  hash_        char(32),
+
+   OUT dataset_id   integer,
+   OUT problem_id   integer,
+   OUT q_ord        integer,
+   OUT language_id  char(2)
 )
-AS $$
+RETURNS RECORD AS $$
 DECLARE
-   s_dataset_     varchar(21);
-   s_status_      varchar(6);
-   s_points_min_  integer;
-   s_points_max_  integer;
-   s_help_        boolean;
-   max_points_    integer;
-   a_count_       integer;
+   tutid_     integer;
+   pmin_      integer;
+   pmax_      integer;
+   is_open_   integer;
+   algorithm_ integer;
+   dataset_   integer;
+   problem_   integer;
+   q_ord_     integer;
+   language_  char(2);
 BEGIN
-   SELECT tutorial_id, points_min, points_max, dataset, status 
-     INTO next_tutorial_id, s_points_min_, s_points_max_, s_dataset_, s_status_
+   SELECT tutorial_id, points_min, points_max, ds_id,    is_open,  algorithm
+     INTO tutid_,      pmin_,      pmax_,      dataset_, is_open_, algorithm_
      FROM sqltutor.sessions
-    WHERE session_id=session_id_ 
-      AND hash_ = md5(cast(time AS text));
-
-
-   IF s_points_min_ IS NULL AND 
-      s_points_max_ IS NULL AND 
-      s_dataset_    IS NULL
-   THEN
-      /* algorithm 2 */
-
-      SELECT coalesce(max(points),1) INTO max_points_
-        FROM sqltutor.questions AS q
-             JOIN
-             sqltutor.sessions_answers AS s
-             ON (q.tutorial_id = s.tutorial_id AND q.id = s.question_id)
-       WHERE session_id = session_id_;
-
-      IF max_points_ < 5 THEN
-
-         SELECT count(*) INTO a_count_
-           FROM sqltutor.questions AS q
-                JOIN
-                sqltutor.sessions_answers AS s
-                ON (q.tutorial_id = s.tutorial_id AND q.id = s.question_id)
-          WHERE s.session_id = session_id_
-            AND s.correct
-            AND q.points = max_points_;
-         
-         IF a_count_ >= max_points_ THEN
-            max_points_ := max_points_ + 1;
-         END IF;
-
-         IF max_points_ < 5 THEN
-            s_points_min_ := max_points_;  
-            
-            SELECT id INTO next_question_id
-              FROM (SELECT id, points, random() AS rand
-                      FROM sqltutor.questions
-                     WHERE (tutorial_id = next_tutorial_id) AND
-                           (s_points_min_ <= points) AND
-                           (s_status_ = 'open') AND
-                           (id NOT IN (SELECT question_id 
-                                           FROM sqltutor.sessions_answers
-                                          WHERE session_id=session_id_))
-                     ORDER BY points ASC, rand
-                     LIMIT 1) next;
-            
-            RETURN;
-         END IF;
-      END IF;
-
-      /* for points >=5 continue with algoritm 1 */
-      s_points_min_ := 5;       
-
+    WHERE session_id = session_id_
+     AND hash_ = md5(cast(start AS text));
+ 
+   IF is_open_ = 0 THEN
+      RETURN;
    END IF;
-
-
-   /* algorithm 1 */
-
-   SELECT id INTO next_question_id
-     FROM (SELECT q.id, random() AS rand
-             FROM sqltutor.questions AS q
-            WHERE (next_tutorial_id = tutorial_id) AND 
-                  (s_dataset_ IS NULL OR s_dataset_ = q.dataset) AND
-                  (s_points_min_ IS NULL OR s_points_min_ <= q.points) AND
-                  (s_points_max_ IS NULL OR s_points_max_ >= q.points) AND
-                  (s_status_ = 'open') AND
-                  (id NOT IN (SELECT question_id 
-                                  FROM sqltutor.sessions_answers
-                                 WHERE session_id=session_id_))
-            ORDER BY rand
-            LIMIT 1) next;
-
-   RETURN ;
+ 
+   IF algorithm_ = 2 THEN
+      SELECT q2_dataset_id, q2_problem_id, q2_q_ord, q2_language_id 
+        INTO dataset_id, problem_id, q_ord, language_id
+        FROM sqltutor.next_q2(tutid_, session_id_, pmin_, pmax_, dataset_);
+        RETURN;
+   ELSE /*1*/  
+      SELECT q1_dataset_id, q1_problem_id, q1_q_ord, q1_language_id 
+        INTO dataset_id, problem_id, q_ord, language_id
+        FROM sqltutor.next_q1(tutid_, session_id_, pmin_, pmax_, dataset_);
+        RETURN;
+   END IF;
+   
 END;
 $$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION sqltutor.next_q1
+(
+   IN  tutorial_id_ integer,
+   IN  session_id_  integer,
+   IN  points_min_  integer,
+   IN  points_max_  integer,
+   IN  dataset_id_  integer,
+
+   OUT q1_dataset_id  integer,
+   OUT q1_problem_id  integer,
+   OUT q1_q_ord       integer,
+   OUT q1_language_id char(2)
+) 
+RETURNS RECORD AS $$
+DECLARE
+BEGIN
+
+  SELECT dataset_id, problem_id, q_ord, language_id
+    INTO q1_dataset_id, q1_problem_id, q1_q_ord, q1_language_id
+    FROM sqltutor.problems 
+         NATURAL JOIN sqltutor.tutorials_problems
+         NATURAL JOIN sqltutor.tutorials
+         NATURAL JOIN sqltutor.questions 
+         NATURAL JOIN sqltutor.answers
+   WHERE tutorial_id = tutorial_id_ 
+     AND (dataset_id_ IS NULL OR dataset_id = dataset_id_)
+     AND (points_min_ = 0 OR points_min_ <= points)
+     AND (points_max_ = 0 OR points_max_ >= points) 
+     AND problem_id NOT IN (SELECT problem_id
+                              FROM sqltutor.sessions_questions
+                             WHERE session_id = session_id_)
+   ORDER BY random()
+   LIMIT 1;
+
+   END;
+   $$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION sqltutor.next_q2
+(
+   IN  tutorial_id_ integer,
+   IN  session_id_  integer,
+   IN  points_min_  integer,
+   IN  points_max_  integer,
+   IN  dataset_id_  integer,
+
+   OUT q2_dataset_id   integer,
+   OUT q2_problem_id   integer,
+   OUT q2_q_ord        integer,
+   OUT q2_language_id  char(2)
+) 
+RETURNS RECORD AS $$
+DECLARE
+   maxp  integer;
+   minp  integer;
+   total integer;
+   nextq integer;
+BEGIN
+
+   SELECT coalesce(sum(points), 0) INTO total
+   FROM   (SELECT points*CASE correct WHEN 1 THEN 1 ELSE -1 END
+             FROM sqltutor.sessions_questions
+                  NATURAL JOIN sqltutor.problems
+            WHERE session_id = session_id_
+          ) AS T (points);
+
+   IF     total <  3 THEN minp := 2; maxp := 3;
+   ELSEIF total <  7 THEN minp := 3; maxp := 4;
+   ELSEIF total < 17 THEN minp := 4; maxp := 5;
+   ELSEIF total < 29 THEN minp := 4; maxp := 6;
+   ELSEIF total < 43 THEN minp := 5; maxp := 7;
+   ELSEIF total < 51 THEN minp := 5; maxp := 8;
+   ELSE                   minp := 8; maxp := 0;
+   END IF;
+
+   WHILE maxp < 12 LOOP
+      SELECT q1_dataset_id, q1_problem_id, q1_q_ord, q1_language_id
+        INTO q2_dataset_id, q2_problem_id, q2_q_ord, q2_language_id
+        FROM sqltutor.next_q1(tutorial_id_,session_id_,minp,maxp,dataset_id_);
+
+      IF q2_dataset_id IS NOT NULL THEN
+         RETURN;
+      END IF;
+
+      maxp := maxp + 1;
+   END LOOP;
+
+   SELECT q1_dataset_id, q1_problem_id, q1_q_ord, q1_language_id
+     INTO q2_dataset_id, q2_problem_id, q2_q_ord, q2_language_id
+     FROM sqltutor.next_q1(tutorial_id_, session_id_, minp, 0, dataset_id_);
+
+   RETURN;
+
+END;
+$$ LANGUAGE plpgsql;
+
+

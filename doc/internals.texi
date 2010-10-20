@@ -1,56 +1,99 @@
-@section How to add new tutorial
+Sqltutor schema is design to enable multiligual translations of
+tutorial questions with common @emph{problem} atributes and SQL
+solutions (anwers). For a given problem one or more questions can be
+defined with one or more possible solutions. A @emph{dataset} is a set
+of problems with given point evaluation and a common set of
+tables. Tutorials are defined as selections of datasets.
 
-Tutorials are stored in the directory @file{tutorials}. Each
-tutorial is by convention placed in a single directory named
-@file{xx.name} wher xx is a two letter language code (for example 
-@file{en.zqlzoo}).
+@float Figure, Sqltutor database schema
+@caption{Sqltutor database schema}
+@image{schema,,3.5in}
+@end float
 
-To add the a tutorial to the database run SQL function
-@code{init_tutorial} like
-
-@example
-SELECT sqltutor.init_tutorial('English', 'SQLzoo', 'en.sqlzoo');
-@end example
-
-@noindent where first two parameters define tutorial language and name (used in
-the opening dialogue) and internal tutorial label.
-
-To populate the new tutorial with questions you can use @file{quiz}
-files, which are just plain SQL scripts with some functionality and
-parameters defined in SQL comments.@footnote{SQL comments, both
-@code{/* @dots{} */} and @code{-- @dots{}}, in quiz files must not be
-used recursively.}  Quiz files are converted to a standard
-SQL batch by helper program @file{quiz}.
-
-@example
-../.quiz/quiz en.sqlzoo $(QUIZ_FILES) | psql $(SQLTUTOR_DATABASE)
-@end example
-
-@noindent where first parameter is the tutorial label.
+Tutorials, datasets and problems are defined in SQL language with a
+set of stored procedures. An example of how to define a dataset is
+given a file @code{compute_store.sql} with description of all steps
+in the comments.
 
 @section How to add new dataset
 
-Datasets are organized similarly to tutorials in a directory
-@file{tutorials} in separate subdirectories. After populating the
-database with tutoral tables and data you run SQL function
-@code{sqltutor.init_dataset('buses', 2008, 'http://sqlzoo.net/')} with
-parameters tutorial name, year and data source. For each table the
-function @code{sqltutor.add_ds_table('buses', 1, 'route', 'num,
-company, pos, stop')"} where second parameter is the order in which
-the table is listed in tutorial dialog, table name and list of
-columns.
+To define a dataset we have to introduce its name (function
+@code{init_dataset} and optionaly describe its data source or sources
+(function @code{add_ds_source}). Dataset tables are described by calls
+to function @code{add_ds_table} where parameters are dataset name,
+priority in which tables are listed in tutorail questions, table name
+and the list of its column names (attributes).
 
 @noindent Example:
 
 @example
-psql $(SQLTUTOR_DATABASE) \
-   -c "SELECT sqltutor.init_dataset('buses', 2008, 'http://sqlzoo.net/')"
-psql $(SQLTUTOR_DATABASE) \
-   -c "SELECT sqltutor.add_ds_table('buses', 1, 'stops',   'id, name')"
-psql $(SQLTUTOR_DATABASE) \
-   -c "SELECT sqltutor.add_ds_table('buses', 2, 'route',   \
-                                    'num, company, pos, stop')"
+SELECT init_dataset ('computer_store');
+SELECT add_ds_source('computer_store', 2010,
+       'http://en.wikibooks.org/wiki/SQL_Exercises/The_computer_store');
+SELECT add_ds_table ('computer_store', 1, 'manufacturers', 'code, name');
+SELECT add_ds_table ('computer_store', 2, 'products',
+                     'code, name, price, manufacturer');
 @end example
+
+For each @emph{problem} we can formulate one or more quesitions and
+one or more answers (sql queries). Within a dataset each problem is
+described by a unique identification number (secon parameter of the
+function @code{insert_problem}) followed by its point rating.
+
+@example
+-- dataset name, internal problem_id, points, category
+-- (currently unused)
+SELECT insert_problem ('computer_store', 10, 1, 'select');
+
+-- dataset name, internal problem id, order, language, question text
+SELECT insert_question('computer_store', 10, 1, 'en',
+       'Select the names and the prices of all the products 
+        in the store.');
+
+--  dataset name, internal dataset id, order, language, sql answer
+SELECT insert_answer  ('computer_store', 10, 1,
+                       'SELECT name FROM products;');
+@end example
+
+@noindent Tutoriual questions can be translated to other languages.
+
+@example
+-- Problem defines id, point rating and category
+SELECT insert_problem ('computer_store', 30, 2, 'select');
+SELECT insert_question('computer_store', 30, 1, 'en',
+       'Select the names of the products with a price less
+        than or equal to $200.');
+SELECT insert_answer  ('computer_store', 30, 1,
+       'SELECT name FROM products WHERE price <= 200;');
+
+-- Czech translation of problem id 30.  Answers (SQL code) are shared
+-- among all translations
+SELECT insert_question('computer_store', 30, 1, 'cs',
+                       'Vypište jména všech produktů, jejichž cena
+                        je menší nebo rovna 200 dolarů.');
+@end example
+
+@section How to add new tutorial
+
+A tutorial definition is simple, we introduce its language and name and
+add to it selected datasets.
+
+@example
+SELECT init_tutorial ('en', 'Demo');
+SELECT insert_dataset('Demo', 'en', 'computer_store');
+
+SELECT init_tutorial ('cs', 'Demo');
+SELECT insert_dataset('Demo', 'cs', 'computer_store');
+@end example
+
+@noindent Tutorials can be easily deleted. Datasets are independent on
+tutorials and they are not affected in any way when a tutorial
+referencing to them is deleted.
+
+@example
+SELECT delete_tutorial('cs', 'Demo');
+@end example
+
 
 @section Doxygen
 

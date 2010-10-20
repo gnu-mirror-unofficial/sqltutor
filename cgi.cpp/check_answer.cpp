@@ -1,6 +1,6 @@
 /* 
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2010  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
  
    GNU Sqltutor is free software: you can redistribute it and/or modify
@@ -15,10 +15,6 @@
    
    You should have received a copy of the GNU General Public License
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/* 
- * $Id: check_answer.cpp,v 1.3 2009/04/01 18:12:37 cepek Exp $ 
  */
 
 #include "sqltutor.h"
@@ -86,9 +82,11 @@ void SQLtutor::check_answer(pqxx::work& tran)
     sql_result_columns = sql_result.columns();
   }
 
-  result tmp1(tran.exec("SELECT answer FROM answers"
-                        " WHERE tutorial_id = '" + tutorial_id + "'"
-                        "   AND question_id = '" + question_id + "'" ));
+  result tmp1(tran.exec("SELECT answer"
+                        "  FROM answers"
+                        " WHERE dataset_id = " + dataset_id + " " 
+                        "   AND problem_id = " + problem_id + " " 
+                        " ORDER by priority ASC"));
   string answer = tmp1.begin()[0].as(string());
 
   result answer_result(tran.exec(answer));
@@ -106,13 +104,6 @@ void SQLtutor::check_answer(pqxx::work& tran)
       if (col !=  sql_tutor_columns-1) columns_tutor << ", ";
     }
 
-  //result tmp_tutor(tran.exec("CREATE TEMPORARY TABLE tmp_tutor ( "
-  //                           + columns_tutor.str() + " ) AS " + answer));
-  //result tmp_user (tran.exec("CREATE TEMPORARY TABLE tmp_user ( "
-  //                           + columns_tutor.str() + " ) AS " + sql));
-
-  // subquery is used to enable usage of column aliases in ORDER BY
-  // clauses etc.
   result tmp_tutor(tran.exec("CREATE TEMPORARY TABLE tmp_tutor ( "
                              + columns_tutor.str() + " ) AS SELECT * FROM ( " 
                              + semicolumn(answer)  + " ) TMP"));
@@ -128,15 +119,6 @@ void SQLtutor::check_answer(pqxx::work& tran)
       column_type_user [i] = colt( user_result  .column_type(i) );
       column_type_tutor[i] = colt( answer_result.column_type(i) );
     }
-  // form << "columns user : ";
-  // for (size_t i=0; i<sql_result_columns; i++) 
-  //   form << column_type_user [i] << " ";
-  // form << "<br/>";
-  // form << "columns tutor: ";
-  // for (size_t i=0; i<sql_result_columns; i++) 
-  //   form << column_type_tutor[i] << " ";
-  // form << "<br/>";
-
  
   Permutation perm(sql_result_columns);
   first_permutation = true;
@@ -159,34 +141,6 @@ void SQLtutor::check_answer(pqxx::work& tran)
 
       if (candidate_permutation) 
         {
-          // form << "checking permutation: ";
-          // for (int i=0; i<sql_result_columns; i++) form << perm[i] << " ";
-          // form << "<br/>";
-
-          // symmetric difference of two sets/tables 
-          // ---------------------------------------
-          //  
-          // string q =
-          //   "SELECT * FROM ( "
-          //   "              SELECT " + columns_tutor.str() + " FROM tmp_tutor "
-          //   "              EXCEPT ALL "
-          //   "              SELECT " + columns_user.str() +  " FROM tmp_user "
-          //   "              ) AB "
-          //   "UNION "
-          //   "SELECT * FROM ( "
-          //   "              SELECT " + columns_user.str() +  " FROM tmp_user "
-          //   "              EXCEPT ALL "
-          //   "              SELECT " + columns_tutor.str() + " FROM tmp_tutor "
-          //   "              ) BA \n\n"
-          //   ;
-          // result tmp4(tran.exec(q));
-          // 
-          // if (tmp4.empty())
-          //   {
-          //     correct_answer = true;
-          //     break;
-          //   }
-          
           /* split into two queries */
 
           string q1 = 
@@ -217,33 +171,3 @@ void SQLtutor::check_answer(pqxx::work& tran)
 
   save_answer(tran);
 }
-
-
-// rewritten using two NOT IN subqueries (we do not neet the UNION)
-
-/* faster but not safe, fails for some cases with nulls
- * 
- * string q1 =
- *   "SELECT * "
- *   "  FROM tmp_tutor "
- *   " WHERE ( " + columns_tutor.str() + " ) NOT IN "
- *   "          (SELECT " + columns_user.str() + " FROM tmp_user)"
- *   ;
- * 
- * result tmp7(tran.exec(q1));
- * if (tmp7.empty())
- *   {
- *     string q2 =
- *       "SELECT * "
- *       "  FROM tmp_user "
- *       " WHERE ( " + columns_user.str() + " ) NOT IN "
- *       "          (SELECT " + columns_tutor.str() + " FROM tmp_tutor)"
- *       ;
- *     result tmp8(tran.exec(q2));
- *     if (tmp8.empty())
- *       {
- *         correct_answer = true;
- *         break;
- *       }
- *   }
- */

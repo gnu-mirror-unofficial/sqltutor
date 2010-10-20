@@ -9,3 +9,19 @@ permutations are evaluated as correct. For each session queries and
 answers are logged and the final score is evaluated when the test is
 finished. SQLtutor is written in C++ with lipqxx library to connect to
 PostgreSQL database. SQLtutor runs on GNU/Linux.
+
+Installing PostGIS on Debian GNU/Linux
+--------------------------------------
+
+First install PostGIS packages:
+
+$ apt-get install postgis postgresql-8.4-postgis
+
+PostGIS datasets require database with PostGIS support, you can create
+such database e.g. with the following commands (depends on PostGIS
+version):
+
+$ createdb sqltutor
+$ createlang plpgsql sqltutor
+$ psql -d sqltutor -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql
+$ psql -d sqltutor -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql

@@ -1,6 +1,6 @@
 /* 
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2010  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
  
    GNU Sqltutor is free software: you can redistribute it and/or modify
@@ -97,6 +97,7 @@ void CGI::CGI_::run()
     "<html xmlns=\"http://www.w3.org/1999/xhtml\"" 
     " xml:lang=\"en\" lang=\"en\">\n"
     "  <head>\n"
+    "  <style>" << style_ << "</style>"
     "    <meta content=\"text/html; charset=UTF-8\" "
     "http-equiv=\"Content-Type\" />\n"
     "    <title>" << title_ << "</title>\n"

@@ -17,10 +17,6 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: getting_started.cpp,v 1.3 2009/04/01 18:12:37 cepek Exp $ 
- */
-
 #include <pqxx/pqxx>
 #include "sqltutor.h"
 

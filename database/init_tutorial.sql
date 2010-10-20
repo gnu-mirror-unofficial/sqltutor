@@ -1,6 +1,6 @@
 /* 
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2010  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
  
    GNU Sqltutor is free software: you can redistribute it and/or modify
@@ -18,31 +18,90 @@
  */
 
 
-CREATE OR REPLACE FUNCTION sqltutor.init_tutorial(language_ varchar(20),
-                                                  tutorial_ varchar(20),
-                                                  label_    varchar(12))
-RETURNS int
+CREATE OR REPLACE FUNCTION sqltutor.init_tutorial
+(
+   language_id_ varchar(2),
+   tutorial_    varchar(40)
+)
+RETURNS integer
 AS $$
 DECLARE 
-   tid int;
+   tid integer;
+   sid integer;
 BEGIN
-   SELECT tutorial_id INTO tid 
-     FROM sqltutor.tutorials WHERE label=label_;     
+   PERFORM sqltutor.delete_tutorial(language_id_, tutorial_);
 
-   DELETE FROM sqltutor.sessions_answers     WHERE tutorial_id = tid;
-   DELETE FROM sqltutor.sessions             WHERE tutorial_id = tid;
-   DELETE FROM sqltutor.questions_categories WHERE tutorial_id = tid;
-   DELETE FROM sqltutor.answers              WHERE tutorial_id = tid;
-   DELETE FROM sqltutor.questions            WHERE tutorial_id = tid;
-   DELETE FROM sqltutor.tutorials            WHERE label = label_;
-
-   INSERT INTO sqltutor.tutorials ( language,  tutorial,  label  ) 
-                           VALUES ( language_, tutorial_, label_ );
+   INSERT INTO sqltutor.tutorials (language_id,  tutorial ) 
+                           VALUES (language_id_, tutorial_);
 
    SELECT tutorial_id INTO tid 
-     FROM sqltutor.tutorials WHERE label=label_;
+     FROM sqltutor.tutorials 
+    WHERE language_id = language_id_ 
+      AND tutorial    = tutorial_;     
 
    return tid;
 END
 $$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION sqltutor.delete_tutorial
+(
+   language_id_ varchar(2),
+   tutorial_    varchar(40)
+)
+RETURNS void
+AS $$
+DECLARE 
+   tid integer;
+BEGIN
+   SELECT tutorial_id INTO tid 
+     FROM sqltutor.tutorials 
+    WHERE language_id = language_id_ 
+      AND tutorial    = tutorial_;     
+
+   DELETE FROM sqltutor.sessions_questions
+         WHERE session_id  IN  ( SELECT session_id
+                                   FROM sqltutor.sessions 
+                                  WHERE tutorial_id = tid );
+   DELETE FROM sqltutor.tutorials_problems
+                                  WHERE tutorial_id = tid;
+   DELETE FROM sqltutor.sessions  WHERE tutorial_id = tid;
+   DELETE FROM sqltutor.tutorials WHERE tutorial_id = tid;
+END
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION sqltutor.insert_dataset
+(
+   tutorial_    varchar(40),
+   language_id_ char(2),
+   dataset_     varchar(40)
+)
+RETURNS varchar(90)
+AS $$
+DECLARE 
+   tut integer;
+   dat integer;
+BEGIN
+   SELECT tutorial_id INTO tut 
+     FROM sqltutor.tutorials 
+    WHERE tutorial = tutorial_ 
+      AND language_id = language_id_;
+
+   SELECT dataset_id INTO dat 
+     FROM sqltutor.datasets
+    WHERE dataset = dataset_;
+
+   INSERT INTO sqltutor.tutorials_problems
+          SELECT DISTINCT tut, dat, problem_id
+            FROM sqltutor.problems
+                 NATURAL JOIN sqltutor.questions
+                 NATURAL JOIN sqltutor.datasets
+           WHERE dataset_id  = dat
+             AND language_id = language_id_;
+
+   RETURN tutorial_ || ' ' || language_id_ || ' ' || dataset_;
+END
+$$ LANGUAGE plpgsql;
+
 

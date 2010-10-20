@@ -1,3 +1,21 @@
+2010-08-12  Ales Cepek  <cepek@gnu.org>
+
+	* cvs repository moved to git
+
+$ git cvsimport -d:pserver:anonymous@cvs.sv.gnu.org:/sources/sqltutor sqltutor
+
+$ git branch
+* master
+  origin
+
+$ git diff --name-status master..origin
+$ git tag sqltutor-0.6
+$ git branch -d origin
+
+$ git push --tags -v  cepek@git.sv.gnu.org:/srv/git/sqltutor.git
+$ git push --all  -v  cepek@git.sv.gnu.org:/srv/git/sqltutor.git
+
+
 2010-02-04  Ales Cepek  <cepek@gnu.org>
 
 	* released version 0.6

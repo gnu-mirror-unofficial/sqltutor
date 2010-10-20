@@ -1,6 +1,6 @@
 /*
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2010  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
  
    GNU Sqltutor is free software: you can redistribute it and/or modify
@@ -15,10 +15,6 @@
    
    You should have received a copy of the GNU General Public License
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/* 
- * $Id: cgi.h,v 1.8 2010/02/04 12:51:40 cepek Exp $ 
  */
 
 #ifndef cgi_h___SQLTUTOR_CGI_H___sqltutor_cgi_h
@@ -207,6 +203,9 @@ class CGI : public Element {
     /** Set the page title (HTML tag \<TITLE\>) */
     void set_title(std::string t)  { title_ = t; }
     
+    /** Set embeded style sheet */
+    void set_style(std::string s)  { style_ = s; }
+
     /** Container with attribute/value pairs (CGI variables). 
      *
      * The contianer is implicitly initialised by the CGI_() constructor.
@@ -225,6 +224,7 @@ class CGI : public Element {
     static CGI_*  instance_;
     Elist         cgi_elist;
     std::string   title_;
+    std::string   style_;
     friend class  Form;
   };
 
@@ -236,6 +236,7 @@ public:
   CGI() : Element( CGI_::instance() ) { cgi_ = CGI_::instance(); }
   void run()                          { cgi_->run(); }
   void set_title(std::string t)       { cgi_->set_title(t); }
+  void set_style(std::string t)       { cgi_->set_style(t); }
 
   /** Static method returns CGI environment (CGI Scope) variable or
    *  empty string if not available. 
@@ -725,7 +726,7 @@ public:
   *   Optgroup europe("Europe");
   *   europe    << Option("1", "London") << Option("2", "Paris")
   *             << Option("3", "Rome") << Option("4", "Berlin") << Option("5", "Prague");
-  *   Optgroup america("North America");
+  *   Optgroup namerica("North America");
   *   namerica  << Option("6", "New York") << Option("7", "Washington")
   *             << Option("8", "San Francisco") << Option("9", "Vancouver");
   *   Optgroup australia("Australia");

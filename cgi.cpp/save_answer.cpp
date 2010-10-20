@@ -17,10 +17,6 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: save_answer.cpp,v 1.4 2009/04/01 18:12:38 cepek Exp $ 
- */
-
 #include "sqltutor.h"
 
 namespace 
@@ -40,7 +36,7 @@ namespace
 
 void SQLtutor::save_answer(pqxx::work& transaction)
 {
-  const std::string correct = correct_answer ? "true" : "false";
+  const std::string correct = correct_answer ? "1" : "0";
   if (correct_answer) sql_checked = "yes";
 
   std::string tmp = "'" + apostrophes(sql) + "'"; 
@@ -51,10 +47,10 @@ void SQLtutor::save_answer(pqxx::work& transaction)
   work   tran(conn, "save_answer");
   set_schema(tran);
 
-  result res2(tran.exec("SELECT status "
+  result res2(tran.exec("SELECT is_open "
                         "  FROM sessions "
                         " WHERE session_id = " + session_id + " "
-                        "   AND '" +  CGI::map["hash"] + "' = md5(cast(time as TEXT));"
+                        "   AND '" +  CGI::map["hash"] + "' = md5(cast(start as TEXT));"
                         ));
 
   if (res2.empty()) 
@@ -64,18 +60,21 @@ void SQLtutor::save_answer(pqxx::work& transaction)
     }
 
   result::const_iterator r=res2.begin();
-  if (r[0].as(std::string()) == "closed") 
+  if (r[0].as(int()) == 0) 
     {
       form << t_session_closed;
       return;
     }
 
-  result res1(tran.exec("UPDATE sessions_answers "
+  result res1(tran.exec("UPDATE sessions_questions "
                         "   SET correct = " + correct + ", "
                         "       answer = " + tmp + ", "
                         "       time = now() "
-                        " WHERE session_id  = " + session_id + " "
-                        "   AND question_id = " + question_id
+                        " WHERE session_id  = " + session_id  + " "
+                        "   AND dataset_id  = " + dataset_id  + " "
+                        "   AND problem_id  = " + problem_id  + " "
+                        "   AND q_ord       = " + q_ord       + " "
+                        "   AND language_id ='" + language_id + "'"
                         ));
   tran.commit();
 }

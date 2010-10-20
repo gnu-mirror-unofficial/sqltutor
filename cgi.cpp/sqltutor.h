@@ -17,10 +17,6 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: sqltutor.h,v 1.8 2009/04/01 18:12:38 cepek Exp $ 
- */
-
 #ifndef __h___SQLTUTOR_H___sqltutor_h___SQLtutor
 #define __h___SQLTUTOR_H___sqltutor_h___SQLtutor
 
@@ -41,13 +37,6 @@ public:
 
   void run();
   
-  template<typename Form> static void 
-  display_answers(Form&,  pqxx::work& tran, std::string session_id);
-
-  template<typename Form> static void 
-  display_question(Form&,  pqxx::work& tran, 
-                   std::string tutorial_id, std::string question_id);
-
 private:
 
   // user settings
@@ -65,6 +54,7 @@ private:
   static const std::string main_sql;
   static const std::string remaining_rows;
   static const std::string new_test;
+  static const std::string reload_page;
   static const std::string test_finished;
   static const std::string t_tutorial;
   static const std::string t_user;
@@ -100,6 +90,8 @@ private:
   static const std::string t_no_datasets;
   static const std::string t_empty_set;
   static const std::string t_welcome;
+  static const std::string t_geometry;
+
 
   // program settings
 
@@ -120,6 +112,8 @@ private:
     const char* what() { return "SQLtutor : All Questions Done"; }
   };
 
+  enum { max_row_count = 30 };
+
   CGI           cgi;
   Form          form;
   size_t        sql_result_size; 
@@ -131,10 +125,14 @@ private:
   std::string   sql;
   std::string   sql_checked;
   std::string   tutorial_id;
-  std::string   question_id;
+  std::string   dataset_id;
+  std::string   problem_id;
+  std::string   q_ord;
+  std::string   language_id;
   std::string   answered;
   std::string   session_id;
   std::string   hash;
+  std::string   all_qasked;
 
   void form_init();
   void form_main();
@@ -147,7 +145,7 @@ private:
   void save_answer     (pqxx::work& transaction);
   void set_schema      (pqxx::work& transaction)
   {
-    transaction.exec("SET search_path TO sqltutor;");
+    transaction.exec("SET search_path TO sqltutor, sqltutor_data, public;");
   }
 
   void show_sql_result  ();
@@ -156,7 +154,19 @@ private:
   std::string button_sep() { return "&nbsp;&nbsp;&nbsp;&nbsp;"; }
   bool empty            (std::string);
 
-  std::string tutorial_selection();
+  Select tutorial_selection();
+
+  void display_answers (Form&,  pqxx::work& tran, std::string session_id);
+  void display_question(Form&,  pqxx::work& tran,
+                        std::string dataset_id,
+                        std::string problem_id,
+                        std::string q_ord,
+                        std::string language_id);
+
+  // postgis
+
+  pqxx::oid geom_oid;
+
 };
 
 

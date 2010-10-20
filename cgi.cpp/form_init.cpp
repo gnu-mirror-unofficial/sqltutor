@@ -17,10 +17,6 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: form_init.cpp,v 1.7 2009/04/01 18:12:37 cepek Exp $ 
- */
-
 #include <pqxx/pqxx>
 #include "cgi.h"
 #include "sqltutor.h"
@@ -35,11 +31,11 @@ namespace
   
   bool number(string s)
   {
-    if (s.empty()) return true;
-    
     string::const_iterator b=s.begin(), e=s.end();
     while (b != e && isspace(*b)) b++;
     
+    if (b == e) return true;
+
     int count = 0;
     while (b != e)
       {
@@ -58,7 +54,8 @@ namespace
     return true;
   }
 
-  string param(const string& ap, const string& val)
+  string param(const string& ap, const string& val, 
+               const string& implicit_value="NULL")
   {
     bool empty = true;
     for (string::const_iterator b=val.begin(), e=val.end(); b!=e; ++b)
@@ -67,7 +64,7 @@ namespace
           empty = false;
           break;
         }
-    if (empty) return "NULL";
+    if (empty) return implicit_value;
 
     return ap + val + ap;
   }
@@ -76,7 +73,7 @@ namespace
 
 void SQLtutor::form_init()
 {
-  const string state    = CGI::map["state"];
+  string state          = CGI::map["state"];
   const string user     = CGI::map["user"];
   const string tutorial = CGI::map["tutorial"];
 
@@ -85,46 +82,41 @@ void SQLtutor::form_init()
   string pmax  = CGI::map["points_max"];
   string dset  = CGI::map["dataset"];
 
+  Table perr(2);
+
   if (!number(pmin))
     {
       error = true;
-      form << t_bad_value_min << ": " << pmin << " <br/>";
+      perr << t_bad_value_min << pmin;
     }
   if (!number(pmax))
     {
       error = true;
-      form << t_bad_value_max << ": " << pmax << " <br/>";
+      perr << t_bad_value_max << pmax;
     }
   
   if (error)
     {
-      CGI::map["state"] =  init_state;
-      CGI::map["user"]  = "";
-      
-      form << "<br/>";
-      form_init();
-      return;
+      CGI::map["state"] = init_state;    
     }
-  
+
   if (state == init_continue && tutorial != "0")
     try 
       {
-        string help; 
-        if (!CGI::map["help"].empty())
-          help = "true";
-        else
-          help = "false";
+        // checked by form_main()
+        if (CGI::map["help"].empty()) CGI::map["help"] = "0"; 
 
+        const string ihelp = (CGI::map["help"] == "true") ? "1" : "0";
         const string open = 
           "SELECT session_id_, hash_ FROM open_session (" +
-          param(" ", tutorial                  ) + ", " +   
-          param("'", CGI::map["user"]          ) + ", " +   
-          param("'", CGI::map["password"]      ) + ", " +  
-          param(" ", CGI::map["points_min"]    ) + ", " +  
-          param(" ", CGI::map["points_max"]    ) + ", " +  
-          param("'", CGI::map["dataset"]       ) + ", " +  
-          param(" ", help                      ) + ", " +  
-          param("'", CGI::getenv("REMOTE_ADDR")) + ");";
+          param(" ", tutorial                    ) + ", " +
+          param("'", CGI::map["user"]            ) + ", " +
+          param("'", CGI::map["password"]        ) + ", " +
+          param(" ", CGI::map["points_min"], "0" ) + ", " +
+          param(" ", CGI::map["points_max"], "0" ) + ", " +
+          param("'", CGI::map["dataset"]         ) + ", " +
+          param(" ", ihelp,                  "0" ) + ", " +
+          param("'", CGI::getenv("REMOTE_ADDR")  ) + ");";
 
         using namespace pqxx;
         connection  conn( db_connection );
@@ -132,18 +124,28 @@ void SQLtutor::form_init()
         set_schema(tran);
         result res1(tran.exec(open));
         result::const_iterator q = res1.begin();
-        if (q == res1.end()) throw "...";
-        string session_id  = q[0].as(string());
-        string hash        = q[1].as(string());
-        tran.commit();
-        
-        CGI::map.clear();
-        CGI::map["session_id"] = session_id;
-        CGI::map["state"]      = main_next;
-        CGI::map["hash"]       = hash;
-        CGI::map["help"]       = help;            // checked by form_main() 
-
-        return form_main();
+        if (q == res1.end())
+	  {
+	    error = true;
+	    perr << "Login failed for user ";
+	    if (user.empty()) 
+	      perr << "...";
+	    else
+	      perr << user;
+	  }
+	else
+	  {
+	    string session_id  = q[0].as(string());
+	    string hash        = q[1].as(string());
+	    tran.commit();
+	    
+	    CGI::map.clear();
+	    CGI::map["session_id"] = session_id;
+	    CGI::map["state"]      = main_next;
+	    CGI::map["hash"]       = hash;
+	    
+	    return form_main();
+	  }
       }
     catch (const std::exception& s) 
       {
@@ -152,48 +154,53 @@ void SQLtutor::form_init()
         return;
       }
 
-  Par welcome;
-  welcome << "<strong>" << t_welcome << "</strong>";
-  form    << welcome;
+  Strong welcome;
+  welcome << t_welcome;
+  form    << (Par() << welcome);
 
+  if (error)
+    {
+      form << perr << "<br/>";
+    }
+  
   form << "<table>";
   form << "<tr>" 
-       << "<td>" + t_tutorial + "&nbsp;</td>"
+       << "<td>" + t_tutorial + "</td>"
        << "<td>"
        << tutorial_selection()
        << "</td>"
        << "</tr>";
   form << emptyrow();
   form << "<tr>"
-       << "<td>" + t_user + "&nbsp;</td>" 
+       << "<td>" + t_user + "</td>"
        << "<td>" 
-       << InputText("user").value("guest").disabled()
+       << InputText("user").value("")
        << "</td>"
        << emptycol()
-       << "<td>" + t_password + "&nbsp;</td>"
+       << "<td>" + t_password + "</td>"
        << "<td>"
-       << InputPassword("password").value("").disabled()
+       << InputPassword("password").value("")
        << "</td>"
        << "</tr>";
   form << emptyrow();
   form << "<tr>"
-       << "<td>" + t_points_min + "&nbsp;</td>"
+       << "<td>" + t_points_min + "</td>"
        << "<td>"
        << InputText("points_min").value(pmin)
        << "</td>"
        << emptycol()
-       << "<td>" + t_points_max + "&nbsp;</td>" 
+       << "<td>" + t_points_max + "</td>"
        << "<td>"
        << InputText("points_max").value(pmax)
        << "</td>"
        << "</tr>";
   form << "<tr>"
-       << "<td>" + t_dataset + "&nbsp;</td>"
+       << "<td>" + t_dataset + "</td>"
        << "<td>"
        << InputText("dataset").value(dset) 
        << "</td>" 
        << emptycol()
-       << "<td>" + t_help + "&nbsp;</td>"
+       << "<td>" + t_help + "</td>"
        << "<td>";
 
   form << InputCheckbox("help").value("true").checked(!CGI::map["help"].empty());

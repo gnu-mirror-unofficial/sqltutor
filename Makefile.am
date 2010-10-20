@@ -14,6 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS    = cgi.cpp database tutorials datasets doc
+SUBDIRS    = cgi.cpp database datasets doc
 
 EXTRA_DIST = autogen.sh 

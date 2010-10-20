@@ -17,10 +17,6 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: show_sql_result.cpp,v 1.4 2009/04/01 18:12:38 cepek Exp $ 
- */
-
 #include "sqltutor.h"
 
 void SQLtutor::show_sql_result()
@@ -34,19 +30,19 @@ void SQLtutor::show_sql_result()
   result sql_result(tran.exec(sql));
   
   const size_t columns = sql_result.columns(), total_count=sql_result.size();
-  size_t       max_count=50, row_count = 0;
+  size_t       row_count = 0;
 
   form << "<table border='1'>";
   
   if (sql_result.empty())
     {
-      form << "<tr><td><em>&nbsp;"  << t_empty_set << "&nbsp;<em/></td></tr>";
+      form << "<tr><td><em>"  << t_empty_set << "<em/></td></tr>";
     }
 
   for (pqxx::result::const_iterator 
          b=sql_result.begin(), e=sql_result.end(); b!=e; b++)
     {
-      if (++row_count > max_count && row_count != total_count) 
+      if (++row_count > max_row_count && row_count != total_count) 
         {
           // IE6 doesn't honor the colspan="0", with or without a
           // colgroup defined
@@ -60,9 +56,14 @@ void SQLtutor::show_sql_result()
         }
       form << "<tr>";
       for (size_t c=0; c<columns; c++)
-        {
-          form << "<td> &nbsp; " << b[c].as(std::string()) << " &nbsp; </td>";
-        }
+	if (b[c].type() == geom_oid)  // postgis geometry
+	  {
+	    form << "<td>" << t_geometry << "</td>";
+	  }
+	else
+	  {
+	    form << "<td>" << b[c].as(std::string()) << "</td>";
+	  }
       form << "</tr>";
     }
   

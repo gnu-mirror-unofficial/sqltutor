@@ -17,7 +17,7 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
+/* NOT USED
 CREATE OR REPLACE FUNCTION sqltutor.merge_category
 (
    IN tutorial_id_ integer,
@@ -56,3 +56,4 @@ BEGIN
    END IF;
 END;
 $$ LANGUAGE plpgsql;
+*/

@@ -17,10 +17,6 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: submit_sql.cpp,v 1.4 2009/04/01 18:12:38 cepek Exp $ 
- */
-
 #include "sqltutor.h"
 
 void SQLtutor::submit_sql(pqxx::work& tran)
@@ -29,24 +25,30 @@ void SQLtutor::submit_sql(pqxx::work& tran)
 
   check_answer(tran);
 
+  Table errt(1);
+  errt.th(t_wrong_answer);
   bool error = false;
   if (sql_result_columns != sql_tutor_columns)
     {
-      if (!error) form << "<p><b>" + t_wrong_answer + "</b><br/>";
-      form << t_unmatched_cols << " " << sql_result_columns 
-           << ", " << t_should_be << " " << sql_tutor_columns << "</p>";
+      std::ostringstream ostr;
+      ostr << t_unmatched_cols << " " << sql_result_columns << ", " 
+           << t_should_be      << " " << sql_tutor_columns;
+      errt << ostr.str();
       error = true;
     }
   if (sql_result_size != sql_tutor_size)
     {
-      if (!error) form << "<p><b>" + t_wrong_answer + "</b><br/>";
-      form << t_unmatched_rows << " " << sql_result_size 
-           << ", " << t_should_be << " " << sql_tutor_size << "</p>";
+      std::ostringstream ostr;
+      ostr << t_unmatched_rows << " " << sql_result_size << ", "
+           << t_should_be      << " " << sql_tutor_size;
+      errt << ostr.str();
       error = true;
     }
-  
-  
-  if (error) return;
+  if (error)
+    {
+      form << errt << Par();
+      return;
+    }
 
   if (correct_answer)
     {

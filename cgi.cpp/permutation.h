@@ -17,10 +17,6 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: permutation.h,v 1.3 2009/04/01 18:12:38 cepek Exp $ 
- */
-
 #ifndef Permutation_h__PERMUTATION_H__Permutation_H__
 #define Permutation_h__PERMUTATION_H__Permutation_H__
 

@@ -17,10 +17,6 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: show_datasets.cpp,v 1.3 2009/04/01 18:12:38 cepek Exp $ 
- */
-
 #include <pqxx/pqxx>
 #include "sqltutor.h"
 
@@ -37,25 +33,29 @@ void SQLtutor::show_datasets()
   connection  conn( db_connection );
   work   tran(conn, "show_datasets");
   set_schema(tran);
-  result res(tran.exec(
-                       "SELECT t.dataset, t.tabscount, d.ds_table, d.columns "
+  result res(tran.exec("SELECT DISTINCT d.dataset, t.tabscount, dt.ds_table,"
+                       "                dt.columns, dt.dt_ord "
                        "  FROM datasets AS d"
                        "       JOIN "
-                       "       (SELECT dataset, count(ds_table) as tabscount "
-                       "          FROM datasets "
-                       "         GROUP BY dataset) AS t "
-                       "       ON (d.dataset = t.dataset) "
+                       "       problems AS p"
+                       "       ON d.dataset_id = p.dataset_id"
+                       "       JOIN"
+                       "       tutorials_problems AS tp"
+                       "       ON tp.problem_id = p.problem_id"
+                       "          AND tp.dataset_id = d.dataset_id "
+                       "          AND tp.tutorial_id = " + tutorial_id +
                        "       JOIN "
-                       "       (SELECT DISTINCT dataset "
-                       "          FROM questions "
-                       "         WHERE tutorial_id=" + tutorial_id + ") AS q "
-                       "       ON (d.dataset = q.dataset) "
-                       " ORDER BY t.tabscount, t.dataset, d.ord; "
-                       ));
-
+                       "       (SELECT dataset_id, count(ds_table) AS tabscount"
+                       "          FROM dataset_tables "
+                       "         GROUP BY dataset_id) AS t "
+                       "       ON (d.dataset_id = t.dataset_id) "
+                       "       JOIN "
+                       "       dataset_tables AS dt"
+                       "       ON dt.dataset_id = d.dataset_id "
+                       " ORDER BY t.tabscount, d.dataset, dt.dt_ord; "));
   if (res.empty()) 
     {
-      form << "<p>" << t_no_datasets << "</p>";
+      form << (Par() << t_no_datasets);
       return;
     }
 

@@ -17,23 +17,14 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: form_stop.cpp,v 1.4 2009/04/01 18:12:37 cepek Exp $ 
- */
-
 #include <pqxx/pqxx>
-#include "cgi.h"
 #include "sqltutor.h"
-#include "display_answers.h"
 
 
 void SQLtutor::form_stop()
 {
   using namespace pqxx;
   using std::string;
-
-  form << "<p>" << test_finished << "&nbsp;&nbsp; ";
-  if (question_id.empty()) form << t_stopped_done << "&nbsp;&nbsp; ";
 
   try
     {
@@ -44,132 +35,102 @@ void SQLtutor::form_stop()
       {
         string time =
           "SELECT cast( ("
-          "   (SELECT max(time) FROM sessions_answers "
+          "   (SELECT max(time) FROM sessions_questions "
           "                          WHERE session_id=" + session_id + ") - "
-          "   (SELECT time      FROM sessions "
+          "   (SELECT start     FROM sessions "
           "                          WHERE session_id=" + session_id +") )"
-          " AS interval(0) ) ";
+          " AS interval(0) ), localtime(0) ";
         result res(tran.exec(time));
 
-        form << res.begin()[0].as(string()) 
-             << "&nbsp;&nbsp; (" << t_session << session_id << ")"
-             << "</p>";
+
+        string hd1; 
+        hd1 += test_finished
+          + "&nbsp;&nbsp;";
+        if (!all_qasked.empty())
+          {
+            hd1 += t_stopped_done + "&nbsp;&nbsp; ";
+            form << InputHidden("all_qasked" ).value( all_qasked  );
+          }
+        hd1 += res.begin()[0].as(string())
+          + "&nbsp;&nbsp; ("
+          + t_session
+          + session_id
+          + ")";
+
+        Table headings(2, "width='100%'");
+        headings.td("align='left'");
+        headings.td("align='right'");
+        headings << hd1
+                 << res.begin()[1].as(string());
+
+        form << (Par() << headings);
       }
 
-      string query    = "select ";
-
-      query += 
-        "(SELECT count(id) "
-        "  FROM questions "
-        " WHERE tutorial_id = '" + tutorial_id + "'"
-        "   AND id IN (SELECT question_id "
-        "                FROM sessions_answers "
-        "               WHERE session_id = " + session_id + ")), ";
-      
-      query += 
-        "(SELECT count(id) "
-        "  FROM questions "
-        " WHERE tutorial_id = '" + tutorial_id + "'"
-        "   AND id IN (SELECT question_id "
-        "                FROM sessions_answers "
-        "               WHERE session_id = " + session_id + " "
-        "                     AND correct)), ";
- 
-      query +=   
-        "(SELECT coalesce(sum(points), '0') "
-        "  FROM questions "
-        " WHERE tutorial_id = '" + tutorial_id + "'"
-        "   AND id IN (SELECT question_id "
-        "                FROM sessions_answers "
-        "               WHERE session_id = " + session_id + " "
-        "                     AND correct)), ";
- 
-      query +=
-        " points_min, points_max, dataset, help "
-        " FROM sessions "
-        "WHERE session_id=" + session_id + " ";
+      string query = "SELECT * FROM sqltutor.evaluation(" 
+	+ session_id + ")";
 
       result res(tran.exec( query ));
       result::const_iterator r=res.begin(), e=res.end();
       if (r != e)
         {
-          int total         = r[0].as(int());
-          int correct       = r[1].as(int());
-          int points        = r[2].as(int());
-          string points_min = r[3].as(string());
-          string points_max = r[4].as(string());
-          string dataset    = r[5].as(string());
-          bool help         = r[6].as(bool());
+	  int evaluation    = r["ev_evaluation"].as(int());
+          int total         = r["ev_total"     ].as(int());
+          int correct       = r["ev_correct"   ].as(int());
+          int points        = r["ev_points"    ].as(int());
+          string points_min = r["ev_points_min"].as(string());
+          string points_max = r["ev_points_max"].as(string());
+          string dataset    = r["ev_dataset"   ].as(string());
+          int    help       = r["ev_help"      ].as(int());
+	  string login      = r["ev_login"     ].as(string());
 
-          bool pars = !points_min.empty() ||
+          if (points_min == "0") points_min.clear();
+          if (points_max == "0") points_max.clear();
+          bool pars = !points_min.empty() || 
                       !points_max.empty() || 
-                      !dataset.empty();  
+                      !dataset.empty();
+          string style;
+          if (help || pars)   style = "style='color:red'";
+	  if (!login.empty()) form << (Par() << login);
 
-          string style = "";
-          if ( help || pars)
-            { 
-              style = "style='color:red'";
-            }
+	  Table eval(3, style);
+	  eval.td("align='left'");
+	  eval.td("align='left'");
+	  eval.td("align='right'");
+	  const string sep = ":";
+	  
+          eval << t_nmbr_questions << sep << total
+	       << t_nmbr_cor_answs << sep << correct
+               << t_total_points   << sep << points
+               << t_evaluation     << sep << evaluation;
 
-          form << "<table border='0' " + style + ">"
-               << "<tr>"
-               << "<td>" + t_nmbr_questions + "</td>"
-               << "<td>:&nbsp;</td><td align='right'>" << total << "</td>"
-               << "</tr>"
-               << "<tr>"
-               << "<td>" + t_nmbr_cor_answs + "</td>"
-               << "<td>:&nbsp;</td><td align='right'>" << correct << "</td>"
-               << "</tr>"
-               << "<tr>"
-               << "<td>" + t_total_points + "</td>"
-               << "<td>:&nbsp;</td><td align='right'>" << points << "</td>"
-               << "</tr>"
-               << "<tr>"
-               << "<td>" + t_evaluation + "</td>"
-               << "<td>:&nbsp;</td><td align='right'>" 
-               << int( double(points*correct)/double(std::max(1, total)) ) 
-               << "</td>"
-               << "</tr>";
+          if (pars) eval << t_points_min << sep << points_min
+			 << t_points_max << sep << points_max
+			 << t_dataset    << sep << dataset;
 
-          if (pars)
-            {
-              form << "<tr><td></td><td></td><td></td><td>"
-                   << "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                   << "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                   << "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                   << "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                   << "</td></tr>"
-                   << "<tr>"
-                   << "<td>" + t_points_min + "</td>"
-                   << "<td>:&nbsp;</td><td align='right'>" << points_min << "</td>"
-                   << "</tr>"
-                   << "<tr>"
-                   << "<td>" + t_points_max + "</td>"
-                   << "<td>:&nbsp;</td><td align='right'>" << points_max << "</td>"
-                   << "</tr>"
-                   << "<tr>"
-                   << "<td>" + t_dataset + "</td>"
-                   << "<td>:&nbsp;</td><td align='left' colspan=2>" << dataset << "</td>"
-                   << "</tr>";
-            }
-
-          form << "</table>";
+	  form << eval;
         }
 
-      form  << "<br/>" 
-            << InputSubmit("next").value( new_test );
-      form << "<br/>";
+      Table tstop(2,  "width='100%'");
+      tstop.td("align='left'");
+      tstop.td("align='right'");
+      tstop << InputSubmit("next").value( new_test )
+            << InputSubmit("state").value( reload_page );
+      Par pstop;
+      pstop << tstop;
+      form  << InputHidden("session_id").value(session_id) << pstop;
+      form  << InputHidden("hash").value(hash);
 
       display_answers(form, tran, session_id);
   
       {
         string close = 
-          "UPDATE sessions SET status='closed' "
+          "UPDATE sessions SET is_open = 0 "
           " WHERE session_id = " + session_id +
-          "   AND '" +  CGI::map["hash"] + "' = md5(time);";
-      
-      result res(tran.exec(close));
-      tran.commit();
+          "   AND is_open = 1 "
+          "   AND '" +  CGI::map["hash"] + "' = md5(cast(start AS text));";
+        
+        result res(tran.exec(close));
+        tran.commit();
       }
 
       CGI::map.clear();
@@ -177,7 +138,7 @@ void SQLtutor::form_stop()
     }
   catch (sql_error s)
     {
-      s.what();
+      form << s.what();
     }
   catch (...)
     {

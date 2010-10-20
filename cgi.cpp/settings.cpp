@@ -17,10 +17,6 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: settings.cpp,v 1.5 2009/04/01 18:12:38 cepek Exp $ 
- */
-
 #include "sqltutor.h"
 #include "config.h"
 
@@ -54,6 +50,7 @@ T SQLtutor::main_data         = "Display data";
 T SQLtutor::main_sql          = "Execute SQL";
 T SQLtutor::remaining_rows    = "Remaining rows not displayed ...";
 T SQLtutor::new_test          = "New test";
+T SQLtutor::reload_page       = "Reload the page";
 T SQLtutor::test_finished     = "Test finished ...";
 T SQLtutor::t_tutorial        = "Tutorial";
 T SQLtutor::t_user            = "User";
@@ -85,10 +82,11 @@ T SQLtutor::t_unknown_state   = "unknown internal state";
 T SQLtutor::t_session         = "session ";
 T SQLtutor::t_session_unknown = "Unknown session ID ... ";
 T SQLtutor::t_session_closed  = "Session has been already closed ... ";
-T SQLtutor::t_select_tutorial = "Please, select tutorial first ... ";
+T SQLtutor::t_select_tutorial = "Please, select a tutorial first ... ";
 T SQLtutor::t_no_datasets     = "No datasets available ... ";
 T SQLtutor::t_empty_set       = "empty set";
 T SQLtutor::t_welcome         = "Welcome to GNU Sqltutor";
+T SQLtutor::t_geometry        = "geometry";
 
 
 /********************************************************************/

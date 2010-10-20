@@ -1,8 +1,8 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 #
-AC_PREREQ(2.61)
-AC_INIT([sqltutor], [0.6], [cepek@gnu.org])
+AC_PREREQ(2.65)
+AC_INIT([sqltutor], [0.7], [cepek@gnu.org])
 AC_CONFIG_SRCDIR([cgi.cpp/sqltutor.cpp])
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_AUX_DIR([config.aux])
@@ -34,7 +34,7 @@ AC_PROG_RANLIB
 # Checks for libraries.
 AC_CHECK_LIB([pqxx], [main])
 
-PKG_CHECK_MODULES([LIBPQXX], [libpqxx >= 2.6.8])
+PKG_CHECK_MODULES([LIBPQXX], [libpqxx >= 3.0.2])
 AC_SUBST(LIBPQXX_CFLAGS)
 AC_SUBST(LIBPQXX_LIBS)
 
@@ -58,25 +58,5 @@ AC_CHECK_FUNCS([memmove memset munmap pow sqrt])
 AC_OUTPUT([Makefile 
            cgi.cpp/Makefile
            database/Makefile
-           tutorials/.quiz/Makefile
-           tutorials/Makefile
-           tutorials/cs.sqltutor/Makefile
-           tutorials/en.sqlzoo/Makefile
-           datasets/Makefile
-           datasets/cs.filmy/Makefile
-           datasets/cs.letadla/Makefile
-           datasets/cs.nobel/Makefile
-           datasets/cs.pracoviste/Makefile
-           datasets/cs.premyslovci/Makefile
-           datasets/cs.staty/Makefile
-           datasets/cs.tramvaje/Makefile
-           datasets/cs.unesco/Makefile
-           datasets/cs.vodocty/Makefile
-           datasets/en.bbc/Makefile
-           datasets/en.buses/Makefile
-           datasets/en.countries/Makefile
-           datasets/en.movies/Makefile
-           datasets/en.nobel/Makefile
            doc/Makefile
           ])
-

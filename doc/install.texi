@@ -10,9 +10,11 @@ The project is hosted at the Savannah software forge
 
 @url{http://savannah.gnu.org/projects/sqltutor/}
 
-@noindent A copy of the Sqltutor can be get by anonymous CVS access
+@noindent A copy of the Sqltutor can be get by anonymous GIT access
 
-@url{cvs -z3 -d:pserver:anonymous@@cvs.savannah.gnu.org:/sources/sqltutor co sqltutor}
+@url{git clone git://git.sv.gnu.org/sqltutor.git}
+
+@url{git clone git://git.sv.gnu.org/sqltutor/datasets.git}
 
 @subsection How to change implicit settings
 

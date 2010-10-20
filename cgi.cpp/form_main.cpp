@@ -1,6 +1,6 @@
 /* 
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2010  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
  
    GNU Sqltutor is free software: you can redistribute it and/or modify
@@ -17,10 +17,6 @@
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * $Id: form_main.cpp,v 1.5 2009/04/01 18:12:37 cepek Exp $ 
- */
-
 #include <pqxx/pqxx>
 #include "cgi.h"
 #include "sqltutor.h"
@@ -32,11 +28,15 @@ void SQLtutor::form_main()
   using std::string;
 
   const string state = CGI::map["state"];
-  session_id  = CGI::map["session_id"];
+  session_id  = CGI::map["session_id" ];
   sql_checked = CGI::map["sql_checked"];
-  question_id = CGI::map["question_id"];
-  hash        = CGI::map["hash"];
-  bool help = false;
+  dataset_id  = CGI::map["dataset_id" ];
+  problem_id  = CGI::map["problem_id" ];
+  q_ord       = CGI::map["q_ord"      ];
+  language_id = CGI::map["language_id"];
+  hash        = CGI::map["hash"       ];
+  all_qasked  = CGI::map["all_qasked" ];
+  int help = (sql_checked == "yes") ? 1 : 0;
 
   try    
     {
@@ -47,7 +47,7 @@ void SQLtutor::form_main()
       result session(tran.exec("SELECT help, tutorial_id FROM sessions"
                                " WHERE session_id = " + session_id + ""));
       
-      help        = session.begin()[0].as(bool());
+      help        = session.begin()[0].as(int());
       tutorial_id = session.begin()[1].as(string());
   
 
@@ -75,7 +75,7 @@ void SQLtutor::form_main()
               {
                 throw;
               }
-          
+
           return form_stop();
         }
 
@@ -110,13 +110,16 @@ void SQLtutor::form_main()
       form << InputHidden("session_id" ).value( session_id  );
       form << InputHidden("hash"       ).value( hash        );
       form << InputHidden("tutorial_id").value( tutorial_id );
-      form << InputHidden("question_id").value( question_id );
+      form << InputHidden("dataset_id" ).value( dataset_id  );
+      form << InputHidden("problem_id" ).value( problem_id  );
+      form << InputHidden("q_ord"      ).value( q_ord       );
+      form << InputHidden("language_id").value( language_id );
 
       form << "<p style='text-align:right'>";
       form << InputSubmit("state").value(main_stop);
       form << "</p>";
 
-      display_question(form, tran, tutorial_id, question_id);
+      display_question(form, tran, dataset_id, problem_id, q_ord, language_id);
       form << InputSubmit("state"      ).value( main_next   );
       
       sql = CGI::map["sql_query"];
@@ -146,15 +149,15 @@ void SQLtutor::form_main()
         {
           form << InputHidden("prev_state").value(main_help);
 
-          result tmp(tran.exec("SELECT answer FROM answers"
-                               " WHERE tutorial_id = '" + tutorial_id + "'"
-                               "   AND question_id = '" + question_id + "'"));
+          result tmp(tran.exec("SELECT answer "
+                               "  FROM answers "
+                               " WHERE dataset_id = " + dataset_id + " "
+                               "   AND problem_id = " + problem_id + " "
+                               " ORDER BY priority ASC"));
           
           for (result::const_iterator a=tmp.begin(), e=tmp.end(); a!=e; a++)
             {
-              form << "<PRE>";
-              form << a[0].as(string());    // no need for << "\n"; !
-              form << "</PRE>";
+              form << (Pre() << a[0].as(string()));
             }
         }
 
@@ -183,6 +186,7 @@ void SQLtutor::form_main()
     }
   catch (AllQuestionsDone)
     {
+      all_qasked = t_stopped_done;
       form_stop();
       return;
     }
