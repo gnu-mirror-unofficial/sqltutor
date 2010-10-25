@@ -1,4 +1,6 @@
 #
+sqltutor*.tar.gz
+#
 cgi.cpp/sqltutor
 doc/sqltutor.info
 doc/sqltutor.pdf
