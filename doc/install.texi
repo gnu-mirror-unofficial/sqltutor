@@ -96,13 +96,20 @@ To create all Makefiles needed for building binary CGI script
 go to Sqltutor home directory and run
 
 @example
-   ./configure --bindir=/usr/lib/cgi-bin
+   ./autogen.sh
+@end example
+
+@noindent to create a @file{configure} script (if it is not allready present)
+and then
+
+@example
+   ./configure --bindir=/usr/lib/cgi-bin [ --infodir=/share/info ]
 @end example
 
 @noindent Parameter @code{--bindir} defines to which directory
-CGI script @file{sqltutor} will be installed.@footnote{For general
+CGI script @file{sqltutor} will be installed. For general
 information on using GNU autotool see the standard Basic Installation
-instructions in the @file{INSTALL}.}
+instructions in the @file{INSTALL}.
 
 Sqltutor CGI binary with info manual is installed and the database is
 populated by running
@@ -118,63 +125,42 @@ parameter is needed if you do not have access ritght for writing to
 @file{/usr/local/cgi-bin} and @file{/usr/share/info} (implicit values).
 
 
-@subsection Sqltutor modules
-
-For installing Sqltutor you normally need only the commands described
-in previous sections. However, it is possible to install individual
-modules separatelly, for example in cases like preparing new dataset,
-new tutorial etc.
-
-Apart from module @code{sqltutor} there are three modules responsible
-for populating the database
-
-@table @samp
-@item database
-SQL schema @code{sqltutor}, general SQL tables and functions
-
-@item tutorial
-tutorials table
-
-@item datasets
-dataset tables which are used by one or more tutorials
-@end table
-
-These three modules can be installed explicitly by running @code{make
-install} in their corresponding subdirectories.
-
-@subsubsection Creating schema and general tables
-
-Module @code{database} creates SQL SCHEMA sqltutor and all system
-tables used by Sqltutor . This module must be installed before
-populating the database.
-
-@example
-make -C database install
-@end example
-
-The @code{database} modules creates a lock file @file{lock..database}
-that protects against inelligible recreation of the database. If you
-want to rebuild the dayabase from the scratch, you must remove the
-lock file either manully or by running
-
-@example
-make -C database clean
-@end example
-
 @subsubsection Populating tutorials and datasets
 
-Run in any order from the project home directory
+Tutorials and dataset are stored in a separate git repository
+
+@url{git clone git://git.sv.gnu.org/sqltutor/datasets.git}
+
+
+Because @file{configure} script is not included in the repository, you
+have to create it first
 
 @example
-make -C tutorials install
-make -C datasets  install
+$ ./autogen
 @end example
 
-@noindent If old tutorials and/or datasets have been installed, run
+@noindent Then run
 
 @example
-make -C tutorials clean install
-make -C datasets  clean install
+$ ./configure
+$ make install
 @end example
 
+and that's all.  Datasets and tutorial can be reinstalled as many
+times as needed.
 
+
+To enable postgis extension, you must create geometry type in your
+database (sqltutor in the following example)
+
+@example
+$ psql -d sqltutor -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql
+$ psql -d sqltutor -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql
+@end example
+
+@noindent and explicitly enable postgis tutorials
+
+@example
+$ ./configure --enable-postgis
+$ make install
+@end example
