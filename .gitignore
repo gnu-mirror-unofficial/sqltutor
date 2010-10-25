@@ -36,6 +36,6 @@ config.h.in
 config.log
 config.status
 configure
-# version.texi by take melo byt soucasti distribuce ?!?!?!?
+#
 doc/version.texi
 doc/manual/

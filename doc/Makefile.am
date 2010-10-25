@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AM_MAKEINFOFLAGS  = --no-split
-info_TEXINFOS     = sqltutor.texi
+noinst_TEXINFOS     = sqltutor.texi
 sqltutor_TEXINFOS = intro.texi concepts.texi install.texi internals.texi \
                     gpl-3.0.texi fdl.texi
 
