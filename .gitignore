@@ -3,6 +3,7 @@ sqltutor*.tar.gz
 #
 cgi.cpp/sqltutor
 doc/sqltutor.info
+doc/sqltutor.dvi
 doc/sqltutor.pdf
 doc/sqltutor.ps
 doc/schema/premp

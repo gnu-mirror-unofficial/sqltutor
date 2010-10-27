@@ -5,10 +5,12 @@ defined with one or more possible solutions. A @emph{dataset} is a set
 of problems with given point evaluation and a common set of
 tables. Tutorials are defined as selections of datasets.
 
-@float Figure, Sqltutor database schema
+@ifnotinfo
+@float Figure,schema
+@image{./schema,,3.5in}
 @caption{Sqltutor database schema}
-@image{schema,,3.5in}
 @end float
+@end ifnotinfo
 
 Tutorials, datasets and problems are defined in SQL language with a
 set of stored procedures. An example of how to define a dataset is

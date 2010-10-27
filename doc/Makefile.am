@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AM_MAKEINFOFLAGS  = --no-split
-noinst_TEXINFOS     = sqltutor.texi
+info_TEXINFOS     = sqltutor.texi
 sqltutor_TEXINFOS = intro.texi concepts.texi install.texi internals.texi \
                     gpl-3.0.texi fdl.texi
 
@@ -28,7 +28,10 @@ EXTRA_DIST = \
    sqltutor-dialog-2.png \
    sqltutor-dialog-3.eps \
    sqltutor-dialog-3.pdf \
-   sqltutor-dialog-3.png 
+   sqltutor-dialog-3.png \
+   schema.eps \
+   schema.pdf \
+   schema.png
 
 
 CLEANFILES =
