@@ -154,6 +154,8 @@ To enable postgis extension, you must create geometry type in your
 database (sqltutor in the following example)
 
 @example
+$ su
+# su postgres
 $ psql -d sqltutor -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql
 $ psql -d sqltutor -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql
 @end example
@@ -164,3 +166,6 @@ $ psql -d sqltutor -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_
 $ ./configure --enable-postgis
 $ make install
 @end example
+
+PostGIS geometry type must be created by a superuser, because normal
+users do not have permissions to create C procedures in a database.
