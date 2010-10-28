@@ -103,7 +103,7 @@ go to Sqltutor home directory and run
 and then
 
 @example
-   ./configure --bindir=/usr/lib/cgi-bin [ --infodir=/share/info ]
+   ./configure --bindir=/usr/lib/cgi-bin [ --infodir=/usr/share/info ]
 @end example
 
 @noindent Parameter @code{--bindir} defines to which directory
