@@ -16,7 +16,27 @@ The project is hosted at the Savannah software forge
 
 @url{git clone git://git.sv.gnu.org/sqltutor/datasets.git}
 
-@subsection How to change implicit settings
+@section Installer script
+
+Under most circumstances installing Sqltutor is a very simple process
+and takes only answering a few questions to be completed. The whole
+installation is guided by @code{sqltutor-install.sh} script found in
+Sqltutor git repository.
+
+@example
+$ ./sqltutor-install.sh
+@end example
+
+@noindent To run the script you need to have @code{sudo} installed
+and must be listed in the list of users which may execute sudo
+(@code{sudoers}). The user running the script needs also rights to
+create PostgreSQL databases and create and maintain database roles.
+
+Installer calls script @code{autogen.sh} to create standard
+@code{configure} script, patches implicit settings and finally installs
+database, CGI script, info files and datasets and tutorials.
+
+@section How to change implicit settings
 
 All Sqltutor database objects are defined in the SCHEMA
 @code{sqltutor}.  Five output variables are defined in
@@ -125,7 +145,7 @@ parameter is needed if you do not have access ritght for writing to
 @file{/usr/local/cgi-bin} and @file{/usr/share/info} (implicit values).
 
 
-@subsubsection Populating tutorials and datasets
+@section Populating tutorials and datasets
 
 Tutorials and dataset are stored in a separate git repository
 
