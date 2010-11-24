@@ -16,7 +16,7 @@
 This manual (@value{UPDATED}) is for GNU Sqltutor (version
 @value{VERSION}).
 
-Copyright @copyright{} 2008 Ales Cepek
+Copyright @copyright{} 2008, 2011 Ales Cepek
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
