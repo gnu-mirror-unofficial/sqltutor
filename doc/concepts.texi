@@ -219,9 +219,8 @@ button is pressed.
 Questions are asked about data from @dfn{datasets}, where dataset is
 one or more SQL tables. Datasets can be shared by different tutorials.
 Sqltutor selects questions in random manner, starting from easy ones
-to nontrivial. @footnote{if you explicitly chose min/max value of points
-and/or dataset. I any of these three parametres is entered during
-opening dialog, questions are selected from the resulting subset
+to nontrivial. @footnote{If you explicitly chose min/max value of
+points and/or dataset during opening dialog, questions are selected
 simply in random.}
 
 @subsection Final evaluation
