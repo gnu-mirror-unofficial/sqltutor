@@ -36,6 +36,13 @@ Installer calls script @code{autogen.sh} to create standard
 @code{configure} script, patches implicit settings and finally installs
 database, CGI script, info files and datasets and tutorials.
 
+@ifnotinfo
+@float Figure,installer
+@image{sqltutor-install,,3.5in}
+@caption{Installer script}
+@end float
+@end ifnotinfo
+
 @section How to change implicit settings
 
 All Sqltutor database objects are defined in the SCHEMA
