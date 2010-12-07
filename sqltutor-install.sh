@@ -28,7 +28,7 @@ SQLTUTOR_WWW_EXEC=sqlexec
 SQLTUTOR_PASSEXEC=sqlkrok
 
 # installer variables
-INSTALLER_VERSION=1.0
+INSTALLER_VERSION=1.1
 GIT_SQLTUTOR=./sqltutor
 GIT_DATASETS=./datasets
 BINDIR=/usr/lib/cgi-bin
@@ -187,7 +187,10 @@ if [ "x$POSTGIS" != "x" ]; then
     echo
     echo Creating geometry type for PostGIS ...
     sudo -u postgres psql -d $SQLTUTOR_DATABASE -f $POSTGIS_PATH/postgis.sql
-    sudo -u postgres psql -d $SQLTUTOR_DATABASE -f $POSTGIS_PATH/spatial_ref_sys.sql
+    sudo -u postgres psql -d $SQLTUTOR_DATABASE -c "ALTER TABLE geometry_columns  OWNER TO $(whoami);"
+    sudo -u postgres psql -d $SQLTUTOR_DATABASE -c "ALTER TABLE geography_columns OWNER TO $(whoami);"
+    sudo -u postgres psql -d $SQLTUTOR_DATABASE -c "ALTER TABLE spatial_ref_sys   OWNER TO $(whoami);"
+    psql -d $SQLTUTOR_DATABASE -f $POSTGIS_PATH/spatial_ref_sys.sql
 fi
 
 preconfigure
