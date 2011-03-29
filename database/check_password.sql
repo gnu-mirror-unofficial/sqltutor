@@ -30,6 +30,7 @@ DECLARE
 BEGIN
    /* implicitly the function does nothing, include your own test if needed */
 
+   /*
    IF host_ BETWEEN '147.32.142.131' AND '147.32.142.151'
    THEN
       IF password_ =  substring(host(host_-130),12,3)
@@ -39,6 +40,7 @@ BEGIN
 
       RETURN 1;
    END IF;
+   */
 
    RETURN 0;
 END;
