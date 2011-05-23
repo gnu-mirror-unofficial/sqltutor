@@ -161,9 +161,9 @@ get_repo "Where is datasets git repository? " GIT_DATASETS $GIT_DATASETS
 echo
 get_word "Sqltutor database name     ? " SQLTUTOR_DATABASE $SQLTUTOR_DATABASE
 get_word "Sqltutor WWW  user         ? " SQLTUTOR_WWW_USER $SQLTUTOR_WWW_USER
-get_word "Sqltutor WWW  user password? " SQLTUTOR_WWW_USER $SQLTUTOR_PASSWORD
+get_word "Sqltutor WWW  user password? " SQLTUTOR_PASSWORD $SQLTUTOR_PASSWORD
 get_word "Sqltutor EXEC user         ? " SQLTUTOR_WWW_EXEC $SQLTUTOR_WWW_EXEC
-get_word "Sqltutor EXEC user password? " SQLTUTOR_WWW_USER $SQLTUTOR_PASSEXEC
+get_word "Sqltutor EXEC user password? " SQLTUTOR_PASSEXEC $SQLTUTOR_PASSEXEC
 
 echo
 get_directory "The directory for installing  CGI  binaries    ? " BINDIR  $BINDIR
