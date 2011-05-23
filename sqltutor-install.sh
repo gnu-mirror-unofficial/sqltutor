@@ -28,7 +28,7 @@ SQLTUTOR_WWW_EXEC=sqlexec
 SQLTUTOR_PASSEXEC=sqlkrok
 
 # installer variables
-INSTALLER_VERSION=1.1
+INSTALLER_VERSION=1.2
 GIT_SQLTUTOR=./sqltutor
 GIT_DATASETS=./datasets
 BINDIR=/usr/lib/cgi-bin
