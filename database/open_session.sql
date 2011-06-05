@@ -88,7 +88,11 @@ CREATE OR REPLACE FUNCTION sqltutor.evaluation
 ) 
 AS $$
 DECLARE
-   total_ integer;
+   total_   integer;
+   penalty_ integer = 0;
+   fa_      integer = 1;
+   fb_      integer = 2;
+   fn_      integer;
 BEGIN
    SELECT help, points_min, points_max, login, dataset
    	  INTO ev_help, ev_points_min, ev_points_max, 
@@ -112,5 +116,19 @@ BEGIN
    SELECT (ev_points*ev_correct) / CASE ev_total WHEN 0 THEN 1 ELSE ev_total 
                                    END 
           INTO ev_evaluation;
+   /*
+    * penalty for wrong answers 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ..
+    */
+   fn_ = ev_total - ev_correct;
+   WHILE fn_ > 0 LOOP
+      penalty_ = fa_;
+      fa_ = fb_;
+      fb_ = fb_ + penalty_;
+      fn_ = fn_ - 1;
+   END LOOP;
+   ev_evaluation = ev_evaluation - penalty_;
+   IF ev_evaluation < 0 THEN
+      ev_evaluation = 0;
+   END IF;
 END;
 $$ LANGUAGE plpgsql;

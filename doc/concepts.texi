@@ -150,7 +150,9 @@ dialog.
 closed session: elapsed time, session number, number of
 questions. correct answers, total points from correct answers and
 session evaluation. The final evaluation is calculated as the number
-of correct points multiplied by ratio of correct to all questions.
+of correct points multiplied by ratio of correct to all questions
+reduce by penalty points for wrong and missing answers. Penalty points
+are defined as a Fibonacci series 1, 2, 3, 5, 8, ... .
 
 All questions from the session dataset tables and answers are shown at
 the evaluation page.  For wrong answers correct solution is also
