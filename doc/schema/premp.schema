@@ -30,7 +30,7 @@ beginfig(1);
   #Questions           b, #Answers.b-th, tw,               dataset_id, problem_id, q_ord, language_id, question;
   #Problems_Categories b, #Questions.b-2*th, tw,           dataset_id, problem_id, category_id; 
   #Categories          b, #Problems_Categories.b-1*th, tw, category_id, category;
-  #Sessions            c, -0.5*th, tw,                      session_id, tutorial_id, login, password, points_min, points_max, ds_id, algorithm, help, host, start, is_open;
+  #Sessions            c, -0.5*th, tw,                     session_id, tutorial_id, login, password, points_min, points_max, ds_id, algorithm, help, host, start, stop, is_open;
   #Sessions_Questions  c, #Sessions.b-1.5*th, tw,          session_id, dataset_id, problem_id, q_ord, language_id, answer, correct, time;
   #Languages           c, #Sessions_Questions.b-1.5*th,tw, language_id, language; 
 
