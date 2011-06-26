@@ -33,15 +33,20 @@ void SQLtutor::form_stop()
       set_schema(tran);
 
       {
-        string time =
-          "SELECT cast( ("
-          "   (SELECT max(time) FROM sessions_questions "
-          "                          WHERE session_id=" + session_id + ") - "
-          "   (SELECT start     FROM sessions "
-          "                          WHERE session_id=" + session_id +") )"
-          " AS interval(0) ), localtime(0) ";
-        result res(tran.exec(time));
+        string close = 
+          "UPDATE sessions SET is_open = 0, stop = now() "
+          " WHERE session_id = " + session_id +
+          "   AND is_open = 1 "
+          "   AND '" +  CGI::map["hash"] + "' = md5(cast(start AS text));";
+        result res(tran.exec(close));
+      }
 
+      {
+        string time = 
+	  "SELECT cast((SELECT stop-start FROM sessions "
+	  "             WHERE  session_id = " +session_id + " "
+	  "             ) AS interval(0)), localtime(0)";
+        result res(tran.exec(time));
 
         string hd1; 
         hd1 += test_finished
@@ -122,16 +127,7 @@ void SQLtutor::form_stop()
 
       display_answers(form, tran, session_id);
   
-      {
-        string close = 
-          "UPDATE sessions SET is_open = 0 "
-          " WHERE session_id = " + session_id +
-          "   AND is_open = 1 "
-          "   AND '" +  CGI::map["hash"] + "' = md5(cast(start AS text));";
-        
-        result res(tran.exec(close));
-        tran.commit();
-      }
+      tran.commit();
 
       CGI::map.clear();
       CGI::map["state"] = init_state;

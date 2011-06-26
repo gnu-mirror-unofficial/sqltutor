@@ -85,6 +85,7 @@ CREATE TABLE sqltutor.sessions (
    algorithm   integer NOT NULL DEFAULT 1 CHECK (algorithm > 0),
    host        inet,
    start       timestamp NOT NULL,
+   stop        timestamp,
    is_open     integer NOT NULL DEFAULT 1
                           CHECK (is_open IN (0, 1))
 );

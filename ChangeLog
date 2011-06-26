@@ -1,3 +1,7 @@
+2011-06-26  Ales Cepek  <cepek@gnu.org>
+
+	* added attribute 'stop' (timestamp) to sessions table
+
 2010-08-12  Ales Cepek  <cepek@gnu.org>
 
 	* cvs repository moved to git
