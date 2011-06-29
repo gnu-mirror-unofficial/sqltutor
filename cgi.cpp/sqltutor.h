@@ -91,6 +91,7 @@ private:
   static const std::string t_empty_set;
   static const std::string t_welcome;
   static const std::string t_geometry;
+  static const std::string t_multiple_sessions;
 
 
   // program settings

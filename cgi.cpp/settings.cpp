@@ -87,6 +87,7 @@ T SQLtutor::t_no_datasets     = "No datasets available ... ";
 T SQLtutor::t_empty_set       = "empty set";
 T SQLtutor::t_welcome         = "Welcome to GNU Sqltutor";
 T SQLtutor::t_geometry        = "geometry";
+T SQLtutor::t_multiple_sessions = "Multiple sessions from the same host";
 
 
 /********************************************************************/

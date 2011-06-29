@@ -44,7 +44,7 @@ void SQLtutor::form_stop()
       {
         string time = 
 	  "SELECT cast((SELECT stop-start FROM sessions "
-	  "             WHERE  session_id = " +session_id + " "
+	  "             WHERE  session_id = " + session_id + " "
 	  "             ) AS interval(0)), localtime(0)";
         result res(tran.exec(time));
 
@@ -71,7 +71,53 @@ void SQLtutor::form_stop()
         form << (Par() << headings);
       }
 
-      string query = "SELECT * FROM sqltutor.evaluation(" 
+      bool multiple_sessions = false;
+      do {
+	Table m(5, "border='1'");
+	m.th("session");
+	m.th("questions");
+	m.th("help");
+	m.th("open");
+	m.th("start");
+	m.td("align='center'");
+	m.td("align='center'");
+	m.td("align='center'");
+	m.td("align='center'");
+	m.td("align='center'");
+
+	string msq =
+        "SELECT DISTINCT B.session_id as session, "
+        "       ev_total(sqltutor.evaluation(B.session_id)) AS questions, "
+        "       B.help, B.is_open AS open, cast(B.start AS time(0)) "
+        "FROM   sqltutor.sessions AS A "
+        "       JOIN sqltutor.sessions AS B "
+        "          ON  A.host = B.host "
+        "          AND A.session_id <> B.session_id "
+        "          AND A.session_id = " + session_id + " "
+        "       JOIN sqltutor.sessions_questions AS Q "
+        "          ON  B.session_id = Q.session_id "
+        "          AND Q.time BETWEEN A.start AND A.stop "
+        ;
+	result res(tran.exec( msq ));
+	if (res.empty()) break;
+
+	for (result::const_iterator r=res.begin(), e=res.end(); r!=e; ++r)
+	  {
+	    m << r["session"  ].as(string())
+	      << r["questions"].as(string())
+	      << r["help"     ].as(string())
+	      << r["open"     ].as(string())
+	      << r["start"    ].as(string())
+	      ;
+	  }
+
+	form << "<p style='color:red'>" << t_multiple_sessions << "</p>";
+	multiple_sessions = true;
+	form << m << "</br>";
+      }
+      while (false);
+
+      string query = "SELECT * FROM sqltutor.evaluation("
 	+ session_id + ")";
 
       result res(tran.exec( query ));
@@ -94,7 +140,7 @@ void SQLtutor::form_stop()
                       !points_max.empty() || 
                       !dataset.empty();
           string style;
-          if (help || pars)   style = "style='color:red'";
+          if (help || pars || multiple_sessions) style = "style='color:red'";
 	  if (!login.empty()) form << (Par() << login);
 
 	  Table eval(3, style);
@@ -102,7 +148,7 @@ void SQLtutor::form_stop()
 	  eval.td("align='left'");
 	  eval.td("align='right'");
 	  const string sep = ":";
-	  
+
           eval << t_nmbr_questions << sep << total
 	       << t_nmbr_cor_answs << sep << correct
                << t_total_points   << sep << points
@@ -141,6 +187,3 @@ void SQLtutor::form_stop()
       throw;
     }
 }
-
-
-
