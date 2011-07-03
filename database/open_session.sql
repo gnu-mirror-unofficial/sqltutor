@@ -120,7 +120,7 @@ BEGIN
     * penalty for wrong answers 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ..
     */
    fn_ = ev_total - ev_correct;
-   WHILE fn_ > 0 LOOP
+   WHILE fn_ > 0 AND ev_evaluation > penalty_ LOOP
       penalty_ = fa_;
       fa_ = fb_;
       fb_ = fb_ + penalty_;
