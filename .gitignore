@@ -23,7 +23,10 @@ doc/schema/schema.*
 *.tp
 *.vr
 
-# 
+#
+.deps
+INSTALL
+Makefile
 Makefile.in
 
 # stamp-h1 doc/stamp-vti
