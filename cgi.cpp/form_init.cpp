@@ -1,18 +1,18 @@
-/* 
+/*
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2013  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
- 
+
    GNU Sqltutor is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
-   
+
    GNU Sqltutor is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,12 +28,12 @@ namespace
 {
   string emptyrow() { return "<tr><td>&nbsp;</td></tr>";    }
   string emptycol() { return "<td>&nbsp;&nbsp;&nbsp;</td>"; }
-  
+
   bool number(string s)
   {
     string::const_iterator b=s.begin(), e=s.end();
     while (b != e && isspace(*b)) b++;
-    
+
     if (b == e) return true;
 
     int count = 0;
@@ -44,17 +44,17 @@ namespace
         b++;
       }
     if (count == 0 || count > 5) return false;  // number too big
-    
+
     while (b != e)
       {
         if (!isspace(*b)) return false;
         b++;
       }
-    
+
     return true;
   }
 
-  string param(const string& ap, const string& val, 
+  string param(const string& ap, const string& val,
                const string& implicit_value="NULL")
   {
     bool empty = true;
@@ -80,7 +80,12 @@ void SQLtutor::form_init()
   bool   error = false;
   string pmin  = CGI::map["points_min"];
   string pmax  = CGI::map["points_max"];
-  string dset  = CGI::map["dataset"];
+  string dset, tmp = CGI::map["dataset"];
+  for (string::const_iterator b=tmp.begin(), e=tmp.end(); b!=e; b++)
+    if (!isspace(*b))
+      {
+        dset += *b;
+      }
 
   Table perr(2);
 
@@ -94,20 +99,56 @@ void SQLtutor::form_init()
       error = true;
       perr << t_bad_value_max << pmax;
     }
-  
-  if (error)
+
+  bool dollar = false;
+  if (!dset.empty())
     {
-      CGI::map["state"] = init_state;    
+      for (string::const_iterator b=tmp.begin(), e=tmp.end(); b!=e; b++)
+        if (isspace(*b) == '$')
+          {
+            dollar = true;
+            error = true;
+            perr << t_bad_value_dset << dset;
+            break;
+          }
     }
 
-  if (state == init_continue && tutorial != "0")
-    try 
+  if (!dollar && !dset.empty() && tutorial != "0")
+    {
+      using namespace pqxx;
+      string str = "$sqltutor$";
+      string sql =
+        "SELECT dataset_id "
+        "FROM   datasets AS d "
+        "JOIN   tutorials_problems AS tp USING (dataset_id) "
+        "JOIN   tutorials AS t USING (tutorial_id) "
+        "WHERE  dataset = " + str + dset + str + " "
+        "AND    tutorial_id = '" + tutorial + "' ";
+      connection conn( db_connection );
+      work   tran(conn, "check_dataset");
+      set_schema(tran);
+
+      result sql_result(tran.exec(sql));
+      if (sql_result.empty())
+        {
+          error = true;
+          perr << t_bad_value_dset << dset;
+        }
+    }
+
+  if (error)
+    {
+      CGI::map["state"] = init_state;
+    }
+
+  if (!error && state == init_continue && tutorial != "0")
+    try
       {
         // checked by form_main()
-        if (CGI::map["help"].empty()) CGI::map["help"] = "0"; 
+        if (CGI::map["help"].empty()) CGI::map["help"] = "0";
 
         const string ihelp = (CGI::map["help"] == "true") ? "1" : "0";
-        const string open = 
+        const string open =
           "SELECT session_id_, hash_ FROM open_session (" +
           param(" ", tutorial                    ) + ", " +
           param("'", CGI::map["user"]            ) + ", " +
@@ -125,29 +166,29 @@ void SQLtutor::form_init()
         result res1(tran.exec(open));
         result::const_iterator q = res1.begin();
         if (q == res1.end())
-	  {
-	    error = true;
-	    perr << "Login failed for user ";
-	    if (user.empty()) 
-	      perr << "...";
-	    else
-	      perr << user;
-	  }
-	else
-	  {
-	    string session_id  = q[0].as(string());
-	    string hash        = q[1].as(string());
-	    tran.commit();
-	    
-	    CGI::map.clear();
-	    CGI::map["session_id"] = session_id;
-	    CGI::map["state"]      = main_next;
-	    CGI::map["hash"]       = hash;
-	    
-	    return form_main();
-	  }
+          {
+            error = true;
+            perr << "Login failed for user ";
+            if (user.empty())
+              perr << "...";
+            else
+              perr << user;
+          }
+        else
+          {
+            string session_id  = q[0].as(string());
+            string hash        = q[1].as(string());
+            tran.commit();
+
+            CGI::map.clear();
+            CGI::map["session_id"] = session_id;
+            CGI::map["state"]      = main_next;
+            CGI::map["hash"]       = hash;
+
+            return form_main();
+          }
       }
-    catch (const std::exception& s) 
+    catch (const std::exception& s)
       {
         form << s.what() << "<br/><br/>";
         form_stop();
@@ -162,9 +203,9 @@ void SQLtutor::form_init()
     {
       form << perr << "<br/>";
     }
-  
+
   form << "<table>";
-  form << "<tr>" 
+  form << "<tr>"
        << "<td>" + t_tutorial + "</td>"
        << "<td>"
        << tutorial_selection()
@@ -173,13 +214,13 @@ void SQLtutor::form_init()
   form << emptyrow();
   form << "<tr>"
        << "<td>" + t_user + "</td>"
-       << "<td>" 
+       << "<td>"
        << InputText("user").value("")
        << "</td>"
        << emptycol()
        << "<td>" + t_password + "</td>"
        << "<td>"
-       << InputPassword("password").value("")
+       << InputPassword("password").value("").disabled(true)
        << "</td>"
        << "</tr>";
   form << emptyrow();
@@ -197,8 +238,8 @@ void SQLtutor::form_init()
   form << "<tr>"
        << "<td>" + t_dataset + "</td>"
        << "<td>"
-       << InputText("dataset").value(dset) 
-       << "</td>" 
+       << InputText("dataset").value(dset)
+       << "</td>"
        << emptycol()
        << "<td>" + t_help + "</td>"
        << "<td>";

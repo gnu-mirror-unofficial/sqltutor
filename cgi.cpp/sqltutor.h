@@ -1,18 +1,18 @@
-/* 
+/*
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2013  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
- 
+
    GNU Sqltutor is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
-   
+
    GNU Sqltutor is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ public:
   ~SQLtutor();
 
   void run();
-  
+
 private:
 
   // user settings
@@ -67,6 +67,7 @@ private:
   static const std::string t_columns;
   static const std::string t_bad_value_min;
   static const std::string t_bad_value_max;
+  static const std::string t_bad_value_dset;
   static const std::string t_correct_answer;
   static const std::string t_wrong_answer;
   static const std::string t_missing_answer;
@@ -102,13 +103,13 @@ private:
   static const std::string init_state;
   static const std::string main_state;
 
-  class Exception : public std::exception   
+  class Exception : public std::exception
   {
   public:
     const char* what() { return "SQLtutor : Base Exception";     }
   };
-  
-  class AllQuestionsDone : public Exception 
+
+  class AllQuestionsDone : public Exception
   {
     const char* what() { return "SQLtutor : All Questions Done"; }
   };
@@ -117,8 +118,8 @@ private:
 
   CGI           cgi;
   Form          form;
-  size_t        sql_result_size; 
-  size_t        sql_result_columns; 
+  size_t        sql_result_size;
+  size_t        sql_result_columns;
   size_t        sql_tutor_size;
   size_t        sql_tutor_columns;
   bool          correct_answer;
