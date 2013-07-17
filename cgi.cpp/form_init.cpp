@@ -103,12 +103,23 @@ void SQLtutor::form_init()
   bool dollar = false;
   if (!dset.empty())
     {
-      for (string::const_iterator b=tmp.begin(), e=tmp.end(); b!=e; b++)
-        if (isspace(*b) == '$')
+      for (string::const_iterator b=dset.begin(), e=dset.end(); b!=e; b++)
+        if (*b == '$' || *b == '&')
           {
             dollar = true;
             error = true;
-            perr << t_bad_value_dset << dset;
+            perr << t_bad_value_char << dset;
+            break;
+          }
+    }
+
+  if (!user.empty())
+    {
+      for (string::const_iterator b=user.begin(), e=user.end(); b!=e; b++)
+        if (*b == '$' || *b == '&')
+          {
+            error = true;
+            perr << t_bad_value_char << user;
             break;
           }
     }
@@ -199,11 +210,6 @@ void SQLtutor::form_init()
   welcome << t_welcome;
   form    << (Par() << welcome);
 
-  if (error)
-    {
-      form << perr << "<br/>";
-    }
-
   form << "<table>";
   form << "<tr>"
        << "<td>" + t_tutorial + "</td>"
@@ -215,7 +221,7 @@ void SQLtutor::form_init()
   form << "<tr>"
        << "<td>" + t_user + "</td>"
        << "<td>"
-       << InputText("user").value("")
+       << InputText("user").value(user)
        << "</td>"
        << emptycol()
        << "<td>" + t_password + "</td>"
@@ -259,6 +265,18 @@ void SQLtutor::form_init()
        << InputSubmit("state").value(init_manual);
   form << "</p>";
 
+  if (tutorial == "0" && (state == init_datasets || state == init_continue))
+    {
+      form << "<p>"
+           << t_select_tutorial
+           << "</p>";
+    }
+
+  if (error)
+    {
+      form << (Par() << perr);
+    }
+
   const string prev_state = CGI::map["prev_state"];
 
   if (prev_state != init_datasets && state == init_datasets && tutorial != "0")
@@ -273,10 +291,4 @@ void SQLtutor::form_init()
       getting_started();
     }
 
-  if (tutorial == "0" && (state == init_datasets || state == init_continue))
-    {
-      form << "<p>"
-           << t_select_tutorial
-           << "</p>";
-    }
 }

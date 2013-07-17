@@ -64,6 +64,7 @@ T SQLtutor::t_columns         = "Columns";
 T SQLtutor::t_bad_value_min   = "Bad value min";
 T SQLtutor::t_bad_value_max   = "Bad value max";
 T SQLtutor::t_bad_value_dset  = "Unknown dataset";
+T SQLtutor::t_bad_value_char  = "Special characters are not allowed";
 T SQLtutor::t_correct_answer  = "Correct answer";
 T SQLtutor::t_wrong_answer    = "Wrong answer";
 T SQLtutor::t_missing_answer  = "Missing answer";

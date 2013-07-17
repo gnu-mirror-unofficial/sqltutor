@@ -68,6 +68,7 @@ private:
   static const std::string t_bad_value_min;
   static const std::string t_bad_value_max;
   static const std::string t_bad_value_dset;
+  static const std::string t_bad_value_char;
   static const std::string t_correct_answer;
   static const std::string t_wrong_answer;
   static const std::string t_missing_answer;
