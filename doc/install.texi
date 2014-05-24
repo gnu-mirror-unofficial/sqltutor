@@ -16,6 +16,8 @@ The project is hosted at the Savannah software forge
 
 @url{git clone git://git.sv.gnu.org/sqltutor/datasets.git}
 
+@c admin RW: git clone  cepek@git.sv.gnu.org:/srv/git/sqltutor.git
+
 @section Installer script
 
 Under most circumstances installing Sqltutor is a very simple process
