@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
-## Copyright (C) 2008 Ales Cepek
+## Copyright (C) 2008, 2014 Ales Cepek
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,15 +39,11 @@ CLEANDIRS  =
 
 # Doxygen section dopted from bison-2.4/doc/Makefile.am
 
-## -------------- ##      
+## -------------- ##
 ## Doxygenation.  ##
 ## -------------- ##
 
 DOXYGEN = doxygen
-
-.PHONY: doc html
-
-doc: html
 
 doxygen: Doxyfile
 	$(DOXYGEN)
@@ -64,5 +60,17 @@ CLEANFILES += Doxyfile
 Doxyfile: $(srcdir)/Doxyfile.in
 	$(edit) $(srcdir)/Doxyfile.in >Doxyfile
 
-CLEANDIRS += html latex
+CLEANDIRS += manual latex
 
+download-gendocs.sh:
+	rm -f gendocs.sh* gendocs_template*
+	wget http://savannah.gnu.org/cgi-bin/viewcvs/~checkout~/texinfo/texinfo/util/gendocs.sh
+	wget http://savannah.gnu.org/cgi-bin/viewcvs/~checkout~/texinfo/texinfo/util/gendocs_template
+	chmod +x gendocs.sh
+
+run-gendocs.sh:
+	make info
+	rm -rf manual
+	./gendocs.sh --texi2html --email cepek@gnu.org gama "GNU Gama manual"
+	ls -l  manual/html_*/index.html
+	rm -fv manual/html_*/index.html
