@@ -40,7 +40,7 @@ database, CGI script, info files and datasets and tutorials.
 
 @ifnotinfo
 @float Figure,installer
-@image{sqltutor-install,,3.5in}
+@image{fig/sqltutor-install,,3.5in}
 @caption{Installer script}
 @end float
 @end ifnotinfo

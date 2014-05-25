@@ -7,7 +7,7 @@ tables. Tutorials are defined as selections of datasets.
 
 @ifnotinfo
 @float Figure,schema
-@image{./schema,,3.5in}
+@image{fig/schema,,3.5in}
 @caption{Sqltutor database schema}
 @end float
 @end ifnotinfo

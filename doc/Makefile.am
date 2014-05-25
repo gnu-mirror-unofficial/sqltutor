@@ -74,3 +74,6 @@ run-gendocs.sh:
 	./gendocs.sh --texi2html --email cepek@gnu.org sqltutor "GNU Sqltutor manual"
 	ls -l  manual/html_*/index.html
 	rm -fv manual/html_*/index.html
+	cp -v  .symlinks manual/html_chapter
+	cp -v  .symlinks manual/html_node
+	cp -v  .symlinks manual/html_section

@@ -31,7 +31,7 @@ Dataset     _____________________     Help        [ ]
 
 @ifnotinfo
 @float Figure,dialog1
-@image{sqltutor-dialog-1,,3.5in}
+@image{fig/sqltutor-dialog-1,,3.5in}
 @caption{Opening dialog}
 @end float
 @end ifnotinfo
@@ -100,7 +100,7 @@ ___________________________________________________________
 
 @ifnotinfo
 @float Figure,dialog2
-@image{sqltutor-dialog-2,,3.5in}
+@image{fig/sqltutor-dialog-2,,3.5in}
 @caption{Tutorial dialog}
 @end float
 @end ifnotinfo
@@ -191,7 +191,7 @@ SELECT id FROM movie WHERE title='Casablanca'
 
 @ifnotinfo
 @float Figure,dialog3
-@image{sqltutor-dialog-3,,3.5in}
+@image{fig/sqltutor-dialog-3,,3.5in}
 @caption{Evaluation page}
 @end float
 @end ifnotinfo
