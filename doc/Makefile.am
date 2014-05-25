@@ -77,3 +77,4 @@ run-gendocs.sh:
 	cp -v  .symlinks manual/html_chapter
 	cp -v  .symlinks manual/html_node
 	cp -v  .symlinks manual/html_section
+	echo "../fig fig" > manual/.symlinks
