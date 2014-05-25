@@ -1,18 +1,18 @@
-/* 
+/*
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2014  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
- 
+
    GNU Sqltutor is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
-   
+
    GNU Sqltutor is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with GNU Sqltutor.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -63,7 +63,8 @@ CREATE TABLE sqltutor.tutorials (
    tutorial_id serial PRIMARY KEY,
    tutorial    varchar(40) NOT NULL,
    language_id char(2) NOT NULL REFERENCES sqltutor.languages,
-   t_ord       integer NOT NULL DEFAULT 0
+   t_ord       integer NOT NULL DEFAULT 0,
+   UNIQUE (tutorial, language_id)
 );
 
 
@@ -101,7 +102,7 @@ CREATE TABLE sqltutor.problems (
 
 CREATE TABLE sqltutor.tutorials_problems (
    tutorial_id integer,
-   dataset_id  integer, 
+   dataset_id  integer,
    problem_id  integer,
    PRIMARY KEY (tutorial_id, dataset_id, problem_id),
    FOREIGN KEY (dataset_id, problem_id) REFERENCES sqltutor.problems
@@ -130,7 +131,7 @@ CREATE TABLE sqltutor.sessions_questions (
    time        timestamp NOT NULL,
    PRIMARY KEY (session_id, dataset_id, problem_id, q_ord, language_id),
    FOREIGN KEY (dataset_id, problem_id, q_ord, language_id)
-               REFERENCES sqltutor.questions 
+               REFERENCES sqltutor.questions
 );
 
 
