@@ -71,6 +71,6 @@ download-gendocs.sh:
 run-gendocs.sh:
 	make info
 	rm -rf manual
-	./gendocs.sh --texi2html --email cepek@gnu.org gama "GNU Gama manual"
+	./gendocs.sh --texi2html --email cepek@gnu.org sqltutor "GNU Sqltutor manual"
 	ls -l  manual/html_*/index.html
 	rm -fv manual/html_*/index.html

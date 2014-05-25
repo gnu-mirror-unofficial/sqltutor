@@ -41,6 +41,10 @@ config.aux/
 doc/schema/premp
 doc/schema/schema.*
 #
+doc/Doxyfile
+doc/html
+doc/latex
+#
 doc/manual/
 doc/version.texi
 doc/sqltutor.html
