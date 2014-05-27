@@ -228,13 +228,14 @@ simply in random.}
 @subsection Final evaluation
 
 Final evaluation of sessions is calculated as 
-@ifnotinfo
-@math{p \times (c / t)},
-@end ifnotinfo
-@ifinfo
-p x (c / t),
-@end ifinfo
+@iftex
+@math{p \times (c/t) - n},
+@end iftex
+@ifnottex
+p x (c/t) - n,
+@end ifnottex
 where @math{p} is the sum of points for correct answers, @math{c} is
-the number of correct answers and @math{t} is the number of all
-questions asked.
+the number of correct answers, @math{t} is the number of all questions
+asked and @math{n} is a number of penalty points for wrong answers (1,
+2, 3, ...).
 
