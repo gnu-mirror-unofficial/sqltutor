@@ -169,12 +169,12 @@ BEGIN
                     NATURAL JOIN sqltutor.problems
              WHERE  session_id = session_id_
              AND    points >= point_splitter
-          ) AS questions_asked
+          ) AS asked_questions
    GROUP BY dataset_id
    ORDER BY count(problem_id), random()
    LIMIT 1;
 
-   /* get a queastion from the selected dataset */
+   /* get a question from the selected dataset */
    IF selected_dataset IS NOT NULL THEN
       SELECT q1_dataset_id, q1_problem_id, q1_q_ord, q1_language_id
         INTO q2_dataset_id, q2_problem_id, q2_q_ord, q2_language_id
