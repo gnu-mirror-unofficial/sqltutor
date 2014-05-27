@@ -20,18 +20,22 @@ sqltutor_TEXINFOS = intro.texi concepts.texi install.texi internals.texi \
                     gpl-3.0.texi fdl.texi
 
 EXTRA_DIST = \
-   sqltutor-dialog-1.eps \
-   sqltutor-dialog-1.pdf \
-   sqltutor-dialog-1.png \
-   sqltutor-dialog-2.eps \
-   sqltutor-dialog-2.pdf \
-   sqltutor-dialog-2.png \
-   sqltutor-dialog-3.eps \
-   sqltutor-dialog-3.pdf \
-   sqltutor-dialog-3.png \
-   schema.eps \
-   schema.pdf \
-   schema.png
+   fig/sqltutor-dialog-1.eps \
+   fig/sqltutor-dialog-1.pdf \
+   fig/sqltutor-dialog-1.png \
+   fig/sqltutor-dialog-2.eps \
+   fig/sqltutor-dialog-2.pdf \
+   fig/sqltutor-dialog-2.png \
+   fig/sqltutor-dialog-3.eps \
+   fig/sqltutor-dialog-3.pdf \
+   fig/sqltutor-dialog-3.png \
+   fig/sqltutor-install.eps  \
+   fig/sqltutor-install.pdf  \
+   fig/sqltutor-install.png  \
+   fig/schema.eps \
+   fig/schema.pdf \
+   fig/schema.png \
+   fig/schema.txt
 
 
 CLEANFILES =
