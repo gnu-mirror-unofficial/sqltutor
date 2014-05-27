@@ -232,7 +232,7 @@ Final evaluation of sessions is calculated as
 @math{p \times (c/t) - n},
 @end iftex
 @ifnottex
-p(c/t) - n,
+p*(c/t) - n,
 @end ifnottex
 where @math{p} is the sum of points for correct answers, @math{c} is
 the number of correct answers, @math{t} is the number of all questions
