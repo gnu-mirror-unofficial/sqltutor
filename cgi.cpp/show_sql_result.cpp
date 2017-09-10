@@ -1,6 +1,6 @@
 /* 
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2017  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
  
    GNU Sqltutor is free software: you can redistribute it and/or modify
@@ -55,7 +55,7 @@ void SQLtutor::show_sql_result()
           break;
         }
       form << "<tr>";
-      for (size_t c=0; c<columns; c++)
+      for (/*size_t*/ pqxx::tuple::size_type c=0; c<columns; c++)
 	if (b[c].type() == geom_oid)  // postgis geometry
 	  {
 	    form << "<td>" << t_geometry << "</td>";

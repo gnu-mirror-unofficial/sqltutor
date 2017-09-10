@@ -1,6 +1,6 @@
 /* 
    This file is part of GNU Sqltutor
-   Copyright (C) 2008, 2010  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2010, 2017  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
  
    GNU Sqltutor is free software: you can redistribute it and/or modify
@@ -114,7 +114,7 @@ void SQLtutor::check_answer(pqxx::work& tran)
 
   std::vector<pqxx::oid> column_type_user (sql_result_columns);
   std::vector<pqxx::oid> column_type_tutor(sql_result_columns);
-  for (size_t i=0; i<sql_result_columns; i++)
+  for (/*size_t*/ pqxx::tuple::size_type i=0; i<sql_result_columns; i++)
     {
       column_type_user [i] = colt( user_result  .column_type(i) );
       column_type_tutor[i] = colt( answer_result.column_type(i) );

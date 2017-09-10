@@ -1,3 +1,8 @@
+2017-09-10  Ales Cepek  <cepek@gnu.org>
+
+	* fixed declarations in for loops needed by pqxx version 4.0.1
+	  for (/*size_t*/ pqxx::tuple::size_type ...
+
 2011-06-26  Ales Cepek  <cepek@gnu.org>
 
 	* added attribute 'stop' (timestamp) to sessions table

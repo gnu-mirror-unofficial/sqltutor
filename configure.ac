@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 #
 AC_PREREQ(2.65)
-AC_INIT([sqltutor], [0.7], [cepek@gnu.org])
+AC_INIT([sqltutor], [0.7.90], [cepek@gnu.org])
 AC_CONFIG_SRCDIR([cgi.cpp/sqltutor.cpp])
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_AUX_DIR([config.aux])
@@ -34,7 +34,7 @@ AC_PROG_RANLIB
 # Checks for libraries.
 AC_CHECK_LIB([pqxx], [main])
 
-PKG_CHECK_MODULES([LIBPQXX], [libpqxx >= 3.0.2])
+PKG_CHECK_MODULES([LIBPQXX], [libpqxx >= 4.0.1])
 AC_SUBST(LIBPQXX_CFLAGS)
 AC_SUBST(LIBPQXX_LIBS)
 
