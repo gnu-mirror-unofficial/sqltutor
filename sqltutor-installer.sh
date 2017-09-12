@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # GNU Sqltutor Installer
-# Copyright (C) 2010  Free Software Foundation, Inc.
+# Copyright (C) 2010, 2017  Free Software Foundation, Inc.
 #
 # This file is part of GNU Sqltutor
 # Contributed by Ales Cepek <cepek@gnu.org>
@@ -34,7 +34,7 @@ GIT_DATASETS=./datasets
 BINDIR=/usr/lib/cgi-bin
 INFODIR=/usr/share/info
 POSTGIS=
-POSTGIS_PATH=/usr/share/postgresql/8.4/contrib/postgis-1.5
+POSTGIS_PATH=/usr/share/postgresql/9.6/contrib/postgis-2.3
 SED_INPUT=/tmp/$$-sqltutor-installer-sed-input
 
 
@@ -46,7 +46,7 @@ function get_word() {
 }
 
 function warning() {
-    echo -e "ERROR:" $1 "\n"
+    echo -e "WARNING:" $1 "\n"
 }
 
 function get_repo() {

@@ -22,11 +22,11 @@ The project is hosted at the Savannah software forge
 
 Under most circumstances installing Sqltutor is a very simple process
 and takes only answering a few questions to be completed. The whole
-installation is guided by @code{sqltutor-install.sh} script found in
+installation is guided by @code{sqltutor-installer.sh} script found in
 Sqltutor git repository.
 
 @example
-$ ./sqltutor-install.sh
+$ ./sqltutor-installer.sh
 @end example
 
 @noindent To run the script you need to have @code{sudo} installed
@@ -185,8 +185,8 @@ database (sqltutor in the following example)
 @example
 $ su
 # su postgres
-$ psql -d sqltutor -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql
-$ psql -d sqltutor -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql
+$ psql -d sqltutor -f /usr/share/postgresql/9.6/contrib/postgis-2.3/postgis.sql
+$ psql -d sqltutor -f /usr/share/postgresql/9.6/contrib/postgis-2.3/spatial_ref_sys.sql
 @end example
 
 @noindent and explicitly enable postgis tutorials

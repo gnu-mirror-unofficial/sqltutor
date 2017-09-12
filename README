@@ -15,7 +15,7 @@ Installing PostGIS on Debian GNU/Linux
 
 First install PostGIS packages:
 
-$ apt-get install postgis postgresql-8.4-postgis
+$ apt-get install postgis postgresql-9.6-postgis-2.3
 
 PostGIS datasets require database with PostGIS support, you can create
 such database e.g. with the following commands (depends on PostGIS
@@ -23,5 +23,5 @@ version):
 
 $ createdb sqltutor
 $ createlang plpgsql sqltutor
-$ psql -d sqltutor -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql
-$ psql -d sqltutor -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql
+$ psql -d sqltutor -f /usr/share/postgresql/9.6/contrib/postgis-2.3/postgis.sql
+$ psql -d sqltutor -f /usr/share/postgresql/9.6/contrib/postgis-2.3/spatial_ref_sys.sql
