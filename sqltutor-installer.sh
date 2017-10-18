@@ -28,7 +28,7 @@ SQLTUTOR_WWW_EXEC=sqlexec
 SQLTUTOR_PASSEXEC=sqlkrok
 
 # installer variables
-INSTALLER_VERSION=1.2
+INSTALLER_VERSION=1.3
 GIT_SQLTUTOR=./sqltutor
 GIT_DATASETS=./datasets
 BINDIR=/usr/lib/cgi-bin
@@ -176,11 +176,13 @@ if psql $SQLTUTOR_DATABASE -c "select ' '" -o /dev/null 2>/dev/null; then
     dropdb $SQLTUTOR_DATABASE
 fi
 createdb $SQLTUTOR_DATABASE
-createlang plpgsql $SQLTUTOR_DATABASE
+
+# In PostgreSQL 9.0 and later, PL/pgSQL is pre-installed by default.
+# createlang plpgsql $SQLTUTOR_DATABASE
 
 echo
-create_user $SQLTUTOR_WWW_USER $SQLTUTOR_PASSWORD
-create_user $SQLTUTOR_WWW_EXEC $SQLTUTOR_PASSEXEC
+(cd /tmp && create_user $SQLTUTOR_WWW_USER $SQLTUTOR_PASSWORD )
+(cd /tmp && create_user $SQLTUTOR_WWW_EXEC $SQLTUTOR_PASSEXEC )
 sleep 12
 
 if [ "x$POSTGIS" != "x" ]; then
