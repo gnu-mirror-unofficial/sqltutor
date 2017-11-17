@@ -2,21 +2,34 @@
 @c hence no sectioning command or @node.
 
 Sqltutor is a CGI script and a PostgreSQL database of SQL tutorials,
-collections of SQL questions and answers.  
+collections of SQL questions and answers.
 
 @section How to get Sqltutor
 
 The project is hosted at the Savannah software forge
 
-@url{http://savannah.gnu.org/projects/sqltutor/}
+@url{http://savannah.gnu.org/projects/sqltutor/,
+     http://savannah.gnu.org/projects/sqltutor/,
+     http://savannah.gnu.org/projects/sqltutor/}
 
 @noindent A copy of the Sqltutor can be get by anonymous GIT access
 
-@url{git clone git://git.sv.gnu.org/sqltutor.git}
+@url{http://git.sv.gnu.org/cgit/sqltutor.git,
+     git clone git://git.sv.gnu.org/sqltutor.git,
+     git clone git://git.sv.gnu.org/sqltutor.git}
 
-@url{git clone git://git.sv.gnu.org/sqltutor/datasets.git}
+@url{http://git.sv.gnu.org/cgit/sqltutor/datasets.git,
+     git clone git://git.sv.gnu.org/sqltutor/datasets.git,
+     git clone git://git.sv.gnu.org/sqltutor/datasets.git}
 
 @c admin RW: git clone  cepek@git.sv.gnu.org:/srv/git/sqltutor.git
+
+@noindent If you download Sqltutor from GIT, you must generate @code{configure}
+script by running @code{./autogen.sh} first (which is not needed if
+you download the package from an
+@c
+@url{http://ftp.gnu.org/gnu/sqltutor/, FTP, FTP} server).
+
 
 @section Installer script
 
@@ -75,7 +88,7 @@ Password for CGI script for the user @env{SQLTUTOR_WWW_EXEC}
 @noindent These macros are used by all modules and you can change
 their implicit values if needed in the @file{configure.ac} file.
 
-@section Creating the database 
+@section Creating the database
 
 To create a database, the PostgreSQL server must be up and
 running. Database is created with SQL command
@@ -90,7 +103,7 @@ Two database roles must be created for Sqltutor with SQL command
 @example
 CREATE ROLE SQLTUTOR_WWW_USER LOGIN;
 CREATE ROLE SQLTUTOR_WWW_EXEC LOGIN;
-@end example 
+@end example
 
 @noindent To set passwords for these new roles run @command{psql} and
 enter SQL @command{ALTER} command
@@ -147,7 +160,7 @@ populated by running
 make DESTDIR=@emph{install_root_directory} install
 @end example
 
-@noindent from the main source directory.  Parameter @code{DESTDIR} is 
+@noindent from the main source directory.  Parameter @code{DESTDIR} is
 optional and defines a root directory into which binary
 @file{sqltutor} and @file{sqltutor.info} will be installed.  This
 parameter is needed if you do not have access ritght for writing to

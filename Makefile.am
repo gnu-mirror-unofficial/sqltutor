@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
-## Copyright (C) 2008 Ales Cepek
+## Copyright (C) 2008, 2017 Ales Cepek
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,4 +16,4 @@
 
 SUBDIRS    = cgi.cpp database doc
 
-EXTRA_DIST = autogen.sh 
+EXTRA_DIST = autogen.sh sqltutor-installer.sh

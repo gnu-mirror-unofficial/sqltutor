@@ -4,8 +4,10 @@
 @dfn{GNU Sqltutor} is a web based interactive tutorial of
 @emph{Structured Query Language} (SQL).  You can try Sqltutor online
 from
-
-@url{http://sqltutor.fsv.cvut.cz/cgi-bin/sqltutor}
+@c
+@uref{http://sqltutor.fsv.cvut.cz/,
+      http://sqltutor.fsv.cvut.cz/,
+      http://sqltutor.fsv.cvut.cz/}
 
 @noindent First, a tutorial must be selected from the opening 
 page and started. A series of tutorial questions follows in a simple
