@@ -1,6 +1,6 @@
 /* 
    This file is part of GNU Sqltutor
-   Copyright (C) 2008  Free Software Foundation, Inc.
+   Copyright (C) 2008, 2018  Free Software Foundation, Inc.
    Contributed by Ales Cepek <cepek@gnu.org>
  
    GNU Sqltutor is free software: you can redistribute it and/or modify
@@ -196,3 +196,12 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
+
+CREATE OR REPLACE FUNCTION sqltutor.datasets_version()
+RETURNS text
+AS $$
+DECLARE
+BEGIN
+   RETURN null;
+END
+$$ LANGUAGE plpgsql;
