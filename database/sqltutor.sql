@@ -18,9 +18,9 @@
  */
 
 
-DROP   SCHEMA sqltutor CASCADE;
+DROP   SCHEMA IF EXISTS sqltutor CASCADE;
 CREATE SCHEMA sqltutor;
-DROP   SCHEMA sqltutor_data CASCADE;
+DROP   SCHEMA IF EXISTS sqltutor_data CASCADE;
 CREATE SCHEMA sqltutor_data;
 
 -- language codes in ISO 639-1

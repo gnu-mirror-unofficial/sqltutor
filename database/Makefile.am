@@ -17,7 +17,7 @@ lock..database : Makefile
 	@echo -e "\ncreating schema"
 	@echo -e  "===============\n"
 #
-	-psql @SQLTUTOR_DATABASE@ -c "CREATE LANGUAGE plpgsql"
+#	-psql @SQLTUTOR_DATABASE@ -c "CREATE LANGUAGE plpgsql"
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/sqltutor.sql
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/init_tutorial.sql
 	-psql @SQLTUTOR_DATABASE@ < $(srcdir)/init_dataset.sql
