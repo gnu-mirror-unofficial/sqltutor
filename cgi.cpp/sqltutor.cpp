@@ -23,7 +23,18 @@
 
 SQLtutor::SQLtutor() : form(action) 
 {
-  cgi.set_title(title + " " + version );
+  std::string datasets;
+  pqxx::connection  conn( db_connection );
+  {
+    pqxx::work tran(conn, "datasets_version");
+    pqxx::result version(tran.exec("SELECT sqltutor.datasets_version()"));
+    if (!version.empty())
+      {
+        datasets = " / datasets " + version.begin()[0].as(std::string());
+      }
+  }
+
+  cgi.set_title(title + " " + version + datasets);
 
   cgi.set_style("body { "
 		"margin: 1em 1em 1em 1em; background-color: #f4f4f4; "
@@ -45,7 +56,6 @@ SQLtutor::SQLtutor() : form(action)
   // postgis geometry type
 
   using namespace pqxx;        
-  connection   conn( db_connection );
   work         tran(conn, "geometry_type");
   pqxx::result has_geom(tran.exec("SELECT oid FROM pg_type"
                                   " WHERE typname = 'geometry';"));

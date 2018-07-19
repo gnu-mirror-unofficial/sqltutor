@@ -1,3 +1,9 @@
+2018-07-19  Ales Cepek  <cepek@gnu.org>
+
+	* version 1.01
+	* added call to sqltutor.datasets_version() to show datasets
+	  version in the html page title.
+
 2017-09-10  Ales Cepek  <cepek@gnu.org>
 
 	* fixed declarations in for loops needed by pqxx version 4.0.1
