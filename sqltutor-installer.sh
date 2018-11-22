@@ -174,6 +174,9 @@ get_directory "The directory for installing  CGI  binaries    ? " BINDIR  $BINDI
 get_directory "The directory for installing Info documentation? " INFODIR $INFODIR
 postgis
 
+
+function SqltutorInstaller {
+
 echo
 echo Creating/updating database $SQLTUTOR_DATABASE
 if psql $SQLTUTOR_DATABASE -c "select ' '" -o /dev/null 2>/dev/null; then
@@ -216,3 +219,6 @@ echo
 sudo -u postgres psql -d $SQLTUTOR_DATABASE -c "ANALYZE;"
 
 
+}
+
+SqltutorInstaller | tee sqltutor-installer.log

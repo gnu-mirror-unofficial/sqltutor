@@ -30,33 +30,34 @@ CREATE TABLE sqltutor.languages (
 );
 
 -- examples of some languages
-INSERT INTO sqltutor.languages VALUES('bg', 'Bulgarian');
-INSERT INTO sqltutor.languages VALUES('ca', 'Catalan');
-INSERT INTO sqltutor.languages VALUES('cs', 'Czech');
-INSERT INTO sqltutor.languages VALUES('da', 'Danish');
-INSERT INTO sqltutor.languages VALUES('de', 'German');
-INSERT INTO sqltutor.languages VALUES('el', 'Greek');
-INSERT INTO sqltutor.languages VALUES('en', 'English');
-INSERT INTO sqltutor.languages VALUES('es', 'Spanish');
-INSERT INTO sqltutor.languages VALUES('et', 'Estonian');
-INSERT INTO sqltutor.languages VALUES('fi', 'Finnish');
-INSERT INTO sqltutor.languages VALUES('fr', 'French');
-INSERT INTO sqltutor.languages VALUES('hr', 'Croatian');
-INSERT INTO sqltutor.languages VALUES('hu', 'Hungarian');
-INSERT INTO sqltutor.languages VALUES('it', 'Italian');
-INSERT INTO sqltutor.languages VALUES('ja', 'Japanese');
-INSERT INTO sqltutor.languages VALUES('nl', 'Dutch');
-INSERT INTO sqltutor.languages VALUES('no', 'Norwegian');
-INSERT INTO sqltutor.languages VALUES('pl', 'Polish');
-INSERT INTO sqltutor.languages VALUES('pt', 'Portuguese');
-INSERT INTO sqltutor.languages VALUES('ro', 'Romanian');
-INSERT INTO sqltutor.languages VALUES('ru', 'Russian');
-INSERT INTO sqltutor.languages VALUES('sk', 'Slovak');
-INSERT INTO sqltutor.languages VALUES('sl', 'Slovenian');
-INSERT INTO sqltutor.languages VALUES('sv', 'Swedish');
-INSERT INTO sqltutor.languages VALUES('vi', 'Vietnamese');
-INSERT INTO sqltutor.languages VALUES('zh', 'Chinese');
-INSERT INTO sqltutor.languages VALUES('zu', 'Zulu');
+INSERT INTO sqltutor.languages (language_id, language) VALUES
+            ('bg', 'Bulgarian'),
+            ('ca', 'Catalan'),
+            ('cs', 'Czech'),
+            ('da', 'Danish'),
+            ('de', 'German'),
+            ('el', 'Greek'),
+            ('en', 'English'),
+            ('es', 'Spanish'),
+            ('et', 'Estonian'),
+            ('fi', 'Finnish'),
+            ('fr', 'French'),
+            ('hr', 'Croatian'),
+            ('hu', 'Hungarian'),
+            ('it', 'Italian'),
+            ('ja', 'Japanese'),
+            ('nl', 'Dutch'),
+            ('no', 'Norwegian'),
+            ('pl', 'Polish'),
+            ('pt', 'Portuguese'),
+            ('ro', 'Romanian'),
+            ('ru', 'Russian'),
+            ('sk', 'Slovak'),
+            ('sl', 'Slovenian'),
+            ('sv', 'Swedish'),
+            ('vi', 'Vietnamese'),
+            ('zh', 'Chinese'),
+            ('zu', 'Zulu');
 
 
 CREATE TABLE sqltutor.tutorials (
