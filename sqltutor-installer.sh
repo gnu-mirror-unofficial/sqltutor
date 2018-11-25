@@ -52,18 +52,18 @@ function warning() {
 function get_repo() {
     while :
     do
-	local repo
-	get_directory "$1" repo "$3"
-	#if ! (cd $repo && git diff 2>/dev/null); then
-	#    warning "$repo is not a git repository"
-	#    continue
-	#fi
-	if [ ! -f $repo/autogen.sh ]; then
-	    warning "File autogen.sh does not exist in the directory $repo"
-	    continue
-	fi
-	eval "$2=$repo"
-	break
+        local repo
+        get_directory "$1" repo "$3"
+        #if ! (cd $repo && git diff 2>/dev/null); then
+        #    warning "$repo is not a git repository"
+        #    continue
+        #fi
+        if [ ! -f $repo/autogen.sh ]; then
+            warning "File autogen.sh does not exist in the directory $repo"
+            continue
+        fi
+        eval "$2=$repo"
+        break
     done
 }
 
@@ -71,18 +71,18 @@ function get_directory() {
     local tmp=...tmp.sqltutor.tmp...
     while :
     do
-	local directory
-	get_word "$1" directory "$3"
-	if [ ! -d $directory ]; then
-	    warning "$directory is  not a directory"
-	    continue;
-	fi
-	if [ "x$4" == "x" ] && ! ( touch $directory/$tmp 2>/dev/null ); then
-	    warning "you do not have rights to write in $directory directory"
-	    continue;
-	fi
-	eval "$2=$directory"
-	break
+        local directory
+        get_word "$1" directory "$3"
+        if [ ! -d $directory ]; then
+            warning "$directory is  not a directory"
+            continue;
+        fi
+        if [ "x$4" == "x" ] && ! ( touch $directory/$tmp 2>/dev/null ); then
+            warning "you do not have rights to write in $directory directory"
+            continue;
+        fi
+        eval "$2=$directory"
+        break
     done
     rm -f $directory/$tmp
 }
@@ -90,13 +90,13 @@ function get_directory() {
 function postgis() {
     while [ "x$POSTGIS" != "xy" ] && [ "x$POSTGIS" != "xn" ];
     do
-	get_word "Do you want to enable PostGIS extension? (y/n) : " POSTGIS n
+        get_word "Do you want to enable PostGIS extension? (y/n) : " POSTGIS n
     done
     if [ "x$POSTGIS" != "xy" ]; then
-	POSTGIS=
+        POSTGIS=
     else
-	POSTGIS=--enable-postgis
-	create_geometry
+        POSTGIS=--enable-postgis
+        create_geometry
     fi
 }
 
@@ -105,16 +105,16 @@ function create_geometry() {
     local t=""
     while [ "x$t" == "x" ];
     do
-	get_directory "The PostGIS directory? " POSTGIS_PATH $POSTGIS_PATH ro
-	t="ok"
-	if [ ! -f $POSTGIS_PATH/postgis.sql ]; then
-	    warning "File $POSTGIS_PATH/postgis.sql does not exist"
-	    t=""
-	fi
-	if [ ! -f $POSTGIS_PATH/spatial_ref_sys.sql ]; then
-	    warning "File $POSTGIS_PATH/spatial_ref_sys.sql does not exist"
-	    t=""
-	fi
+        get_directory "The PostGIS directory? " POSTGIS_PATH $POSTGIS_PATH ro
+        t="ok"
+        if [ ! -f $POSTGIS_PATH/postgis.sql ]; then
+            warning "File $POSTGIS_PATH/postgis.sql does not exist"
+            t=""
+        fi
+        if [ ! -f $POSTGIS_PATH/spatial_ref_sys.sql ]; then
+            warning "File $POSTGIS_PATH/spatial_ref_sys.sql does not exist"
+            t=""
+        fi
     done
 }
 
@@ -123,10 +123,10 @@ function create_user() {
     local pass=$2
     local test=$(sudo -u postgres psql -A -t -c "select count(*) from pg_user where usename='$user'")
     if [ "x$test" == "x1" ]; then
-	echo Sqluser $user already exists ...
+        echo Sqluser $user already exists ...
     else
-	echo Creating sqltutor user $user ...
-	sudo -u postgres psql -c "CREATE ROLE $user LOGIN;"
+        echo Creating sqltutor user $user ...
+        sudo -u postgres psql -c "CREATE ROLE $user LOGIN;"
     fi
     sudo -u postgres psql -c "ALTER USER $user WITH PASSWORD '$pass';"
 }
@@ -180,9 +180,26 @@ function SqltutorInstaller {
 echo
 echo Creating/updating database $SQLTUTOR_DATABASE
 if psql $SQLTUTOR_DATABASE -c "select ' '" -o /dev/null 2>/dev/null; then
-    dropdb $SQLTUTOR_DATABASE
+    echo
+    local keepit
+    while [ "x$keepit" != "xy" ] && [ "x$keepit" != "xn" ];
+    do
+        local t
+        t="Database $SQLTUTOR_DATABASE already exists, "
+        t="$t do you want to keep it? (y/n) : "
+        get_word "$t" keepit y
+    done
+
+    if [ "x$keepit" == "xy" ]; then
+        psql $SQLTUTOR_DATABASE -c "DROP SCHEMA IF EXISTS sqltutor CASCADE"
+        psql $SQLTUTOR_DATABASE -c "DROP SCHEMA IF EXISTS sqltutor_data CASCADE"
+    else
+        dropdb   $SQLTUTOR_DATABASE
+        createdb $SQLTUTOR_DATABASE
+    fi
+else
+    createdb $SQLTUTOR_DATABASE
 fi
-createdb $SQLTUTOR_DATABASE
 
 # In PostgreSQL 9.0 and later, PL/pgSQL is pre-installed by default.
 # createlang plpgsql $SQLTUTOR_DATABASE
