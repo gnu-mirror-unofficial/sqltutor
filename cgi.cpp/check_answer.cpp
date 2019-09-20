@@ -114,7 +114,7 @@ void SQLtutor::check_answer(pqxx::work& tran)
 
   std::vector<pqxx::oid> column_type_user (sql_result_columns);
   std::vector<pqxx::oid> column_type_tutor(sql_result_columns);
-  for (/*size_t*/ pqxx::tuple::size_type i=0; i<sql_result_columns; i++)
+  for (/*size_t*/ auto i=0; i<sql_result_columns; i++)
     {
       column_type_user [i] = colt( user_result  .column_type(i) );
       column_type_tutor[i] = colt( answer_result.column_type(i) );

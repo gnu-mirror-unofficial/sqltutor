@@ -68,7 +68,7 @@ try
           break;
               }
             form << "<tr>";
-            for (/*size_t*/ pqxx::tuple::size_type i=0; i<columns; i++)
+            for (/*size_t*/ auto i=0; i<columns; i++)
 	      if (d[i].type() == geom_oid)  // postgis geometry
 		{
 		  form << "<td>" << t_geometry << "</td>";

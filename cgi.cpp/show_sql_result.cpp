@@ -55,7 +55,7 @@ void SQLtutor::show_sql_result()
           break;
         }
       form << "<tr>";
-      for (/*size_t*/ pqxx::tuple::size_type c=0; c<columns; c++)
+      for (/*size_t*/ auto c=0; c<columns; c++)
 	if (b[c].type() == geom_oid)  // postgis geometry
 	  {
 	    form << "<td>" << t_geometry << "</td>";

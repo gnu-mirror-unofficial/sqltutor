@@ -177,11 +177,11 @@ Select SQLtutor::tutorial_selection()
     }
   catch (const std::exception& e)
     {
-      //return e.what();
+      return Select(e.what());
     }
   catch (...)
     {
-      //return "None available!";
+      return Select("None available!");
     }
 }
 
